@@ -25,10 +25,32 @@ export default async function CatPage({ params }: { params: Promise<{ slug: stri
 
       <h1 className="text-4xl font-bold mb-6">{cat.name}</h1>
       
+      {/* Image Gallery */}
+      {cat.images.length > 0 && (
+        <div className="grid grid-cols-2 gap-4 mb-8">
+          {cat.images.map((img, i) => (
+            <div key={i} className="relative aspect-square">
+              <img
+                src={img}
+                alt={`${cat.name} photo ${i + 1}`}
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Description */}
       <div className="prose max-w-none mb-8">
-        <p className="text-lg">{cat.description}</p>
+        <p 
+          className="text-lg whitespace-pre-line"
+          dangerouslySetInnerHTML={{
+            __html: cat.description.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+          }}
+        />
       </div>
 
+      {/* Adoption CTA */}
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
         <h2 className="text-2xl font-bold mb-3">Adopter {cat.name}</h2>
         <p className="mb-4">Intéressé(e) par {cat.name} ? Contactez-nous.</p>

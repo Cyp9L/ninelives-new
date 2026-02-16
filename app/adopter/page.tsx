@@ -16,23 +16,23 @@ export default async function AdopterPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {adultes.map(cat => (
             <Link key={cat.id} href={`/adopter/${cat.slug}`} 
-                  className="group border rounded-lg overflow-hidden hover:shadow-xl transition">
-              {cat.images[0] ? (
-                <div className="aspect-square bg-gray-200 relative">
-                  <img src={cat.images[0]} alt={cat.name} className="w-full h-full object-cover" />
-                </div>
-              ) : (
-                <div className="aspect-square bg-gray-200 flex items-center justify-center text-6xl">
-                  🐱
-                </div>
-              )}
-              <div className="p-4">
-                <h3 className="text-2xl font-bold group-hover:text-blue-600 transition">
-                  {cat.name}
-                </h3>
-                <p className="text-gray-600 mt-2 line-clamp-3">{cat.description}</p>
-              </div>
-            </Link>
+            className="group border border-gray-200 rounded-lg overflow-hidden hover:shadow-xl transition bg-white">
+        {cat.images[0] ? (
+          <div className="aspect-square bg-gray-200 relative">
+            <img src={cat.images[0]} alt={cat.name} className="w-full h-full object-cover" />
+          </div>
+        ) : (
+          <div className="aspect-square bg-gray-200 flex items-center justify-center text-6xl">
+            🐱
+          </div>
+        )}
+        <div className="p-4 bg-white">
+          <h3 className="text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition">
+            {cat.name}
+          </h3>
+          <p className="text-gray-600 mt-2 line-clamp-3">{cat.description}</p>
+        </div>
+      </Link>
           ))}
         </div>
         
