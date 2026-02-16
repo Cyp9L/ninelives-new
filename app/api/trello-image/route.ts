@@ -7,21 +7,27 @@ export async function GET(request: NextRequest) {
     return new NextResponse('Missing URL', { status: 400 });
   }
 
-  // Fetch image from Trello with authentication
-  const url = `${imageUrl}?key=${process.env.TRELLO_API_KEY}&token=${process.env.TRELLO_TOKEN}`;
-  
-  const response = await fetch(url);
-  
-  if (!response.ok) {
-    return new NextResponse('Failed to fetch image', { status: 500 });
-  }
+  try {
+    // Fetch image from Trello with authentication in headers
+    const response = await fetch(imageUrl, {
+      headers: {
+        'Authorization': `OAuth oauth_consumer_key="${process.env.TRELLO_API_KEY}", oauth_token="${process.env.TRELLO_TOKEN}"`
+      }
+    });
+    
+    if (!response.ok) {
+      return new NextResponse('Failed to fetch image', { status: response.status });
+    }
 
-  const imageBuffer = await response.arrayBuffer();
-  
-  return new NextResponse(imageBuffer, {
-    headers: {
-      'Content-Type': response.headers.get('Content-Type') || 'image/jpeg',
-      'Cache-Control': 'public, max-age=86400', // Cache for 24 hours
-    },
-  });
+    const imageBuffer = await response.arrayBuffer();
+    
+    return new NextResponse(imageBuffer, {
+      headers: {
+        'Content-Type': response.headers.get('Content-Type') || 'image/jpeg',
+        'Cache-Control': 'public, max-age=86400',
+      },
+    });
+  } catch (error) {
+    return new NextResponse('Error fetching image', { status: 500 });
+  }
 }
