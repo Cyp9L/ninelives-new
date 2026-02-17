@@ -6,132 +6,119 @@ export default async function HomePage() {
   const featuredCats = all.slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section with Background */}
-      <section 
-        className="relative bg-cover bg-center py-32 px-4"
-        style={{ backgroundImage: 'url(/salomon-bg.jpg)' }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60"></div>
-        
-        <div className="container mx-auto max-w-4xl text-center relative z-10">
-          <h1 className="text-5xl md:text-6xl font-bold mb-8 text-white">
-            Nine Lives Paris
-          </h1>
-          <p className="text-xl md:text-2xl text-white leading-relaxed mb-6 font-medium">
-            L'association Nine Lives Paris recueille les chats abandonnés, trouvés, errants, sortis de fourrière.
-          </p>
-          <p className="text-lg md:text-xl text-white leading-relaxed mb-12">
-            Nous les soignons, les vaccinons, les stérilisons et les identifions avant de leur rechercher une famille d'adoption qui correspondra à leurs besoins et saura les rendre heureux.
-          </p>
-          
-          {/* YouTube Video */}
-          <div className="max-w-3xl mx-auto mb-12 shadow-2xl rounded-lg overflow-hidden">
-            <div className="aspect-video">
-              <iframe
-                className="w-full h-full"
-                src="https://www.youtube.com/embed/rUAdt696qpI"
-                title="Nine Lives Paris"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </div>
-          </div>
-
-          {/* Social Links */}
-          <div className="flex justify-center gap-8 mb-12">
-            <a href="https://www.facebook.com/NineLivesParis/" 
-               target="_blank" 
-               rel="noopener noreferrer" 
-               className="text-white hover:text-blue-400 text-5xl transition transform hover:scale-110"
-               aria-label="Facebook">
-              📘
-            </a>
-            <a href="https://www.instagram.com/ninelivesparis" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               className="text-white hover:text-pink-400 text-5xl transition transform hover:scale-110"
-               aria-label="Instagram">
-              📷
-            </a>
-            <a href="https://www.youtube.com/channel/UCM5TNRKUzUebUnw4OwLfZKA" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               className="text-white hover:text-red-400 text-5xl transition transform hover:scale-110"
-               aria-label="YouTube">
-              📺
-            </a>
-            <a href="mailto:asso@ninelives.fr"
-               className="text-white hover:text-gray-300 text-5xl transition transform hover:scale-110"
-               aria-label="Email">
-              ✉️
-            </a>
-          </div>
-
-          {/* CTA Box */}
-          <div className="bg-white/95 backdrop-blur-sm border-l-4 border-blue-600 p-8 rounded-lg shadow-xl max-w-3xl mx-auto">
-            <p className="text-lg text-gray-800 leading-relaxed mb-4">
-              Pour remplir cette mission, nous pouvons compter sur le soutien de nos familles d'accueil, qui ouvrent les portes de leurs foyers à ces animaux en attente d'adoption, qui leur offrent leur amour... même si ce n'est que pour quelques semaines.
-            </p>
-            <Link href="/benevole" className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition text-lg">
-              Rejoignez-nous !
+    <main>
+      {/* Hero */}
+      <section className="hero" style={{ backgroundImage: 'url(/salomon-bg.jpg)' }}>
+        <div className="container">
+          <div className="hero-content">
+            <h1>Nine Lives Paris</h1>
+            <p>Nous sauvons, soignons et trouvons des familles aimantes aux chats abandonnés de Paris.</p>
+            <Link href="/adopter" className="btn btn-primary">
+              Adopter un chat
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Adoption Section */}
-      <section className="py-20 px-4 bg-white">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-4xl font-bold text-center mb-12 text-gray-900">À l'adoption</h2>
+      {/* About */}
+      <section className="section">
+        <div className="container">
+          <div className="grid-2">
+            <div>
+              <h2>Notre mission</h2>
+              <p className="text-large" style={{ marginBottom: '1rem' }}>
+                L'association Nine Lives Paris recueille les chats abandonnés, trouvés, errants, sortis de fourrière.
+              </p>
+              <p className="text-large">
+                Nous les soignons, les vaccinons, les stérilisons et les identifions avant de leur rechercher une famille d'adoption.
+              </p>
+            </div>
+            <div>
+              <h2>Rejoignez-nous</h2>
+              <p className="text-large" style={{ marginBottom: '1.5rem' }}>
+                Nos familles d'accueil ouvrent leurs foyers à ces animaux en attente d'adoption, leur offrant amour et sécurité.
+              </p>
+              <Link href="/benevole" className="link-blue">
+                Devenir famille d'accueil →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Video */}
+      <section className="section section-gray">
+        <div className="container" style={{ maxWidth: '900px' }}>
+          <div className="video-container">
+            <iframe
+              src="https://www.youtube.com/embed/rUAdt696qpI"
+              title="Nine Lives Paris"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
+      {/* Cats */}
+      <section className="section">
+        <div className="container">
+          <h2 className="text-center">À l'adoption</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <div className="grid-3" style={{ marginBottom: '3rem' }}>
             {featuredCats.map(cat => (
-              <Link key={cat.id} href={`/adopter/${cat.slug}`} 
-                    className="group border-2 border-gray-200 rounded-lg overflow-hidden hover:shadow-2xl hover:border-blue-400 transition-all bg-white">
-                {cat.images[0] ? (
-                  <div className="aspect-square bg-gray-100 relative overflow-hidden">
-                    <img 
-                      src={cat.images[0]} 
-                      alt={cat.name} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
-                    />
-                  </div>
-                ) : (
-                  <div className="aspect-square bg-gray-100 flex items-center justify-center text-6xl">
-                    🐱
-                  </div>
-                )}
-                <div className="p-6 bg-white">
-                  <h3 className="text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition">
-                    {cat.name}
-                  </h3>
+              <Link key={cat.id} href={`/adopter/${cat.slug}`} className="cat-card">
+                <div className="cat-image">
+                  {cat.images[0] ? (
+                    <img src={cat.images[0]} alt={cat.name} />
+                  ) : (
+                    <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '4rem' }}>
+                      🐱
+                    </div>
+                  )}
                 </div>
+                <h3 className="cat-name">{cat.name}</h3>
               </Link>
             ))}
           </div>
 
           <div className="text-center">
-            <Link href="/adopter" 
-                  className="inline-block bg-blue-600 text-white px-10 py-4 rounded-lg text-lg font-bold hover:bg-blue-700 transition shadow-lg hover:shadow-xl">
-              Voir tous nos chats à l'adoption →
+            <Link href="/adopter" className="btn btn-outline">
+              Voir tous nos chats
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Facebook CTA */}
-      <section className="py-16 px-4 bg-gray-50">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl font-bold mb-6 text-gray-900">Suivez nos actualités</h2>
-          <a href="https://www.facebook.com/NineLivesParis/" 
-             target="_blank" 
-             rel="noopener noreferrer"
-             className="inline-block bg-blue-600 text-white px-10 py-4 rounded-lg text-lg font-bold hover:bg-blue-700 transition shadow-lg hover:shadow-xl">
-            Retrouvez-nous sur Facebook →
-          </a>
+      {/* Social */}
+      <section className="section section-gray">
+        <div className="container text-center">
+          <h2>Suivez-nous</h2>
+          <div className="social-links">
+            <a href="https://www.facebook.com/NineLivesParis/" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" style={{ color: '#1877f2' }}>
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+            <a href="https://www.instagram.com/ninelivesparis" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" style={{ color: '#E4405F' }}>
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+            <a href="https://www.youtube.com/channel/UCM5TNRKUzUebUnw4OwLfZKA" target="_blank" rel="noopener" aria-label="YouTube">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" style={{ color: '#FF0000' }}>
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+            </a>
+            <a href="mailto:asso@ninelives.fr" aria-label="Email">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: '#374151' }}>
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 }
