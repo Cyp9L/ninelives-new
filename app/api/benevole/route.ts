@@ -17,18 +17,18 @@ export async function POST(request: Request) {
   <meta charset="utf-8">
   <style>
     body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
-    .header { background: #00947e; color: white; padding: 20px; border-radius: 8px 8px 0 0; }
+    .header { background: #f7a063; color: white; padding: 20px; border-radius: 8px 8px 0 0; }
     .header h1 { margin: 0; font-size: 24px; }
     .header .type { font-size: 14px; opacity: 0.9; margin-top: 5px; }
     .content { background: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px; }
-    .section { background: white; padding: 20px; margin-bottom: 20px; border-radius: 6px; border-left: 4px solid #00947e; }
-    .section h2 { margin-top: 0; color: #00947e; font-size: 18px; }
+    .section { background: white; padding: 20px; margin-bottom: 20px; border-radius: 6px; border-left: 4px solid #f7a063; }
+    .section h2 { margin-top: 0; color: #f7a063; font-size: 18px; }
     .field { margin-bottom: 12px; }
     .label { font-weight: bold; color: #4b5563; }
     .value { color: #1f2937; margin-left: 10px; }
     .list { margin: 10px 0; padding-left: 20px; }
     .list li { margin-bottom: 5px; }
-    a { color: #00947e; text-decoration: none; }
+    a { color: #f7a063; text-decoration: none; }
     a:hover { text-decoration: underline; }
     .alert { background: #fef3c7; border: 1px solid #fbbf24; padding: 15px; border-radius: 6px; margin: 20px 0; }
   </style>
