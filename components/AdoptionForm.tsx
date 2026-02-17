@@ -1,7 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-const [captchaToken, setCaptchaToken] = useState('');
-
+import Captcha from '@/components/Captcha';
 
 interface Cat {
   id: string;
@@ -984,6 +983,7 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
   );
 
 }
+
 
 
 
