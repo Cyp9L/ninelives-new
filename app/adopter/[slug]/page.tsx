@@ -123,7 +123,7 @@ export default async function AdopterChatPage({ params }: { params: { slug: stri
               <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: '#1f2937' }}>
                 Adopter {cat.name}
               </h3>
-              <AdoptionForm catName={cat.name} />
+              <AdoptionForm cats={cats} preselectedCat={cat.name} />
             </div>
           </div>
         </div>
