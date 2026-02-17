@@ -39,7 +39,20 @@ export default async function AdopterPage() {
             gap: '2rem'
           }}>
             {adultes.map(cat => (
-              <div style={{
+              <Link 
+                key={cat.id} 
+                href={`/adopter/${cat.slug}`} 
+                style={{
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  borderRadius: '8px',
+                  overflow: 'hidden',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                  background: 'white'
+                }}
+              >
+                <div style={{
                   aspectRatio: '4/3',
                   overflow: 'hidden',
                   background: '#f3f4f6'
@@ -61,19 +74,6 @@ export default async function AdopterPage() {
                     </div>
                   )}
                 </div>
-                <Link 
-                    key={cat.id} 
-                    href={`/adopter/${cat.slug}`} 
-                    style={{
-                      textDecoration: 'none',
-                      color: 'inherit',
-                      borderRadius: '8px',
-                      overflow: 'hidden',
-                      boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                      transition: 'transform 0.2s, box-shadow 0.2s',
-                      background: 'white'
-                    }}
-                  >
                 <h3 style={{ 
                   padding: '1rem', 
                   margin: 0, 
