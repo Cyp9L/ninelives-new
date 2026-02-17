@@ -637,8 +637,6 @@ export default function BenevoleForm() {
             <label style={labelStyle}>Combien de temps pouvez-vous accueillir un animal ? *</label>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               {[
-                'Je ne: '0.5rem' }}>
-              {[
                 'Je ne peux accueillir d\'animal qu\'après la période de quarantaine, mon propre animal n\'étant pas encore à jour au niveau vaccination',
                 'Quelques jours',
                 '2 à 3 semaines (pour une quarantaine)',
