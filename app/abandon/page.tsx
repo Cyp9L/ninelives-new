@@ -29,7 +29,7 @@ export default function AbandonPage() {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '3rem', alignItems: 'center' }}>
             <div style={{ borderRadius: '8px', overflow: 'hidden' }}>
               <img
-                src="/images/abandon-kitten.webm"
+                src="/images/abandon-kitten.webp"
                 alt="Chaton dans une cagette"
                 style={{ width: '100%', height: 'auto', display: 'block' }}
               />
