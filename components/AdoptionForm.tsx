@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 interface Cat {
@@ -10,20 +10,9 @@ interface Cat {
 }
 
 export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], preselectedCat?: string }) {
-    // Get cat name from URL if present
-    const getInitialCatName = () => {
-      if (preselectedCat) return preselectedCat;
-      if (typeof window !== 'undefined') {
-        const params = new URLSearchParams(window.location.search);
-        const catParam = params.get('cat');
-        if (catParam) return catParam;
-      }
-      return '';
-    };
-  
     const [formData, setFormData] = useState({
       // Animal
-      animalName: getInitialCatName(),
+      animalName: preselectedCat || '',
     
     // Personal Info
     lastName: '',
@@ -106,6 +95,18 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
     
     honeypot: ''
   });
+  // Pick up ?cat= from URL after hydration
+  import { useState, useEffect } from 'react';  // ← update the import at the top of the file
+
+  useEffect(() => {
+    if (!preselectedCat && !formData.animalName) {
+      const params = new URLSearchParams(window.location.search);
+      const catParam = params.get('cat');
+      if (catParam) {
+        setFormData(prev => ({ ...prev, animalName: catParam }));
+      }
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   
   const [status, setStatus] = useState('');
 
@@ -930,4 +931,5 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
       )}
     </form>
   );
+
 }
