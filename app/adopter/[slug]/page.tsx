@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import AdoptionForm from '@/components/AdoptionForm';
 import { getAllCats, getCatBySlug } from '@/lib/trello';
 
-export const dynamic = 'force-static';
+export const revalidate = 60;
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
@@ -12,8 +12,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const cat = await getCatBySlug(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const cat = await getCatBySlug(slug);
   
   if (!cat) {
     return {
@@ -27,8 +28,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function AdopterChatPage({ params }: { params: { slug: string } }) {
-  const cat = await getCatBySlug(params.slug);
+export default async function AdopterChatPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const cat = await getCatBySlug(slug);
   const { all: cats } = await getAllCats();
   
   if (!cat) {
