@@ -6,142 +6,187 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(request: Request) {
   const data = await request.json();
 
-  // Honeypot check
   if (data.honeypot) {
     return NextResponse.json({ success: false }, { status: 400 });
   }
 
-  // Build email body
-  const emailBody = `
-NOUVELLE CANDIDATURE BÉNÉVOLE/FAMILLE D'ACCUEIL
-================================================
+  const htmlBody = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
+    .header { background: #00947e; color: white; padding: 20px; border-radius: 8px 8px 0 0; }
+    .header h1 { margin: 0; font-size: 24px; }
+    .header .type { font-size: 14px; opacity: 0.9; margin-top: 5px; }
+    .content { background: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px; }
+    .section { background: white; padding: 20px; margin-bottom: 20px; border-radius: 6px; border-left: 4px solid #00947e; }
+    .section h2 { margin-top: 0; color: #00947e; font-size: 18px; }
+    .field { margin-bottom: 12px; }
+    .label { font-weight: bold; color: #4b5563; }
+    .value { color: #1f2937; margin-left: 10px; }
+    .list { margin: 10px 0; padding-left: 20px; }
+    .list li { margin-bottom: 5px; }
+    a { color: #00947e; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .alert { background: #fef3c7; border: 1px solid #fbbf24; padding: 15px; border-radius: 6px; margin: 20px 0; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🙋‍♀️ Nouvelle candidature bénévole/FA</h1>
+    <div class="type">${data.volunteerType}</div>
+  </div>
+  
+  <div class="content">
+    <div class="section">
+      <h2>👤 Coordonnées</h2>
+      <div class="field"><span class="label">Nom:</span><span class="value">${data.lastName}</span></div>
+      <div class="field"><span class="label">Prénom:</span><span class="value">${data.firstName}</span></div>
+      <div class="field"><span class="label">Âge:</span><span class="value">${data.age} ans</span></div>
+      <div class="field"><span class="label">Email:</span><span class="value"><a href="mailto:${data.email}">${data.email}</a></span></div>
+      <div class="field"><span class="label">Téléphone:</span><span class="value"><a href="tel:${data.phone}">${data.phone}</a></span></div>
+      ${data.contactSlots ? `<div class="field"><span class="label">Créneaux:</span><span class="value">${data.contactSlots}</span></div>` : ''}
+      <div class="field"><span class="label">Adresse:</span><span class="value">${data.address}, ${data.postalCode} ${data.city}</span></div>
+    </div>
 
-TYPE DE CANDIDATURE: ${data.volunteerType}
+    ${(data.volunteerType === 'Famille d\'accueil' || data.volunteerType === 'Les deux') ? `
+      <div class="section">
+        <h2>🏠 Logement</h2>
+        <div class="field"><span class="label">Superficie:</span><span class="value">${data.surface} m²</span></div>
+        <div class="field"><span class="label">Type:</span><span class="value">${data.housingType}</span></div>
+        <div class="field"><span class="label">Nombre de pièces:</span><span class="value">${data.numRooms}</span></div>
+        ${data.floor ? `<div class="field"><span class="label">Étage:</span><span class="value">${data.floor}</span></div>` : ''}
+        ${data.balconySecured ? `<div class="field"><span class="label">Balcon sécurisé:</span><span class="value">${data.balconySecured}</span></div>` : ''}
+        ${data.balconySecuredHow ? `<div class="field"><span class="label">Comment:</span><span class="value">${data.balconySecuredHow}</span></div>` : ''}
+        <div class="field"><span class="label">Extérieur:</span><span class="value">${data.hasOutdoor}</span></div>
+        ${data.outdoorSecured ? `<div class="field"><span class="label">Extérieur sécurisé:</span><span class="value">${data.outdoorSecured}</span></div>` : ''}
+        <div class="field"><span class="label">Sécurisé pour lapin:</span><span class="value">${data.rabbitSecured}</span></div>
+        ${data.willSecureForRabbit ? `<div class="field"><span class="label">Prêt à sécuriser:</span><span class="value">${data.willSecureForRabbit}</span></div>` : ''}
+        <div class="field"><span class="label">Peut faire quarantaines:</span><span class="value">${data.canDoQuarantine}</span></div>
+        ${data.wantPitieSalpetriereQuarantine ? `<div class="field"><span class="label">Quarantaine Pitié-Salpêtrière:</span><span class="value">${data.wantPitieSalpetriereQuarantine}</span></div>` : ''}
+        ${data.quarantineRoom ? `<div class="field"><span class="label">Pièce quarantaine:</span><span class="value">${data.quarantineRoom}</span></div>` : ''}
+      </div>
 
-COORDONNÉES
------------
-Nom: ${data.lastName}
-Prénom: ${data.firstName}
-Âge: ${data.age} ans
-Email: ${data.email}
-Téléphone: ${data.phone}
-${data.contactSlots ? `Créneaux de contact: ${data.contactSlots}` : ''}
+      <div class="section">
+        <h2>👨‍👩‍👧‍👦 Foyer</h2>
+        <div class="field"><span class="label">Nombre de personnes:</span><span class="value">${data.numPeopleHousehold}</span></div>
+        <div class="field"><span class="label">Enfants:</span><span class="value">${data.hasChildren}</span></div>
+        ${data.childrenAges ? `<div class="field"><span class="label">Âges:</span><span class="value">${data.childrenAges}</span></div>` : ''}
+        ${data.childrenUsedToAnimals ? `<div class="field"><span class="label">Habitués aux animaux:</span><span class="value">${data.childrenUsedToAnimals}</span></div>` : ''}
+        <div class="field"><span class="label">Animaux à domicile:</span><span class="value">${data.hasAnimalsHome}</span></div>
+        ${data.hasAnimalsHome === 'Oui' ? `
+          <div class="field"><span class="label">Chiens:</span><span class="value">${data.numDogs || 0}</span></div>
+          <div class="field"><span class="label">Chats:</span><span class="value">${data.numCats || 0}</span></div>
+          <div class="field"><span class="label">Lapins:</span><span class="value">${data.numRabbits || 0}</span></div>
+          <div class="field"><span class="label">Autres:</span><span class="value">${data.numOthers || 0}</span></div>
+          <div class="field"><span class="label">Détails:</span><span class="value">${data.animalsDetails}</span></div>
+          <div class="field"><span class="label">Où vivent-ils:</span><span class="value">${data.animalsLocation}</span></div>
+          <div class="field">
+            <span class="label">Statut:</span>
+            <span class="value">
+              ${data.animalsSterilized ? '✓ Stérilisés ' : ''}
+              ${data.animalsIdentified ? '✓ Identifiés ' : ''}
+              ${data.animalsVaccinated ? '✓ Vaccinés ' : ''}
+              ${data.animalsTested ? '✓ Testés FIV/FeLV' : ''}
+            </span>
+          </div>
+        ` : ''}
+        <div class="field"><span class="label">Heures seul/jour:</span><span class="value">${data.hoursAlonePerDay}</span></div>
+      </div>
 
-Adresse: ${data.address}
-${data.postalCode} ${data.city}
+      <div class="section">
+        <h2>💭 Motivation</h2>
+        <div class="field"><span class="label">Pourquoi FA:</span><span class="value">${data.whyFoster}</span></div>
+        <div class="field"><span class="label">A déjà été FA:</span><span class="value">${data.beenFosterBefore}</span></div>
+        ${data.fosterReferences ? `<div class="field"><span class="label">Références:</span><span class="value">${data.fosterReferences}</span></div>` : ''}
+      </div>
 
-${data.volunteerType === 'Famille d\'accueil' || data.volunteerType === 'Les deux' ? `
-LOGEMENT
---------
-Superficie: ${data.surface} m²
-Type: ${data.housingType}
-Nombre de pièces: ${data.numRooms}
-${data.floor ? `Étage: ${data.floor}` : ''}
-${data.balconySecured ? `Balcon sécurisé: ${data.balconySecured}` : ''}
-${data.balconySecuredHow ? `Comment: ${data.balconySecuredHow}` : ''}
-Extérieur: ${data.hasOutdoor}
-${data.outdoorSecured ? `Extérieur sécurisé: ${data.outdoorSecured}` : ''}
-Sécurisé pour lapin: ${data.rabbitSecured}
-${data.willSecureForRabbit ? `Prêt à sécuriser: ${data.willSecureForRabbit}` : ''}
-Peut faire quarantaines: ${data.canDoQuarantine}
-${data.wantPitieSalpetriereQuarantine ? `Quarantaine Pitié-Salpêtrière: ${data.wantPitieSalpetriereQuarantine}` : ''}
-${data.quarantineRoom ? `Pièce quarantaine: ${data.quarantineRoom}` : ''}
+      <div class="section">
+        <h2>🐈 Expérience Chats</h2>
+        <div class="field"><span class="label">Niveau:</span><span class="value">${data.catExperience}</span></div>
+        ${data.catCarePractices.length > 0 ? `
+          <div class="field">
+            <span class="label">Soins pratiqués:</span>
+            <ul class="list">
+              ${data.catCarePractices.map(practice => `<li>${practice}</li>`).join('')}
+            </ul>
+          </div>
+        ` : ''}
+        ${data.catCareOther ? `<div class="field"><span class="label">Autre:</span><span class="value">${data.catCareOther}</span></div>` : ''}
+        <div class="field"><span class="label">Réaction chat caché:</span><span class="value">${data.catHidingReaction}</span></div>
+        <div class="field"><span class="label">Réaction litière:</span><span class="value">${data.catLitterIssueReaction}</span></div>
+        <div class="field"><span class="label">Dealbreakers:</span><span class="value">${data.catDealbreakers}</span></div>
+        <div class="field"><span class="label">Nombre de chats possibles:</span><span class="value">${data.numCatsCanFoster}</span></div>
+        ${data.catTypes.length > 0 ? `
+          <div class="field">
+            <span class="label">Types de chats:</span>
+            <ul class="list">
+              ${data.catTypes.map(type => `<li>${type}</li>`).join('')}
+            </ul>
+          </div>
+        ` : ''}
+        ${data.fosterDuration.length > 0 ? `
+          <div class="field">
+            <span class="label">Durée d'accueil:</span>
+            <ul class="list">
+              ${data.fosterDuration.map(duration => `<li>${duration}</li>`).join('')}
+            </ul>
+          </div>
+        ` : ''}
+        ${data.fosterDurationOther ? `<div class="field"><span class="label">Précision:</span><span class="value">${data.fosterDurationOther}</span></div>` : ''}
+        <div class="field"><span class="label">Vacances prochaines:</span><span class="value">${data.goingOnVacation}</span></div>
+        ${data.vacationDates ? `<div class="field"><span class="label">Dates:</span><span class="value">${data.vacationDates}</span></div>` : ''}
+        ${data.vacationCare ? `<div class="field"><span class="label">Qui s'occupe:</span><span class="value">${data.vacationCare}</span></div>` : ''}
+        <div class="field"><span class="label">Foyer d'accord:</span><span class="value">${data.householdAgrees}</span></div>
+        ${data.householdAgrees === 'Non' ? `<div class="alert">⚠️ Le foyer n'est pas entièrement d'accord</div>` : ''}
+      </div>
 
-FOYER
------
-Nombre de personnes: ${data.numPeopleHousehold}
-Enfants: ${data.hasChildren}
-${data.childrenAges ? `Âges: ${data.childrenAges}` : ''}
-${data.childrenUsedToAnimals ? `Habitués aux animaux: ${data.childrenUsedToAnimals}` : ''}
+      <div class="section">
+        <h2>💰 Alimentation & Matériel</h2>
+        <div class="field"><span class="label">Plan alimentation:</span><span class="value">${data.feedingPlan}</span></div>
+        <div class="field"><span class="label">Matériel disponible:</span><span class="value">${data.hasEquipment}</span></div>
+        <div class="field"><span class="label">Vétérinaire associatif:</span><span class="value">${data.hasAssociationVet}</span></div>
+        ${data.vetCastration ? `<div class="field"><span class="label">Tarif castration:</span><span class="value">${data.vetCastration}</span></div>` : ''}
+        ${data.vetOvariectomy ? `<div class="field"><span class="label">Tarif ovariectomie:</span><span class="value">${data.vetOvariectomy}</span></div>` : ''}
+        ${data.vetVaccination ? `<div class="field"><span class="label">Tarif vaccination:</span><span class="value">${data.vetVaccination}</span></div>` : ''}
+        ${data.vetContact ? `<div class="field"><span class="label">Contact vétérinaire:</span><span class="value">${data.vetContact}</span></div>` : ''}
+      </div>
+    ` : ''}
 
-Animaux à domicile: ${data.hasAnimalsHome}
-${data.hasAnimalsHome === 'Oui' ? `
-Chiens: ${data.numDogs}
-Chats: ${data.numCats}
-Lapins: ${data.numRabbits}
-Autres: ${data.numOthers}
-Détails: ${data.animalsDetails}
-Où vivent-ils: ${data.animalsLocation}
-${data.animalsSterilized ? '✓ Stérilisés' : ''}
-${data.animalsIdentified ? '✓ Identifiés' : ''}
-${data.animalsVaccinated ? '✓ Vaccinés' : ''}
-${data.animalsTested ? '✓ Testés FIV/FeLV' : ''}
-` : ''}
+    <div class="section">
+      <h2>🚗 Disponibilités</h2>
+      ${data.canDoTransport.length > 0 ? `
+        <div class="field">
+          <span class="label">Transport:</span>
+          <ul class="list">
+            ${data.canDoTransport.map(option => `<li>${option}</li>`).join('')}
+          </ul>
+        </div>
+      ` : ''}
+      ${data.transportDistance ? `<div class="field"><span class="label">Distance:</span><span class="value">${data.transportDistance}</span></div>` : ''}
+      <div class="field"><span class="label">Autres missions:</span><span class="value">${data.openToOtherMissions}</span></div>
+      ${data.otherMissions ? `<div class="field"><span class="label">Lesquelles:</span><span class="value">${data.otherMissions}</span></div>` : ''}
+    </div>
 
-Heures seul par jour: ${data.hoursAlonePerDay}
-
-MOTIVATION
-----------
-${data.whyFoster}
-
-A déjà été FA: ${data.beenFosterBefore}
-${data.fosterReferences ? `Références: ${data.fosterReferences}` : ''}
-
-EXPÉRIENCE CHATS
-----------------
-Niveau: ${data.catExperience}
-
-Soins pratiqués:
-${data.catCarePractices.join(', ')}
-${data.catCareOther ? `Autre: ${data.catCareOther}` : ''}
-
-RÉACTION CHAT CACHÉ:
-${data.catHidingReaction}
-
-RÉACTION LITIÈRE:
-${data.catLitterIssueReaction}
-
-DEALBREAKERS CHATS:
-${data.catDealbreakers}
-
-Nombre de chats possibles: ${data.numCatsCanFoster}
-
-Types de chats:
-${data.catTypes.join(', ')}
-
-Durée d'accueil:
-${data.fosterDuration.join(', ')}
-${data.fosterDurationOther ? `Précision: ${data.fosterDurationOther}` : ''}
-
-Vacances prochaines: ${data.goingOnVacation}
-${data.vacationDates ? `Dates: ${data.vacationDates}` : ''}
-${data.vacationCare ? `Qui s'occupe: ${data.vacationCare}` : ''}
-
-Foyer d'accord: ${data.householdAgrees}
-
-ALIMENTATION & MATÉRIEL
------------------------
-Plan alimentation: ${data.feedingPlan}
-Matériel disponible: ${data.hasEquipment}
-
-Vétérinaire associatif: ${data.hasAssociationVet}
-${data.vetCastration ? `Castration: ${data.vetCastration}` : ''}
-${data.vetOvariectomy ? `Ovariectomie: ${data.vetOvariectomy}` : ''}
-${data.vetVaccination ? `Vaccination: ${data.vetVaccination}` : ''}
-${data.vetContact ? `Contact vétérinaire: ${data.vetContact}` : ''}
-` : ''}
-
-DISPONIBILITÉS
---------------
-Transport: ${data.canDoTransport.join(', ')}
-${data.transportDistance ? `Distance: ${data.transportDistance}` : ''}
-
-Autres missions: ${data.openToOtherMissions}
-${data.otherMissions ? `Lesquelles: ${data.otherMissions}` : ''}
-
-${data.questions ? `
-QUESTIONS
----------
-${data.questions}
-` : ''}
-`;
+    ${data.questions ? `
+      <div class="section">
+        <h2>❓ Questions</h2>
+        <div class="field"><span class="value">${data.questions}</span></div>
+      </div>
+    ` : ''}
+  </div>
+</body>
+</html>
+  `;
 
   try {
     const { data: emailData, error } = await resend.emails.send({
       from: 'Bénévolat Nine Lives <onboarding@resend.dev>',
       to: ['cyprien.bl@gmail.com'],
       subject: `Nouvelle candidature ${data.volunteerType} - ${data.firstName} ${data.lastName}`,
-      text: emailBody,
+      html: htmlBody,
     });
 
     if (error) {
