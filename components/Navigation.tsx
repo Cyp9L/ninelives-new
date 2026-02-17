@@ -43,8 +43,9 @@ export default function Navigation() {
           <Link href="/" style={{ color: '#374151', fontWeight: '500', fontSize: '0.95rem' }}>Accueil</Link>
           <Link href="/actions" style={{ color: '#374151', fontWeight: '500', fontSize: '0.95rem' }}>Nos actions</Link>
           <Link href="/adopter" style={{ color: '#374151', fontWeight: '500', fontSize: '0.95rem' }}>Je veux adopter</Link>
-          <Link href="/donner" style={{ color: '#374151', fontWeight: '500', fontSize: '0.95rem' }}>Je veux aider</Link>
+          <Link href="/benevole" style={{ color: '#374151', fontWeight: '500', fontSize: '0.95rem' }}>Je veux aider</Link>
           <Link href="/abandon" style={{ color: '#374151', fontWeight: '500', fontSize: '0.95rem' }}>J'ai besoin d'aide</Link>
+          <Link href="/donner" style={{ color: '#374151', fontWeight: '500', fontSize: '0.95rem' }}>Faire un don</Link>
           <Link href="/contact" style={{ color: '#374151', fontWeight: '500', fontSize: '0.95rem' }}>Contact</Link>
         </div>
 
@@ -88,4 +89,5 @@ export default function Navigation() {
       `}</style>
     </nav>
   );
+
 }
