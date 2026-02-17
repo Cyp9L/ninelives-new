@@ -4,7 +4,9 @@ interface TrelloCard {
   id: string;
   name: string;
   desc: string;
+  idAttachmentCover?: string;
   attachments?: Array<{
+    id: string;
     url: string;
     mimeType?: string;
   }>;
@@ -38,7 +40,9 @@ export async function getAllCats() {
   const url = `${TRELLO_API_BASE}/lists/${process.env.TRELLO_LIST_ADOPTABLES_ID}/cards?` + 
     `key=${process.env.TRELLO_API_KEY}&` +
     `token=${process.env.TRELLO_TOKEN}&` +
-    `attachments=true`;
+    `fields=id,name,desc,idAttachmentCover,dateLastActivity&` +
+    `attachments=true&` +
+    `attachment_fields=id,url,mimeType`;
 
   try {
     const res = await fetch(url, {
@@ -52,16 +56,41 @@ export async function getAllCats() {
 
     const cards: TrelloCard[] = await res.json();
     
-    const cats = cards.map(card => ({
-      id: card.id,
-      slug: card.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-      name: card.name,
-      description: extractDiffusion(card.desc || ''),
-      images: card.attachments
+    const cats = cards.map(card => {
+      // Find the cover attachment
+      const coverAttachment = card.attachments?.find(att => att.id === card.idAttachmentCover);
+      
+      // Get all image attachments
+      const imageAttachments = card.attachments
         ?.filter(att => att.mimeType?.startsWith('image/'))
-        .map(att => `/api/trello-image?url=${encodeURIComponent(att.url)}`) || [],
-      dateAdded: card.dateLastActivity
-    }));
+        .map(att => `/api/trello-image?url=${encodeURIComponent(att.url)}`) || [];
+      
+      // If cover exists and is an image, make sure it's first
+      const coverUrl = coverAttachment?.url 
+        ? `/api/trello-image?url=${encodeURIComponent(coverAttachment.url)}`
+        : null;
+      
+      const images = coverUrl 
+        ? [coverUrl, ...imageAttachments.filter(url => url !== coverUrl)]
+        : imageAttachments;
+      
+      return {
+        id: card.id,
+        slug: card.name.toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace(/[éèê]/g, 'e')
+          .replace(/[àâ]/g, 'a')
+          .replace(/[îï]/g, 'i')
+          .replace(/[ôö]/g, 'o')
+          .replace(/[ùûü]/g, 'u')
+          .replace(/[ç]/g, 'c')
+          .replace(/[^\w-]/g, ''),
+        name: card.name,
+        description: extractDiffusion(card.desc || ''),
+        images: images.length > 0 ? images : ['/images/default-cat.jpg'],
+        dateAdded: card.dateLastActivity
+      };
+    });
 
     // For now, treat all as adultes (we can separate later if needed)
     return {
