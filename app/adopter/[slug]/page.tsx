@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getAllCats, getCatBySlug } from '@/lib/trello';
+import Link from 'next/link';
 
 export const revalidate = 60;
 export const dynamicParams = true;
@@ -64,6 +65,42 @@ export default async function AdopterChatPage({ params }: { params: Promise<{ sl
         </div>
       </section>
 
+      {/* Photo gallery */}
+      {cat.images && cat.images.length > 0 && (
+        <section className="section" style={{ paddingBottom: 0 }}>
+          <div className="container" style={{ maxWidth: '800px' }}>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#1f2937' }}>
+              Photos
+            </h2>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+              gap: '1rem'
+            }}>
+              {cat.images.map((img: string, index: number) => (
+                <div key={index} style={{
+                  borderRadius: '8px',
+                  overflow: 'hidden',
+                  aspectRatio: '1',
+                  background: '#f3f4f6'
+                }}>
+                  <img 
+                    src={img} 
+                    alt={`${cat.name} - photo ${index + 1}`}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      display: 'block'
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Cat description */}
       <section className="section">
         <div className="container" style={{ maxWidth: '800px' }}>
@@ -80,6 +117,27 @@ export default async function AdopterChatPage({ params }: { params: Promise<{ sl
               __html: markdownToHtml(cat.description || `${cat.name} est à la recherche d'une famille aimante.`) 
             }}
           />
+
+          {/* Adoption CTA */}
+          <div style={{ marginTop: '2.5rem', textAlign: 'center' }}>
+            <Link 
+              href={`/adopter?cat=${encodeURIComponent(cat.name)}#formulaire`}
+              style={{
+                display: 'inline-block',
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                color: 'white',
+                padding: '1rem 2.5rem',
+                borderRadius: '8px',
+                fontSize: '1.25rem',
+                fontWeight: '500',
+                textDecoration: 'none',
+                transition: 'transform 0.2s, box-shadow 0.2s',
+                boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+              }}
+            >
+              Je veux adopter {cat.name}
+            </Link>
+          </div>
         </div>
       </section>
     </main>
