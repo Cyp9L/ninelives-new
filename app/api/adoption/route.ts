@@ -129,7 +129,7 @@ ${data.remarks ? `REMARQUES/QUESTIONS:\n${data.remarks}` : ''}
   try {
     const { data: emailData, error } = await resend.emails.send({
       from: 'Adoptions Nine Lives <onboarding@resend.dev>',
-      to: ['ninelives@comax.fr'],
+      to: ['cyprien.bl@gmail.com'],
       subject: `Nouvelle demande d'adoption${data.animalName ? ` - ${data.animalName}` : ''}`,
       text: emailBody,
     });
@@ -147,3 +147,4 @@ ${data.remarks ? `REMARQUES/QUESTIONS:\n${data.remarks}` : ''}
     return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
   }
 }
+
