@@ -207,7 +207,7 @@ export default function ActionsPage() {
           
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
             <div style={{ borderRadius: '8px', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
-              <img src="/images/jango.webp alt="Sauvetage" style={{ width: '100%', height: 'auto', display: 'block' }} />
+              <img src="/images/jango.webp" alt="Sauvetage" style={{ width: '100%', height: 'auto', display: 'block' }} />
             </div>
             <div style={{ borderRadius: '8px', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
               <img src="/images/papaye.png" alt="Papaye" style={{ width: '100%', height: 'auto', display: 'block' }} />
