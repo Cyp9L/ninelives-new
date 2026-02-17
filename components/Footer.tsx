@@ -66,7 +66,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
+       {/* Bottom Bar */}
         <div style={{
           borderTop: '1px solid #374151',
           paddingTop: '2rem',
@@ -74,9 +74,14 @@ export default function Footer() {
           color: '#6b7280',
           fontSize: '0.875rem'
         }}>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginBottom: '0.75rem' }}>
+            <Link href="/mentions" style={{ color: '#6b7280', textDecoration: 'underline' }}>Mentions légales</Link>
+            <Link href="/politique-de-confidentialite" style={{ color: '#6b7280', textDecoration: 'underline' }}>Politique de confidentialité</Link>
+          </div>
           <p>© {new Date().getFullYear()} Nine Lives Paris. Tous droits réservés.</p>
         </div>
       </div>
     </footer>
   );
+
 }
