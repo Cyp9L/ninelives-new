@@ -31,7 +31,7 @@ function extractDiffusion(desc: string): string {
   }
   
   // Fallback to full description if no Diffusion section found
-  return desc || 'À venir...';
+  return 'Annonce en cours de création... Contactez-nous pour plus d\'informations.';
 }
 
 export async function getAllCats() {
