@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+const [captchaToken, setCaptchaToken] = useState('');
 
 export default function BenevoleForm() {
   const [formData, setFormData] = useState({
@@ -90,6 +91,7 @@ export default function BenevoleForm() {
   });
   
   const [status, setStatus] = useState('');
+  const [captchaToken, setCaptchaToken] = useState('');
 
   const handleCheckboxArray = (field: keyof typeof formData, value: string) => {
     const current = formData[field] as string[];
@@ -782,10 +784,11 @@ export default function BenevoleForm() {
           <span>J'ai lu et j'accepte <a href="/politique-de-confidentialite" target="_blank" rel="noopener" style={{ color: '#2563eb', textDecoration: 'underline' }}>la politique de confidentialité de ce site</a>. *</span>
         </label>
       </div>
+      <Captcha onVerify={setCaptchaToken} />
 
       <button
         type="submit"
-        disabled={status === 'sending'}
+        disabled={status === 'sending' || !captchaToken}
         className="btn btn-primary"
         style={{ fontSize: '1.125rem', cursor: status === 'sending' ? 'not-allowed' : 'pointer', opacity: status === 'sending' ? 0.6 : 1 }}
       >
