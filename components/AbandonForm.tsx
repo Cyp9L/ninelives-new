@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Captcha from '@/components/Captcha';
 
 export default function AbandonForm() {
   const [formData, setFormData] = useState({
@@ -38,6 +39,7 @@ export default function AbandonForm() {
   });
 
   const [status, setStatus] = useState('');
+  const [captchaToken, setCaptchaToken] = useState('');
 
   // Conditional visibility
   const isMale = formData.sex === 'Mâle';
@@ -341,10 +343,11 @@ export default function AbandonForm() {
           <span>J&apos;ai lu et j&apos;accepte <a href="/politique-de-confidentialite" target="_blank" rel="noopener" style={{ color: '#2563eb', textDecoration: 'underline' }}>la politique de confidentialité de ce site</a>. *</span>
         </label>
       </div>
+      <Captcha onVerify={setCaptchaToken} />
 
       <button
         type="submit"
-        disabled={status === 'sending'}
+        disabled={status === 'sending' || !captchaToken}
         className="btn btn-primary"
         style={{
           padding: '1rem 2rem',
