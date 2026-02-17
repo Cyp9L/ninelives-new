@@ -79,10 +79,12 @@ export default function Footer() {
             <Link href="/mentions" style={{ color: '#6b7280', textDecoration: 'underline' }}>Mentions légales</Link>
             <Link href="/politique-de-confidentialite" style={{ color: '#6b7280', textDecoration: 'underline' }}>Politique de confidentialité</Link>
           </div>
+          <p>Logos par Nathanaëlle Glatigny</p>
         </div>
       </div>
     </footer>
   );
 
 }
+
 
