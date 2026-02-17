@@ -123,7 +123,7 @@ export default function AbandonPage() {
             color: '#991b1b'
           }}>
             <p style={{ marginBottom: '1rem' }}>
-              <em><strong>L&apos;abandon d&apos;un animal domestique est puni de deux ans d&apos;emprisonnement et de 30 000 Euros d&apos;amende (article 521-1 du Code Pénal).</strong></em>
+              <em><strong>L'abandon d'un animal domestique est puni de trois ans d'emprisonnement et de 45 000 euros d'amende (article 521-1 du Code pénal). En cas d'abandon dans des conditions présentant un risque de mort pour l'animal, les peines sont portées à quatre ans d'emprisonnement et 60 000 euros d'amende.</strong></em>
             </p>
             <p>
               Nous nous devons d&apos;informer et de sensibiliser. Nous utilisons le mot abandon car pour l&apos;animal, c&apos;est toujours ressenti comme tel. Peu importe la raison. Dans l&apos;intérêt de l&apos;animal, nous sommes cependant disposés à le recueillir, sous réserve des places disponibles. Si vous ne l&apos;avez pas déjà fait, merci de lire <Link href="/abandon/solutions" style={{ color: '#991b1b', textDecoration: 'underline' }}>cette page</Link>.
