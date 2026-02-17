@@ -32,7 +32,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const cats = await getCats();
-  const cat = cats.find(c => c.slug === params.slug);
+  const cat = cats.find((c : any) => c.slug === params.slug);
   
   if (!cat) {
     return {
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 export default async function AdopterChatPage({ params }: { params: { slug: string } }) {
   const cats = await getCats();
-  const cat = cats.find(c => c.slug === params.slug);
+  const cat = cats.find((c : any) => c.slug === params.slug);
   
   if (!cat) {
     notFound();
