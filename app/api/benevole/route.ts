@@ -110,7 +110,7 @@ export async function POST(request: Request) {
           <div class="field">
             <span class="label">Soins pratiqués:</span>
             <ul class="list">
-              ${data.catCarePractices.map(practice => `<li>${practice}</li>`).join('')}
+              ${data.catCarePractices.map((practice: string) => `<li>${practice}</li>`).join('')}
             </ul>
           </div>
         ` : ''}
@@ -123,7 +123,7 @@ export async function POST(request: Request) {
           <div class="field">
             <span class="label">Types de chats:</span>
             <ul class="list">
-              ${data.catTypes.map(type => `<li>${type}</li>`).join('')}
+              ${data.catTypes.map((type: string) => `<li>${type}</li>`).join('')}
             </ul>
           </div>
         ` : ''}
@@ -131,7 +131,7 @@ export async function POST(request: Request) {
           <div class="field">
             <span class="label">Durée d'accueil:</span>
             <ul class="list">
-              ${data.fosterDuration.map(duration => `<li>${duration}</li>`).join('')}
+              ${data.fosterDuration.map((duration: string) => `<li>${duration}</li>`).join('')}
             </ul>
           </div>
         ` : ''}
@@ -161,7 +161,7 @@ export async function POST(request: Request) {
         <div class="field">
           <span class="label">Transport:</span>
           <ul class="list">
-            ${data.canDoTransport.map(option => `<li>${option}</li>`).join('')}
+            ${data.canDoTransport.map((option: string) => `<li>${option}</li>`).join('')}
           </ul>
         </div>
       ` : ''}
