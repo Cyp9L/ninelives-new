@@ -97,19 +97,56 @@ export default async function AdopterPage() {
             Nos chats à l'adoption
           </h2>
           
-          <div className="grid-3">
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+            gap: '2rem'
+          }}>
             {adultes.map(cat => (
-              <Link key={cat.id} href={`/adopter/${cat.slug}`} className="cat-card">
-                <div className="cat-image">
+              <Link 
+                key={cat.id} 
+                href={`/adopter/${cat.slug}`} 
+                style={{
+                  textDecoration: 'none',
+                  color: 'inherit',
+                  borderRadius: '8px',
+                  overflow: 'hidden',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                  background: 'white'
+                }}
+              >
+                <div style={{
+                  aspectRatio: '4/3',
+                  overflow: 'hidden',
+                  background: '#f3f4f6'
+                }}>
                   {cat.images[0] ? (
-                    <img src={cat.images[0]} alt={cat.name} />
+                    <img 
+                      src={cat.images[0]} 
+                      alt={cat.name}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        display: 'block'
+                      }}
+                    />
                   ) : (
                     <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '4rem' }}>
                       🐱
                     </div>
                   )}
                 </div>
-                <h3 className="cat-name">{cat.name}</h3>
+                <h3 style={{ 
+                  padding: '1rem', 
+                  margin: 0, 
+                  fontSize: '1.25rem', 
+                  fontWeight: '500',
+                  textAlign: 'center' 
+                }}>
+                  {cat.name}
+                </h3>
               </Link>
             ))}
           </div>
