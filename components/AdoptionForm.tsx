@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+const [captchaToken, setCaptchaToken] = useState('');
 
 
 interface Cat {
@@ -107,6 +108,7 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
   
   const [status, setStatus] = useState('');
+  const [captchaToken, setCaptchaToken] = useState('');
 
   const handleCheckboxArray = (field: 'careAbsence', value: string) => {
     const current = formData[field];
@@ -962,10 +964,11 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
           <span>J'ai lu et j'accepte <a href="/politique-de-confidentialite" target="_blank" rel="noopener" style={{ color: '#2563eb', textDecoration: 'underline' }}>la politique de confidentialité de ce site</a>. *</span>
         </label>
       </div>
+      <Captcha onVerify={setCaptchaToken} />
 
       <button
         type="submit"
-        disabled={status === 'sending'}
+        disabled={status === 'sending' || !captchaToken}
         className="btn btn-primary"
         style={{ fontSize: '1.125rem', cursor: status === 'sending' ? 'not-allowed' : 'pointer', opacity: status === 'sending' ? 0.6 : 1 }}
       >
@@ -981,5 +984,6 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
   );
 
 }
+
 
 
