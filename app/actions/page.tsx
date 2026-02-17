@@ -35,23 +35,23 @@ export default function ActionsPage() {
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem' }}>
             {[
-              {
-                title: 'Recueillir',
-                text: 'Nous recueillons des animaux abandonnés, non désirés, délaissés, trouvés, provenant de fourrières, ...'
-              },
-              {
-                title: 'Placer',
-                text: 'Nous les plaçons en famille d'accueil pour quelques semaines ou quelques mois, le temps qu'ils soient à jour sanitairement, ou le temps qu'ils soient suffisamment sociables pour être adoptés.'
-              },
-              {
-                title: 'Soigner',
-                text: 'Nous les soignons, les identifions, les vaccinons, les stérilisons. Nous les sociabilisons parfois, quand il s'agit de chatons ou de chats craintifs, afin qu'ils puissent bien s'intégrer dans leur future famille.'
-              },
-              {
-                title: 'Adopter',
-                text: 'Nous leur cherchons ensuite une famille d'adoption qui leur convienne, en prêtant une attention toute particulière à leur futur environnement.'
-              }
-            ].map((action, i) => (
+                {
+                  title: 'Recueillir',
+                  text: 'Nous recueillons des animaux abandonnés, non désirés, délaissés, trouvés, provenant de fourrières, ...'
+                },
+                {
+                  title: 'Placer',
+                  text: 'Nous les plaçons en famille d\'accueil pour quelques semaines ou quelques mois, le temps qu\'ils soient à jour sanitairement, ou le temps qu\'ils soient suffisamment sociables pour être adoptés.'
+                },
+                {
+                  title: 'Soigner',
+                  text: 'Nous les soignons, les identifions, les vaccinons, les stérilisons. Nous les sociabilisons parfois, quand il s\'agit de chatons ou de chats craintifs, afin qu\'ils puissent bien s\'intégrer dans leur future famille.'
+                },
+                {
+                  title: 'Adopter',
+                  text: 'Nous leur cherchons ensuite une famille d\'adoption qui leur convienne, en prêtant une attention toute particulière à leur futur environnement.'
+                }
+              ].map((action, i) => (
               <div key={i} style={{ textAlign: 'center', padding: '2rem' }}>
                 <div style={{ 
                   width: '80px', 
