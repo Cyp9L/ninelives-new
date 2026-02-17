@@ -1,59 +1,19 @@
 import { notFound } from 'next/navigation';
 import AdoptionForm from '@/components/AdoptionForm';
-
-async function getCats() {
-  try {
-    const res = await fetch(
-      `https://api.trello.com/1/boards/${process.env.TRELLO_BOARD_ID}/cards?key=${process.env.TRELLO_API_KEY}&token=${process.env.TRELLO_TOKEN}&fields=id,name,desc,labels,idAttachmentCover,dateLastActivity&attachments=true&attachment_fields=id,url,mimeType`,
-      { next: { revalidate: 60 } }
-    );
-    
-    if (!res.ok) {
-      console.error('Trello API error:', res.status, res.statusText);
-      return [];
-    }
-    
-    const cards = await res.json();
-    
-    return cards.map((card: any) => {
-      const coverAttachment = card.attachments?.find((att: any) => att.id === card.idAttachmentCover);
-      
-      return {
-        id: card.id,
-        name: card.name,
-        slug: card.name.toLowerCase()
-          .replace(/\s+/g, '-')
-          .replace(/[éèê]/g, 'e')
-          .replace(/[àâ]/g, 'a')
-          .replace(/[îï]/g, 'i')
-          .replace(/[ôö]/g, 'o')
-          .replace(/[ùûü]/g, 'u')
-          .replace(/[ç]/g, 'c')
-          .replace(/[^\w-]/g, ''),
-        description: card.desc || '',
-        image: coverAttachment?.url || '/images/default-cat.jpg',
-        labels: card.labels?.map((label: any) => label.name) || [],
-      };
-    });
-  } catch (error) {
-    console.error('Error fetching cats:', error);
-    return [];
-  }
-}
+import { getAllCats, getCatBySlug } from '@/lib/trello';
 
 export const dynamic = 'force-static';
-export const dynamicParams = true; // Changed to true to allow for dynamic params
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const cats = await getCats();
-  return cats.map((cat: any) => ({
+  const { all } = await getAllCats();
+  return all.map((cat: any) => ({
     slug: cat.slug,
   }));
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const cats = await getCats();
-  const cat = cats.find((c: any) => c.slug === params.slug);
+  const cat = await getCatBySlug(params.slug);
   
   if (!cat) {
     return {
@@ -68,18 +28,20 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function AdopterChatPage({ params }: { params: { slug: string } }) {
-  const cats = await getCats();
-  const cat = cats.find((c: any) => c.slug === params.slug);
+  const cat = await getCatBySlug(params.slug);
+  const { all: cats } = await getAllCats();
   
   if (!cat) {
     notFound();
   }
 
+  const mainImage = cat.images && cat.images.length > 0 ? cat.images[0] : '/images/default-cat.jpg';
+
   return (
     <main>
       {/* Hero with cat image */}
       <section style={{
-        background: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${cat.image}) center/cover`,
+        background: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${mainImage}) center/cover`,
         minHeight: '400px',
         display: 'flex',
         alignItems: 'center',
@@ -92,25 +54,6 @@ export default async function AdopterChatPage({ params }: { params: { slug: stri
           <h1 style={{ fontSize: '3.5rem', fontWeight: '300', marginBottom: '1rem', textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
             {cat.name}
           </h1>
-          {cat.labels.length > 0 && (
-            <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-              {cat.labels.map((label: string) => (
-                <span
-                  key={label}
-                  style={{
-                    background: 'rgba(255,255,255,0.2)',
-                    backdropFilter: 'blur(10px)',
-                    padding: '0.5rem 1rem',
-                    borderRadius: '20px',
-                    fontSize: '0.9rem',
-                    border: '1px solid rgba(255,255,255,0.3)'
-                  }}
-                >
-                  {label}
-                </span>
-              ))}
-            </div>
-          )}
         </div>
       </section>
 
