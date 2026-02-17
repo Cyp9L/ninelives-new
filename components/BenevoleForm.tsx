@@ -449,7 +449,6 @@ export default function BenevoleForm() {
 
           <div>
             <label style={labelStyle}>Avez-vous des animaux à votre domicile ? *</label>
-            <select required value={formData.hasAnimalsHome} onChange={(e) => setFormData({...icile ? *</label>
             <select required value={formData.hasAnimalsHome} onChange={(e) => setFormData({...formData, hasAnimalsHome: e.target.value})} style={inputStyle}>
               <option value="">Sélectionnez</option>
               <option value="Oui">Oui</option>
