@@ -200,3 +200,87 @@ h2 {
 .link-blue:hover {
   color: #1d4ed8;
 }
+
+/* Make images hint they're clickable */
+main img {
+  cursor: zoom-in;
+  transition: opacity 0.2s;
+}
+main img:hover {
+  opacity: 0.9;
+}
+
+/* Lightbox fade-in */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ===== MOBILE RESPONSIVENESS ===== */
+@media (max-width: 768px) {
+  /* Tighter padding on all sections */
+  .section {
+    padding: 2rem 1rem;
+  }
+
+  /* Stack form grids on mobile */
+  form div[style*="gridTemplateColumns"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Smaller headings */
+  h1 {
+    font-size: 2rem !important;
+  }
+  h2 {
+    font-size: 1.5rem !important;
+  }
+
+  /* Full-width containers */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Header sections - less padding */
+  section[style*="padding: 4rem"] {
+    padding: 2.5rem 1rem !important;
+  }
+  section[style*="padding: 3rem"] {
+    padding: 2rem 1rem !important;
+  }
+
+  /* Radio button groups wrap */
+  form div[style*="display: flex"][style*="gap: 1.5rem"] {
+    flex-wrap: wrap;
+    gap: 0.75rem !important;
+  }
+
+  /* Form cards less padding */
+  div[style*="padding: 3rem"] {
+    padding: 1.5rem !important;
+  }
+
+  /* Cat grid - 2 columns on tablet, 1 on small phone */
+  div[style*="minmax(250px"] {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
+  }
+
+  /* Intro grids (image + text) stack vertically */
+  div[style*="gridTemplateColumns: '1fr 2fr'"],
+  div[style*="1fr 2fr"],
+  div[style*="1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.75rem !important;
+  }
+
+  /* Cat picker grid - smaller tiles */
+  div[style*="minmax(120px"] {
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)) !important;
+  }
+}
