@@ -202,31 +202,81 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
         tabIndex={-1}
       />
 
-      {/* ANIMAL NAME */}
+     {/* ANIMAL NAME - Visual cat picker */}
       <div>
         <label style={labelStyle}>
-          Si vous savez déjà lequel de nos animaux vous souhaitez rencontrer, vous pouvez noter ici son nom
+          Si vous savez déjà lequel de nos animaux vous souhaitez rencontrer, cliquez sur sa photo
         </label>
-        <select
-          value={formData.animalName}
-          onChange={(e) => setFormData({...formData, animalName: e.target.value})}
-          style={inputStyle}
-        >
-          <option value="">Sélectionnez un chat</option>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))',
+          gap: '0.75rem',
+          marginTop: '0.5rem'
+        }}>
           {cats.map(cat => (
-            <option key={cat.id} value={cat.name}>{cat.name}</option>
+            <button
+              key={cat.id}
+              type="button"
+              onClick={() => setFormData({...formData, animalName: cat.name})}
+              style={{
+                padding: 0,
+                border: formData.animalName === cat.name ? '3px solid #667eea' : '3px solid transparent',
+                borderRadius: '8px',
+                overflow: 'hidden',
+                cursor: 'pointer',
+                background: formData.animalName === cat.name ? '#eef2ff' : '#f9fafb',
+                transition: 'border-color 0.2s, background 0.2s',
+                textAlign: 'center'
+              }}
+            >
+              <div style={{ aspectRatio: '1', overflow: 'hidden', background: '#f3f4f6' }}>
+                {cat.images[0] ? (
+                  <img 
+                    src={cat.images[0]} 
+                    alt={cat.name} 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  />
+                ) : (
+                  <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem' }}>
+                    🐱
+                  </div>
+                )}
+              </div>
+              <div style={{ 
+                padding: '0.5rem 0.25rem', 
+                fontSize: '0.875rem', 
+                fontWeight: formData.animalName === cat.name ? '600' : '400',
+                color: '#1f2937'
+              }}>
+                {cat.name}
+              </div>
+            </button>
           ))}
-        </select>
-        
-        {selectedCat && selectedCat.images[0] && (
-          <div style={{ marginTop: '1rem', display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem', background: '#f9fafb', borderRadius: '4px' }}>
-            <img src={selectedCat.images[0]} alt={selectedCat.name} style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '4px' }} />
-            <span style={{ fontWeight: '500' }}>{selectedCat.name}</span>
+        </div>
+        {formData.animalName && (
+          <div style={{ 
+            marginTop: '0.75rem', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'space-between', 
+            padding: '0.75rem 1rem', 
+            background: '#eef2ff', 
+            borderRadius: '4px', 
+            border: '1px solid #667eea' 
+          }}>
+            <span style={{ fontWeight: '500', color: '#4338ca' }}>
+              ✓ {formData.animalName} sélectionné(e)
+            </span>
+            <button 
+              type="button" 
+              onClick={() => setFormData({...formData, animalName: ''})}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#6b7280', fontSize: '0.875rem', textDecoration: 'underline' }}
+            >
+              Annuler
+            </button>
           </div>
         )}
       </div>
-
-      <hr style={{ border: 'none', borderTop: '1px solid #e5e7eb' }} />
 
       {/* PERSONAL INFO */}
       <h3 style={{ fontSize: '1.5rem', fontWeight: '600', margin: 0 }}>Vos coordonnées</h3>
@@ -931,4 +981,5 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
   );
 
 }
+
 
