@@ -2,7 +2,7 @@ import { getAllCats } from '@/lib/trello';
 import Link from 'next/link';
 import AdoptionForm from '@/components/AdoptionForm';
 
-export const revalidate = 600;
+export const revalidate = 60;
 
 export default async function AdopterPage() {
   const { adultes } = await getAllCats();
