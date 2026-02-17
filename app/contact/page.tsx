@@ -286,9 +286,11 @@ export default function ContactPage() {
                 </label>
               </div>
 
+               <Captcha onVerify={setCaptchaToken} />
+
               <button
                 type="submit"
-                disabled={status === 'sending'}
+                disabled={status === 'sending' || !captchaToken}
                 style={{
                   padding: '1rem 2rem',
                   fontSize: '1.125rem',
