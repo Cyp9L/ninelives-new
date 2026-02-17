@@ -24,6 +24,7 @@ export default function ActionsPage() {
           <a href="https://www.helloasso.com/associations/nine-lives-paris/formulaires/1" 
              target="_blank" 
              rel="noopener noreferrer"
+             style={{ backgroundColor: 'steelblue' }}
              className="btn btn-secondary">
             Soutenez-nous
           </a>
@@ -106,7 +107,7 @@ export default function ActionsPage() {
                 A ce jour, nous avons attrapé une dizaine de chats, la plupart ont été adoptés ou sont en attente d'adoption. 
                 Quelques-uns, trop sauvages, ont été relâchés après avoir été identifiés et stérilisés. Il en reste au moins 
                 tout autant à stériliser, si vous souhaitez nous aider dans cette mission, vous pouvez vous proposer en tant que{' '}
-                <a href="/devenir-benevole" style={{ color: '#00947e', textDecoration: 'underline' }}>
+                <a href="/benevole" style={{ color: '#00947e', textDecoration: 'underline' }}>
                   famille d'accueil pour effectuer des quarantaines
                 </a>
                 {' '}(c'est beaucoup plus sympa que ça en a l'air !)
