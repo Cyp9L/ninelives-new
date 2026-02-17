@@ -215,8 +215,6 @@ export default function ActionsPage() {
           </div>
         </div>
       </section>
-        </div>
-      </section>
     </main>
   );
 }
