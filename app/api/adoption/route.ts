@@ -112,9 +112,8 @@ export async function POST(request: Request) {
         ${f('Étage', data.floor)}
       ` : ''}
       ${f('Propriétaire', data.isOwner)}
-      ${data.isOwner === 'Non' ? f('Permission d\'avoir un animal', data.hasPermission) : ''}
+      ${data.isOwner === 'Non' ? f('Permission avoir un animal', data.hasPermission) : ''}
       ${f('Déménagement prévu', data.movingSoon)}
-      ${data data.movingSoon)}
       ${data.movingSoon === 'Oui' ? f('Adresse du projet', data.movingAddress) : ''}
     </div>
 
@@ -228,3 +227,4 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
   }
 }
+
