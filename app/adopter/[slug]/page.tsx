@@ -25,7 +25,7 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const cats = await getCats();
-  return cats.map((cat) => ({
+  return cats.map((cat: any) => ({
     slug: cat.slug,
   }));
 }
