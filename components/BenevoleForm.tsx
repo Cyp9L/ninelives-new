@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-const [captchaToken, setCaptchaToken] = useState('');
+import Captcha from '@/components/Captcha';
 
 export default function BenevoleForm() {
   const [formData, setFormData] = useState({
