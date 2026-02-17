@@ -65,7 +65,7 @@ export default function DonnerPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-primary"
-                style={{ fontSize: '1.125rem', display: 'inline-block' }}
+                style={{ fontSize: '1.125rem', display: 'inline-block', backgroundColor: 'bisque' }}
               >
                 Faire un don financier
               </a>
@@ -136,7 +136,7 @@ export default function DonnerPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-primary"
-                style={{ fontSize: '1.125rem', display: 'inline-block' }}
+                style={{ fontSize: '1.125rem', display: 'inline-block', backgroundColor: 'bisque' }}
               >
                 Faire un don matériel
               </a>
