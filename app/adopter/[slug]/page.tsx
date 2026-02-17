@@ -2,26 +2,47 @@ import { notFound } from 'next/navigation';
 import AdoptionForm from '@/components/AdoptionForm';
 
 async function getCats() {
-  const res = await fetch(
-    `https://api.trello.com/1/boards/${process.env.TRELLO_BOARD_ID}/cards?key=${process.env.TRELLO_API_KEY}&token=${process.env.TRELLO_API_TOKEN}&fields=name,desc,labels,attachments&attachments=cover`,
-    { next: { revalidate: 60 } }
-  );
-  
-  if (!res.ok) throw new Error('Failed to fetch cats');
-  
-  const cards = await res.json();
-  
-  return cards.map((card: any) => ({
-    id: card.id,
-    name: card.name,
-    slug: card.name.toLowerCase().replace(/\s+/g, '-').replace(/[éè]/g, 'e').replace(/[àâ]/g, 'a'),
-    description: card.desc,
-    image: card.attachments?.[0]?.url || '/images/default-cat.jpg',
-    labels: card.labels?.map((label: any) => label.name) || [],
-  }));
+  try {
+    const res = await fetch(
+      `https://api.trello.com/1/boards/${process.env.TRELLO_BOARD_ID}/cards?key=${process.env.TRELLO_API_KEY}&token=${process.env.TRELLO_TOKEN}&fields=id,name,desc,labels,idAttachmentCover,dateLastActivity&attachments=true&attachment_fields=id,url,mimeType`,
+      { next: { revalidate: 60 } }
+    );
+    
+    if (!res.ok) {
+      console.error('Trello API error:', res.status, res.statusText);
+      return [];
+    }
+    
+    const cards = await res.json();
+    
+    return cards.map((card: any) => {
+      const coverAttachment = card.attachments?.find((att: any) => att.id === card.idAttachmentCover);
+      
+      return {
+        id: card.id,
+        name: card.name,
+        slug: card.name.toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace(/[éèê]/g, 'e')
+          .replace(/[àâ]/g, 'a')
+          .replace(/[îï]/g, 'i')
+          .replace(/[ôö]/g, 'o')
+          .replace(/[ùûü]/g, 'u')
+          .replace(/[ç]/g, 'c')
+          .replace(/[^\w-]/g, ''),
+        description: card.desc || '',
+        image: coverAttachment?.url || '/images/default-cat.jpg',
+        labels: card.labels?.map((label: any) => label.name) || [],
+      };
+    });
+  } catch (error) {
+    console.error('Error fetching cats:', error);
+    return [];
+  }
 }
 
-export const dynamicParams = false;
+export const dynamic = 'force-static';
+export const dynamicParams = true; // Changed to true to allow for dynamic params
 
 export async function generateStaticParams() {
   const cats = await getCats();
@@ -32,7 +53,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const cats = await getCats();
-  const cat = cats.find((c : any) => c.slug === params.slug);
+  const cat = cats.find((c: any) => c.slug === params.slug);
   
   if (!cat) {
     return {
@@ -48,7 +69,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 export default async function AdopterChatPage({ params }: { params: { slug: string } }) {
   const cats = await getCats();
-  const cat = cats.find((c : any) => c.slug === params.slug);
+  const cat = cats.find((c: any) => c.slug === params.slug);
   
   if (!cat) {
     notFound();
