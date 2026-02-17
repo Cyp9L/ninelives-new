@@ -96,8 +96,6 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
     honeypot: ''
   });
   // Pick up ?cat= from URL after hydration
-  import { useState, useEffect } from 'react';  // ← update the import at the top of the file
-
   useEffect(() => {
     if (!preselectedCat && !formData.animalName) {
       const params = new URLSearchParams(window.location.search);
@@ -933,3 +931,4 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
   );
 
 }
+
