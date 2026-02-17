@@ -2,9 +2,28 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+
+  const close = () => setMobileOpen(false);
+
+  const navLinks = [
+    { href: '/', label: 'Accueil' },
+    { href: '/actions', label: 'Nos actions' },
+    { href: '/adopter', label: 'Je veux adopter' },
+    { href: '/benevole', label: 'Je veux aider' },
+    { href: '/abandon', label: "J'ai besoin d'aide" },
+    { href: '/donner', label: 'Faire un don' },
+    { href: '/contact', label: 'Contact' },
+  ];
+
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/';
+    return pathname.startsWith(href);
+  };
 
   return (
     <nav style={{
@@ -24,7 +43,7 @@ export default function Navigation() {
         height: '70px'
       }}>
         {/* Logo */}
-        <Link href="/">
+        <Link href="/" onClick={close} data-no-lightbox>
           <Image 
             src="/logo-nine-lives-paris.png" 
             alt="Nine Lives Paris" 
@@ -37,16 +56,26 @@ export default function Navigation() {
         {/* Desktop Menu */}
         <div style={{
           display: 'flex',
-          gap: '2rem',
+          gap: '1.75rem',
           alignItems: 'center'
         }} className="desktop-menu">
-          <Link href="/" style={{ color: '#374151', fontWeight: '500', fontSize: '0.95rem' }}>Accueil</Link>
-          <Link href="/actions" style={{ color: '#374151', fontWeight: '500', fontSize: '0.95rem' }}>Nos actions</Link>
-          <Link href="/adopter" style={{ color: '#374151', fontWeight: '500', fontSize: '0.95rem' }}>Je veux adopter</Link>
-          <Link href="/benevole" style={{ color: '#374151', fontWeight: '500', fontSize: '0.95rem' }}>Je veux aider</Link>
-          <Link href="/abandon" style={{ color: '#374151', fontWeight: '500', fontSize: '0.95rem' }}>J'ai besoin d'aide</Link>
-          <Link href="/donner" style={{ color: '#374151', fontWeight: '500', fontSize: '0.95rem' }}>Faire un don</Link>
-          <Link href="/contact" style={{ color: '#374151', fontWeight: '500', fontSize: '0.95rem' }}>Contact</Link>
+          {navLinks.map(link => (
+            <Link
+              key={link.href}
+              href={link.href}
+              style={{
+                color: isActive(link.href) ? '#667eea' : '#374151',
+                fontWeight: isActive(link.href) ? '600' : '500',
+                fontSize: '0.95rem',
+                textDecoration: 'none',
+                borderBottom: isActive(link.href) ? '2px solid #667eea' : '2px solid transparent',
+                paddingBottom: '2px',
+                transition: 'color 0.2s, border-color 0.2s',
+              }}
+            >
+              {link.label}
+            </Link>
+          ))}
         </div>
 
         {/* Mobile Toggle */}
@@ -57,9 +86,11 @@ export default function Navigation() {
             background: 'none',
             border: 'none',
             fontSize: '1.5rem',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            padding: '0.5rem',
           }}
           className="mobile-toggle"
+          aria-label={mobileOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
         >
           {mobileOpen ? '✕' : '☰'}
         </button>
@@ -67,13 +98,29 @@ export default function Navigation() {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div style={{ padding: '1rem 0', borderTop: '1px solid #e5e7eb' }} className="mobile-menu-content">
-          <Link href="/" style={{ display: 'block', padding: '0.75rem 2rem', color: '#374151' }}>Accueil</Link>
-          <Link href="/actions" style={{ display: 'block', padding: '0.75rem 2rem', color: '#374151' }}>Nos actions</Link>
-          <Link href="/adopter" style={{ display: 'block', padding: '0.75rem 2rem', color: '#374151' }}>Je veux adopter</Link>
-          <Link href="/donner" style={{ display: 'block', padding: '0.75rem 2rem', color: '#374151' }}>Je veux aider</Link>
-          <Link href="/abandon" style={{ display: 'block', padding: '0.75rem 2rem', color: '#374151' }}>J'ai besoin d'aide</Link>
-          <Link href="/contact" style={{ display: 'block', padding: '0.75rem 2rem', color: '#374151' }}>Contact</Link>
+        <div style={{
+          padding: '0.5rem 0',
+          borderTop: '1px solid #e5e7eb',
+          background: 'white',
+        }} className="mobile-menu-content">
+          {navLinks.map(link => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={close}
+              style={{
+                display: 'block',
+                padding: '0.85rem 2rem',
+                color: isActive(link.href) ? '#667eea' : '#374151',
+                fontWeight: isActive(link.href) ? '600' : '400',
+                borderLeft: isActive(link.href) ? '3px solid #667eea' : '3px solid transparent',
+                textDecoration: 'none',
+                fontSize: '1.05rem',
+              }}
+            >
+              {link.label}
+            </Link>
+          ))}
         </div>
       )}
 
@@ -89,5 +136,4 @@ export default function Navigation() {
       `}</style>
     </nav>
   );
-
 }
