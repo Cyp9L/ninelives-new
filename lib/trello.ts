@@ -13,29 +13,6 @@ interface TrelloCard {
   dateLastActivity: string;
 }
 
-function extractDiffusion(desc: string): string {
-  // Extract Identification number
-  const idMatch = desc.match(/\*\*Identification\s*:\*\*\s*([^\n]+)/i);
-  const identification = idMatch ? idMatch[1].trim() : null;
-  
-  // Find text between "Diffusion :" and the next section marker or end
-  const diffusionMatch = desc.match(/\*\*Diffusion\s*:\*\*\s*([\s\S]*?)(?=\*\*[A-Z]|\n\n\*\*|$)/i);
-  
-  if (diffusionMatch && diffusionMatch[1]) {
-    let diffusionText = diffusionMatch[1].trim();
-    
-    // Add identification at the end if found
-    if (identification) {
-      diffusionText += `\n\n**Identification :** ${identification}`;
-    }
-    
-    return diffusionText;
-  }
-  
-  // Fallback to full description if no Diffusion section found
-  return 'Annonce en cours de création... Contactez-nous pour plus d\'informations.';
-}
-
 export async function getAllCats() {
   const url = `${TRELLO_API_BASE}/lists/${process.env.TRELLO_LIST_ADOPTABLES_ID}/cards?` + 
     `key=${process.env.TRELLO_API_KEY}&` +
@@ -46,7 +23,7 @@ export async function getAllCats() {
 
   try {
     const res = await fetch(url, {
-      next: { revalidate: 600 } // Cache for 10 minutes
+      next: { revalidate: 600 }
     });
 
     if (!res.ok) {
@@ -57,15 +34,12 @@ export async function getAllCats() {
     const cards: TrelloCard[] = await res.json();
     
     const cats = cards.map(card => {
-      // Find the cover attachment
       const coverAttachment = card.attachments?.find(att => att.id === card.idAttachmentCover);
       
-      // Get all image attachments
       const imageAttachments = card.attachments
         ?.filter(att => att.mimeType?.startsWith('image/'))
         .map(att => `/api/trello-image?url=${encodeURIComponent(att.url)}`) || [];
       
-      // If cover exists and is an image, make sure it's first
       const coverUrl = coverAttachment?.url 
         ? `/api/trello-image?url=${encodeURIComponent(coverAttachment.url)}`
         : null;
@@ -86,13 +60,12 @@ export async function getAllCats() {
           .replace(/[ç]/g, 'c')
           .replace(/[^\w-]/g, ''),
         name: card.name,
-        description: extractDiffusion(card.desc || ''),
+        description: card.desc || '',
         images: images.length > 0 ? images : ['/images/default-cat.jpg'],
         dateAdded: card.dateLastActivity
       };
     });
 
-    // For now, treat all as adultes (we can separate later if needed)
     return {
       adultes: cats,
       chatons: [],
