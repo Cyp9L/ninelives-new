@@ -1,9 +1,15 @@
 import { notFound } from 'next/navigation';
-import AdoptionForm from '@/components/AdoptionForm';
 import { getAllCats, getCatBySlug } from '@/lib/trello';
 
 export const revalidate = 60;
 export const dynamicParams = true;
+
+function markdownToHtml(text: string): string {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/\n/g, '<br />');
+}
 
 export async function generateStaticParams() {
   const { all } = await getAllCats();
@@ -31,7 +37,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function AdopterChatPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const cat = await getCatBySlug(slug);
-  const { all: cats } = await getAllCats();
   
   if (!cat) {
     notFound();
@@ -59,39 +64,22 @@ export default async function AdopterChatPage({ params }: { params: Promise<{ sl
         </div>
       </section>
 
-      {/* Cat details and form */}
+      {/* Cat description */}
       <section className="section">
-        <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'start' }}>
-            {/* Left: Description */}
-            <div>
-              <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1f2937' }}>
-                À propos de {cat.name}
-              </h2>
-              <div style={{ 
-                fontSize: '1.125rem', 
-                lineHeight: '1.8', 
-                color: '#4b5563',
-                whiteSpace: 'pre-wrap'
-              }}>
-                {cat.description || `${cat.name} est à la recherche d'une famille aimante.`}
-              </div>
-            </div>
-
-            {/* Right: Adoption form */}
-            <div style={{
-              background: 'white',
-              padding: '2rem',
-              borderRadius: '8px',
-              boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-              border: '1px solid #e5e7eb'
-            }}>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: '#1f2937' }}>
-                Adopter {cat.name}
-              </h3>
-              <AdoptionForm cats={cats} preselectedCat={cat.name} />
-            </div>
-          </div>
+        <div className="container" style={{ maxWidth: '800px' }}>
+          <h2 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: '#1f2937' }}>
+            À propos de {cat.name}
+          </h2>
+          <div 
+            style={{ 
+              fontSize: '1.125rem', 
+              lineHeight: '1.8', 
+              color: '#4b5563' 
+            }}
+            dangerouslySetInnerHTML={{ 
+              __html: markdownToHtml(cat.description || `${cat.name} est à la recherche d'une famille aimante.`) 
+            }}
+          />
         </div>
       </section>
     </main>
