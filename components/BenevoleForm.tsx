@@ -53,25 +53,6 @@ export default function BenevoleForm() {
     beenFosterBefore: '',
     fosterReferences: '',
     
-    // Dog Specific
-    dogWalked: '',
-    dogWalkFrequency: '',
-    dogLocationAbsent: '',
-    dogBehavioralIssuesReaction: '',
-    dogResourceGuarding: '',
-    dogPullingLeash: '',
-    dogHouseTraining: '',
-    dogApproachWhileEating: '',
-    dogDominance: '',
-    dogDealbreakers: '',
-    
-    // Rabbit Specific
-    rabbitHabitat: '',
-    rabbitTerritory: [] as string[],
-    rabbitTerritorySize: '',
-    numRabbitsCanFoster: '',
-    rabbitDealbreakers: '',
-    
     // Cat Specific
     catExperience: '',
     catCarePractices: [] as string[],
@@ -146,13 +127,11 @@ export default function BenevoleForm() {
 
   // Conditional visibility
   const isFoster = formData.volunteerType === 'Famille d\'accueil' || formData.volunteerType === 'Les deux';
-  const isVolunteer = formData.volunteerType === 'Bénévole' || formData.volunteerType === 'Les deux';
   const isApartment = formData.housingType === 'En appartement';
   const hasBalcony = formData.balconySecured === 'Oui';
   const hasOutdoor = formData.hasOutdoor === 'Oui';
   const needsRabbitSecuring = formData.rabbitSecured === 'Non';
   const canQuarantine = formData.canDoQuarantine === 'Oui';
-  const hasarantine === 'Oui';
   const hasChildrenYes = formData.hasChildren === 'Oui';
   const hasAnimals = formData.hasAnimalsHome === 'Oui';
   const hadFosterExp = formData.beenFosterBefore === 'Oui';
@@ -187,7 +166,6 @@ export default function BenevoleForm() {
         </div>
       )}
 
-      {/* Honeypot */}
       <input
         type="text"
         name="website"
@@ -197,7 +175,6 @@ export default function BenevoleForm() {
         tabIndex={-1}
       />
 
-      {/* PERSONAL INFO */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
         <div>
           <label style={labelStyle}>Nom de famille *</label>
@@ -245,7 +222,6 @@ export default function BenevoleForm() {
         <input type="text" value={formData.contactSlots} onChange={(e) => setFormData({...formData, contactSlots: e.target.value})} style={inputStyle} />
       </div>
 
-      {/* VOLUNTEER TYPE */}
       <div>
         <label style={labelStyle}>Vous souhaitez vous proposer en tant que : *</label>
         <div style={{ display: 'flex', gap: '1.5rem' }}>
@@ -268,7 +244,6 @@ export default function BenevoleForm() {
         <strong>Comme indiqué sur ce site, nous ne disposons pas de refuge</strong>, tous nos animaux sont en familles d'accueil. Les familles d'accueil prennent soin des animaux dont elles ont la garde, nous n'avons donc pas besoin d'autres bénévoles pour nourrir les animaux, nettoyer les litières ou un local, câliner des chats, ...
       </div>
 
-      {/* HOUSING SECTION - Only if Foster */}
       {isFoster && (
         <>
           <hr style={{ border: 'none', borderTop: '1px solid #e5e7eb' }} />
@@ -515,7 +490,6 @@ export default function BenevoleForm() {
             <input type="text" required value={formData.hoursAlonePerDay} onChange={(e) => setFormData({...formData, hoursAlonePerDay: e.target.value})} style={inputStyle} />
           </div>
 
-          {/* FOSTER MOTIVATION */}
           <hr style={{ border: 'none', borderTop: '1px solid #e5e7eb' }} />
           <h3 style={{ fontSize: '1.5rem', fontWeight: '600', margin: 0 }}>Votre motivation</h3>
 
@@ -541,7 +515,6 @@ export default function BenevoleForm() {
             )}
           </div>
 
-          {/* CAT SPECIFIC SECTION */}
           <hr style={{ border: 'none', borderTop: '1px solid #e5e7eb' }} />
           <h3 style={{ fontSize: '1.5rem', fontWeight: '600', margin: 0 }}>Accueil de chats</h3>
 
@@ -702,7 +675,6 @@ export default function BenevoleForm() {
             </div>
           )}
 
-          {/* GENERAL FOSTER INFO */}
           <hr style={{ border: 'none', borderTop: '1px solid #e5e7eb' }} />
 
           <div style={{ padding: '1rem', background: '#f3f4f6', borderRadius: '4px', fontSize: '0.95rem' }}>
@@ -755,7 +727,6 @@ export default function BenevoleForm() {
         </>
       )}
 
-      {/* TRANSPORT & OTHER MISSIONS (for all volunteers) */}
       <hr style={{ border: 'none', borderTop: '1px solid #e5e7eb' }} />
       <h3 style={{ fontSize: '1.5rem', fontWeight: '600', margin: 0 }}>Disponibilités</h3>
 
@@ -783,11 +754,6 @@ export default function BenevoleForm() {
         <select required value={formData.openToOtherMissions} onChange={(e) => setFormData({...formData, openToOtherMissions: e.target.value})} style={inputStyle}>
           <option value="">Sélectionnez</option>
           <option value="Oui">Oui</option>
-          <option value="Non">Non</option>
-        </select>
-      </div>
-
-      {<option value="Oui">Oui</option>
           <option value="Non">Non</option>
         </select>
       </div>
