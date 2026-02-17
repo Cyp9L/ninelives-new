@@ -98,6 +98,8 @@ export default function PolitiqueConfidentialitePage() {
             <p style={pStyle}>
               Les dons sont collectés via la plateforme HelloAsso, vers laquelle vous êtes redirigé. Le traitement de vos données dans ce cadre est régi par la politique de confidentialité de HelloAsso.
             </p>
+            <p style={pStyle}>
+              Les données saisies dans les formulaires sont transmises à l'association par e-mail via le service Resend (Resend, Inc.), dont les serveurs sont situés dans l'Union européenne.            </p>
           </div>
 
           <div style={sectionStyle}>
