@@ -75,13 +75,14 @@ export default function Footer() {
           fontSize: '0.875rem'
         }}>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginBottom: '0.75rem' }}>
+            <p>© {new Date().getFullYear()} Nine Lives Paris. Tous droits réservés.</p>
             <Link href="/mentions" style={{ color: '#6b7280', textDecoration: 'underline' }}>Mentions légales</Link>
             <Link href="/politique-de-confidentialite" style={{ color: '#6b7280', textDecoration: 'underline' }}>Politique de confidentialité</Link>
           </div>
-          <p>© {new Date().getFullYear()} Nine Lives Paris. Tous droits réservés.</p>
         </div>
       </div>
     </footer>
   );
 
 }
+
