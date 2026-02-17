@@ -10,6 +10,19 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: false }, { status: 400 });
   }
 
+  // Verify captcha
+  const turnstileRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      secret: process.env.TURNSTILE_SECRET_KEY,
+      response: data.captchaToken,
+    }),
+  });
+  const turnstileData = await turnstileRes.json();
+  if (!turnstileData.success) {
+    return NextResponse.json({ error: 'Captcha verification failed' }, { status: 400 });
+  }
   const f = (label: string, value: any): string => {
     if (value === undefined || value === null || value === '') return '';
     return `<div class="field"><span class="label">${label}:</span> <span class="value">${value}</span></div>`;
