@@ -6,132 +6,128 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(request: Request) {
   const data = await request.json();
 
-  // Honeypot check
   if (data.honeypot) {
     return NextResponse.json({ success: false }, { status: 400 });
   }
 
-  // Build email body
-  const emailBody = `
-NOUVELLE DEMANDE D'ADOPTION
-===========================
+  const htmlBody = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
+    .header { background: #00947e; color: white; padding: 20px; border-radius: 8px 8px 0 0; }
+    .header h1 { margin: 0; font-size: 24px; }
+    .content { background: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px; }
+    .section { background: white; padding: 20px; margin-bottom: 20px; border-radius: 6px; border-left: 4px solid #00947e; }
+    .section h2 { margin-top: 0; color: #00947e; font-size: 18px; }
+    .field { margin-bottom: 12px; }
+    .label { font-weight: bold; color: #4b5563; }
+    .value { color: #1f2937; margin-left: 10px; }
+    a { color: #00947e; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🐱 Nouvelle demande d'adoption</h1>
+  </div>
+  
+  <div class="content">
+    <div class="section">
+      <h2>👤 Informations personnelles</h2>
+      <div class="field"><span class="label">Nom:</span><span class="value">${data.lastName}</span></div>
+      <div class="field"><span class="label">Prénom:</span><span class="value">${data.firstName}</span></div>
+      <div class="field"><span class="label">Âge:</span><span class="value">${data.age} ans</span></div>
+      <div class="field"><span class="label">Email:</span><span class="value"><a href="mailto:${data.email}">${data.email}</a></span></div>
+      <div class="field"><span class="label">Téléphone:</span><span class="value"><a href="tel:${data.phone}">${data.phone}</a></span></div>
+      ${data.contactSlots ? `<div class="field"><span class="label">Créneaux:</span><span class="value">${data.contactSlots}</span></div>` : ''}
+      <div class="field"><span class="label">Adresse:</span><span class="value">${data.address}, ${data.postalCode} ${data.city}</span></div>
+    </div>
 
-ANIMAL SOUHAITÉ
-${data.animalName || 'Non spécifié'}
+    <div class="section">
+      <h2>🐈 Chat souhaité</h2>
+      <div class="field"><span class="label">Chat:</span><span class="value">${data.catName}</span></div>
+      ${data.hasMetCat ? `<div class="field"><span class="label">A rencontré le chat:</span><span class="value">${data.hasMetCat}</span></div>` : ''}
+    </div>
 
-COORDONNÉES
------------
-Nom: ${data.lastName}
-Prénom: ${data.firstName}
-Email: ${data.email}
-Téléphone mobile: ${data.mobilePhone}
-Téléphone fixe: ${data.landlinePhone || 'Non renseigné'}
-Âge: ${data.age} ans
+    <div class="section">
+      <h2>🏠 Logement</h2>
+      <div class="field"><span class="label">Type:</span><span class="value">${data.housingType}</span></div>
+      <div class="field"><span class="label">Statut:</span><span class="value">${data.ownerOrTenant}</span></div>
+      ${data.landlordAgreement ? `<div class="field"><span class="label">Accord propriétaire:</span><span class="value">${data.landlordAgreement}</span></div>` : ''}
+      ${data.numRooms ? `<div class="field"><span class="label">Nombre de pièces:</span><span class="value">${data.numRooms}</span></div>` : ''}
+      ${data.floor ? `<div class="field"><span class="label">Étage:</span><span class="value">${data.floor}</span></div>` : ''}
+      ${data.balconySecured ? `<div class="field"><span class="label">Balcon sécurisé:</span><span class="value">${data.balconySecured}</span></div>` : ''}
+      ${data.hasOutdoor ? `<div class="field"><span class="label">Extérieur:</span><span class="value">${data.hasOutdoor}</span></div>` : ''}
+      ${data.outdoorSecured ? `<div class="field"><span class="label">Extérieur sécurisé:</span><span class="value">${data.outdoorSecured}</span></div>` : ''}
+    </div>
 
-Adresse: ${data.address}
-${data.postalCode} ${data.city}
+    <div class="section">
+      <h2>👨‍👩‍👧‍👦 Foyer</h2>
+      <div class="field"><span class="label">Nombre de personnes:</span><span class="value">${data.numPeopleHousehold}</span></div>
+      <div class="field"><span class="label">Enfants:</span><span class="value">${data.hasChildren}</span></div>
+      ${data.childrenAges ? `<div class="field"><span class="label">Âges:</span><span class="value">${data.childrenAges}</span></div>` : ''}
+      ${data.childrenUsedToAnimals ? `<div class="field"><span class="label">Habitués aux animaux:</span><span class="value">${data.childrenUsedToAnimals}</span></div>` : ''}
+      <div class="field"><span class="label">Animaux à domicile:</span><span class="value">${data.hasAnimalsHome}</span></div>
+      ${data.hasAnimalsHome === 'Oui' ? `
+        <div class="field"><span class="label">Chiens:</span><span class="value">${data.numDogs || 0}</span></div>
+        <div class="field"><span class="label">Chats:</span><span class="value">${data.numCats || 0}</span></div>
+        <div class="field"><span class="label">Lapins:</span><span class="value">${data.numRabbits || 0}</span></div>
+        <div class="field"><span class="label">Autres:</span><span class="value">${data.numOthers || 0}</span></div>
+        <div class="field"><span class="label">Détails:</span><span class="value">${data.animalsDetails}</span></div>
+        <div class="field"><span class="label">Stérilisés:</span><span class="value">${data.animalsSterilized ? '✓' : '✗'}</span></div>
+        <div class="field"><span class="label">Identifiés:</span><span class="value">${data.animalsIdentified ? '✓' : '✗'}</span></div>
+        <div class="field"><span class="label">Vaccinés:</span><span class="value">${data.animalsVaccinated ? '✓' : '✗'}</span></div>
+        <div class="field"><span class="label">Testés FIV/FeLV:</span><span class="value">${data.animalsTested ? '✓' : '✗'}</span></div>
+      ` : ''}
+      <div class="field"><span class="label">Heures seul/jour:</span><span class="value">${data.hoursAlonePerDay}</span></div>
+      <div class="field"><span class="label">Où sera le chat:</span><span class="value">${data.catLocation}</span></div>
+    </div>
 
-LOGEMENT
---------
-Type: ${data.housingType}
-Superficie: ${data.surface} m²
-${data.floor ? `Étage: ${data.floor}` : ''}
-${data.hasGardenEnclosed ? '✓ Jardin clôturé' : ''}
-${data.hasBalcony ? '✓ Balcon/terrasse' : ''}
-${data.noBalcony ? '✓ Sans balcon' : ''}
-Propriétaire: ${data.isOwner}
-${data.isOwner === 'Non' ? `Permission animal: ${data.hasPermission}` : ''}
-Déménagement prévu: ${data.movingSoon}
-${data.movingSoon === 'Oui' ? `Adresse projet: ${data.movingAddress}` : ''}
+    <div class="section">
+      <h2>💭 Motivation & Expérience</h2>
+      <div class="field"><span class="label">Pourquoi adopter:</span><span class="value">${data.whyAdopt}</span></div>
+      <div class="field"><span class="label">A déjà eu un chat:</span><span class="value">${data.hadCatBefore}</span></div>
+      ${data.previousCatExperience ? `<div class="field"><span class="label">Expérience:</span><span class="value">${data.previousCatExperience}</span></div>` : ''}
+      <div class="field"><span class="label">Foyer d'accord:</span><span class="value">${data.householdAgrees}</span></div>
+    </div>
 
-FOYER
------
-Salarié(e): ${data.employed}
-${data.employedOther ? `Précision: ${data.employedOther}` : ''}
-Nombre d'adultes: ${data.numAdults}
-Nombre d'enfants: ${data.numChildren}
-${data.childrenAges ? `Âges des enfants: ${data.childrenAges}` : ''}
-Quelqu'un à la maison en journée: ${data.someoneHomeDuringDay}
-${data.hoursAbsence ? `Heures d'absence: ${data.hoursAbsence}` : ''}
-Allergies/asthme: ${data.hasAllergies}
-${data.childrenCompatible ? `Enfants futurs compatibles: ${data.childrenCompatible}` : ''}
-${data.childrenCompatibleOther ? `Précision: ${data.childrenCompatibleOther}` : ''}
-${data.coupleSeparation ? `En cas de séparation: ${data.coupleSeparation}` : ''}
+    <div class="section">
+      <h2>💰 Budget & Soins</h2>
+      <div class="field"><span class="label">Budget mensuel:</span><span class="value">${data.monthlyBudget}</span></div>
+      <div class="field"><span class="label">Plan alimentation:</span><span class="value">${data.feedingPlan}</span></div>
+      <div class="field"><span class="label">A du matériel:</span><span class="value">${data.hasEquipment}</span></div>
+      <div class="field"><span class="label">A un vétérinaire:</span><span class="value">${data.hasVet}</span></div>
+      ${data.vetContact ? `<div class="field"><span class="label">Contact vétérinaire:</span><span class="value">${data.vetContact}</span></div>` : ''}
+    </div>
 
-ANIMAUX ACTUELS
----------------
-A un animal maintenant: ${data.hasAnimalNow}
-${data.currentAnimalDetails ? `Détails: ${data.currentAnimalDetails}` : ''}
-${data.currentAnimalsSterilized ? '✓ Stérilisés' : ''}
-${data.currentAnimalsVaccinated ? '✓ Vaccinés' : ''}
-${data.currentAnimalsTested ? '✓ Testés FIV/FeLV' : ''}
+    ${data.goingOnVacation === 'Oui' ? `
+      <div class="section">
+        <h2>✈️ Vacances</h2>
+        <div class="field"><span class="label">Dates:</span><span class="value">${data.vacationDates}</span></div>
+        <div class="field"><span class="label">Garde:</span><span class="value">${data.vacationCare}</span></div>
+      </div>
+    ` : ''}
 
-A eu un animal avant: ${data.hadAnimalBefore}
-${data.previousAnimalDetails ? `Détails: ${data.previousAnimalDetails}` : ''}
-
-A dû se séparer d'un animal: ${data.hadToSeparate}
-${data.separationReason ? `Raison: ${data.separationReason}` : ''}
-
-${data.adoptedFromShelter ? `A déjà adopté en refuge: ${data.adoptedFromShelter}` : ''}
-
-PROJET D'ADOPTION
------------------
-Type d'animal: ${data.animalType}
-Date d'adoption souhaitée: ${data.adoptionDate}
-
-MOTIVATIONS:
-${data.motivation}
-
-OPINION SUR LA STÉRILISATION:
-${data.sterilizationOpinion}
-
-Soin pendant absences: ${data.careAbsence.join(', ')}
-${data.careAbsenceOther ? `Autre: ${data.careAbsenceOther}` : ''}
-
-Engagement long terme: ${data.longTermCommitment}
-Tout le monde d'accord: ${data.everyoneAgrees}
-Connaît les besoins de l'animal: ${data.knowsAnimalNeeds}
-A pensé aux dégâts: ${data.thoughtAboutDamages}
-
-BUDGET & SOINS
---------------
-Connaît frais vétérinaires: ${data.knowsVetCosts}
-${data.vetCostsEstimate ? `Estimation annuelle: ${data.vetCostsEstimate}` : ''}
-Seuil paiement urgence: ${data.emergencyPaymentThreshold}
-
-ACTION SI ANIMAL MALADE:
-${data.sickAnimalAction}
-
-REPAS:
-${data.mealsDescription}
-
-Budget mensuel connu: ${data.knowsMonthlyBudget}
-${data.monthlyBudgetEstimate ? `Estimation: ${data.monthlyBudgetEstimate}` : ''}
-
-${data.rabbitHabitat ? `Habitat lapin: ${data.rabbitHabitat}` : ''}
-
-Localisation animal au travail: ${data.animalLocationWork}
-${data.animalLocationWorkSurface ? `Surface: ${data.animalLocationWorkSurface} m²` : ''}
-
-Localisation animal à la maison: ${data.animalLocationHome}
-${data.animalLocationHomeSurface ? `Surface: ${data.animalLocationHomeSurface} m²` : ''}
-
-${data.secondRabbit ? `Second lapin: ${data.secondRabbit}` : ''}
-
-DIVERS
-------
-Comment a connu l'association: ${data.howHeardAbout}
-${data.howHeardAboutOther ? `Précision: ${data.howHeardAboutOther}` : ''}
-
-${data.remarks ? `REMARQUES/QUESTIONS:\n${data.remarks}` : ''}
-`;
+    ${data.questions ? `
+      <div class="section">
+        <h2>❓ Questions</h2>
+        <div class="field"><span class="value">${data.questions}</span></div>
+      </div>
+    ` : ''}
+  </div>
+</body>
+</html>
+  `;
 
   try {
     const { data: emailData, error } = await resend.emails.send({
-      from: 'Adoptions Nine Lives <onboarding@resend.dev>',
+      from: 'Adoption Nine Lives <onboarding@resend.dev>',
       to: ['asso@ninelives.fr'],
-      subject: `Nouvelle demande d'adoption${data.animalName ? ` - ${data.animalName}` : ''}`,
-      text: emailBody,
+      subject: `Demande d'adoption - ${data.catName} - ${data.firstName} ${data.lastName}`,
+      html: htmlBody,
     });
 
     if (error) {
@@ -147,4 +143,3 @@ ${data.remarks ? `REMARQUES/QUESTIONS:\n${data.remarks}` : ''}
     return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
   }
 }
-
