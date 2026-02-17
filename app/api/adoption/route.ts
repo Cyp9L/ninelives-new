@@ -11,6 +11,20 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: false }, { status: 400 });
   }
 
+  // Verify captcha
+  const turnstileRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      secret: process.env.TURNSTILE_SECRET_KEY,
+      response: data.captchaToken,
+    }),
+  });
+  const turnstileData = await turnstileRes.json();
+  if (!turnstileData.success) {
+    return NextResponse.json({ error: 'Captcha verification failed' }, { status: 400 });
+  }
+
   // Look up cat for image
   let catImageHtml = '';
   if (data.animalName) {
@@ -227,4 +241,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
   }
 }
+
 
