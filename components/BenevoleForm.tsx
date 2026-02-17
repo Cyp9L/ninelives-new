@@ -265,7 +265,6 @@ export default function BenevoleForm() {
       </div>
 
       <div style={{ padding: '1rem', background: '#fef3c7', border: '1px solid #fbbf24', borderRadius: '4px', fontSize: '0.95rem' }}>
-        <strong>Comme indiqué sur ce site, nous ne disposons pas de refuge</strong>, tous.95rem' }}>
         <strong>Comme indiqué sur ce site, nous ne disposons pas de refuge</strong>, tous nos animaux sont en familles d'accueil. Les familles d'accueil prennent soin des animaux dont elles ont la garde, nous n'avons donc pas besoin d'autres bénévoles pour nourrir les animaux, nettoyer les litières ou un local, câliner des chats, ...
       </div>
 
