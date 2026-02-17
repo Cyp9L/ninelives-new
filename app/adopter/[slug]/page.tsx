@@ -1,16 +1,10 @@
 import { notFound } from 'next/navigation';
 import { getAllCats, getCatBySlug } from '@/lib/trello';
 import Link from 'next/link';
+import ReactMarkdown from 'react-markdown';
 
 export const revalidate = 60;
 export const dynamicParams = true;
-
-function markdownToHtml(text: string): string {
-  return text
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g, '<em>$1</em>')
-    .replace(/\n/g, '<br />');
-}
 
 export async function generateStaticParams() {
   const { all } = await getAllCats();
@@ -113,11 +107,11 @@ export default async function AdopterChatPage({ params }: { params: Promise<{ sl
               lineHeight: '1.8', 
               color: '#4b5563' 
             }}
-            dangerouslySetInnerHTML={{ 
-              __html: markdownToHtml(cat.description || `${cat.name} est à la recherche d'une famille aimante.`) 
-            }}
-          />
-
+          >
+            <ReactMarkdown>
+              {cat.description || `${cat.name} est à la recherche d'une famille aimante.`}
+            </ReactMarkdown>
+          </div>
           {/* Adoption CTA */}
           <div style={{ marginTop: '2.5rem', textAlign: 'center' }}>
             <Link 
