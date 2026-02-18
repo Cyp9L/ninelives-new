@@ -1,8 +1,23 @@
 import type { Metadata } from "next";
+import { Poppins } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Lightbox from '@/components/Lightbox';
+
+const poppins = Poppins({
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+});
+
+const helloCasual = localFont({
+  src: "../public/fonts/HelloCasual.ttf",
+  variable: "--font-hello-casual",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ninelives.fr"),
@@ -75,7 +90,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body>
+      <body className={`${poppins.variable} ${helloCasual.variable}`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
