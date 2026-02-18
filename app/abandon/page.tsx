@@ -3,130 +3,141 @@ import Link from 'next/link';
 
 export const metadata = {
   title: 'Abandon / Prise en charge | Nine Lives Paris',
-  description: 'Confiez un animal à l\'association Nine Lives Paris. Nous recueillons les animaux des personnes hospitalisées, en maison de retraite ou décédées.',
+  description: "Confiez un animal à l'association Nine Lives Paris. Nous recueillons les animaux des personnes hospitalisées, en maison de retraite ou décédées.",
 };
 
 export default function AbandonPage() {
   return (
     <main>
       {/* Header */}
-      <section style={{
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        color: 'white',
-        padding: '4rem 2rem',
-        textAlign: 'center'
-      }}>
+      <section className="page-header">
         <div className="container">
-          <h1 style={{ fontSize: '3rem', fontWeight: '300', marginBottom: '1rem' }}>
-            Prise en charge
-          </h1>
+          <h1>Prise en charge</h1>
         </div>
       </section>
 
       {/* Intro */}
       <section className="section">
-        <div className="container" style={{ maxWidth: '900px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '3rem', alignItems: 'center' }}>
-            <div style={{ borderRadius: '8px', overflow: 'hidden' }}>
-              <img
-                src="/images/abandon-kitten.webp"
-                alt="Chaton dans une cagette"
-                style={{ width: '100%', height: 'auto', display: 'block' }}
-              />
-            </div>
-            <div style={{ fontSize: '1.125rem', lineHeight: '1.8', color: '#4b5563' }}>
-              <p style={{ marginBottom: '1rem' }}>
-                L&apos;une de nos missions est de <strong>recueillir les animaux des personnes hospitalisées, placées en maison de retraite ou décédées</strong>. Nous pouvons également prendre en charge les portées de chatons non désirés ou les <a href="#trouve" style={{ color: '#2563eb', textDecoration: 'underline' }}>chats trouvés</a>.
-              </p>
-              <p style={{ marginBottom: '1rem' }}>
-                Remplissez le <a href="#formulaire" style={{ color: '#2563eb', textDecoration: 'underline' }}>formulaire</a> ci-dessous et nous vous recontacterons.
-              </p>
-              <p>
-                Si l&apos;animal que vous souhaitez nous confier ne correspond pas à l&apos;une de ces situations, merci de lire <a href="#abandon" style={{ color: '#2563eb', textDecoration: 'underline' }}>ce qui suit</a>.
-              </p>
-            </div>
+        <div className="container-mid">
+          <div className="float-img-left">
+            <img src="/images/abandon-kitten.webp" alt="Chaton dans une cagette" />
           </div>
+
+          <p className="text-large mb-md">
+            L&apos;une de nos missions est de <strong>recueillir les animaux des personnes hospitalisées, placées en maison de retraite ou décédées</strong>. Nous pouvons également prendre en charge les portées de chatons non désirés ou les <a href="#trouve" className="link-blue">chats trouvés</a>.
+          </p>
+          <p className="text-large mb-md">
+            Remplissez le <a href="#formulaire" className="link-blue">formulaire</a> ci-dessous et nous vous recontacterons.
+          </p>
+          <p className="text-large">
+            Si l&apos;animal que vous souhaitez nous confier ne correspond pas à l&apos;une de ces situations, merci de lire <a href="#abandon" className="link-blue">ce qui suit</a>.
+          </p>
+
+          <div style={{ clear: 'both' }} />
         </div>
       </section>
 
-      {/* Vous avez trouvé un chat ? */}
+      {/* Vous avez trouvé un animal ? */}
       <section id="trouve" className="section section-gray">
-        <div className="container" style={{ maxWidth: '900px' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: '300', marginBottom: '2.5rem' }}>
-            Vous avez trouvé un chat ?
-          </h2>
+        <div className="container-mid">
+          <h2>Vous avez trouvé un animal ?</h2>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr', gap: '2rem', alignItems: 'start', marginBottom: '3rem' }}>
-            <div style={{ fontSize: '3.5rem', textAlign: 'center' }}>🏥</div>
-            <div style={{ fontSize: '1.125rem', lineHeight: '1.8', color: '#4b5563' }}>
-              <p style={{ marginBottom: '1rem' }}>
-                La première chose à faire est de l&apos;emmener chez <a href="https://sospets.fr/" target="_blank" rel="noopener noreferrer" style={{ color: '#2563eb', textDecoration: 'underline' }}>le vétérinaire le plus proche</a>, afin de vérifier s&apos;il est équipé d&apos;une puce électronique. C&apos;est totalement gratuit.
+          <div className="icon-text">
+            <div className="icon-text-icon">🏥</div>
+            <div>
+              <p className="text-body">
+                La première chose à faire est de l&apos;emmener chez <a href="https://sospets.fr/" target="_blank" rel="noopener noreferrer" className="link-blue">le vétérinaire le plus proche</a> pour vérifier s&apos;il a une puce électronique. C&apos;est <strong>totalement gratuit</strong>.
               </p>
-              <p>
-                Si c&apos;est le cas, le vétérinaire devrait pouvoir contacter sa famille, et si tout va bien le chat pourra rentrer chez lui rapidement.
+              <p className="text-body">
+                Si c&apos;est le cas, le vétérinaire pourra contacter sa famille et l&apos;animal pourra rentrer chez lui.
               </p>
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr', gap: '2rem', alignItems: 'start' }}>
-            <div style={{ fontSize: '3.5rem', textAlign: 'center' }}>🔍</div>
-            <div style={{ fontSize: '1.125rem', lineHeight: '1.8', color: '#4b5563' }}>
-              <p style={{ marginBottom: '1rem' }}>
-                Si ce n&apos;est pas le cas, le vétérinaire devrait pouvoir faire un examen rapide du chat et vous dire son âge approximatif, s&apos;il s&apos;agit d&apos;un mâle ou d&apos;une femelle, et s&apos;il paraît en bonne santé.
+          <div className="icon-text">
+            <div className="icon-text-icon">🔍</div>
+            <div>
+              <p className="text-body">
+                S&apos;il n&apos;est pas pucé, le vétérinaire pourra vous donner son âge approximatif, son sexe et son état de santé.
               </p>
-              <p style={{ marginBottom: '1rem' }}>
-                Si vous ne pouvez absolument pas le garder même temporairement, <a href="#formulaire" style={{ color: '#2563eb', textDecoration: 'underline' }}>contactez-nous</a> ou d&apos;autres associations, afin de trouver quelqu&apos;un qui puisse l&apos;accueillir rapidement.
-              </p>
-              <p>
-                Prenez quelques photos du chat et diffusez-les autour de l&apos;endroit où vous l&apos;avez trouvé, afin de rechercher sa famille éventuelle. Collez des affiches et postez une annonce sur <a href="https://www.petalert.fr/fr-fr" target="_blank" rel="noopener noreferrer" style={{ color: '#2563eb', textDecoration: 'underline' }}>PetAlert</a>, et éventuellement sur des groupes Facebook dédiés à votre ville, ou <a href="https://www.facebook.com/AnimauxPerdusTrouves.fr/" target="_blank" rel="noopener noreferrer" style={{ color: '#2563eb', textDecoration: 'underline' }}>aux animaux perdus</a>.
+              <p className="text-body">
+                Si vous ne pouvez pas le garder, <a href="#formulaire" className="link-blue">contactez-nous</a> ou d&apos;autres associations. Prenez des photos et diffusez-les : affiches dans le quartier, annonce sur <a href="https://www.petalert.fr/fr-fr" target="_blank" rel="noopener noreferrer" className="link-blue">PetAlert</a> et sur les <a href="https://www.facebook.com/AnimauxPerdusTrouves.fr/" target="_blank" rel="noopener noreferrer" className="link-blue">groupes Facebook dédiés</a>.
               </p>
             </div>
           </div>
+
+          {/* Detailed guides */}
+          <details className="accordion">
+            <summary>🦊 Il s&apos;agit d&apos;un animal sauvage</summary>
+            <div className="accordion-content">
+              <p className="text-body">
+                <strong>Il est peu réactif ou blessé :</strong> munissez-vous de gants et d&apos;une serviette, placez-le dans une caisse de transport ou un carton troué, et déposez-le au CHUV de Maisons-Alfort (<a href="https://goo.gl/maps/iknnXpz2KT6kvi6y7" target="_blank" rel="noopener noreferrer" className="link-blue">7 avenue du Général de Gaulle</a>, ouvert 365 j/an de 10h à 18h).
+              </p>
+              <p className="text-body">
+                Si vous ne pouvez pas l&apos;attraper, appelez les pompiers (18) ou l&apos;OFB (Île-de-France, Vincennes : 01 45 14 36 00).
+              </p>
+              <p className="text-body">
+                <strong>Il s&apos;agit d&apos;un petit (faon, renardeau, chouette…) :</strong> la maman n&apos;est généralement pas loin. N&apos;intervenez pas ! En cas de doute, écrivez à <a href="mailto:contact@faune-alfort.org" className="link-blue">contact@faune-alfort.org</a>.
+              </p>
+              <p className="text-small text-muted">
+                Source : <a href="https://www.faune-alfort.org/informations-pratiques/je-trouve-un-animal-que-faire/" target="_blank" rel="noopener noreferrer" className="link-blue">faune-alfort.org</a>
+              </p>
+            </div>
+          </details>
+
+          <details className="accordion">
+            <summary>🐱 Animal domestique — vous pouvez l&apos;attraper</summary>
+            <div className="accordion-content">
+              <p className="text-body">
+                Emmenez-le chez <a href="https://sospets.fr/" target="_blank" rel="noopener noreferrer" className="link-blue">le vétérinaire le plus proche</a> pour vérifier s&apos;il est identifié (gratuit). Si oui, le vétérinaire contactera ses propriétaires.
+              </p>
+              <p className="text-body"><strong>S&apos;il n&apos;est pas identifié :</strong></p>
+              <ol className="process-list">
+                <li>Faites le tour des voisins et commerçants. Si vous n&apos;avez pas d&apos;animaux, vous pouvez le ramener chez vous. Sinon, isolez-le ou confiez-le à quelqu&apos;un.</li>
+                <li>Prenez des photos reconnaissables. Déclarez-le sur <a href="https://www.petalertfrance.com/" target="_blank" rel="noopener noreferrer" className="link-blue">PetAlert</a> (gratuit). Imprimez des affiches avec photo, adresse et votre contact.</li>
+                <li>Contactez des associations selon l&apos;espèce — liste sur <a href="https://www.secondechance.org/refuge/recherche" target="_blank" rel="noopener noreferrer" className="link-blue">Seconde Chance</a>.</li>
+              </ol>
+            </div>
+          </details>
+
+          <details className="accordion">
+            <summary>🐱 Animal domestique — vous ne pouvez pas l&apos;attraper</summary>
+            <div className="accordion-content">
+              <p className="text-body">
+                Prenez des photos de l&apos;animal et de l&apos;endroit, puis contactez les associations les plus proches avec un maximum d&apos;informations. Vous pouvez aussi publier sur le <a href="https://www.facebook.com/groups/wantedcommunityanimaux/" target="_blank" rel="noopener noreferrer" className="link-blue">groupe Facebook Wanted Community Animaux</a>.
+              </p>
+              <p className="text-body">
+                Consultez les annonces d&apos;animaux perdus et déclarez-le comme vu sur <a href="https://www.petalertfrance.com/" target="_blank" rel="noopener noreferrer" className="link-blue">PetAlert</a> (gratuit).
+              </p>
+            </div>
+          </details>
         </div>
       </section>
 
       {/* Vous souhaitez nous confier votre animal ? */}
       <section id="abandon" className="section">
-        <div className="container" style={{ maxWidth: '900px' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: '300', marginBottom: '2.5rem' }}>
-            Vous souhaitez nous confier votre animal ?
-          </h2>
+        <div className="container-mid">
+          <h2>Vous souhaitez nous confier votre animal ?</h2>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', alignItems: 'center', marginBottom: '2.5rem' }}>
-            <div style={{ fontSize: '1.125rem', lineHeight: '1.8', color: '#4b5563' }}>
-              <p style={{ marginBottom: '1rem' }}>
-                Vous trouverez la procédure plus bas.
-              </p>
-              <p style={{ marginBottom: '1rem' }}>
-                Lorsque vous avez accueilli votre animal, vous vous êtes engagé vis-à-vis de lui à lui fournir un toit et la sécurité pour <strong>toute sa vie</strong>. Vous êtes bien souvent la seule famille qu&apos;il ait connue. Il fait partie de votre famille et de votre foyer.
-              </p>
-              <p>
-                Un animal est un être vivant et doté d&apos;émotions, ce n&apos;est pas un objet de consommation dont on peut se débarrasser sans penser aux conséquences.
-              </p>
-            </div>
-            <div style={{ borderRadius: '8px', overflow: 'hidden' }}>
-              <img
-                src="/images/petit-prince.webp"
-                alt="Citation du Petit Prince sur les animaux"
-                style={{ width: '100%', height: 'auto', display: 'block' }}
-              />
-            </div>
+          <div className="float-img-right">
+            <img src="/images/petit-prince.webp" alt="Citation du Petit Prince" />
           </div>
 
-          <div style={{
-            background: '#fee2e2',
-            border: '1px solid #fca5a5',
-            borderRadius: '8px',
-            padding: '1.5rem',
-            fontSize: '1.125rem',
-            lineHeight: '1.8',
-            color: '#991b1b'
-          }}>
-            <p style={{ marginBottom: '1rem' }}>
-              <em><strong>L'abandon d'un animal domestique est puni de trois ans d'emprisonnement et de 45 000 euros d'amende (article 521-1 du Code pénal). En cas d'abandon dans des conditions présentant un risque de mort pour l'animal, les peines sont portées à quatre ans d'emprisonnement et 60 000 euros d'amende.</strong></em>
+          <p className="text-large mb-md">
+            Lorsque vous avez accueilli votre animal, vous vous êtes engagé à lui fournir un toit et la sécurité pour <strong>toute sa vie</strong>. Il fait partie de votre famille.
+          </p>
+          <p className="text-large mb-lg">
+            Un animal est un être vivant doté d&apos;émotions, pas un objet dont on se débarrasse.
+          </p>
+
+          <div style={{ clear: 'both' }} />
+
+          <div className="alert alert-error">
+            <p>
+              <em><strong>L&apos;abandon d&apos;un animal domestique est puni de trois ans d&apos;emprisonnement et de 45 000 euros d&apos;amende (article 521-1 du Code pénal). En cas d&apos;abandon présentant un risque de mort, les peines sont portées à quatre ans et 60 000 euros.</strong></em>
             </p>
             <p>
-              Nous nous devons d&apos;informer et de sensibiliser. Nous utilisons le mot abandon car pour l&apos;animal, c&apos;est toujours ressenti comme tel. Peu importe la raison. Dans l&apos;intérêt de l&apos;animal, nous sommes cependant disposés à le recueillir, sous réserve des places disponibles. Si vous ne l&apos;avez pas déjà fait, merci de lire <Link href="/abandon/solutions" style={{ color: '#991b1b', textDecoration: 'underline' }}>cette page</Link>.
+              Nous utilisons le mot abandon car pour l&apos;animal, c&apos;est toujours ressenti comme tel. Dans l&apos;intérêt de l&apos;animal, nous sommes disposés à le recueillir sous réserve des places disponibles. Merci de lire <Link href="/abandon/solutions" style={{ color: '#991b1b', textDecoration: 'underline' }}>les solutions pour éviter l&apos;abandon</Link>.
             </p>
           </div>
         </div>
@@ -134,15 +145,12 @@ export default function AbandonPage() {
 
       {/* Form */}
       <section id="formulaire" className="section section-gray">
-        <div className="container" style={{ maxWidth: '800px' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: '300', marginBottom: '2rem', textAlign: 'center' }}>
-            Formulaire de prise en charge
-          </h2>
-          <p style={{ textAlign: 'center', color: '#4b5563', marginBottom: '3rem' }}>
+        <div className="container-narrow">
+          <h2 className="text-center">Formulaire de prise en charge</h2>
+          <p className="text-center text-muted mb-xl">
             Remplissez ce formulaire et nous vous recontacterons dans les meilleurs délais.
           </p>
-
-          <div style={{ background: 'white', padding: '3rem', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+          <div className="form-container">
             <AbandonForm />
           </div>
         </div>
