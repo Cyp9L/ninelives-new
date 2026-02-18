@@ -37,6 +37,9 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
     acceptsPrivacy: false, honeypot: ''
   });
 
+  const [currentAnimals, setCurrentAnimals] = useState<string[]>(['']);
+  const [previousAnimals, setPreviousAnimals] = useState<string[]>(['']);
+
   useEffect(() => {
     if (!preselectedCat && !formData.animalName) {
       const params = new URLSearchParams(window.location.search);
@@ -62,10 +65,16 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
     if (formData.honeypot) return;
     setStatus('sending');
     try {
+      const dataToSend = {
+        ...formData,
+        currentAnimalDetails: currentAnimals.filter(a => a.trim()).join('\n'),
+        previousAnimalDetails: previousAnimals.filter(a => a.trim()).join('\n'),
+        captchaToken,
+      };
       const res = await fetch('/api/adoption', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, captchaToken })
+        body: JSON.stringify(dataToSend)
       });
       if (res.ok) { setStatus('success'); window.scrollTo(0, 0); }
       else setStatus('error');
@@ -103,6 +112,49 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
         onChange={(e) => setFormData({...formData, [field]: e.target.value})} />
       {value}
     </label>
+  );
+
+  // Helper for multi-animal inputs
+  const animalInputs = (
+    animals: string[],
+    setAnimals: React.Dispatch<React.SetStateAction<string[]>>
+  ) => (
+    <>
+      {animals.map((animal, i) => (
+        <div key={i} style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
+          <input
+            type="text"
+            required
+            className="form-input"
+            placeholder={`Animal ${i + 1} — ex : chat européen, femelle, 3 ans`}
+            value={animal}
+            onChange={(e) => {
+              const updated = [...animals];
+              updated[i] = e.target.value;
+              setAnimals(updated);
+            }}
+          />
+          {animals.length > 1 && (
+            <button
+              type="button"
+              className="btn btn-outline"
+              style={{ padding: '0.5rem 0.75rem', flexShrink: 0 }}
+              onClick={() => setAnimals(animals.filter((_, j) => j !== i))}
+            >
+              ✕
+            </button>
+          )}
+        </div>
+      ))}
+      <button
+        type="button"
+        className="btn btn-outline"
+        style={{ padding: '0.4rem 1rem', fontSize: '0.9rem' }}
+        onClick={() => setAnimals([...animals, ''])}
+      >
+        + Ajouter un animal
+      </button>
+    </>
   );
 
   return (
@@ -396,8 +448,7 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
         <>
           <div>
             <label className="form-label">Espèce, race, sexe et âge *</label>
-            <input type="text" required className="form-input" value={formData.currentAnimalDetails}
-              onChange={(e) => setFormData({...formData, currentAnimalDetails: e.target.value})} />
+            {animalInputs(currentAnimals, setCurrentAnimals)}
           </div>
           <div>
             <label className="form-label">Vos animaux sont-ils</label>
@@ -433,8 +484,7 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
       {hadPreviousAnimal && (
         <div>
           <label className="form-label">Espèce, race, sexe et âge *</label>
-          <input type="text" required className="form-input" value={formData.previousAnimalDetails}
-            onChange={(e) => setFormData({...formData, previousAnimalDetails: e.target.value})} />
+          {animalInputs(previousAnimals, setPreviousAnimals)}
         </div>
       )}
 
