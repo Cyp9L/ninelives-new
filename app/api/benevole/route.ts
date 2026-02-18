@@ -195,7 +195,7 @@ export async function POST(request: Request) {
 
   try {
     const { data: emailData, error } = await resend.emails.send({
-      from: 'Bénévolat Nine Lives <onboarding@resend.dev>',
+      from: 'Bénévolat Nine Lives <asso@ninelives.fr>',
       to: ['asso@ninelives.fr'],
       ...(data.email ? { cc: [data.email] } : {}),
       subject: `Nouvelle candidature ${data.volunteerType} - ${data.firstName} ${data.lastName}`,

@@ -15,7 +15,7 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
     lastName: '', firstName: '', address: '', postalCode: '', city: '',
     mobilePhone: '', landlinePhone: '', email: '', age: '',
     surface: '', housingType: '', hasGardenEnclosed: false,
-    hasBalcony: false, noBalcony: false, floor: '',
+    floor: '',
     isOwner: '', hasPermission: '', movingSoon: '', movingAddress: '',
     employed: '', employedOther: '', numAdults: '', numChildren: '',
     childrenAges: '', someoneHomeDuringDay: '', hoursAbsence: '',
@@ -243,23 +243,11 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
       )}
 
       {isApartment && (
-        <>
-          <label className="form-checkbox">
-            <input type="checkbox" checked={formData.hasBalcony}
-              onChange={(e) => setFormData({...formData, hasBalcony: e.target.checked})} />
-            <span>Avec balcon ou terrasse</span>
-          </label>
-          <label className="form-checkbox">
-            <input type="checkbox" checked={formData.noBalcony}
-              onChange={(e) => setFormData({...formData, noBalcony: e.target.checked})} />
-            <span>Sans balcon ou terrasse</span>
-          </label>
-          <div>
-            <label className="form-label">Quel étage ? *</label>
-            <input type="number" required className="form-input" value={formData.floor}
-              onChange={(e) => setFormData({...formData, floor: e.target.value})} />
-          </div>
-        </>
+        <div>
+          <label className="form-label">Quel étage ? *</label>
+          <input type="number" required className="form-input" value={formData.floor}
+            onChange={(e) => setFormData({...formData, floor: e.target.value})} />
+        </div>
       )}
 
       <div>
