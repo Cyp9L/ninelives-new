@@ -85,7 +85,7 @@ export async function POST(request: Request) {
 
   try {
     const { data: emailData, error } = await resend.emails.send({
-      from: 'Contact Nine Lives <onboarding@resend.dev>',
+      from: 'Contact Nine Lives <asso@ninelives.fr>',
       to: ['asso@ninelives.fr'],
       reply_to: data.email,
       ...(data.email ? { cc: [data.email] } : {}),
