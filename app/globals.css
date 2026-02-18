@@ -1184,7 +1184,17 @@ main img:hover {
   .page-header h1 {
     font-size: 1.85rem;
   }
+.price-comparison {
+    grid-template-columns: 1fr;
+  }
 
+  .price-line {
+    font-size: 0.9rem;
+  }
+
+  .price-line-value {
+    margin-left: 0.5rem;
+  }
   .container,
   .container-narrow,
   .container-form {
