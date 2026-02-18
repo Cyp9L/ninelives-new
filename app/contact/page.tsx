@@ -2,7 +2,13 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Captcha from '@/components/Captcha';
+import type { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'Contact',
+  description:
+    'Contactez l\'association Nine Lives Paris par email ou via nos réseaux sociaux. Nous répondons à toutes vos questions sur l\'adoption et le bénévolat.',
+};
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     firstName: '', lastName: '', email: '', subject: '',

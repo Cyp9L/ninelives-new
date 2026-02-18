@@ -17,6 +17,7 @@ export default function Navigation() {
     { href: '/abandon', label: "J'ai besoin d'aide" },
     { href: '/donner', label: 'Faire un don' },
     { href: '/partenaires', label: 'Partenaires' },
+    { href: '/medias', label: 'Apparitions Medias' },
     { href: '/contact', label: 'Contact' },
   ];
 
@@ -26,7 +27,7 @@ export default function Navigation() {
   return (
     <nav className="nav">
       <div className="nav-inner">
-        <Link href="/" onClick={close} className="nav-logo" data-no-lightbox>
+        <Link href="/" onClick={close} className="nav-logo" >
           <Image src="/logo-nine-lives-paris.png" alt="Nine Lives Paris" width={140} height={45} />
         </Link>
 

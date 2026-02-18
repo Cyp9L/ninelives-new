@@ -3,7 +3,13 @@ import Link from 'next/link';
 import AdoptionForm from '@/components/AdoptionForm';
 
 export const revalidate = 60;
+import type { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'Adopter un chat',
+  description:
+    'Découvrez nos chats à l\'adoption à Paris (75, 92, 94). Procédure, frais d\'adoption et questionnaire de pré-adoption en ligne.',
+};
 export default async function AdopterPage() {
   const { adultes } = await getAllCats();
 
@@ -58,7 +64,7 @@ export default async function AdopterPage() {
                 <li>Nous vous répondrons par mail ou téléphone dès que possible ;</li>
                 <li>Si votre profil correspond, nous organiserons une rencontre avec l&apos;animal via sa famille d&apos;accueil ;</li>
                 <li>Si le coup de cœur est réciproque, vous finalisez l&apos;adoption avec un bénévole ;</li>
-                <li>Si vous adoptez un chaton ou un lapereau, vous vous engagez à le stériliser à 6 mois.</li>
+                <li>Si vous adoptez un chaton vous vous engagez à le stériliser à 6 mois.</li>
               </ol>
               <div className="alert alert-warning" style={{ marginTop: '1rem' }}>
                 <strong>Documents nécessaires :</strong> photocopie de pièce d&apos;identité et justificatif de domicile.

@@ -1,6 +1,9 @@
-export const metadata = {
-  title: 'Nos Actions | Nine Lives Paris',
-  description: 'Découvrez nos actions : sauvetages, campagne de stérilisation, interventions en milieu scolaire.',
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Nos actions',
+  description:
+    'Sauvetage, familles d\'accueil, campagne de stérilisation à la Pitié-Salpêtrière et interventions en milieu scolaire. Découvrez les actions de Nine Lives Paris.',
 };
 
 export default function ActionsPage() {

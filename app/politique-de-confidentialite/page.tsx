@@ -1,7 +1,10 @@
-export const metadata = {
-  title: 'Politique de confidentialité | Nine Lives Paris',
-};
+import type { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'Politique de confidentialité',
+  description:
+    'Politique de confidentialité et de traitement des données personnelles de l\'association Nine Lives Paris.',
+};
 export default function PolitiqueConfidentialitePage() {
   return (
     <main>

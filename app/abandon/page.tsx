@@ -1,9 +1,11 @@
 import AbandonForm from '@/components/AbandonForm';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 
-export const metadata = {
-  title: 'Abandon / Prise en charge | Nine Lives Paris',
-  description: "Confiez un animal à l'association Nine Lives Paris. Nous recueillons les animaux des personnes hospitalisées, en maison de retraite ou décédées.",
+export const metadata: Metadata = {
+  title: 'J\'ai besoin d\'aide pour mon animal',
+  description:
+    'Vous ne pouvez plus garder votre chat ? Nine Lives Paris vous accompagne pour trouver une solution avant l\'abandon. Contactez-nous.',
 };
 
 export default function AbandonPage() {
