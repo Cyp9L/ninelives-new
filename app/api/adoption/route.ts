@@ -195,14 +195,10 @@ export async function POST(request: Request) {
       ${f('Repas envisagés', data.mealsDescription)}
       ${f('Connaît le budget mensuel', data.knowsMonthlyBudget)}
       ${data.knowsMonthlyBudget === 'Oui' ? f('Estimation budget mensuel', data.monthlyBudgetEstimate) : ''}
-      ${data.animalType === 'Lapin' ? `
-        ${data.rabbitHabitat ? `<div class="field"><span class="label">Habitat du lapin:</span><div class="long-text">${data.rabbitHabitat}</div></div>` : ''}
-      ` : ''}
       ${f('Lieu animal (travail/sortie)', data.animalLocationWork)}
       ${data.animalLocationWork === 'En enclos' ? f('Surface enclos (travail)', data.animalLocationWorkSurface ? data.animalLocationWorkSurface + ' m²' : '') : ''}
       ${f('Lieu animal (présent)', data.animalLocationHome)}
       ${data.animalLocationHome === 'En enclos' ? f('Surface enclos (maison)', data.animalLocationHomeSurface ? data.animalLocationHomeSurface + ' m²' : '') : ''}
-      ${data.animalType === 'Lapin' ? f('Deuxième lapin envisagé', data.secondRabbit) : ''}
     </div>
 
     <!-- DIVERS -->

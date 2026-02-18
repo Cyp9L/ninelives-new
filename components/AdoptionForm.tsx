@@ -30,9 +30,9 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
     longTermCommitment: '', everyoneAgrees: '', knowsAnimalNeeds: '',
     thoughtAboutDamages: '', knowsVetCosts: '', vetCostsEstimate: '',
     emergencyPaymentThreshold: '', sickAnimalAction: '', mealsDescription: '',
-    knowsMonthlyBudget: '', monthlyBudgetEstimate: '', rabbitHabitat: '',
+    knowsMonthlyBudget: '', monthlyBudgetEstimate: '',
     animalLocationWork: '', animalLocationWorkSurface: '',
-    animalLocationHome: '', animalLocationHomeSurface: '', secondRabbit: '',
+    animalLocationHome: '', animalLocationHomeSurface: '',
     howHeardAbout: '', howHeardAboutOther: '', remarks: '',
     acceptsPrivacy: false, honeypot: ''
   });
@@ -89,7 +89,6 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
   const careAbsenceHasOther = formData.careAbsence.includes('Autre');
   const knowsVetCosts = formData.knowsVetCosts === 'Oui';
   const knowsBudget = formData.knowsMonthlyBudget === 'Oui';
-  const isRabbit = formData.animalType === 'Lapin';
   const isCat = formData.animalType === 'Chat';
   const isDog = formData.animalType === 'Chien';
   const locationWorkEnclosure = formData.animalLocationWork === 'En enclos';
@@ -487,7 +486,6 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
         <select required className="form-select" value={formData.animalType}
           onChange={(e) => setFormData({...formData, animalType: e.target.value})}>
           <option value="Chat">Chat</option>
-          <option value="Lapin">Lapin</option>
           <option value="Chien">Chien</option>
         </select>
       </div>
@@ -550,7 +548,7 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
 
       <div>
         <label className="form-label">
-          Connaissez-vous les {isCat ? 'chats' : isDog ? 'chiens' : 'lapins'}, leurs exigences et leurs besoins ? *
+          Connaissez-vous les {isCat ? 'chats' : 'chiens'}, leurs exigences et leurs besoins ? *
         </label>
         <div className="form-radio-group">
           {radio('knowsAnimalNeeds', 'Oui', 'knowsAnimalNeeds')}
@@ -622,14 +620,6 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
         </div>
       )}
 
-      {isRabbit && (
-        <div>
-          <label className="form-label">Comment imaginez-vous l&apos;habitat de votre lapin ? *</label>
-          <textarea required rows={3} className="form-textarea" value={formData.rabbitHabitat}
-            onChange={(e) => setFormData({...formData, rabbitHabitat: e.target.value})} />
-        </div>
-      )}
-
       <div>
         <label className="form-label">Au travail ou de sortie, où sera votre animal ? *</label>
         <select required className="form-select" value={formData.animalLocationWork}
@@ -667,19 +657,6 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
           <input type="number" required className="form-input" value={formData.animalLocationHomeSurface}
             onChange={(e) => setFormData({...formData, animalLocationHomeSurface: e.target.value})} />
           <div className="form-hint">en m²</div>
-        </div>
-      )}
-
-      {isRabbit && (
-        <div>
-          <label className="form-label">Souhaitez-vous adopter un deuxième lapin pour lui tenir compagnie ? *</label>
-          <select required className="form-select" value={formData.secondRabbit}
-            onChange={(e) => setFormData({...formData, secondRabbit: e.target.value})}>
-            <option value="">Sélectionnez</option>
-            <option value="Oui">Oui</option>
-            <option value="Non">Non</option>
-            <option value="Je ne sais pas encore">Je ne sais pas encore</option>
-          </select>
         </div>
       )}
 

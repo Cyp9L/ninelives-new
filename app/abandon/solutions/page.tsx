@@ -73,15 +73,6 @@ export default function SolutionsAbandonPage() {
               </p>
             </div>
           </details>
-
-          <details className="accordion">
-            <summary>🐰 Lapin ou NAC</summary>
-            <div className="accordion-content">
-              <p className="text-body">
-                Consultez notre <a href="https://ninelives.fr/lapins-vacances/" target="_blank" rel="noopener noreferrer" className="link-purple">article dédié</a> pour trouver une solution adaptée.
-              </p>
-            </div>
-          </details>
         </div>
       </section>
 

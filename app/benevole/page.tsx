@@ -30,7 +30,7 @@ export default function BenevolePage() {
             <strong>Nous avons besoin de :</strong>
           </p>
           <ul style={{ paddingLeft: '1.5rem', listStyle: 'disc' }} className="text-large mb-lg">
-            <li>Familles d&apos;accueil pour chats, chatons, lapins</li>
+            <li>Familles d&apos;accueil pour chats, chatons</li>
             <li>Bénévoles pour transports (vétérinaire, adoption)</li>
             <li>Bénévoles pour visites pré-adoption</li>
             <li>Bénévoles pour aide administrative</li>
@@ -72,7 +72,7 @@ export default function BenevolePage() {
                       <summary>🏡 Plusieurs mois — Jusqu&apos;à adoption</summary>
                       <div className="accordion-content">
                         <p className="text-body">
-                          Vous accueillez un animal jusqu&apos;à son adoption, peu importe la durée. Lapin, chaton, adulte, ou chat craintif à socialiser.
+                          Vous accueillez un animal jusqu&apos;à son adoption, peu importe la durée. Chaton, adulte, ou chat craintif à socialiser.
                         </p>
                         <p className="text-body">
                           Votre mission : l&apos;emmener chez l&apos;un de nos vétérinaires pour vaccination, stérilisation et identification.

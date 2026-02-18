@@ -70,7 +70,7 @@ export default function DonnerPage() {
           </p>
 
           <p className="text-body">
-            Caisses de transport, bacs à litière, cages à lapins, antiparasitaires, nourriture, litière, jouets, griffoirs… Souvent, vous avez chez vous des choses qui pourraient nous être très utiles.
+            Caisses de transport, bacs à litière, antiparasitaires, nourriture, litière, jouets, griffoirs… Souvent, vous avez chez vous des choses qui pourraient nous être très utiles.
           </p>
           <p className="text-body">
             Il suffit de <a href="/contact" className="link-purple">nous contacter</a> et nous enverrons quelqu&apos;un pour récupérer vos dons.
