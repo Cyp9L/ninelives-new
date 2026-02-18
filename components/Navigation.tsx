@@ -17,7 +17,7 @@ export default function Navigation() {
     { href: '/abandon', label: "J'ai besoin d'aide" },
     { href: '/donner', label: 'Faire un don' },
     { href: '/partenaires', label: 'Partenaires' },
-    { href: '/medias', label: 'Apparitions Medias' },
+    { href: '/medias', label: 'Apparitions médias' },
     { href: '/contact', label: 'Contact' },
   ];
 
@@ -61,4 +61,5 @@ export default function Navigation() {
       )}
     </nav>
   );
+
 }
