@@ -1,7 +1,10 @@
-export const metadata = {
-  title: 'Mentions légales | Nine Lives Paris',
-};
+import type { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'Mentions légales',
+  description:
+    'Mentions légales du site ninelives.fr — Association Nine Lives Paris, loi 1901, RNA W751248523.',
+};
 export default function MentionsLegalesPage() {
   return (
     <main>

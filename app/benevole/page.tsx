@@ -1,5 +1,11 @@
 import BenevoleForm from '@/components/BenevoleForm';
+import type { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: 'Devenir bénévole ou famille d\'accueil',
+  description:
+    'Rejoignez Nine Lives Paris comme bénévole ou famille d\'accueil pour chats à Paris. Plusieurs façons d\'aider selon votre disponibilité.',
+};
 export default function BenevolePage() {
   return (
     <main>

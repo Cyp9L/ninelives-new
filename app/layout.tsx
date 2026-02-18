@@ -1,23 +1,71 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Lightbox from '@/components/Lightbox';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "Nine Lives Paris - Association de sauvetage de chats",
-  description: "L'association Nine Lives Paris recueille les chats abandonnés, trouvés, errants, sortis de fourrière.",
+  metadataBase: new URL("https://ninelives.fr"),
+  title: {
+    default: "Nine Lives Paris - Association de sauvetage de chats",
+    template: "%s | Nine Lives Paris",
+  },
+  description:
+    "L'association Nine Lives Paris recueille les chats abandonnés, trouvés, errants, sortis de fourrière.",
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    siteName: "Nine Lives Paris",
+    title: "Nine Lives Paris - Association de sauvetage de chats",
+    description:
+      "L'association Nine Lives Paris recueille les chats abandonnés, trouvés, errants, sortis de fourrière.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Nine Lives Paris - Association de sauvetage de chats",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nine Lives Paris - Association de sauvetage de chats",
+    description:
+      "L'association Nine Lives Paris recueille les chats abandonnés, trouvés, errants, sortis de fourrière.",
+    images: ["/og-image.png"],
+  },
+};
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "NGO",
+  name: "Nine Lives Paris",
+  alternateName: "Adopt' for life",
+  url: "https://ninelives.fr",
+  logo: "https://ninelives.fr/images/logo-nine-lives-paris.png",
+  description:
+    "Association loi 1901 de sauvetage de chats abandonnés, trouvés et errants à Paris.",
+  email: "asso@ninelives.fr",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "133 rue du Faubourg du Temple",
+    addressLocality: "Paris",
+    postalCode: "75010",
+    addressCountry: "FR",
+  },
+  sameAs: [
+    "https://www.instagram.com/ninelivesparis/",
+    "https://www.facebook.com/ninelivesparis",
+    "https://www.youtube.com/channel/UCM5TNRKUzUebUnw4OwLfZKA",
+  ],
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Nine Lives Paris",
+  url: "https://ninelives.fr",
 };
 
 export default function RootLayout({
@@ -27,7 +75,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteJsonLd),
+          }}
+        />
         <Navigation />
         <Lightbox />
         {children}

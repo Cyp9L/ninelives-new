@@ -1,6 +1,9 @@
-export const metadata = {
-  title: 'Faire un don | Nine Lives Paris',
-  description: 'Soutenez notre association en faisant un don financier ou matériel pour sauver des vies.',
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Faire un don',
+  description:
+    'Soutenez Nine Lives Paris par un don. Chaque euro contribue aux soins vétérinaires, à la stérilisation et au sauvetage de chats abandonnés à Paris.',
 };
 
 export default function DonnerPage() {
