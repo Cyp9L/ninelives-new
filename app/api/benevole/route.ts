@@ -76,8 +76,6 @@ export async function POST(request: Request) {
         ${data.balconySecuredHow ? `<div class="field"><span class="label">Comment:</span><span class="value">${data.balconySecuredHow}</span></div>` : ''}
         <div class="field"><span class="label">Extérieur:</span><span class="value">${data.hasOutdoor}</span></div>
         ${data.outdoorSecured ? `<div class="field"><span class="label">Extérieur sécurisé:</span><span class="value">${data.outdoorSecured}</span></div>` : ''}
-        <div class="field"><span class="label">Sécurisé pour lapin:</span><span class="value">${data.rabbitSecured}</span></div>
-        ${data.willSecureForRabbit ? `<div class="field"><span class="label">Prêt à sécuriser:</span><span class="value">${data.willSecureForRabbit}</span></div>` : ''}
         <div class="field"><span class="label">Peut faire quarantaines:</span><span class="value">${data.canDoQuarantine}</span></div>
         ${data.wantPitieSalpetriereQuarantine ? `<div class="field"><span class="label">Quarantaine Pitié-Salpêtrière:</span><span class="value">${data.wantPitieSalpetriereQuarantine}</span></div>` : ''}
         ${data.quarantineRoom ? `<div class="field"><span class="label">Pièce quarantaine:</span><span class="value">${data.quarantineRoom}</span></div>` : ''}
@@ -93,7 +91,6 @@ export async function POST(request: Request) {
         ${data.hasAnimalsHome === 'Oui' ? `
           <div class="field"><span class="label">Chiens:</span><span class="value">${data.numDogs || 0}</span></div>
           <div class="field"><span class="label">Chats:</span><span class="value">${data.numCats || 0}</span></div>
-          <div class="field"><span class="label">Lapins:</span><span class="value">${data.numRabbits || 0}</span></div>
           <div class="field"><span class="label">Autres:</span><span class="value">${data.numOthers || 0}</span></div>
           <div class="field"><span class="label">Détails:</span><span class="value">${data.animalsDetails}</span></div>
           <div class="field"><span class="label">Où vivent-ils:</span><span class="value">${data.animalsLocation}</span></div>

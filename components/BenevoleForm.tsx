@@ -9,10 +9,9 @@ export default function BenevoleForm() {
     volunteerType: '',
     surface: '', housingType: '', numRooms: '', floor: '',
     balconySecured: '', balconySecuredHow: '', hasOutdoor: '', outdoorSecured: '',
-    rabbitSecured: '', willSecureForRabbit: '',
     canDoQuarantine: '', wantPitieSalpetriereQuarantine: '', quarantineRoom: '',
     numPeopleHousehold: '', hasChildren: '', childrenAges: '', childrenUsedToAnimals: '',
-    hasAnimalsHome: '', numDogs: '', numCats: '', numRabbits: '', numOthers: '',
+    hasAnimalsHome: '', numDogs: '', numCats: '', numOthers: '',
     animalsDetails: '', animalsLocation: '',
     animalsSterilized: false, animalsIdentified: false,
     animalsVaccinated: false, animalsTested: false,
@@ -63,7 +62,6 @@ export default function BenevoleForm() {
   const isApartment = formData.housingType === 'En appartement';
   const hasBalcony = formData.balconySecured === 'Oui';
   const hasOutdoor = formData.hasOutdoor === 'Oui';
-  const needsRabbitSecuring = formData.rabbitSecured === 'Non';
   const canQuarantine = formData.canDoQuarantine === 'Oui';
   const hasChildrenYes = formData.hasChildren === 'Oui';
   const hasAnimals = formData.hasAnimalsHome === 'Oui';
@@ -247,30 +245,6 @@ export default function BenevoleForm() {
             )}
           </div>
 
-          <div className="form-grid">
-            <div>
-              <label className="form-label">Logement sécurisé pour un lapin ? *</label>
-              <select required className="form-select" value={formData.rabbitSecured}
-                onChange={(e) => setFormData({...formData, rabbitSecured: e.target.value})}>
-                <option value="">Sélectionnez</option>
-                <option value="Oui">Oui</option>
-                <option value="Non">Non</option>
-              </select>
-            </div>
-            {needsRabbitSecuring && (
-              <div>
-                <label className="form-label">Prêt.e à le sécuriser ? *</label>
-                <select required className="form-select" value={formData.willSecureForRabbit}
-                  onChange={(e) => setFormData({...formData, willSecureForRabbit: e.target.value})}>
-                  <option value="">Sélectionnez</option>
-                  <option value="Oui">Oui</option>
-                  <option value="Non">Non</option>
-                </select>
-                <div className="form-hint">installations électriques, meubles, déco…</div>
-              </div>
-            )}
-          </div>
-
           <div>
             <label className="form-label">Pouvez-vous effectuer des quarantaines ? *</label>
             <div className="form-radio-group">
@@ -346,7 +320,7 @@ export default function BenevoleForm() {
 
           {hasAnimals && (
             <>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '1rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
                 <div>
                   <label className="form-label">Chiens *</label>
                   <input type="number" required className="form-input" value={formData.numDogs}
@@ -356,11 +330,6 @@ export default function BenevoleForm() {
                   <label className="form-label">Chats *</label>
                   <input type="number" required className="form-input" value={formData.numCats}
                     onChange={(e) => setFormData({...formData, numCats: e.target.value})} />
-                </div>
-                <div>
-                  <label className="form-label">Lapins *</label>
-                  <input type="number" required className="form-input" value={formData.numRabbits}
-                    onChange={(e) => setFormData({...formData, numRabbits: e.target.value})} />
                 </div>
                 <div>
                   <label className="form-label">Autres *</label>
@@ -402,7 +371,7 @@ export default function BenevoleForm() {
           )}
 
           <div>
-            <label className="form-label">Heures seul par jour ? *</label>
+            <label className="form-label">Combien d'heures par jour le chat va-t-il rester seul ? *</label>
             <input type="text" required className="form-input" value={formData.hoursAlonePerDay}
               onChange={(e) => setFormData({...formData, hoursAlonePerDay: e.target.value})} />
           </div>

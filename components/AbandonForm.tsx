@@ -110,7 +110,6 @@ export default function AbandonForm() {
             <option value="">Sélectionnez</option>
             <option value="Chat">Chat</option>
             <option value="Chien">Chien</option>
-            <option value="Lapin">Lapin</option>
           </select>
         </div>
         <div>

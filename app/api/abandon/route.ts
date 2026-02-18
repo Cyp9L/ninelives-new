@@ -31,7 +31,7 @@ export async function POST(request: Request) {
   };
 
   const animalName = data.name || 'Non nommé';
-  const speciesEmoji = data.species === 'Chat' ? '🐱' : data.species === 'Chien' ? '🐶' : data.species === 'Lapin' ? '🐰' : '🐾';
+  const speciesEmoji = data.species === 'Chat' ? '🐱' : data.species === 'Chien' ? '🐶' : '🐾';
 
   const htmlBody = `
 <!DOCTYPE html>
