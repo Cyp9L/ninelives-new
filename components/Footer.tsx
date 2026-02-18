@@ -15,7 +15,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3>Liens rapides</h3>
+            <h3>Liens</h3>
             <div className="footer-links">
               <Link href="/adopter">Adopter</Link>
               <Link href="/donner">Faire un don</Link>
@@ -65,4 +65,5 @@ export default function Footer() {
       </div>
     </footer>
   );
+
 }
