@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { escapeHtml } from '@/lib/sanitize';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -28,6 +29,13 @@ export async function POST(request: Request) {
     return `<div class="field"><span class="label">${label}:</span> <span class="value">${value}</span></div>`;
   };
 
+  const safeSubject = data.subject || 'Pas de sujet';
+  const safeFirstName = escapeHtml(data.firstName);
+  const safeLastName = escapeHtml(data.lastName);
+  const safeEmail = escapeHtml(data.email);
+  const safeMessage = data.message ? escapeHtml(data.message) : '';
+  const safeDonationNote = data.donationNote ? escapeHtml(data.donationNote) : '';
+
   const htmlBody = `
 <!DOCTYPE html>
 <html>
@@ -51,23 +59,23 @@ export async function POST(request: Request) {
 <body>
   <div class="header">
     <h1>📬 Nouveau message de contact</h1>
-    <div class="subject">${data.subject || 'Pas de sujet'}</div>
+    <div class="subject">${escapeHtml(safeSubject)}</div>
   </div>
 
   <div class="content">
 
     <div class="section">
       <h2>👤 Expéditeur</h2>
-      ${f('Prénom', data.firstName)}
-      ${f('Nom', data.lastName)}
-      ${f('Email', data.email ? `<a href="mailto:${data.email}">${data.email}</a>` : '')}
+      ${f('Prénom', safeFirstName)}
+      ${f('Nom', safeLastName)}
+      ${f('Email', data.email ? `<a href="mailto:${safeEmail}">${safeEmail}</a>` : '')}
     </div>
 
     <div class="section">
       <h2>💬 Message</h2>
-      ${f('Sujet', data.subject)}
-      ${data.message ? `<div class="field"><span class="label">Message:</span><div class="long-text">${data.message}</div></div>` : ''}
-      ${data.donationNote ? `<div class="field"><span class="label">Note don (lieu de retrait):</span><div class="long-text">${data.donationNote}</div></div>` : ''}
+      ${f('Sujet', escapeHtml(safeSubject))}
+      ${data.message ? `<div class="field"><span class="label">Message:</span><div class="long-text">${safeMessage}</div></div>` : ''}
+      ${data.donationNote ? `<div class="field"><span class="label">Note don (lieu de retrait):</span><div class="long-text">${safeDonationNote}</div></div>` : ''}
     </div>
 
   </div>
@@ -80,6 +88,7 @@ export async function POST(request: Request) {
       from: 'Contact Nine Lives <onboarding@resend.dev>',
       to: ['asso@ninelives.fr'],
       reply_to: data.email,
+      ...(data.email ? { cc: [data.email] } : {}),
       subject: `Contact — ${data.subject || 'Message'} — ${data.firstName} ${data.lastName}`,
       html: htmlBody,
     });
@@ -90,7 +99,7 @@ export async function POST(request: Request) {
     }
 
     console.log('Email sent successfully:', emailData);
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, message: "Message envoyé avec succès. Une copie vous a été envoyée par email." });
 
   } catch (error) {
     console.error('Error sending email:', error);

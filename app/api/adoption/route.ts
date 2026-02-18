@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { getAllCats } from '@/lib/trello';
+import { escapeHtml } from '@/lib/sanitize';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -27,6 +28,7 @@ export async function POST(request: Request) {
 
   // Look up cat for image
   let catImageHtml = '';
+  const safeAnimalName = data.animalName ? escapeHtml(data.animalName) : '';
   if (data.animalName) {
     try {
       const { all: cats } = await getAllCats();
@@ -37,7 +39,7 @@ export async function POST(request: Request) {
         const absoluteImageUrl = `${baseUrl}${cat.images[0]}`;
         catImageHtml = `
           <div style="text-align:center; margin: 15px 0;">
-            <img src="${absoluteImageUrl}" alt="${data.animalName}" style="max-width:250px; border-radius:8px;" />
+            <img src="${absoluteImageUrl}" alt="${safeAnimalName}" style="max-width:250px; border-radius:8px;" />
           </div>`;
       }
     } catch (e) {
@@ -63,7 +65,7 @@ export async function POST(request: Request) {
     return `<div class="field"><span class="label">${label}:</span> <span class="value">${value.join(', ')}</span></div>`;
   };
 
-  const catName = data.animalName || 'Non spécifié';
+  const catName = safeAnimalName || 'Non spécifié';
 
   const htmlBody = `
 <!DOCTYPE html>
@@ -97,117 +99,120 @@ export async function POST(request: Request) {
     <!-- INFORMATIONS PERSONNELLES -->
     <div class="section">
       <h2>👤 Informations personnelles</h2>
-      ${f('Nom', data.lastName)}
-      ${f('Prénom', data.firstName)}
-      ${f('Âge', data.age ? data.age + ' ans' : '')}
-      ${f('Email', data.email ? `<a href="mailto:${data.email}">${data.email}</a>` : '')}
-      ${f('Téléphone mobile', data.mobilePhone ? `<a href="tel:${data.mobilePhone}">${data.mobilePhone}</a>` : '')}
-      ${f('Téléphone fixe', data.landlinePhone ? `<a href="tel:${data.landlinePhone}">${data.landlinePhone}</a>` : '')}
-      ${f('Adresse', [data.address, data.postalCode, data.city].filter(Boolean).join(', '))}
+      ${f('Nom', escapeHtml(data.lastName))}
+      ${f('Prénom', escapeHtml(data.firstName))}
+      ${f('Âge', data.age ? `${escapeHtml(data.age)} ans` : '')}
+      ${f('Email', data.email ? `<a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a>` : '')}
+      ${f('Téléphone mobile', data.mobilePhone ? `<a href="tel:${escapeHtml(data.mobilePhone)}">${escapeHtml(data.mobilePhone)}</a>` : '')}
+      ${f('Téléphone fixe', data.landlinePhone ? `<a href="tel:${escapeHtml(data.landlinePhone)}">${escapeHtml(data.landlinePhone)}</a>` : '')}
+      ${f('Adresse', [data.address, data.postalCode, data.city].filter(Boolean).map(escapeHtml).join(', '))}
     </div>
 
     <!-- ANIMAL SOUHAITÉ -->
     <div class="section">
       <h2>🐈 Animal souhaité</h2>
-      ${f('Chat souhaité', data.animalName)}
-      ${f('Type d\'animal', data.animalType)}
-      ${f('Date d\'adoption souhaitée', data.adoptionDate)}
+      ${f('Chat souhaité', safeAnimalName)}
+      ${f('Type d\'animal', escapeHtml(data.animalType))}
+      ${f('Date d\'adoption souhaitée', escapeHtml(data.adoptionDate))}
     </div>
 
     <!-- LOGEMENT -->
     <div class="section">
       <h2>🏠 Logement</h2>
-      ${f('Type de logement', data.housingType)}
-      ${f('Superficie', data.surface ? data.surface + ' m²' : '')}
+      ${f('Type de logement', escapeHtml(data.housingType))}
+      ${f('Superficie', data.surface ? `${escapeHtml(data.surface)} m²` : '')}
       ${data.housingType === 'Maison' ? bool('Jardin clôturé', data.hasGardenEnclosed) : ''}
       ${data.housingType === 'Appartement' ? `
         ${bool('Balcon ou terrasse', data.hasBalcony)}
         ${bool('Sans balcon ou terrasse', data.noBalcony)}
-        ${f('Étage', data.floor)}
+        ${f('Étage', escapeHtml(data.floor))}
       ` : ''}
-      ${f('Propriétaire', data.isOwner)}
-      ${data.isOwner === 'Non' ? f('Permission avoir un animal', data.hasPermission) : ''}
-      ${f('Déménagement prévu', data.movingSoon)}
-      ${data.movingSoon === 'Oui' ? f('Adresse du projet', data.movingAddress) : ''}
+      ${f('Propriétaire', escapeHtml(data.isOwner))}
+      ${data.isOwner === 'Non' ? f('Permission avoir un animal', escapeHtml(data.hasPermission)) : ''}
+      ${f('Déménagement prévu', escapeHtml(data.movingSoon))}
+      ${data.movingSoon === 'Oui' ? f('Adresse du projet', escapeHtml(data.movingAddress)) : ''}
     </div>
 
     <!-- FOYER -->
     <div class="section">
       <h2>👨‍👩‍👧‍👦 Foyer</h2>
-      ${f('Emploi', data.employed)}
-      ${data.employed === 'Autre' ? f('Précision emploi', data.employedOther) : ''}
-      ${f('Nombre d\'adultes', data.numAdults)}
-      ${f('Nombre d\'enfants', data.numChildren)}
-      ${parseInt(data.numChildren) > 0 ? f('Âges des enfants', data.childrenAges) : ''}
-      ${f('Quelqu\'un à la maison en journée', data.someoneHomeDuringDay)}
-      ${data.someoneHomeDuringDay === 'Non' ? f('Heures d\'absence', data.hoursAbsence) : ''}
-      ${f('Allergies ou asthme', data.hasAllergies)}
+      ${f('Emploi', escapeHtml(data.employed))}
+      ${data.employed === 'Autre' ? f('Précision emploi', escapeHtml(data.employedOther)) : ''}
+      ${f('Nombre d\'adultes', escapeHtml(data.numAdults))}
+      ${f('Nombre d\'enfants', escapeHtml(data.numChildren))}
+      ${parseInt(data.numChildren) > 0 ? f('Âges des enfants', escapeHtml(data.childrenAges)) : ''}
+      ${f('Quelqu\'un à la maison en journée', escapeHtml(data.someoneHomeDuringDay))}
+      ${data.someoneHomeDuringDay === 'Non' ? f('Heures d\'absence', escapeHtml(data.hoursAbsence)) : ''}
+      ${f('Allergies ou asthme', escapeHtml(data.hasAllergies))}
       ${data.numChildren === '0' ? `
-        ${f('Projet enfants compatible', data.childrenCompatible)}
-        ${data.childrenCompatible === 'Autre' ? f('Précision', data.childrenCompatibleOther) : ''}
+        ${f('Projet enfants compatible', escapeHtml(data.childrenCompatible))}
+        ${data.childrenCompatible === 'Autre' ? f('Précision', escapeHtml(data.childrenCompatibleOther)) : ''}
       ` : ''}
-      ${parseInt(data.numAdults) > 1 ? f('En cas de séparation, qui garde l\'animal', data.coupleSeparation) : ''}
+      ${parseInt(data.numAdults) > 1 ? f('En cas de séparation, qui garde l\'animal', escapeHtml(data.coupleSeparation)) : ''}
     </div>
 
     <!-- ANIMAUX -->
     <div class="section">
       <h2>🐾 Animaux</h2>
-      ${f('Animal à la maison actuellement', data.hasAnimalNow)}
+      ${f('Animal à la maison actuellement', escapeHtml(data.hasAnimalNow))}
       ${data.hasAnimalNow === 'Oui' ? `
-        ${f('Détails (espèce, race, sexe, âge)', data.currentAnimalDetails)}
+        ${f('Détails (espèce, race, sexe, âge)', escapeHtml(data.currentAnimalDetails))}
         ${bool('Stérilisés', data.currentAnimalsSterilized)}
         ${bool('Vaccinés', data.currentAnimalsVaccinated)}
         ${bool('Testés FIV/FeLV', data.currentAnimalsTested)}
       ` : ''}
-      ${f('A déjà eu un animal', data.hadAnimalBefore)}
-      ${data.hadAnimalBefore === 'Oui' ? f('Détails', data.previousAnimalDetails) : ''}
-      ${f('A dû se séparer d\'un animal', data.hadToSeparate)}
-      ${data.hadToSeparate === 'Oui' ? f('Raison', data.separationReason) : ''}
-      ${(data.hasAnimalNow === 'Oui' || data.hadAnimalBefore === 'Oui') ? f('Déjà adopté en refuge/association', data.adoptedFromShelter) : ''}
+      ${f('A déjà eu un animal', escapeHtml(data.hadAnimalBefore))}
+      ${data.hadAnimalBefore === 'Oui' ? f('Détails', escapeHtml(data.previousAnimalDetails)) : ''}
+      ${f('A dû se séparer d\'un animal', escapeHtml(data.hadToSeparate))}
+      ${data.hadToSeparate === 'Oui' ? f('Raison', escapeHtml(data.separationReason)) : ''}
+      ${(data.hasAnimalNow === 'Oui' || data.hadAnimalBefore === 'Oui') ? f('Déjà adopté en refuge/association', escapeHtml(data.adoptedFromShelter)) : ''}
     </div>
 
     <!-- PROJET D'ADOPTION -->
     <div class="section">
       <h2>💭 Projet d'adoption</h2>
       ${data.motivation ? `
-        <div class="field"><span class="label">Motivations:</span><div class="long-text">${data.motivation}</div></div>
+        <div class="field"><span class="label">Motivations:</span><div class="long-text">${escapeHtml(data.motivation)}</div></div>
       ` : ''}
       ${data.sterilizationOpinion ? `
-        <div class="field"><span class="label">Opinion sur la stérilisation:</span><div class="long-text">${data.sterilizationOpinion}</div></div>
+        <div class="field"><span class="label">Opinion sur la stérilisation:</span><div class="long-text">${escapeHtml(data.sterilizationOpinion)}</div></div>
       ` : ''}
-      ${arr('Garde en cas d\'absence', data.careAbsence)}
-      ${data.careAbsence?.includes('Autre') ? f('Précision garde', data.careAbsenceOther) : ''}
-      ${f('Engagement longue durée', data.longTermCommitment)}
-      ${f('Tout le monde d\'accord', data.everyoneAgrees)}
-      ${f('Connaît les besoins de l\'animal', data.knowsAnimalNeeds)}
-      ${f('A pensé aux dégâts/nuisances', data.thoughtAboutDamages)}
+      ${arr(
+        'Garde en cas d\'absence',
+        Array.isArray(data.careAbsence) ? data.careAbsence.map((v: string) => escapeHtml(v)) : []
+      )}
+      ${data.careAbsence?.includes('Autre') ? f('Précision garde', escapeHtml(data.careAbsenceOther)) : ''}
+      ${f('Engagement longue durée', escapeHtml(data.longTermCommitment))}
+      ${f('Tout le monde d\'accord', escapeHtml(data.everyoneAgrees))}
+      ${f('Connaît les besoins de l\'animal', escapeHtml(data.knowsAnimalNeeds))}
+      ${f('A pensé aux dégâts/nuisances', escapeHtml(data.thoughtAboutDamages))}
     </div>
 
     <!-- BUDGET & SOINS -->
     <div class="section">
       <h2>💰 Budget & Soins</h2>
-      ${f('Connaît les frais vétérinaires', data.knowsVetCosts)}
-      ${data.knowsVetCosts === 'Oui' ? f('Estimation frais véto/an', data.vetCostsEstimate) : ''}
-      ${f('Seuil de difficulté en urgence', data.emergencyPaymentThreshold)}
+      ${f('Connaît les frais vétérinaires', escapeHtml(data.knowsVetCosts))}
+      ${data.knowsVetCosts === 'Oui' ? f('Estimation frais véto/an', escapeHtml(data.vetCostsEstimate)) : ''}
+      ${f('Seuil de difficulté en urgence', escapeHtml(data.emergencyPaymentThreshold))}
       ${data.sickAnimalAction ? `
-        <div class="field"><span class="label">En cas de maladie:</span><div class="long-text">${data.sickAnimalAction}</div></div>
+        <div class="field"><span class="label">En cas de maladie:</span><div class="long-text">${escapeHtml(data.sickAnimalAction)}</div></div>
       ` : ''}
-      ${f('Repas envisagés', data.mealsDescription)}
-      ${f('Connaît le budget mensuel', data.knowsMonthlyBudget)}
-      ${data.knowsMonthlyBudget === 'Oui' ? f('Estimation budget mensuel', data.monthlyBudgetEstimate) : ''}
-      ${f('Lieu animal (travail/sortie)', data.animalLocationWork)}
-      ${data.animalLocationWork === 'En enclos' ? f('Surface enclos (travail)', data.animalLocationWorkSurface ? data.animalLocationWorkSurface + ' m²' : '') : ''}
-      ${f('Lieu animal (présent)', data.animalLocationHome)}
-      ${data.animalLocationHome === 'En enclos' ? f('Surface enclos (maison)', data.animalLocationHomeSurface ? data.animalLocationHomeSurface + ' m²' : '') : ''}
+      ${f('Repas envisagés', escapeHtml(data.mealsDescription))}
+      ${f('Connaît le budget mensuel', escapeHtml(data.knowsMonthlyBudget))}
+      ${data.knowsMonthlyBudget === 'Oui' ? f('Estimation budget mensuel', escapeHtml(data.monthlyBudgetEstimate)) : ''}
+      ${f('Lieu animal (travail/sortie)', escapeHtml(data.animalLocationWork))}
+      ${data.animalLocationWork === 'En enclos' ? f('Surface enclos (travail)', data.animalLocationWorkSurface ? `${escapeHtml(data.animalLocationWorkSurface)} m²` : '') : ''}
+      ${f('Lieu animal (présent)', escapeHtml(data.animalLocationHome))}
+      ${data.animalLocationHome === 'En enclos' ? f('Surface enclos (maison)', data.animalLocationHomeSurface ? `${escapeHtml(data.animalLocationHomeSurface)} m²` : '') : ''}
     </div>
 
     <!-- DIVERS -->
     <div class="section">
       <h2>📋 Divers</h2>
-      ${f('Comment a connu l\'association', data.howHeardAbout)}
-      ${data.howHeardAbout === 'Autre' ? f('Précision', data.howHeardAboutOther) : ''}
+      ${f('Comment a connu l\'association', escapeHtml(data.howHeardAbout))}
+      ${data.howHeardAbout === 'Autre' ? f('Précision', escapeHtml(data.howHeardAboutOther)) : ''}
       ${data.remarks ? `
-        <div class="field"><span class="label">Remarques / questions:</span><div class="long-text">${data.remarks}</div></div>
+        <div class="field"><span class="label">Remarques / questions:</span><div class="long-text">${escapeHtml(data.remarks)}</div></div>
       ` : ''}
     </div>
 
@@ -220,6 +225,7 @@ export async function POST(request: Request) {
     const { data: emailData, error } = await resend.emails.send({
       from: 'Adoption Nine Lives <onboarding@resend.dev>',
       to: ['asso@ninelives.fr'],
+      ...(data.email ? { cc: [data.email] } : {}),
       subject: `Demande d'adoption${data.animalName ? ` - ${data.animalName}` : ''} - ${data.firstName} ${data.lastName}`,
       html: htmlBody,
     });
@@ -230,7 +236,7 @@ export async function POST(request: Request) {
     }
 
     console.log('Email sent successfully:', emailData);
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, message: "Message envoyé avec succès. Une copie vous a été envoyée par email." });
 
   } catch (error) {
     console.error('Error sending email:', error);

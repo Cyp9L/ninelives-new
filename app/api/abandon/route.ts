@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { escapeHtml } from '@/lib/sanitize';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -30,7 +31,7 @@ export async function POST(request: Request) {
     return `<div class="field"><span class="label">${label}:</span> <span class="value">${value}</span></div>`;
   };
 
-  const animalName = data.name || 'Non nommé';
+  const animalName = escapeHtml(data.name || 'Non nommé');
   const speciesEmoji = data.species === 'Chat' ? '🐱' : data.species === 'Chien' ? '🐶' : '🐾';
 
   const htmlBody = `
@@ -56,7 +57,7 @@ export async function POST(request: Request) {
 <body>
   <div class="header">
     <h1>${speciesEmoji} Demande de prise en charge</h1>
-    <div class="animal-name">${animalName} — ${data.species || 'Espèce non précisée'}</div>
+    <div class="animal-name">${animalName} — ${escapeHtml(data.species || 'Espèce non précisée')}</div>
   </div>
 
   <div class="content">
@@ -64,57 +65,57 @@ export async function POST(request: Request) {
     <!-- COORDONNÉES -->
     <div class="section">
       <h2>👤 Coordonnées du demandeur</h2>
-      ${f('Nom', data.lastName)}
-      ${f('Prénom', data.firstName)}
-      ${f('Email', data.email ? `<a href="mailto:${data.email}">${data.email}</a>` : '')}
-      ${f('Téléphone', data.phone ? `<a href="tel:${data.phone}">${data.phone}</a>` : '')}
-      ${f('Adresse', data.address)}
+      ${f('Nom', escapeHtml(data.lastName))}
+      ${f('Prénom', escapeHtml(data.firstName))}
+      ${f('Email', data.email ? `<a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a>` : '')}
+      ${f('Téléphone', data.phone ? `<a href="tel:${escapeHtml(data.phone)}">${escapeHtml(data.phone)}</a>` : '')}
+      ${f('Adresse', escapeHtml(data.address))}
     </div>
 
     <!-- ANIMAL - INFOS GÉNÉRALES -->
     <div class="section">
       <h2>${speciesEmoji} Informations sur l'animal</h2>
-      ${f('Espèce', data.species)}
-      ${f('Sexe', data.sex)}
-      ${f('Nom', data.name)}
-      ${f('Âge', data.age)}
+      ${f('Espèce', escapeHtml(data.species))}
+      ${f('Sexe', escapeHtml(data.sex))}
+      ${f('Nom', escapeHtml(data.name))}
+      ${f('Âge', escapeHtml(data.age))}
       ${data.history ? `
-        <div class="field"><span class="label">Son histoire:</span><div class="long-text">${data.history}</div></div>
+        <div class="field"><span class="label">Son histoire:</span><div class="long-text">${escapeHtml(data.history)}</div></div>
       ` : ''}
       ${data.character ? `
-        <div class="field"><span class="label">Son caractère:</span><div class="long-text">${data.character}</div></div>
+        <div class="field"><span class="label">Son caractère:</span><div class="long-text">${escapeHtml(data.character)}</div></div>
       ` : ''}
       ${data.compatibility ? `
-        <div class="field"><span class="label">Ententes (chats, chiens, enfants):</span><div class="long-text">${data.compatibility}</div></div>
+        <div class="field"><span class="label">Ententes (chats, chiens, enfants):</span><div class="long-text">${escapeHtml(data.compatibility)}</div></div>
       ` : ''}
       ${data.abandonReason ? `
-        <div class="field"><span class="label">Raison de l'abandon / solutions testées:</span><div class="long-text">${data.abandonReason}</div></div>
+        <div class="field"><span class="label">Raison de l'abandon / solutions testées:</span><div class="long-text">${escapeHtml(data.abandonReason)}</div></div>
       ` : ''}
     </div>
 
     <!-- ANIMAL - SANTÉ -->
     <div class="section">
       <h2>🏥 Santé</h2>
-      ${data.sex === 'Mâle' ? f('Castré', data.isCastrated) : ''}
-      ${data.sex === 'Femelle' ? f('Stérilisée', data.isSterilized) : ''}
-      ${f('Identifié', data.isIdentified)}
-      ${data.isIdentified === 'Oui' ? f('N° d\'identification / carte', data.identificationNumber) : ''}
+      ${data.sex === 'Mâle' ? f('Castré', escapeHtml(data.isCastrated)) : ''}
+      ${data.sex === 'Femelle' ? f('Stérilisée', escapeHtml(data.isSterilized)) : ''}
+      ${f('Identifié', escapeHtml(data.isIdentified))}
+      ${data.isIdentified === 'Oui' ? f('N° d\'identification / carte', escapeHtml(data.identificationNumber)) : ''}
       ${data.isIdentified === 'Je ne sais pas' ? '<div class="field" style="color:#92400e; background:#fef3c7; padding:8px; border-radius:4px;">⚠️ Le demandeur ne sait pas si l\'animal est identifié</div>' : ''}
-      ${f('Vacciné', data.isVaccinated)}
+      ${f('Vacciné', escapeHtml(data.isVaccinated))}
       ${data.isVaccinated === 'Oui' ? `
-        ${f('Maladies vaccinées', data.vaccineTypes)}
-        ${f('Date derniers vaccins', data.lastVaccineDate)}
+        ${f('Maladies vaccinées', escapeHtml(data.vaccineTypes))}
+        ${f('Date derniers vaccins', escapeHtml(data.lastVaccineDate))}
       ` : ''}
       ${data.species === 'Chat' ? `
-        ${f('Testé FIV/FeLV', data.isTestedFIV)}
+        ${f('Testé FIV/FeLV', escapeHtml(data.isTestedFIV))}
         ${data.isTestedFIV === 'Oui' ? `
-          ${f('Date du test', data.fivTestDate)}
-          ${f('Contact avec d\'autres chats depuis', data.contactSinceTest)}
+          ${f('Date du test', escapeHtml(data.fivTestDate))}
+          ${f('Contact avec d\'autres chats depuis', escapeHtml(data.contactSinceTest))}
         ` : ''}
       ` : ''}
-      ${f('Prêt à mettre à jour sanitairement à ses frais', data.willingToPayHealth)}
+      ${f('Prêt à mettre à jour sanitairement à ses frais', escapeHtml(data.willingToPayHealth))}
       ${data.healthStatus ? `
-        <div class="field"><span class="label">État de santé / maladies / blessures:</span><div class="long-text">${data.healthStatus}</div></div>
+        <div class="field"><span class="label">État de santé / maladies / blessures:</span><div class="long-text">${escapeHtml(data.healthStatus)}</div></div>
       ` : ''}
     </div>
 
@@ -127,6 +128,7 @@ export async function POST(request: Request) {
     const { data: emailData, error } = await resend.emails.send({
       from: 'Prise en charge Nine Lives <onboarding@resend.dev>',
       to: ['asso@ninelives.fr'],
+      ...(data.email ? { cc: [data.email] } : {}),
       subject: `Prise en charge — ${data.species || 'Animal'}${data.name ? ` "${data.name}"` : ''} — ${data.firstName} ${data.lastName}`,
       html: htmlBody,
     });
@@ -137,7 +139,7 @@ export async function POST(request: Request) {
     }
 
     console.log('Email sent successfully:', emailData);
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, message: "Message envoyé avec succès. Une copie vous a été envoyée par email." });
 
   } catch (error) {
     console.error('Error sending email:', error);
