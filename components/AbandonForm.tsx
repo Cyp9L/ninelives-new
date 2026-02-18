@@ -54,8 +54,8 @@ export default function AbandonForm() {
       {status === 'success' && (
         <div className="alert alert-success">
           <strong>✓ Merci !</strong><br/>
-          Votre demande a été envoyée avec succès. Nous vous contacterons très prochainement.
-        </div>
+          Votre message a été envoyé. Vous allez en recevoir une copie. Nous vous répondrons dès que possible.
+          </div>
       )}
 
       <input type="text" name="website" value={formData.honeypot}

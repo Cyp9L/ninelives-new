@@ -100,7 +100,7 @@ export default function ContactPage() {
             {status === 'success' && (
               <div className="alert alert-success mb-lg">
                 <strong>✓ Merci !</strong><br/>
-                Votre message a été envoyé. Nous vous répondrons dès que possible.
+                Votre message a été envoyé. Vous allez en recevoir une copie. Nous vous répondrons dès que possible.
               </div>
             )}
 

@@ -87,7 +87,7 @@ export default function BenevoleForm() {
       {status === 'success' && (
         <div className="alert alert-success">
           <strong>✓ Merci !</strong><br/>
-          Votre candidature a été envoyée avec succès. Nous vous contacterons très prochainement.
+          Votre candidature a été envoyée avec succès. Vous allez recevoir une copie par mail. Nous vous contacterons très prochainement.
         </div>
       )}
 
