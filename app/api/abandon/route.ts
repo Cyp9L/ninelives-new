@@ -126,8 +126,8 @@ export async function POST(request: Request) {
 
   try {
     const { data: emailData, error } = await resend.emails.send({
-      from: 'Prise en charge Nine Lives <onboarding@resend.dev>',
-      to: ['cyprien.bl@gmail.com'],
+      from: 'Prise en charge Nine Lives <asso@ninelives.fr>',
+      to: ['asso@ninelives.fr'],
       ...(data.email ? { cc: [data.email] } : {}),
       subject: `Prise en charge — ${data.species || 'Animal'}${data.name ? ` "${data.name}"` : ''} — ${data.firstName} ${data.lastName}`,
       html: htmlBody,

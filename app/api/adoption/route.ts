@@ -122,11 +122,7 @@ export async function POST(request: Request) {
       ${f('Type de logement', escapeHtml(data.housingType))}
       ${f('Superficie', data.surface ? `${escapeHtml(data.surface)} m²` : '')}
       ${data.housingType === 'Maison' ? bool('Jardin clôturé', data.hasGardenEnclosed) : ''}
-      ${data.housingType === 'Appartement' ? `
-        ${bool('Balcon ou terrasse', data.hasBalcony)}
-        ${bool('Sans balcon ou terrasse', data.noBalcony)}
-        ${f('Étage', escapeHtml(data.floor))}
-      ` : ''}
+      ${data.housingType === 'Appartement' ? f('Étage', escapeHtml(data.floor)) : ''}
       ${f('Propriétaire', escapeHtml(data.isOwner))}
       ${data.isOwner === 'Non' ? f('Permission avoir un animal', escapeHtml(data.hasPermission)) : ''}
       ${f('Déménagement prévu', escapeHtml(data.movingSoon))}
@@ -223,8 +219,8 @@ export async function POST(request: Request) {
 
   try {
     const { data: emailData, error } = await resend.emails.send({
-      from: 'Adoption Nine Lives <onboarding@resend.dev>',
-      to: ['cyprien.bl@gmail.com'],
+      from: 'Adoption Nine Lives <adoption@ninelives.fr>',
+      to: ['adoption@ninelives.fr'],
       ...(data.email ? { cc: [data.email] } : {}),
       subject: `Demande d'adoption${data.animalName ? ` - ${data.animalName}` : ''} - ${data.firstName} ${data.lastName}`,
       html: htmlBody,
