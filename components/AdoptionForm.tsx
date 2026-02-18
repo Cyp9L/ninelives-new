@@ -110,7 +110,7 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
       {status === 'success' && (
         <div className="alert alert-success">
           <strong>✓ Merci !</strong><br/>
-          Votre demande d&apos;adoption a été envoyée avec succès. Nous vous contacterons très prochainement.
+          Votre demande d&apos;adoption a été envoyée avec succès. Vous allez recevoir une copie par mail. Nous vous contacterons très prochainement.
         </div>
       )}
 
