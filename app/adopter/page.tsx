@@ -9,160 +9,174 @@ export default async function AdopterPage() {
 
   return (
     <main>
-      {/* Header Section */}
-      <section style={{ 
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        color: 'white',
-        padding: '4rem 2rem',
-        textAlign: 'center'
-      }}>
+      {/* Header */}
+      <section className="page-header">
         <div className="container">
-          <h1 style={{ fontSize: '3rem', fontWeight: '300', marginBottom: '1rem' }}>
-            Adopter
-          </h1>
-          <p style={{ fontSize: '1.125rem', maxWidth: '700px', margin: '0 auto' }}>
+          <h1>Adopter</h1>
+          <p>
             <strong>Attention :</strong> par manque de bénévoles, nous ne faisons adopter que dans les départements de Paris et petite couronne, 92, 94.
           </p>
         </div>
       </section>
-      
+
       {/* Cats Grid */}
       <section className="section">
         <div className="container">
-          <h2 style={{ fontSize: '2.5rem', fontWeight: '300', marginBottom: '3rem', textAlign: 'center' }}>
-            Nos chats à l'adoption
-          </h2>
-          
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-            gap: '2rem'
-          }}>
+          <h2 className="text-center mb-xl">Nos chats à l&apos;adoption</h2>
+
+          <div className="grid-3">
             {adultes.map(cat => (
-              <Link 
-                key={cat.id} 
-                href={`/adopter/${cat.slug}`} 
-                style={{
-                  textDecoration: 'none',
-                  color: 'inherit',
-                  borderRadius: '8px',
-                  overflow: 'hidden',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                  transition: 'transform 0.2s, box-shadow 0.2s',
-                  background: 'white'
-                }}
+              <Link
+                key={cat.id}
+                href={`/adopter/${cat.slug}`}
+                data-no-lightbox
+                className="cat-card"
               >
-                <div style={{
-                  aspectRatio: '4/3',
-                  overflow: 'hidden',
-                  background: '#f3f4f6'
-                }}>
+                <div className="cat-image">
                   {cat.images[0] ? (
-                    <img 
-                      src={cat.images[0]} 
-                      alt={cat.name}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        display: 'block'
-                      }}
-                    />
+                    <img src={cat.images[0]} alt={cat.name} />
                   ) : (
-                    <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '4rem' }}>
-                      🐱
-                    </div>
+                    <div className="cat-placeholder">🐱</div>
                   )}
                 </div>
-                <h3 style={{ 
-                  padding: '1rem', 
-                  margin: 0, 
-                  fontSize: '1.25rem', 
-                  fontWeight: '500',
-                  textAlign: 'center' 
-                }}>
-                  {cat.name}
-                </h3>
+                <h3 className="cat-name">{cat.name}</h3>
               </Link>
             ))}
           </div>
         </div>
       </section>
-      {/* Process Section */}
+
+      {/* Process + Kittens (two columns) */}
       <section className="section">
-        <div className="container" style={{ maxWidth: '900px' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: '300', marginBottom: '2rem' }}>
-            La procédure :
-          </h2>
-          
-          <ol style={{ fontSize: '1.125rem', lineHeight: '1.8', color: '#4b5563', paddingLeft: '1.5rem' }}>
-            <li style={{ marginBottom: '1rem' }}>
-              Remplissez le <Link href="#formulaire" className="link-blue">questionnaire de pré-adoption</Link> qui se trouve ci-dessous ;
-            </li>
-            <li style={{ marginBottom: '1rem' }}>
-              Nous vous répondrons par mail ou par téléphone dès que possible ;
-            </li>
-            <li style={{ marginBottom: '1rem' }}>
-              Si vous correspondez aux besoins de l'animal que vous souhaitez rencontrer, nous vous mettrons en contact avec la famille d'accueil afin d'organiser la rencontre avec notre petit protégé ;
-            </li>
-            <li style={{ marginBottom: '1rem' }}>
-              Si le coup de cœur est réciproque, vous pourrez organiser l'adoption en concertation avec un bénévole de l'association.
-            </li>
-            <li style={{ marginBottom: '1rem' }}>
-              Si vous adoptez un chaton ou un lapereau, vous vous engagerez à le stériliser lorsqu'il aura atteint 6 mois.
-            </li>
-          </ol>
+        <div className="container">
+          <div className="grid-2">
+            {/* Left: Process */}
+            <div>
+              <h2>La procédure</h2>
+              <ol className="process-list">
+                <li>Remplissez le <Link href="#formulaire" className="link-blue">questionnaire de pré-adoption</Link> ci-dessous ;</li>
+                <li>Nous vous répondrons par mail ou téléphone dès que possible ;</li>
+                <li>Si votre profil correspond, nous organiserons une rencontre avec l&apos;animal via sa famille d&apos;accueil ;</li>
+                <li>Si le coup de cœur est réciproque, vous finalisez l&apos;adoption avec un bénévole ;</li>
+                <li>Si vous adoptez un chaton ou un lapereau, vous vous engagez à le stériliser à 6 mois.</li>
+              </ol>
+              <div className="alert alert-warning" style={{ marginTop: '1rem' }}>
+                <strong>Documents nécessaires :</strong> photocopie de pièce d&apos;identité et justificatif de domicile.
+              </div>
+            </div>
 
-          <div style={{ 
-            background: '#fef3c7', 
-            border: '1px solid #fbbf24',
-            borderRadius: '8px',
-            padding: '1.5rem',
-            marginTop: '2rem'
-          }}>
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Les documents nécessaires :</h3>
-            <p style={{ color: '#92400e' }}>
-              Une photocopie de la pièce d'identité et d'un justificatif de domicile au nom de l'adoptant.
-            </p>
+            {/* Right: Kittens */}
+            <div>
+              <h2>🐾 Les chatons</h2>
+              <p className="text-body">
+                Un chaton ne reste un « bébé duveteux » que 5 à 6 mois — dans une vie qui peut atteindre 20 ans. Réfléchissez bien.
+              </p>
+              <p className="text-body">
+                <strong>C&apos;est un bébé :</strong> il explore, casse, griffonne, mordille et se réfugie dans des endroits inimaginables. Préparez-vous à accueillir tout cela avec patience.
+              </p>
+              <p className="text-body">
+                <strong>Son caractère évolue :</strong> il ne s&apos;affirme pas avant 7 mois et la stérilisation l&apos;influence. Un chaton joueur peut devenir un adulte pantouflard, et inversement.
+              </p>
+              <p className="text-body">
+                <strong>Pas de réservation :</strong> nos chatons ne sont pas disponibles avant 3 mois. Si vous souhaitez en adopter un qui n&apos;est pas encore prêt, la procédure et les frais d&apos;adoption s&apos;appliquent immédiatement — il restera en famille d&apos;accueil jusqu&apos;à son départ.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Adoption Fees */}
+      {/* Fees */}
       <section className="section section-gray">
-        <div className="container" style={{ maxWidth: '900px' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: '300', marginBottom: '2rem' }}>
-            Nos frais d'adoption :
-          </h2>
-          
-          <div style={{ fontSize: '1.125rem', lineHeight: '1.8', color: '#4b5563' }}>
-            <p style={{ marginBottom: '1rem' }}>
-              Tous nos chats sont identifiés, vaccinés (typhus coryza leucose) et déparasités.
-            </p>
-            <p style={{ marginBottom: '1.5rem', fontSize: '1.25rem', fontWeight: '500' }}>
-              <strong>Chatons : 180€</strong>
-            </p>
-            <p style={{ marginBottom: '1rem' }}>
-              Les adultes sont en plus stérilisés et testés FIV/FeLV (sida du chat et leucose) :
-            </p>
-            <p style={{ fontSize: '1.25rem', fontWeight: '500' }}>
-              <strong>Adultes : 220€</strong>
-            </p>
+        <div className="container-mid">
+          <h2>Nos frais d&apos;adoption</h2>
+
+          <p className="text-body mb-md">
+            Tous nos chats sont identifiés, vaccinés (typhus coryza leucose) et déparasités. Les adultes sont en plus stérilisés et testés FIV/FeLV.
+          </p>
+
+          <div className="price-comparison">
+            {/* Our fees */}
+            <div className="price-card">
+              <div className="price-card-header price-card-header-green">
+                🐱 Adopter avec Nine Lives
+              </div>
+              <div className="price-card-body">
+                <div className="price-line">
+                  <span className="price-line-label">Chaton</span>
+                  <span className="price-line-value">180€</span>
+                </div>
+                <div className="price-line">
+                  <span className="price-line-label">Adulte</span>
+                  <span className="price-line-value">220€</span>
+                </div>
+                <div className="price-line">
+                  <span className="price-line-label">Chat de 10 ans et +</span>
+                  <span className="price-line-value">80 — 150€</span>
+                </div>
+                <div className="price-total">
+                  <span>Tout inclus</span>
+                  <span>✓</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Vet fees */}
+            <div className="price-card">
+              <div className="price-card-header price-card-header-gray">
+                💊 Chez un vétérinaire
+              </div>
+              <div className="price-card-body">
+                <div className="price-line">
+                  <span className="price-line-label"><a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000006071367&idArticle=LEGIARTI000006583095" target="_blank" rel="noopener noreferrer" className="link-purple">Identification</a> (obligatoire dès 7 mois)</span>
+                  <span className="price-line-value">70€</span>
+                </div>
+                <div className="price-line">
+                  <span className="price-line-label">Consultation de contrôle</span>
+                  <span className="price-line-value">37€</span>
+                </div>
+                <div className="price-line">
+                  <span className="price-line-label">Stérilisation / castration</span>
+                  <span className="price-line-value">68 — 125€</span>
+                </div>
+                <div className="price-line">
+                  <span className="price-line-label">Vaccins typhus + coryza + leucose</span>
+                  <span className="price-line-value">182€</span>
+                </div>
+                <div className="price-line">
+                  <span className="price-line-label">Test FIV/FeLV</span>
+                  <span className="price-line-value">70€</span>
+                </div>
+                <div className="price-line">
+                  <span className="price-line-label">Déparasitage</span>
+                  <span className="price-line-value">20€</span>
+                </div>
+                <div className="price-total">
+                  <span>Total estimé</span>
+                  <span>447 — 504€</span>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <div className="price-savings">
+            Vous économisez entre 227€ et 284€ en adoptant chez Nine Lives 💚
+          </div>
+
+          <p className="text-small" style={{ marginTop: '0.75rem' }}>
+            Source : <a href="https://www.quechoisir.org/enquete-tarifs-veterinaires-du-simple-au-triple-n59793/" target="_blank" rel="noopener noreferrer" className="link-purple">Que Choisir — Tarifs vétérinaires</a>. Tarifs variables selon les praticiens.
+          </p>
         </div>
       </section>
 
-      {/* Adoption Form */}
+      {/* Form */}
       <section id="formulaire" className="section section-gray">
-        <div className="container" style={{ maxWidth: '800px' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: '300', marginBottom: '2rem', textAlign: 'center' }}>
-            Questionnaire de pré-adoption
-          </h2>
-          <p style={{ textAlign: 'center', color: '#4b5563', marginBottom: '3rem' }}>
-            Remplissez ce formulaire pour commencer le processus d'adoption.
+        <div className="container-narrow">
+          <h2 className="text-center">Questionnaire de pré-adoption</h2>
+          <p className="text-center text-muted mb-xl">
+            Remplissez ce formulaire pour commencer le processus d&apos;adoption.
           </p>
-          
-          <div style={{ background: 'white', padding: '3rem', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+
+          <div className="form-container">
             <AdoptionForm cats={adultes} />
           </div>
         </div>

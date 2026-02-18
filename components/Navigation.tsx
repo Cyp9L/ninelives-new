@@ -7,7 +7,6 @@ import { usePathname } from 'next/navigation';
 export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
-
   const close = () => setMobileOpen(false);
 
   const navLinks = [
@@ -17,123 +16,48 @@ export default function Navigation() {
     { href: '/benevole', label: 'Je veux aider' },
     { href: '/abandon', label: "J'ai besoin d'aide" },
     { href: '/donner', label: 'Faire un don' },
+    { href: '/partenaires', label: 'Partenaires' },
     { href: '/contact', label: 'Contact' },
   ];
 
-  const isActive = (href: string) => {
-    if (href === '/') return pathname === '/';
-    return pathname.startsWith(href);
-  };
+  const isActive = (href: string) =>
+    href === '/' ? pathname === '/' : pathname.startsWith(href);
 
   return (
-    <nav style={{
-      background: 'white',
-      borderBottom: '1px solid #e5e7eb',
-      position: 'sticky',
-      top: 0,
-      zIndex: 1000
-    }}>
-      <div style={{
-        maxWidth: '1400px',
-        margin: '0 auto',
-        padding: '0 2rem',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        height: '70px'
-      }}>
-        {/* Logo */}
-        <Link href="/" onClick={close} data-no-lightbox>
-          <Image 
-            src="/logo-nine-lives-paris.png" 
-            alt="Nine Lives Paris" 
-            width={140} 
-            height={45}
-            style={{ height: '45px', width: 'auto' }}
-          />
+    <nav className="nav">
+      <div className="nav-inner">
+        <Link href="/" onClick={close} className="nav-logo" data-no-lightbox>
+          <Image src="/logo-nine-lives-paris.png" alt="Nine Lives Paris" width={140} height={45} />
         </Link>
 
-        {/* Desktop Menu */}
-        <div style={{
-          display: 'flex',
-          gap: '1.75rem',
-          alignItems: 'center'
-        }} className="desktop-menu">
+        {/* Desktop */}
+        <div className="nav-desktop">
           {navLinks.map(link => (
-            <Link
-              key={link.href}
-              href={link.href}
-              style={{
-                color: isActive(link.href) ? '#667eea' : '#374151',
-                fontWeight: isActive(link.href) ? '600' : '500',
-                fontSize: '0.95rem',
-                textDecoration: 'none',
-                borderBottom: isActive(link.href) ? '2px solid #667eea' : '2px solid transparent',
-                paddingBottom: '2px',
-                transition: 'color 0.2s, border-color 0.2s',
-              }}
-            >
+            <Link key={link.href} href={link.href}
+              className={`nav-link ${isActive(link.href) ? 'active' : ''}`}>
               {link.label}
             </Link>
           ))}
         </div>
 
-        {/* Mobile Toggle */}
-        <button 
-          onClick={() => setMobileOpen(!mobileOpen)}
-          style={{
-            display: 'none',
-            background: 'none',
-            border: 'none',
-            fontSize: '1.5rem',
-            cursor: 'pointer',
-            padding: '0.5rem',
-          }}
-          className="mobile-toggle"
-          aria-label={mobileOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
-        >
+        {/* Mobile toggle */}
+        <button onClick={() => setMobileOpen(!mobileOpen)} className="nav-toggle"
+          aria-label={mobileOpen ? 'Fermer le menu' : 'Ouvrir le menu'}>
           {mobileOpen ? '✕' : '☰'}
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile menu */}
       {mobileOpen && (
-        <div style={{
-          padding: '0.5rem 0',
-          borderTop: '1px solid #e5e7eb',
-          background: 'white',
-        }} className="mobile-menu-content">
+        <div className="nav-mobile">
           {navLinks.map(link => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={close}
-              style={{
-                display: 'block',
-                padding: '0.85rem 2rem',
-                color: isActive(link.href) ? '#667eea' : '#374151',
-                fontWeight: isActive(link.href) ? '600' : '400',
-                borderLeft: isActive(link.href) ? '3px solid #667eea' : '3px solid transparent',
-                textDecoration: 'none',
-                fontSize: '1.05rem',
-              }}
-            >
+            <Link key={link.href} href={link.href} onClick={close}
+              className={`nav-mobile-link ${isActive(link.href) ? 'active' : ''}`}>
               {link.label}
             </Link>
           ))}
         </div>
       )}
-
-      <style jsx>{`
-        @media (max-width: 1024px) {
-          .desktop-menu {
-            display: none !important;
-          }
-          .mobile-toggle {
-            display: block !important;
-          }
-        }
-      `}</style>
     </nav>
   );
 }
