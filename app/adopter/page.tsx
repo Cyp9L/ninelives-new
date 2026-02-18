@@ -84,7 +84,7 @@ export default async function AdopterPage() {
                 <strong>Son caractère évolue :</strong> il ne s&apos;affirme pas avant 7 mois et la stérilisation l&apos;influence. Un chaton joueur peut devenir un adulte pantouflard, et inversement.
               </p>
               <p className="text-body">
-                <strong>Pas de réservation :</strong> nos chatons ne sont pas disponibles avant 3 mois. Si vous souhaitez en adopter un qui n&apos;est pas encore prêt, la procédure et les frais d&apos;adoption s&apos;appliquent immédiatement — il restera en famille d&apos;accueil jusqu&apos;à son départ.
+                <strong>Pas de réservation :</strong> nos chatons ne sont pas disponibles avant 3 mois. Si vous souhaitez en adopter un qui n&apos;est pas encore prêt à être adopté, la procédure et les frais d&apos;adoption s&apos;appliquent immédiatement — il restera en famille d&apos;accueil jusqu&apos;à son départ.
               </p>
             </div>
           </div>
