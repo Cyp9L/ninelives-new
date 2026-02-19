@@ -16,7 +16,7 @@ export default function Navigation() {
     { href: '/actions', label: 'Nos actions' },
     { href: '/adopter', label: 'Je veux adopter' },
     { href: '/benevole', label: 'Je veux aider' },
-    { href: '/abandon', label: "J'ai besoin d'aide" },
+    { href: '/abandon/solutions', label: "J'ai besoin d'aide" },
     { href: '/donner', label: 'Faire un don' },
     { href: '/partenaires', label: 'Partenaires' },
     { href: '/medias', label: 'Apparitions médias' },
