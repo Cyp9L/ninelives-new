@@ -53,7 +53,7 @@ export async function getAllCats() {
 
   try {
     const res = await fetch(url, {
-      next: { revalidate: 600 }
+      next: { revalidate: 60 }
     });
 
     if (!res.ok) {
@@ -91,7 +91,7 @@ export async function getAllCats() {
           .replace(/[^\w-]/g, ''),
         name: card.name,
         description: card.desc || '',
-        images: images.length > 0 ? images : ['/images/default-cat.webp'],
+        images: images.length > 0 ? images : ['/images/cat-not-found.jpg'],
         category: getCategory(card.labels),
         caractere: extractCaractere(card.desc || ''),
         dateAdded: card.dateLastActivity
