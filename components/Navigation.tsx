@@ -3,6 +3,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import Logo from '@/components/Logo';
+
 
 export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -28,7 +30,7 @@ export default function Navigation() {
     <nav className="nav">
       <div className="nav-inner">
         <Link href="/" onClick={close} className="nav-logo" >
-          <Image src="/logo-nine-lives-paris.png" alt="Nine Lives Paris" width={140} height={45} />
+        <Logo />
         </Link>
 
         {/* Desktop */}

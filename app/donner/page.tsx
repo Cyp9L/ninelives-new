@@ -22,11 +22,8 @@ export default function DonnerPage() {
           <div className="float-img-right" style={{ width: '45%', borderRadius: '8px', overflow: 'hidden' }}>
             <img src="/images/wiskey.jpg" alt="Wiskey, un de nos protégés" />
           </div>
-
-          <div className="card-icon" style={{ fontSize: '4rem' }}>💝</div>
-
           <p className="text-large mb-md">
-            <strong>Sauver des vies a un coût.</strong>
+            <strong>💝 Sauver des vies a un coût.</strong>
           </p>
 
           <p className="text-body">
@@ -59,14 +56,12 @@ export default function DonnerPage() {
       {/* Material Donation */}
       <section className="section section-gray">
         <div className="container-mid">
-          <div className="float-img-left" style={{ width: '45%', borderRadius: '8px', overflow: 'hidden' }}>
+          <div className="float-img-left" style={{ height: '40%', borderRadius: '8px', overflow: 'hidden' }}>
             <img src="/images/salomon.webp" alt="Salomon, un de nos protégés" />
           </div>
 
-          <div className="card-icon" style={{ fontSize: '4rem' }}>🎁</div>
-
           <p className="text-large mb-md">
-            <strong>Nous avons sans cesse besoin de matériel.</strong>
+            <strong>🎁 Nous avons sans cesse besoin de matériel.</strong>
           </p>
 
           <p className="text-body">
