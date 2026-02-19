@@ -34,6 +34,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "fr_FR",
     siteName: "Nine Lives Paris",
+    url: "/",
     title: "Nine Lives Paris - Association de sauvetage de chats",
     description:
       "L'association Nine Lives Paris recueille les chats abandonnés, trouvés, errants, sortis de fourrière.",
