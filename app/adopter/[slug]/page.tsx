@@ -49,6 +49,7 @@ export async function generateMetadata({
       title: `Adopter ${cat.name} | Nine Lives Paris`,
       description: cleanDescription,
       type: 'article',
+      url: `/adopter/${slug}`,
       ...(catImage && {
         images: [
           {
