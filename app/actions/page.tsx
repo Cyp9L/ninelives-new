@@ -80,6 +80,9 @@ export default function ActionsPage() {
               <h3 className="section-title text-center">Notre Chatipi dans la presse</h3>
               <div className="card mb-md">
                 <strong>Le Parisien</strong> — 18/09/2022<br/>
+                <div className="float-img-right" style={{ width: '45%', borderRadius: '8px', overflow: 'hidden' }}>
+                  <img src="/images/leparisien.webp" alt="Article du Parisien" />
+                </div>
                 <a href="https://www.leparisien.fr/paris-75/paris-a-lhopital-de-la-pitie-salpetriere-on-soigne-aussi-les-chats-errants-18-09-2022-ENLW4MSQEVFJPPF7RY2UJ7LTAE.php"
                   target="_blank" rel="noopener" className="link-purple text-small">
                   Lire l&apos;article →
