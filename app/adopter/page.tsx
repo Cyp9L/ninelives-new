@@ -1,6 +1,7 @@
 import { getAllCats } from '@/lib/trello';
 import Link from 'next/link';
 import AdoptionForm from '@/components/AdoptionForm';
+import CatShowcase from '@/components/CatShowcase';
 
 export const revalidate = 60;
 import type { Metadata } from 'next';
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
     'Découvrez nos chats à l\'adoption à Paris (75, 92, 94). Procédure, frais d\'adoption et questionnaire de pré-adoption en ligne.',
 };
 export default async function AdopterPage() {
-  const { adultes } = await getAllCats();
+  const { all } = await getAllCats();
 
   return (
     <main>
@@ -25,30 +26,11 @@ export default async function AdopterPage() {
         </div>
       </section>
 
-      {/* Cats Grid */}
+      {/* Cats Showcase */}
       <section className="section">
         <div className="container">
           <h2 className="text-center mb-xl">Nos chats à l&apos;adoption</h2>
-
-          <div className="grid-3">
-            {adultes.map(cat => (
-              <Link
-                key={cat.id}
-                href={`/adopter/${cat.slug}`}
-                data-no-lightbox
-                className="cat-card"
-              >
-                <div className="cat-image">
-                  {cat.images[0] ? (
-                    <img src={cat.images[0]} alt={cat.name} />
-                  ) : (
-                    <div className="cat-placeholder">🐱</div>
-                  )}
-                </div>
-                <h3 className="cat-name">{cat.name}</h3>
-              </Link>
-            ))}
-          </div>
+          <CatShowcase cats={all} />
         </div>
       </section>
 
@@ -183,7 +165,7 @@ export default async function AdopterPage() {
           </p>
 
           <div className="form-container">
-            <AdoptionForm cats={adultes} />
+            <AdoptionForm cats={all} />
           </div>
         </div>
       </section>
