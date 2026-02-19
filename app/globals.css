@@ -10,7 +10,7 @@ body {
   line-height: 1.5;
 }
 
-h1, h2, .font-casual {
+h1, h2, h3, .font-casual {
   font-family: var(--font-hello-casual), cursive;
 }
 
@@ -164,7 +164,7 @@ a {
 
 .hero {
   position: relative;
-  height: 600px;
+  height: 500px;
   display: flex;
   align-items: center;
   background-size: cover;
@@ -405,7 +405,7 @@ h2 {
 }
 
 .card h3 {
-  font-size: 1.25rem;
+  font-size: 1.50rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
   color: #1f2937;
@@ -423,6 +423,16 @@ h2 {
   border-radius: 6px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.06);
   margin-bottom: 0.5rem;
+}
+
+.accordion:hover {
+  background: rgb(191, 152, 235);
+  box-shadow: 0 1px 4px rgba(233, 128, 233, 0.06);
+  margin-bottom: 0.5rem;
+}
+
+.accordion-content {
+  background: white;
 }
 
 .accordion summary {
@@ -1012,15 +1022,16 @@ main img:hover {
 .nav-inner {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 3rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 70px;
 }
 
-.nav-logo img {
-  height: 72px;
+.nav-logo img,
+.nav-logo svg {
+  height: 75px;
   width: auto;
 }
 
@@ -1101,7 +1112,7 @@ main img:hover {
 }
 
 .related-actions .card h3 {
-  font-size: 1.05rem;
+  font-size: 1.55rem;
   margin-bottom: 0.4rem;
 }
 
@@ -1116,18 +1127,18 @@ main img:hover {
 }
 
 .related-actions h2 {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
 }
 
 /* Footer */
 .footer {
   background: #111;
   color: white;
-  padding: 4rem 2rem 2rem;
+  padding: 1rem 1rem;
 }
 
 .footer h3 {
-  font-size: 1.25rem;
+  font-size: 1.90rem;
   margin-bottom: 1rem;
   font-weight: 500;
 }
@@ -1136,7 +1147,7 @@ main img:hover {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 3rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .footer-links {
@@ -1171,7 +1182,7 @@ main img:hover {
 
 .footer-bottom {
   border-top: 1px solid #374151;
-  padding-top: 2rem;
+  padding-top: 1rem;
   text-align: center;
   color: #6b7280;
   font-size: 0.875rem;
@@ -1181,7 +1192,7 @@ main img:hover {
   display: flex;
   justify-content: center;
   gap: 1.5rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.45rem;
   flex-wrap: wrap;
 }
 
@@ -1197,7 +1208,7 @@ main img:hover {
 
 .footer-about {
   color: #9ca3af;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 /* ===== MOBILE ===== */
@@ -1313,6 +1324,11 @@ main img:hover {
     float: none;
     width: 100%;
     margin: 0 0 1rem 0;
+  }
+
+  .nav-logo img,
+  .nav-logo svg {
+    height: 60px;
   }
 
   .nav-desktop {
