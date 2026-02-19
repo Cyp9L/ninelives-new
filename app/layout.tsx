@@ -5,6 +5,8 @@ import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Lightbox from '@/components/Lightbox';
+import RelatedActions from '@/components/RelatedActions';
+
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -106,6 +108,7 @@ export default function RootLayout({
         <Navigation />
         <Lightbox />
         {children}
+        <RelatedActions />
         <Footer />
       </body>
     </html>
