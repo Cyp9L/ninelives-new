@@ -1082,6 +1082,19 @@ h2 {
   }
 }
 
+.showcase-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #6b7280;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.showcase-empty p:first-child {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
 /* Mid-width container (process, fees) */
 .container-mid {
   max-width: 900px;

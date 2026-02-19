@@ -50,8 +50,23 @@ export default function CatShowcase({ cats }: { cats: Cat[] }) {
     }
   }, [activeIndex]);
 
+  // No cats at all
+  if (cats.length === 0) {
+    return (
+        <div className="alert alert-info" style={{ textAlign: 'center' }}>
+          <p>😿 Aucun chat à l&apos;adoption pour le moment.</p>
+          <p>
+            Suivez-nous sur{' '}
+            <a href="https://www.instagram.com/ninelivesparis/" target="_blank" rel="noopener noreferrer" className="link-purple">
+              Instagram
+            </a>
+            {' '}pour être informé des prochaines arrivées !
+          </p>
+        </div>
+      );
+  }
+
   const activeCat = filteredCats[activeIndex];
-  if (!activeCat) return null;
 
   const prev = () =>
     setActiveIndex((activeIndex - 1 + filteredCats.length) % filteredCats.length);
@@ -75,31 +90,49 @@ export default function CatShowcase({ cats }: { cats: Cat[] }) {
         ))}
       </div>
 
-      {/* Main image + arrows */}
-      <div className="showcase-main">
-        {filteredCats.length > 1 && (
-          <button className="showcase-arrow showcase-arrow-left" onClick={prev} aria-label="Chat précédent">
-            ‹
-          </button>
-        )}
-        <Link href={`/adopter/${activeCat.slug}`} className="showcase-image" data-no-lightbox>
-          <img src={activeCat.images[0]} alt={activeCat.name} />
-        </Link>
-        {filteredCats.length > 1 && (
-          <button className="showcase-arrow showcase-arrow-right" onClick={next} aria-label="Chat suivant">
-            ›
-          </button>
-        )}
-      </div>
+      {/* Empty state for filtered category */}
+      {filteredCats.length === 0 && (
+        <div className="alert alert-info" style={{ textAlign: 'center' }}>
+          <p>😿 Aucun chat dans cette catégorie pour le moment.</p>
+          <p>
+            Suivez-nous sur{' '}
+            <a href="https://www.instagram.com/ninelivesparis/" target="_blank" rel="noopener noreferrer" className="link-purple">
+              Instagram
+            </a>
+            {' '}pour être informé des prochaines arrivées !
+          </p>
+        </div>
+      )}
 
-      {/* Info */}
-      <div className="showcase-info">
-        <h3>{activeCat.name}</h3>
-        {activeCat.caractere && <p className="showcase-caractere">{activeCat.caractere}</p>}
-        <Link href={`/adopter/${activeCat.slug}`} className="btn btn-gradient">
-          Voir son profil →
-        </Link>
-      </div>
+      {/* Main image + arrows */}
+      {activeCat && (
+        <>
+          <div className="showcase-main">
+            {filteredCats.length > 1 && (
+              <button className="showcase-arrow showcase-arrow-left" onClick={prev} aria-label="Chat précédent">
+                ‹
+              </button>
+            )}
+            <Link href={`/adopter/${activeCat.slug}`} className="showcase-image" data-no-lightbox>
+              <img src={activeCat.images[0]} alt={activeCat.name} />
+            </Link>
+            {filteredCats.length > 1 && (
+              <button className="showcase-arrow showcase-arrow-right" onClick={next} aria-label="Chat suivant">
+                ›
+              </button>
+            )}
+          </div>
+
+          {/* Info */}
+          <div className="showcase-info">
+            <h3>{activeCat.name}</h3>
+            {activeCat.caractere && <p className="showcase-caractere">{activeCat.caractere}</p>}
+            <Link href={`/adopter/${activeCat.slug}`} className="btn btn-gradient">
+              Voir son profil →
+            </Link>
+          </div>
+        </>
+      )}
 
       {/* Thumbnails */}
       {filteredCats.length > 1 && (
