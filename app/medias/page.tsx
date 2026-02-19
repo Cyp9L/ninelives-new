@@ -18,6 +18,22 @@ type MediaItem = {
 };
 
 const mediaItems: MediaItem[] = [
+    {
+    image: '/images/leparisien.webp',
+    alt: 'Le Parisien — 18/09/2022',
+    caption: 'Le Parisien',
+    sub: '18/09/2022',
+    link: 'https://www.leparisien.fr/paris-75/paris-a-lhopital-de-la-pitie-salpetriere-on-soigne-aussi-les-chats-errants-18-09-2022-ENLW4MSQEVFJPPF7RY2UJ7LTAE.php',
+    externalCard: true,
+  },
+  {
+    image: '/images/lepoint.webp',
+    alt: 'Le Point — 11/12/2022',
+    caption: 'Le Point',
+    sub: '11/12/2022',
+    link: 'https://www.lepoint.fr/societe/les-chats-vont-ils-envahir-la-planete-11-12-2022-2501309_23.php',
+    externalCard: true,
+  },
   {
     image: '/images/medias/matouchat32-cover.webp',
     alt: 'Couverture Matou Chat n° 32',
@@ -143,4 +159,5 @@ export default function MediasPage() {
       </section>
     </main>
   );
+
 }
