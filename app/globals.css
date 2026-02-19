@@ -835,15 +835,18 @@ h2 {
 
 .cat-card {
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
   border-radius: 8px;
   overflow: hidden;
+  border: 2px solid transparent;
+  background: none;
 }
 
 .cat-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  background-color: #f5f3ff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #667eea;
+  background: none;
 }
 
 .cat-image {
@@ -1166,6 +1169,7 @@ h2 {
 
 .grid-3 {
   display: grid;
+  justify-items: center;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem; /* was 2rem */
 }
