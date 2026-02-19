@@ -108,8 +108,8 @@ export default function RootLayout({
         <Navigation />
         <Lightbox />
         {children}
-        <Footer />
         <RelatedActions />
+        <Footer />
         <SpeedInsights />
       </body>
     </html>
