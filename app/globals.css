@@ -1081,7 +1081,7 @@ main img:hover {
 
 .nav-mobile-link {
   display: block;
-  padding: 0.85rem 2rem;
+  padding: 0.35rem 2rem;
   color: #374151;
   font-weight: 400;
   font-size: 1.05rem;
@@ -1225,7 +1225,8 @@ main img:hover {
   .page-header h1 {
     font-size: 1.85rem;
   }
-.price-comparison {
+
+ .price-comparison {
     grid-template-columns: 1fr;
   }
 
@@ -1325,19 +1326,81 @@ main img:hover {
     width: 100%;
     margin: 0 0 1rem 0;
   }
+    /* NAV MOBILE*/
+      .nav-logo img,
+      .nav-logo svg {
+        height: 60px;
+      }
 
-  .nav-logo img,
-  .nav-logo svg {
-    height: 60px;
+      .nav-desktop {
+        display: none;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+      }
+
+      .nav-mobile {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      body {
+        padding-top: 84px;
+      }
+
+  /*FOOTER MOBILE*/
+  .footer {
+    padding: 1.5rem 1rem 1rem;
   }
 
-  .nav-desktop {
-    display: none;
+  .footer h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
   }
 
-  .nav-toggle {
-    display: block;
+  .footer-grid {
+    gap: 1.25rem;
+    margin-bottom: 1rem;
   }
+
+  .footer-about {
+    font-size: 0.85rem;
+  }
+
+  .footer-links a {
+    font-size: 0.9rem;
+  }
+
+  .footer-links {
+    gap: 0rem;
+  }
+
+
+  .footer-social {
+    gap: 0.75rem;
+  }
+
+  .footer-bottom {
+    padding-top: 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .footer-bottom-links {
+    gap: 0.5rem;
+    margin-bottom: 0.3rem;
+  }    
 
   /* Legacy inline style overrides (remove as we migrate) */
   form div[style*="gridTemplateColumns"] {
