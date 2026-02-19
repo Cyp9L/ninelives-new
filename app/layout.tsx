@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import Lightbox from '@/components/Lightbox';
 import RelatedActions from '@/components/RelatedActions';
 
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -110,6 +111,7 @@ export default function RootLayout({
         {children}
         <RelatedActions />
         <Footer />
+        <SpeedInsights />
       </body>
     </html>
   );
