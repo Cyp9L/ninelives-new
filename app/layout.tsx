@@ -21,8 +21,11 @@ const helloCasual = localFont({
   display: "swap",
 });
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL
+  || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ninelives.fr"),
+  metadataBase: new URL(baseUrl),
   title: {
     default: "Nine Lives Paris - Association de sauvetage de chats",
     template: "%s | Nine Lives Paris",
@@ -59,8 +62,8 @@ const organizationJsonLd = {
   "@type": "NGO",
   name: "Nine Lives Paris",
   alternateName: "Adopt' for life",
-  url: "https://ninelives.fr",
-  logo: "https://ninelives.fr/images/logo-nine-lives-paris.png",
+  url: baseUrl,
+  logo: "${baseUrl}/images/logo-nine-lives-paris.png",
   description:
     "Association loi 1901 de sauvetage de chats abandonnés, trouvés et errants à Paris.",
   email: "asso@ninelives.fr",
@@ -82,7 +85,7 @@ const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "Nine Lives Paris",
-  url: "https://ninelives.fr",
+  url: baseUrl,
 };
 
 export default function RootLayout({
