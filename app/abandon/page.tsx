@@ -82,7 +82,7 @@ export default function AbandonPage() {
                 <strong>Il s&apos;agit d&apos;un petit (faon, renardeau, chouette…) :</strong> la maman n&apos;est généralement pas loin. N&apos;intervenez pas ! En cas de doute, écrivez à <a href="mailto:contact@faune-alfort.org" className="link-blue">contact@faune-alfort.org</a>.
               </p>
               <p className="text-small text-muted">
-                Source : <a href="https://www.faune-alfort.org/informations-pratiques/je-trouve-un-animal-que-faire/" target="_blank" rel="noopener noreferrer" className="link-blue">faune-alfort.org</a>
+                Source : <a href="https://www.faune-alfort.org/jai-trouve-un-animal-en-detresse-que-faire/" target="_blank" rel="noopener noreferrer" className="link-blue">faune-alfort.org</a>
               </p>
             </div>
           </details>
@@ -119,12 +119,10 @@ export default function AbandonPage() {
       {/* Vous souhaitez nous confier votre animal ? */}
       <section id="abandon" className="section">
         <div className="container-mid">
-          <h2>Vous souhaitez nous confier votre animal ?</h2>
-
-          <div className="float-img-right">
+        <div className="float-img-right">
             <img src="/images/petit-prince.webp" alt="Citation du Petit Prince" />
           </div>
-
+          <h2>Vous souhaitez nous confier votre animal ?</h2>
           <p className="text-large mb-md">
             Lorsque vous avez accueilli votre animal, vous vous êtes engagé à lui fournir un toit et la sécurité pour <strong>toute sa vie</strong>. Il fait partie de votre famille.
           </p>
@@ -139,9 +137,10 @@ export default function AbandonPage() {
               <em><strong>L&apos;abandon d&apos;un animal domestique est puni de trois ans d&apos;emprisonnement et de 45 000 euros d&apos;amende (article 521-1 du Code pénal). En cas d&apos;abandon présentant un risque de mort, les peines sont portées à quatre ans et 60 000 euros.</strong></em>
             </p>
             <p>
-              Nous utilisons le mot abandon car pour l&apos;animal, c&apos;est toujours ressenti comme tel. Dans l&apos;intérêt de l&apos;animal, nous sommes disposés à le recueillir sous réserve des places disponibles. Merci de lire <Link href="/abandon/solutions" style={{ color: '#991b1b', textDecoration: 'underline' }}>les solutions pour éviter l&apos;abandon</Link>.
+              Nous utilisons le mot abandon car pour l&apos;animal, c&apos;est toujours ressenti comme tel. Dans l&apos;intérêt de l&apos;animal, nous sommes disposés à le recueillir sous réserve des places disponibles. 
             </p>
           </div>
+          <h2 style={{ fontWeight: '600' }}>Merci de lire <Link href="/abandon/solutions" style={{ color: '#991b1b', textDecoration: 'underline' }}>les solutions pour éviter l&apos;abandon</Link>.</h2>
         </div>
       </section>
 

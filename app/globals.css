@@ -510,7 +510,7 @@ h2 {
 .form-flow {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem; /* tighter than 2rem */
+  gap: 0.25rem; /* tighter than 2rem */
 }
 
 .form-grid {
@@ -598,12 +598,12 @@ h2 {
 }
 
 .form-section-title {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: #1f2937;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.3rem;
   border-bottom: 2px solid #e5e7eb;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.20rem;
 }
 /* Form grid variants */
 .form-grid-13 {
@@ -871,6 +871,215 @@ h2 {
   font-size: 1.35rem;
   font-weight: 300;
   padding: 0.5rem 0.75rem;
+}
+
+/* ===== CAT SHOWCASE (carousel) ===== */
+
+.cat-showcase {
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+.showcase-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.showcase-tab {
+  padding: 0.4rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 50px;
+  background: white;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.showcase-tab:hover {
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.showcase-tab.active {
+  background: #667eea;
+  border-color: #667eea;
+  color: white;
+}
+
+.showcase-main {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.showcase-image {
+  flex: 1;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #f3f4f6;
+}
+
+.showcase-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.showcase-image:hover img {
+  transform: scale(1.03);
+}
+
+.showcase-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  font-size: 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.showcase-arrow:hover {
+  background: white;
+}
+
+.showcase-arrow-left {
+  left: 0.75rem;
+}
+
+.showcase-arrow-right {
+  right: 0.75rem;
+}
+
+.showcase-info {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.showcase-info h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.25rem;
+}
+
+.showcase-caractere {
+  color: #6b7280;
+  font-style: italic;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.showcase-thumbs {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.5rem 0;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.showcase-thumbs::-webkit-scrollbar {
+  height: 4px;
+}
+
+.showcase-thumbs::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+.showcase-thumb {
+  flex-shrink: 0;
+  width: 65px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  scroll-snap-align: center;
+  transition: opacity 0.2s;
+  opacity: 0.6;
+}
+
+.showcase-thumb.active {
+  opacity: 1;
+}
+
+.showcase-thumb:hover {
+  opacity: 1;
+}
+
+.showcase-thumb img {
+  width: 65px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.showcase-thumb.active img {
+  border-color: #667eea;
+}
+
+.showcase-thumb span {
+  display: block;
+  font-size: 0.7rem;
+  margin-top: 0.25rem;
+  color: #6b7280;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.showcase-thumb.active span {
+  color: #667eea;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .showcase-arrow {
+    width: 34px;
+    height: 34px;
+    font-size: 1.2rem;
+  }
+
+  .showcase-arrow-left {
+    left: 0.5rem;
+  }
+
+  .showcase-arrow-right {
+    right: 0.5rem;
+  }
+
+  .showcase-info h3 {
+    font-size: 1.2rem;
+  }
+
+  .showcase-thumb {
+    width: 55px;
+  }
+
+  .showcase-thumb img {
+    width: 55px;
+    height: 55px;
+  }
 }
 
 /* Mid-width container (process, fees) */

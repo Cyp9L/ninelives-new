@@ -35,7 +35,7 @@ const mediaItems: MediaItem[] = [
     alt: 'Article Wamiz sur Nine Lives Paris',
     caption: 'Wamiz',
     sub: 'L\'histoire de Mango',
-    link: 'https://wamiz.com/chats/actu/donne-chat-contre-bons-soins-triste-histoire-mango-reflechir-monde-18386.html',
+    link: 'https://web.archive.org/web/20231128232101/https://wamiz.com/chats/actu/donne-chat-contre-bons-soins-triste-histoire-mango-reflechir-monde-18386.html',
   },
   {
     image: '/images/leparisien.webp',
