@@ -75,7 +75,7 @@ export default async function AdopterChatPage({ params }: { params: Promise<{ sl
 
   if (!cat) notFound();
 
-  const mainImage = cat.images?.[0] || '/images/default-cat.jpg';
+  const mainImage = cat.images?.[0] || '/images/default-cat.webp';
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",

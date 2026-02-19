@@ -61,7 +61,7 @@ export async function getAllCats() {
           .replace(/[^\w-]/g, ''),
         name: card.name,
         description: card.desc || '',
-        images: images.length > 0 ? images : ['/images/default-cat.jpg'],
+        images: images.length > 0 ? images : ['/images/default-cat.webp'],
         dateAdded: card.dateLastActivity
       };
     });

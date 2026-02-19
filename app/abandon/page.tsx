@@ -48,7 +48,7 @@ export default function AbandonPage() {
             <div className="icon-text-icon">🏥</div>
             <div>
               <p className="text-body">
-                La première chose à faire est de l&apos;emmener chez <a href="https://sospets.fr/" target="_blank" rel="noopener noreferrer" className="link-blue">le vétérinaire le plus proche</a> pour vérifier s&apos;il a une puce électronique. C&apos;est <strong>totalement gratuit</strong>.
+                La première chose à faire est de l&apos;emmener chez le vétérinaire le plus proche pour vérifier s&apos;il a une puce électronique. C&apos;est <strong>totalement gratuit</strong>.
               </p>
               <p className="text-body">
                 Si c&apos;est le cas, le vétérinaire pourra contacter sa famille et l&apos;animal pourra rentrer chez lui.
@@ -63,7 +63,7 @@ export default function AbandonPage() {
                 S&apos;il n&apos;est pas pucé, le vétérinaire pourra vous donner son âge approximatif, son sexe et son état de santé.
               </p>
               <p className="text-body">
-                Si vous ne pouvez pas le garder, <a href="#formulaire" className="link-blue">contactez-nous</a> ou d&apos;autres associations. Prenez des photos et diffusez-les : affiches dans le quartier, annonce sur <a href="https://www.petalert.fr/fr-fr" target="_blank" rel="noopener noreferrer" className="link-blue">PetAlert</a> et sur les <a href="https://www.facebook.com/AnimauxPerdusTrouves.fr/" target="_blank" rel="noopener noreferrer" className="link-blue">groupes Facebook dédiés</a>.
+                Si vous ne pouvez pas le garder, <a href="#formulaire" className="link-blue">contactez-nous</a> ou d&apos;autres associations. Prenez des photos et diffusez-les : affiches dans le quartier, annonce sur <a href="https://www.petalert.fr/" target="_blank" rel="noopener noreferrer" className="link-blue">PetAlert</a> et sur les <a href="https://www.facebook.com/AnimauxPerdusTrouves.fr/" target="_blank" rel="noopener noreferrer" className="link-blue">groupes Facebook dédiés</a>.
               </p>
             </div>
           </div>
@@ -91,12 +91,12 @@ export default function AbandonPage() {
             <summary>🐱 Animal domestique — vous pouvez l&apos;attraper</summary>
             <div className="accordion-content">
               <p className="text-body">
-                Emmenez-le chez <a href="https://sospets.fr/" target="_blank" rel="noopener noreferrer" className="link-blue">le vétérinaire le plus proche</a> pour vérifier s&apos;il est identifié (gratuit). Si oui, le vétérinaire contactera ses propriétaires.
+                Emmenez-le chez le vétérinaire le plus proche pour vérifier s&apos;il est identifié (gratuit). Si oui, le vétérinaire contactera ses propriétaires.
               </p>
               <p className="text-body"><strong>S&apos;il n&apos;est pas identifié :</strong></p>
               <ol className="process-list">
                 <li>Faites le tour des voisins et commerçants. Si vous n&apos;avez pas d&apos;animaux, vous pouvez le ramener chez vous. Sinon, isolez-le ou confiez-le à quelqu&apos;un.</li>
-                <li>Prenez des photos reconnaissables. Déclarez-le sur <a href="https://www.petalertfrance.com/" target="_blank" rel="noopener noreferrer" className="link-blue">PetAlert</a> (gratuit). Imprimez des affiches avec photo, adresse et votre contact.</li>
+                <li>Prenez des photos reconnaissables. Déclarez-le sur <a href="https://www.petalert.fr/" target="_blank" rel="noopener noreferrer" className="link-blue">PetAlert</a> (gratuit). Imprimez des affiches avec photo, adresse et votre contact.</li>
                 <li>Contactez des associations selon l&apos;espèce — liste sur <a href="https://www.secondechance.org/refuge/recherche" target="_blank" rel="noopener noreferrer" className="link-blue">Seconde Chance</a>.</li>
               </ol>
             </div>
@@ -109,7 +109,7 @@ export default function AbandonPage() {
                 Prenez des photos de l&apos;animal et de l&apos;endroit, puis contactez les associations les plus proches avec un maximum d&apos;informations. Vous pouvez aussi publier sur le <a href="https://www.facebook.com/groups/wantedcommunityanimaux/" target="_blank" rel="noopener noreferrer" className="link-blue">groupe Facebook Wanted Community Animaux</a>.
               </p>
               <p className="text-body">
-                Consultez les annonces d&apos;animaux perdus et déclarez-le comme vu sur <a href="https://www.petalertfrance.com/" target="_blank" rel="noopener noreferrer" className="link-blue">PetAlert</a> (gratuit).
+                Consultez les annonces d&apos;animaux perdus et déclarez-le comme vu sur <a href="https://www.petalert.fr/" target="_blank" rel="noopener noreferrer" className="link-blue">PetAlert</a> (gratuit).
               </p>
             </div>
           </details>
