@@ -101,12 +101,11 @@ export default function ActionsPage() {
       <section className="section section-gray">
         <div className="container">
           <h2 className="text-center">Interventions en milieu scolaire</h2>
-
+          <h3 className="text-small">avec le soutien de</h3>
           <div className="text-center mb-lg">
             <a href="https://education.l214.com/" target="_blank" rel="noopener">
               <img src="/images/l214-education-logo.png" data-no-lightbox alt="L214 Education" style={{ maxWidth: '200px', margin: '0 auto' }} />
             </a>
-            <p className="text-small">avec le soutien de</p>
           </div>
 
           <p className="text-large text-center mb-xl" style={{ maxWidth: '800px', margin: '0 auto 2rem' }}>
