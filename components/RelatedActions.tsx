@@ -143,6 +143,11 @@ const pageConfig: Record<string, { heading?: string; items: string[] }> = {
 };
 
 // Match dynamic routes: /adopter/anything → /adopter/[slug]
+ export default function RelatedActions() {
+  const pathname = usePathname();
+
+  if (pathname === '/') return null;
+
   const current = pathname.startsWith('/adopter/') && pathname !== '/adopter'
     ? '/adopter/[slug]'
     : pathname;
