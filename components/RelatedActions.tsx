@@ -157,7 +157,7 @@ const pageConfig: Record<string, { heading?: string; items: string[] }> = {
   const items = config.items.map((k) => allCTAs[k]).filter(Boolean);
 
   return (
-    <section className="section section-gray">
+    <section className="section section-gray related-actions">
       <div className="container">
         <h2 className="text-center" style={{ marginBottom: '1.5rem' }}>
           {heading}
