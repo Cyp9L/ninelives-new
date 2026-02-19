@@ -838,6 +838,7 @@ h2 {
   transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
   border-radius: 8px;
   overflow: hidden;
+  border-color: #9da9cb;
   border: 2px solid transparent;
   background: none;
 }
