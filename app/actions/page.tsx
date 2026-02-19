@@ -80,9 +80,6 @@ export default function ActionsPage() {
               <h3 className="section-title text-center">Notre Chatipi dans la presse</h3>
               <div className="card mb-md">
                 <strong>Le Parisien</strong> — 18/09/2022<br/>
-                <div className="float-img-right" style={{ width: '45%', borderRadius: '8px', overflow: 'hidden' }}>
-                  <img src="/images/leparisien.webp" alt="Article du Parisien" />
-                </div>
                 <a href="https://www.leparisien.fr/paris-75/paris-a-lhopital-de-la-pitie-salpetriere-on-soigne-aussi-les-chats-errants-18-09-2022-ENLW4MSQEVFJPPF7RY2UJ7LTAE.php"
                   target="_blank" rel="noopener" className="link-purple text-small">
                   Lire l&apos;article →
@@ -107,7 +104,7 @@ export default function ActionsPage() {
 
           <div className="text-center mb-lg">
             <a href="https://education.l214.com/" target="_blank" rel="noopener">
-              <img src="/images/l214-education-logo.png" alt="L214 Education" style={{ maxWidth: '200px', margin: '0 auto' }} />
+              <img src="/images/l214-education-logo.png" data-no-lightbox alt="L214 Education" style={{ maxWidth: '200px', margin: '0 auto' }} />
             </a>
             <p className="text-small">avec le soutien de</p>
           </div>
