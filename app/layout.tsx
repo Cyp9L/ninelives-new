@@ -20,9 +20,7 @@ const helloCasual = localFont({
   variable: "--font-hello-casual",
   display: "swap",
 });
-
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL
-  || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ninelives.fr';
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
