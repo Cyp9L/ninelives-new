@@ -4,7 +4,6 @@ import sizeOf from 'image-size';
 import InfiniteGallery from '@/components/InfiniteGallery';
 import type { Metadata } from 'next';
 
-
 export const revalidate = 300;
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -13,8 +12,8 @@ export async function generateMetadata(): Promise<Metadata> {
     ? fs.readdirSync(dir).filter(f => /\.(jpe?g|png|webp|avif)$/i.test(f))
     : [];
 
-  const randomImage = files.length > 0
-    ? `/images/gallery/${files[Math.floor(Math.random() * files.length)]}`
+  const firstImage = files.length > 0
+    ? `/images/gallery/${files.sort().reverse()[0]}`
     : '/og-image.png';
 
   return {
@@ -24,24 +23,15 @@ export async function generateMetadata(): Promise<Metadata> {
       title: 'Galerie photos | Nine Lives Paris',
       description: 'Nos plus belles photos de chats et chatons recueillis par Nine Lives Paris.',
       url: '/galerie',
-      images: [{ url: randomImage, width: 1200, height: 630, alt: 'Galerie Nine Lives Paris' }],
+      images: [{ url: firstImage, width: 1200, height: 630, alt: 'Galerie Nine Lives Paris' }],
     },
     twitter: {
       card: 'summary_large_image',
       title: 'Galerie photos | Nine Lives Paris',
       description: 'Nos plus belles photos de chats et chatons recueillis par Nine Lives Paris.',
-      images: [randomImage],
+      images: [firstImage],
     },
   };
-}
-
-function shuffle<T>(arr: T[]): T[] {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
 }
 
 export default function GaleriePage() {
@@ -50,18 +40,17 @@ export default function GaleriePage() {
     ? fs.readdirSync(dir).filter(f => /\.(jpe?g|png|webp|avif)$/i.test(f))
     : [];
 
-  const imagesWithDimensions = files.map(file => {
-    const filePath = path.join(dir, file);
-    const buffer = fs.readFileSync(filePath);
-    const dimensions = sizeOf(new Uint8Array(buffer));
-    return {
-      file,
-      width: dimensions.width || 800,
-      height: dimensions.height || 600,
-    };
-  });
-
-  const images = shuffle(imagesWithDimensions);
+  const images = files
+    .map(file => {
+      const buffer = fs.readFileSync(path.join(dir, file));
+      const dimensions = sizeOf(new Uint8Array(buffer));
+      return {
+        file,
+        width: dimensions.width || 800,
+        height: dimensions.height || 600,
+      };
+    })
+    .sort((a, b) => b.file.localeCompare(a.file));
 
   return (
     <main>
