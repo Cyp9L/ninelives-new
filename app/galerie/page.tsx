@@ -2,13 +2,38 @@ import fs from 'fs';
 import path from 'path';
 import sizeOf from 'image-size';
 import InfiniteGallery from '@/components/InfiniteGallery';
+import type { Metadata } from 'next';
+
 
 export const revalidate = 300;
 
-export const metadata = {
-  title: 'Galerie photos | Nine Lives Paris',
-  description: 'Nos plus belles photos de chats et chatons recueillis par l\'association Nine Lives Paris.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const dir = path.join(process.cwd(), 'public/images/gallery');
+  const files = fs.existsSync(dir)
+    ? fs.readdirSync(dir).filter(f => /\.(jpe?g|png|webp|avif)$/i.test(f))
+    : [];
+
+  const randomImage = files.length > 0
+    ? `/images/gallery/${files[Math.floor(Math.random() * files.length)]}`
+    : '/og-image.png';
+
+  return {
+    title: 'Galerie photos',
+    description: 'Nos plus belles photos de chats et chatons recueillis par l\'association Nine Lives Paris.',
+    openGraph: {
+      title: 'Galerie photos | Nine Lives Paris',
+      description: 'Nos plus belles photos de chats et chatons recueillis par Nine Lives Paris.',
+      url: '/galerie',
+      images: [{ url: randomImage, width: 1200, height: 630, alt: 'Galerie Nine Lives Paris' }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Galerie photos | Nine Lives Paris',
+      description: 'Nos plus belles photos de chats et chatons recueillis par Nine Lives Paris.',
+      images: [randomImage],
+    },
+  };
+}
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
