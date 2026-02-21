@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 
 const BATCH = 20;
 
@@ -9,9 +9,25 @@ type GalleryImage = {
   height: number;
 };
 
+function useColumns() {
+  const [cols, setCols] = useState(4);
+  useEffect(() => {
+    const update = () => {
+      if (window.innerWidth <= 768) setCols(1);
+      else if (window.innerWidth <= 1024) setCols(2);
+      else setCols(4);
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+  return cols;
+}
+
 export default function InfiniteGallery({ images }: { images: GalleryImage[] }) {
   const [count, setCount] = useState(BATCH);
   const loaderRef = useRef<HTMLDivElement>(null);
+  const cols = useColumns();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -28,21 +44,31 @@ export default function InfiniteGallery({ images }: { images: GalleryImage[] }) 
 
   const visible = images.slice(0, count);
 
+  // Round-robin: item 0→col0, 1→col1, 2→col2, 3→col3, 4→col0...
+  const columns = useMemo(() => {
+    const result: GalleryImage[][] = Array.from({ length: cols }, () => []);
+    for (let i = 0; i < visible.length; i++) {
+      result[i % cols].push(visible[i]);
+    }
+    return result;
+  }, [visible, cols]);
+
   return (
     <>
-      <div
-            className="masonry-grid"
-            onContextMenu={(e) => e.preventDefault()}
-          >
-        {visible.map((img) => (
-          <div key={img.file} className="masonry-item">
-            <img
-              src={`/_next/image?url=${encodeURIComponent(`/images/gallery/${img.file}`)}&w=640&q=75`}
-              alt="Chat recueilli par Nine Lives Paris"
-              loading="lazy"
-              width={img.width}
-              height={img.height}
-            />
+      <div className="masonry-grid" onContextMenu={(e) => e.preventDefault()}>
+        {columns.map((col, i) => (
+          <div key={i} className="masonry-column">
+            {col.map((img) => (
+              <div key={img.file} className="masonry-item">
+                <img
+                  src={`/_next/image?url=${encodeURIComponent(`/images/gallery/${img.file}`)}&w=640&q=75`}
+                  alt="Chat recueilli par Nine Lives Paris"
+                  loading="lazy"
+                  width={img.width}
+                  height={img.height}
+                />
+              </div>
+            ))}
           </div>
         ))}
       </div>
