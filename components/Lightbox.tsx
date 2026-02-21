@@ -11,9 +11,7 @@ export default function Lightbox() {
       const target = e.target as HTMLElement;
       const img = target.closest('img');
       if (!img) return;
-      // Skip tiny images (icons, logos, emojis)
       if (img.naturalWidth < 100 || img.naturalHeight < 100) return;
-      // Skip if parent has data-no-lightbox
       if (img.closest('[data-no-lightbox]')) return;
       
       e.preventDefault();
@@ -47,6 +45,7 @@ export default function Lightbox() {
   return (
     <div
       onClick={close}
+      onContextMenu={(e) => e.preventDefault()}
       style={{
         position: 'fixed',
         inset: 0,
@@ -60,18 +59,38 @@ export default function Lightbox() {
         animation: 'fadeIn 0.2s ease',
       }}
     >
-      <img
-        src={src}
-        alt={alt}
+      <div
         onClick={(e) => e.stopPropagation()}
-        style={{
-          maxWidth: '95vw',
-          maxHeight: '90vh',
-          objectFit: 'contain',
-          borderRadius: '4px',
-          cursor: 'default',
-        }}
-      />
+        style={{ position: 'relative', cursor: 'default' }}
+      >
+        <img
+          src={src}
+          alt={alt}
+          style={{
+            maxWidth: '95vw',
+            maxHeight: '90vh',
+            objectFit: 'contain',
+            borderRadius: '4px',
+            userSelect: 'none',
+            WebkitUserDrag: 'none',
+          } as React.CSSProperties}
+        />
+        {/* Watermark */}
+        <img
+          src="/images/logo-nine-lives-paris.svg"
+          alt=""
+          style={{
+            position: 'absolute',
+            bottom: '1rem',
+            right: '1rem',
+            width: '120px',
+            opacity: 0.4,
+            pointerEvents: 'none',
+            userSelect: 'none',
+          }}
+        />
+      </div>
+
       <button
         onClick={close}
         style={{
