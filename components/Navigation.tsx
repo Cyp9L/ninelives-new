@@ -3,44 +3,64 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
-import Logo from '@/components/Logo';
-
 
 export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileAssoOpen, setMobileAssoOpen] = useState(false);
   const pathname = usePathname();
-  const close = () => setMobileOpen(false);
-
-  const navLinks = [
-    { href: '/', label: 'Accueil' },
-    { href: '/actions', label: 'Nos actions' },
-    { href: '/adopter', label: 'Je veux adopter' },
-    { href: '/benevole', label: 'Je veux aider' },
-    { href: '/abandon/solutions', label: "J'ai besoin d'aide" },
-    { href: '/donner', label: 'Faire un don' },
-    { href: '/partenaires', label: 'Partenaires' },
-    { href: '/medias', label: 'Apparitions médias' },
-    { href: '/contact', label: 'Contact' },
-  ];
+  const close = () => { setMobileOpen(false); setMobileAssoOpen(false); };
 
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href);
 
+  const assoLinks = [
+    { href: '/actions', label: 'Nos actions' },
+    { href: '/partenaires', label: 'Partenaires' },
+    { href: '/galerie', label: 'Galerie' },
+  ];
+
+  const isAssoActive = assoLinks.some(l => isActive(l.href));
+
   return (
     <nav className="nav">
       <div className="nav-inner">
-        <Link href="/" onClick={close} className="nav-logo" >
-        <Logo />
+        {/* Logo */}
+        <Link href="/" onClick={close} className="nav-logo" data-no-lightbox>
+          <Image src="/logo-nine-lives-paris.png" alt="Nine Lives Paris" width={140} height={45} />
         </Link>
 
         {/* Desktop */}
         <div className="nav-desktop">
-          {navLinks.map(link => (
-            <Link key={link.href} href={link.href}
-              className={`nav-link ${isActive(link.href) ? 'active' : ''}`}>
-              {link.label}
-            </Link>
-          ))}
+          <Link href="/adopter" className={`nav-link ${isActive('/adopter') ? 'active' : ''}`}>
+            Je veux adopter
+          </Link>
+
+          <Link href="/benevole" className={`nav-link ${isActive('/benevole') ? 'active' : ''}`}>
+            Je veux aider
+          </Link>
+
+          <Link href="/abandon/solutions" className={`nav-link ${isActive('/abandon') ? 'active' : ''}`}>
+            J&apos;ai besoin d&apos;aide
+          </Link>
+
+          <div className="nav-dropdown">
+            <span className={`nav-link ${isAssoActive ? 'active' : ''}`} style={{ cursor: 'default' }}>
+              L&apos;association ▾
+            </span>
+            <div className="nav-dropdown-menu">
+              {assoLinks.map(link => (
+                <Link key={link.href} href={link.href}>{link.label}</Link>
+              ))}
+            </div>
+          </div>
+
+          <Link href="/contact" className={`nav-link ${isActive('/contact') ? 'active' : ''}`}>
+            Contact
+          </Link>
+
+          <Link href="/donner" className="nav-cta">
+            ♥ Faire un don
+          </Link>
         </div>
 
         {/* Mobile toggle */}
@@ -53,15 +73,47 @@ export default function Navigation() {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="nav-mobile">
-          {navLinks.map(link => (
-            <Link key={link.href} href={link.href} onClick={close}
-              className={`nav-mobile-link ${isActive(link.href) ? 'active' : ''}`}>
-              {link.label}
-            </Link>
-          ))}
+          <Link href="/adopter" onClick={close}
+            className={`nav-mobile-link ${isActive('/adopter') ? 'active' : ''}`}>
+            Adopter
+          </Link>
+
+          <button
+            onClick={() => setMobileAssoOpen(!mobileAssoOpen)}
+            className={`nav-mobile-link ${isAssoActive ? 'active' : ''}`}
+            style={{ width: '100%', textAlign: 'left', background: 'none', border: 'none', font: 'inherit' }}
+          >
+            L&apos;association {mobileAssoOpen ? '▴' : '▾'}
+          </button>
+          {mobileAssoOpen && (
+            <div className="nav-mobile-sub">
+              {assoLinks.map(link => (
+                <Link key={link.href} href={link.href} onClick={close}>{link.label}</Link>
+              ))}
+            </div>
+          )}
+
+          <Link href="/benevole" onClick={close}
+            className={`nav-mobile-link ${isActive('/benevole') ? 'active' : ''}`}>
+            Je veux aider
+          </Link>
+
+          <Link href="/abandon" onClick={close}
+            className={`nav-mobile-link ${isActive('/abandon') ? 'active' : ''}`}>
+            J&apos;ai besoin d&apos;aide
+          </Link>
+
+          <Link href="/contact" onClick={close}
+            className={`nav-mobile-link ${isActive('/contact') ? 'active' : ''}`}>
+            Contact
+          </Link>
+
+          <Link href="/donner" onClick={close} className="nav-mobile-link"
+            style={{ color: '#667eea', fontWeight: '600' }}>
+            ♥ Faire un don
+          </Link>
         </div>
       )}
     </nav>
   );
-
 }
