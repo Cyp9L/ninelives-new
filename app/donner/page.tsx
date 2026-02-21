@@ -85,6 +85,36 @@ export default function DonnerPage() {
           <div style={{ clear: 'both' }} />
         </div>
       </section>
+      {/* Merch */}
+      <section className="section">
+        <div className="container-mid">
+          <div className="grid-2" style={{ alignItems: 'stretch' }}>
+            <div>
+              <h2>Portez nos couleurs ! 🐱</h2>
+              <p className="text-body">
+                Affichez votre soutien à l&apos;association avec notre hoodie exclusif Nine Lives Paris. Confortable, stylé, et pour la bonne cause.
+              </p>
+              <p className="text-large mb-md">
+                <strong>30€ TTC</strong> <span className="text-muted">+ frais de port</span>
+              </p>
+              <p className="text-body mb-lg">
+                100% des bénéfices financent les soins vétérinaires de nos protégés.
+              </p>
+              <a href="https://www.helloasso.com/associations/nine-lives-paris" target="_blank" rel="noopener noreferrer" className="btn btn-gradient btn-lg">
+                Commander sur HelloAsso
+              </a>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div style={{ borderRadius: '8px', overflow: 'hidden' }}>
+                <img src="/images/hoodie_front.jpg" alt="Hoodie — face avant" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              </div>
+              <div style={{ borderRadius: '8px', overflow: 'hidden' }}>
+                <img src="/images/hoodie_back.jpg" alt="Hoodie — face arrière" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
