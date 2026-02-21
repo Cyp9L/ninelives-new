@@ -29,6 +29,7 @@ export async function GET(req: NextRequest) {
     ? files
         .filter((f: any) => /\.(jpe?g|png|webp|avif)$/i.test(f.name))
         .map((f: any) => ({ name: f.name, sha: f.sha }))
+        .sort((a: any, b: any) => b.name.localeCompare(a.name))
     : [];
 
   return NextResponse.json({ files: images });

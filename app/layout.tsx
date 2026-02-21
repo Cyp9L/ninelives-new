@@ -6,6 +6,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Lightbox from '@/components/Lightbox';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/next';
 import RelatedActions from '@/components/RelatedActions';
 
 const poppins = Poppins({
@@ -113,6 +114,7 @@ export default function RootLayout({
         <RelatedActions />
         <Footer />
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
