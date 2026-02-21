@@ -4,7 +4,7 @@ import sizeOf from 'image-size';
 import InfiniteGallery from '@/components/InfiniteGallery';
 import type { Metadata } from 'next';
 
-export const revalidate = 300;
+export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const dir = path.join(process.cwd(), 'public/images/gallery');
