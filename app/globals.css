@@ -272,7 +272,7 @@ h2 {
   right: 0.75rem;
   width: 80px;
   height: 30px;
-  background: url(/logo-nine-lives-paris.png) center/contain no-repeat;
+  background: url(/images/logo-nine-lives-paris.svg) center/contain no-repeat;
   opacity: 0.4;
   pointer-events: none;
 }

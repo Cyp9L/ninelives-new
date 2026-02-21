@@ -51,6 +51,9 @@ export default function InfiniteGallery({ images }: { images: GalleryImage[] }) 
           Chargement…
         </div>
       )}
+      <p className="text-small text-muted text-center" style={{ marginTop: '2rem' }}>
+        © {new Date().getFullYear()} Nine Lives Paris — Toutes les photos sont la propriété de l&apos;association. Reproduction interdite.
+      </p>
     </>
   );
 }
