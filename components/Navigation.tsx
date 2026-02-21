@@ -75,7 +75,17 @@ export default function Navigation() {
         <div className="nav-mobile">
           <Link href="/adopter" onClick={close}
             className={`nav-mobile-link ${isActive('/adopter') ? 'active' : ''}`}>
-            Adopter
+            Je veux adopter
+          </Link>
+
+          <Link href="/benevole" onClick={close}
+            className={`nav-mobile-link ${isActive('/benevole') ? 'active' : ''}`}>
+            Je veux aider
+          </Link>
+
+          <Link href="/abandon/solutions" onClick={close}
+            className={`nav-mobile-link ${isActive('/abandon') ? 'active' : ''}`}>
+            J&apos;ai besoin d&apos;aide
           </Link>
 
           <button
@@ -92,16 +102,6 @@ export default function Navigation() {
               ))}
             </div>
           )}
-
-          <Link href="/benevole" onClick={close}
-            className={`nav-mobile-link ${isActive('/benevole') ? 'active' : ''}`}>
-            Je veux aider
-          </Link>
-
-          <Link href="/abandon" onClick={close}
-            className={`nav-mobile-link ${isActive('/abandon') ? 'active' : ''}`}>
-            J&apos;ai besoin d&apos;aide
-          </Link>
 
           <Link href="/contact" onClick={close}
             className={`nav-mobile-link ${isActive('/contact') ? 'active' : ''}`}>

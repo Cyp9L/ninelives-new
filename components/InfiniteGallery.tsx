@@ -30,7 +30,10 @@ export default function InfiniteGallery({ images }: { images: GalleryImage[] }) 
 
   return (
     <>
-      <div className="masonry-grid">
+      <div
+            className="masonry-grid"
+            onContextMenu={(e) => e.preventDefault()}
+          >
         {visible.map((img) => (
           <div key={img.file} className="masonry-item">
             <img

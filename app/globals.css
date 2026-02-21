@@ -249,6 +249,7 @@ h2 {
   border-radius: 6px;
   overflow: hidden;
   background: #f3f4f6;
+  position: relative;
 }
 
 .masonry-item img {
@@ -256,10 +257,24 @@ h2 {
   height: auto;
   display: block;
   transition: transform 0.3s;
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 .masonry-item:hover img {
   transform: scale(1.03);
+}
+
+.masonry-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  width: 80px;
+  height: 30px;
+  background: url(/logo-nine-lives-paris.png) center/contain no-repeat;
+  opacity: 0.4;
+  pointer-events: none;
 }
 
 /* ===== LINKS ===== */
@@ -1301,7 +1316,7 @@ main img:hover {
   background: white;
   border: 1px solid #e5e7eb;
   border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.582);
   min-width: 200px;
   padding: 0.5rem 0;
   z-index: 100;
