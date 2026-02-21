@@ -1663,8 +1663,9 @@ main img:hover {
   .float-img-left,
   .float-img-right {
     float: none;
-    width: 100%;
-    margin: 0 0 1rem 0;
+    width: 60% !important;
+    margin: 0 auto 1.5rem;
+    display: block;
   }
     /* NAV MOBILE*/
       .nav-logo img,

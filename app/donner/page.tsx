@@ -92,7 +92,7 @@ export default function DonnerPage() {
             <div>
               <h2>Portez nos couleurs ! 🐱</h2>
               <p className="text-body">
-                Affichez votre soutien à l&apos;association avec notre hoodie exclusif Nine Lives Paris. Confortable, stylé, et pour la bonne cause.
+                Affichez votre soutien à l&apos;association avec notre hoodie Nine Lives Paris. Confortable, stylé, et pour la bonne cause.
               </p>
               <p className="text-large mb-md">
                 <strong>30€ TTC</strong> <span className="text-muted">+ frais de port</span>
