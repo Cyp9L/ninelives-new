@@ -40,3 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 *:Zone.Identifier
+
+public/images/gallery/*.jpg
+public/images/gallery/*.jpeg
+public/images/gallery/*.png
+public/images/gallery/*.webp

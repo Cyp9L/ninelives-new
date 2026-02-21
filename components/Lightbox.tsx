@@ -84,7 +84,7 @@ export default function Lightbox() {
             bottom: '1rem',
             right: '1rem',
             width: '120px',
-            opacity: 0.4,
+            opacity: 1,
             pointerEvents: 'none',
             userSelect: 'none',
           }}
