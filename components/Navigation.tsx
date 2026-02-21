@@ -17,6 +17,7 @@ export default function Navigation() {
     { href: '/actions', label: 'Nos actions' },
     { href: '/partenaires', label: 'Partenaires' },
     { href: '/galerie', label: 'Galerie' },
+    { href: 'https://www.helloasso.com/associations/nine-lives-paris', label: 'Boutique ↗', external: true },
   ];
 
   const isAssoActive = assoLinks.some(l => isActive(l.href));
@@ -49,7 +50,11 @@ export default function Navigation() {
             </span>
             <div className="nav-dropdown-menu">
               {assoLinks.map(link => (
-                <Link key={link.href} href={link.href}>{link.label}</Link>
+                link.external ? (
+                  <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>
+                ) : (
+                  <Link key={link.href} href={link.href}>{link.label}</Link>
+                )
               ))}
             </div>
           </div>
@@ -97,10 +102,14 @@ export default function Navigation() {
           </button>
           {mobileAssoOpen && (
             <div className="nav-mobile-sub">
-              {assoLinks.map(link => (
+            {assoLinks.map(link => (
+              link.external ? (
+                <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" onClick={close}>{link.label}</a>
+              ) : (
                 <Link key={link.href} href={link.href} onClick={close}>{link.label}</Link>
-              ))}
-            </div>
+              )
+            ))}
+          </div>
           )}
 
           <Link href="/contact" onClick={close}

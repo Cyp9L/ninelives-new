@@ -88,7 +88,24 @@ export default function BenevolePage() {
           </div>
         </div>
       </section>
-
+      {/* Merch */}
+      <section className="section">
+        <div className="container-mid text-center">
+          <h2>Portez nos couleurs ! 🐱</h2>
+          <div className="float-img-left" style={{ width: '200px' }}>
+          <img src="/images/hoodie_back.jpg" alt="Hoodie Nine Lives Paris" />
+          </div>
+          <p className="text-body">
+            Soutenez l&apos;association en portant notre hoodie — <strong>30€</strong> (+frais de port).
+          </p>
+          <p className="text-body">
+            <a href="https://www.helloasso.com/associations/nine-lives-paris" target="_blank" rel="noopener noreferrer" className="btn btn-gradient">
+              Commander sur HelloAsso
+            </a>
+          </p>
+          <div style={{ clear: 'both' }} />
+        </div>
+      </section>
       {/* Form */}
       <section id="formulaire" className="section section-gray">
         <div className="container-mid">
