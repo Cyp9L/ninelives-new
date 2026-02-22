@@ -36,7 +36,7 @@ export default function ContactPage() {
       {/* Header */}
       <section
         className="cat-hero"
-        style={{ background: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(/images/Masha8.jpg) center/cover' }}
+        style={{ background: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(/images/site/Masha8.webp) center/cover' }}
       >
         <div className="container">
           <h1>Contactez-nous</h1>
@@ -80,6 +80,10 @@ export default function ContactPage() {
                 className="link-purple highlight-text">
                 Page Facebook →
               </a>
+            </div>
+            <div className="card card-centered">
+              <div className="card-icon"></div>
+              <div className="img"><img src="/images/site/humberto-arellano-n-g2sqdy9qy-unsplash.jpg" alt="Chat création" /></div>
             </div>
           </div>
         </div>

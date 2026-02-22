@@ -10,17 +10,19 @@ export default function BenevolePage() {
   return (
     <main>
       {/* Header */}
-      <section className="page-header" style={{ background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)' }}>
+      <section className="hero" style={{ maxHeight: '400px', backgroundImage: 'url(/images/site/DSC01832.webp' }}>
         <div className="container">
+          <div className="hero-content">
           <h1>Devenir bénévole</h1>
           <p>Rejoignez notre équipe et aidez-nous à sauver des vies !</p>
+        </div>
         </div>
       </section>
 
       {/* Content */}
       <section className="section">
         <div className="container-mid">
-        <div className="float-img-right"><img src="/images/chaton-dans-une-main.webp" alt="Chaton dans une main" />
+        <div className="float-img-right"><img src="/images/site/chaton-dans-une-main.webp" alt="Chaton dans une main" />
         </div>
           <p className="text-large mb-lg">
             <strong>Nous ne disposons pas de refuge</strong> — tous nos animaux sont en familles d&apos;accueil qui en prennent soin au quotidien.
@@ -40,7 +42,7 @@ export default function BenevolePage() {
           {/* Foster types */}
           <section className="section section-gray">
                   <div className="container-mid">
-                  <div className="float-img-left"><img src="/images/wiskey04.webp" alt="Chat endormi" />
+                  <div className="float-img-left"><img src="/images/site/wiskey04.webp" alt="Chat endormi" />
                   </div>
                     <h2 className="text-center">Quel type de famille d&apos;accueil ?</h2>
 
@@ -92,7 +94,7 @@ export default function BenevolePage() {
       <section className="section">
         <div className="container-mid text-center">
           <div className="float-img-left" style={{ width: '250px', shapeMargin: '1rem' }}>
-            <img src="/images/hoodie_back.jpg" alt="Hoodie Nine Lives Paris" style={{ borderRadius: '8px' }} />
+            <img src="/images/site/hoodie_back.webm" alt="Hoodie Nine Lives Paris" style={{ borderRadius: '8px' }} />
           </div>
           <h2>Portez nos couleurs ! 🐱</h2>
           <p className="text-body">

@@ -10,9 +10,11 @@ export default function DonnerPage() {
   return (
     <main>
       {/* Header */}
-      <section className="page-header" style={{ background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)' }}>
+      <section className="hero" style={{ maxHeight: '400px', backgroundImage: 'url(/images/site/29052021-IMG_5287.webp' }}>
         <div className="container">
+          <div className="hero-content">
           <h1>Faire un don</h1>
+        </div>
         </div>
       </section>
 
@@ -20,7 +22,7 @@ export default function DonnerPage() {
       <section className="section">
         <div className="container-mid">
           <div className="float-img-right" style={{ width: '45%', borderRadius: '8px', overflow: 'hidden' }}>
-            <img src="/images/wiskey.jpg" alt="Wiskey, un de nos protégés" />
+            <img src="/images/site/wiskey.jpg" alt="Wiskey, un de nos protégés" />
           </div>
           <p className="text-large mb-md">
             <strong>💝 Sauver des vies a un coût.</strong>
@@ -57,7 +59,7 @@ export default function DonnerPage() {
       <section className="section section-gray">
         <div className="container-mid">
           <div className="float-img-left" style={{ height: '40%', borderRadius: '8px', overflow: 'hidden' }}>
-            <img src="/images/salomon.webp" alt="Salomon, un de nos protégés" />
+            <img src="/images/site/salomon.webp" alt="Salomon, un de nos protégés" />
           </div>
 
           <p className="text-large mb-md">
@@ -106,10 +108,10 @@ export default function DonnerPage() {
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
               <div style={{ borderRadius: '8px', overflow: 'hidden' }}>
-                <img src="/images/hoodie_front.jpg" alt="Hoodie — face avant" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                <img src="/images/site/hoodie_front.webp" alt="Hoodie — face avant" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
               <div style={{ borderRadius: '8px', overflow: 'hidden' }}>
-                <img src="/images/hoodie_back.jpg" alt="Hoodie — face arrière" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                <img src="/images/site/hoodie_back.webp" alt="Hoodie — face arrière" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
             </div>
           </div>

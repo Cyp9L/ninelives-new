@@ -17,12 +17,14 @@ export default async function AdopterPage() {
   return (
     <main>
       {/* Header */}
-      <section className="page-header">
+      <section className="hero" style={{ backgroundImage: 'url(/images/site/26032021-IMG_4304.webp' }}>
         <div className="container">
+          <div className="hero-content">
           <h1>Adopter</h1>
           <p>
             <strong>Attention :</strong> par manque de bénévoles, nous ne faisons adopter que dans les départements de Paris et petite couronne, 92, 94.
           </p>
+          </div>
         </div>
       </section>
 

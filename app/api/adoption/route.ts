@@ -33,7 +33,7 @@ export async function POST(request: Request) {
     try {
       const { all: cats } = await getAllCats();
       const cat = cats.find((c: any) => c.name === data.animalName);
-      if (cat && cat.images[0] && cat.images[0] !== '/images/cat-not-found.jpg') {
+      if (cat && cat.images[0] && cat.images[0] !== '/images/site/cat-not-found.jpg') {
         const requestUrl = new URL(request.url);
         const baseUrl = `${requestUrl.protocol}//${requestUrl.host}`;
         const absoluteImageUrl = `${baseUrl}${cat.images[0]}`;

@@ -91,7 +91,7 @@ export async function getAllCats() {
           .replace(/[^\w-]/g, ''),
         name: card.name,
         description: card.desc || '',
-        images: images.length > 0 ? images : ['/images/cat-not-found.jpg'],
+        images: images.length > 0 ? images : ['/images/site/cat-not-found.jpg'],
         category: getCategory(card.labels),
         caractere: extractCaractere(card.desc || ''),
         dateAdded: card.dateLastActivity

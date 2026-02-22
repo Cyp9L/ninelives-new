@@ -9,9 +9,11 @@ export default function SolutionsAbandonPage() {
   return (
     <main>
       {/* Header */}
-      <section className="page-header">
+      <section className="hero" style={{maxHeight: '400px', backgroundImage: 'url(/images/site/29012021-IMG_3094.webp' }}>
         <div className="container">
+          <div className="hero-content">
           <h1>Les solutions pour éviter l&apos;abandon</h1>
+        </div>
         </div>
       </section>
 
@@ -31,7 +33,7 @@ export default function SolutionsAbandonPage() {
       <section className="section section-gray">
         <div className="container-narrow">
           <h2>🏖️ Vous partez en vacances ?</h2>
-
+          <div className="float-img-right"><img src="/images/site/Moufle10.webp" alt="Chat borgne" /></div>
           <details className="accordion">
             <summary>🐱 Chat, peu de budget, moins de 2 semaines</summary>
             <div className="accordion-content">
