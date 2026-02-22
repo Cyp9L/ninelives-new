@@ -36,7 +36,7 @@ export default function ContactPage() {
       {/* Header */}
       <section
         className="cat-hero"
-        style={{ background: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(/images/humberto-arellano-n-g2sqdy9qy-unsplash.jpg) center/cover' }}
+        style={{ background: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(/images/Masha8.jpg) center/cover' }}
       >
         <div className="container">
           <h1>Contactez-nous</h1>

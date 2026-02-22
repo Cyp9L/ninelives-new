@@ -44,12 +44,17 @@ export default function InfiniteGallery({ images }: { images: GalleryImage[] }) 
 
   const visible = images.slice(0, count);
 
-  // Round-robin: item 0→col0, 1→col1, 2→col2, 3→col3, 4→col0...
+  // Distribute to shortest column (height-aware)
   const columns = useMemo(() => {
     const result: GalleryImage[][] = Array.from({ length: cols }, () => []);
-    for (let i = 0; i < visible.length; i++) {
-      result[i % cols].push(visible[i]);
+    const heights = new Array(cols).fill(0);
+
+    for (const img of visible) {
+      const shortest = heights.indexOf(Math.min(...heights));
+      result[shortest].push(img);
+      heights[shortest] += img.height / img.width;
     }
+
     return result;
   }, [visible, cols]);
 

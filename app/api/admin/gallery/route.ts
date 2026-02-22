@@ -68,11 +68,11 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ success: true });
 }
 
-// Batch delete — single commit via Git Data API
+// Batch delete
 export async function DELETE(req: NextRequest) {
   if (!checkAuth(req)) return unauthorized();
 
-  const { files } = await req.json(); // Array of { filename, sha }
+  const { files } = await req.json();
 
   if (!files || files.length === 0) {
     return NextResponse.json({ error: 'No files specified' }, { status: 400 });
@@ -83,72 +83,98 @@ export async function DELETE(req: NextRequest) {
     'Content-Type': 'application/json',
   };
 
-  // 1. Get latest commit SHA
-  const refRes = await fetch(
-    `https://api.github.com/repos/${GITHUB_REPO}/git/ref/heads/main`,
-    { headers: ghHeaders }
-  );
-  const refData = await refRes.json();
-  const latestCommitSha = refData.object.sha;
+  // Try Git Data API for single commit
+  try {
+    // 1. Get latest commit SHA
+    const refRes = await fetch(
+      `https://api.github.com/repos/${GITHUB_REPO}/git/ref/heads/main`,
+      { headers: ghHeaders }
+    );
+    if (!refRes.ok) throw new Error(`ref: ${await refRes.text()}`);
+    const refData = await refRes.json();
+    const latestCommitSha = refData.object.sha;
 
-  // 2. Get tree SHA
-  const commitRes = await fetch(
-    `https://api.github.com/repos/${GITHUB_REPO}/git/commits/${latestCommitSha}`,
-    { headers: ghHeaders }
-  );
-  const commitData = await commitRes.json();
+    // 2. Get tree SHA
+    const commitRes = await fetch(
+      `https://api.github.com/repos/${GITHUB_REPO}/git/commits/${latestCommitSha}`,
+      { headers: ghHeaders }
+    );
+    if (!commitRes.ok) throw new Error(`commit: ${await commitRes.text()}`);
+    const commitData = await commitRes.json();
 
-  // 3. Create new tree with deletions (sha: null removes the file)
-  const treeRes = await fetch(
-    `https://api.github.com/repos/${GITHUB_REPO}/git/trees`,
-    {
-      method: 'POST',
-      headers: ghHeaders,
-      body: JSON.stringify({
-        base_tree: commitData.tree.sha,
-        tree: files.map((f: any) => ({
-          path: `${GALLERY_PATH}/${f.filename}`,
-          mode: '100644',
-          type: 'blob',
-          sha: null,
-        })),
-      }),
+    // 3. Create new tree with deletions
+    const treeRes = await fetch(
+      `https://api.github.com/repos/${GITHUB_REPO}/git/trees`,
+      {
+        method: 'POST',
+        headers: ghHeaders,
+        body: JSON.stringify({
+          base_tree: commitData.tree.sha,
+          tree: files.map((f: any) => ({
+            path: `${GALLERY_PATH}/${f.filename}`,
+            mode: '100644',
+            type: 'blob',
+            sha: null,
+          })),
+        }),
+      }
+    );
+    if (!treeRes.ok) throw new Error(`tree: ${await treeRes.text()}`);
+    const treeData = await treeRes.json();
+
+    // 4. Create commit
+    const newCommitRes = await fetch(
+      `https://api.github.com/repos/${GITHUB_REPO}/git/commits`,
+      {
+        method: 'POST',
+        headers: ghHeaders,
+        body: JSON.stringify({
+          message: `gallery: remove ${files.length} image(s)`,
+          tree: treeData.sha,
+          parents: [latestCommitSha],
+        }),
+      }
+    );
+    if (!newCommitRes.ok) throw new Error(`new commit: ${await newCommitRes.text()}`);
+    const newCommitData = await newCommitRes.json();
+
+    // 5. Update ref
+    const updateRes = await fetch(
+      `https://api.github.com/repos/${GITHUB_REPO}/git/ref/heads/main`,
+      {
+        method: 'PATCH',
+        headers: ghHeaders,
+        body: JSON.stringify({ sha: newCommitData.sha }),
+      }
+    );
+    if (!updateRes.ok) throw new Error(`update ref: ${await updateRes.text()}`);
+
+    return NextResponse.json({ success: true, deleted: files.length });
+
+  } catch (error: any) {
+    console.error('Batch delete failed, falling back to sequential:', error.message);
+
+    // Fallback: sequential deletes via Contents API
+    let deleted = 0;
+    for (const f of files) {
+      const res = await fetch(
+        `https://api.github.com/repos/${GITHUB_REPO}/contents/${GALLERY_PATH}/${f.filename}`,
+        {
+          method: 'DELETE',
+          headers: ghHeaders,
+          body: JSON.stringify({
+            message: `gallery: remove ${f.filename}`,
+            sha: f.sha,
+          }),
+        }
+      );
+      if (res.ok) deleted++;
     }
-  );
-  const treeData = await treeRes.json();
 
-  if (!treeData.sha) {
-    return NextResponse.json({ error: 'Failed to create tree' }, { status: 500 });
+    if (deleted === 0) {
+      return NextResponse.json({ error: `Batch failed: ${error.message}. Sequential also failed.` }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true, deleted, method: 'sequential' });
   }
-
-  // 4. Create commit
-  const newCommitRes = await fetch(
-    `https://api.github.com/repos/${GITHUB_REPO}/git/commits`,
-    {
-      method: 'POST',
-      headers: ghHeaders,
-      body: JSON.stringify({
-        message: `gallery: remove ${files.length} image(s)`,
-        tree: treeData.sha,
-        parents: [latestCommitSha],
-      }),
-    }
-  );
-  const newCommitData = await newCommitRes.json();
-
-  // 5. Update ref
-  const updateRes = await fetch(
-    `https://api.github.com/repos/${GITHUB_REPO}/git/ref/heads/main`,
-    {
-      method: 'PATCH',
-      headers: ghHeaders,
-      body: JSON.stringify({ sha: newCommitData.sha }),
-    }
-  );
-
-  if (!updateRes.ok) {
-    return NextResponse.json({ error: 'Failed to update ref' }, { status: 500 });
-  }
-
-  return NextResponse.json({ success: true, deleted: files.length });
 }
