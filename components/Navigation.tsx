@@ -8,7 +8,8 @@ export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileAssoOpen, setMobileAssoOpen] = useState(false);
   const pathname = usePathname();
-  const close = () => { setMobileOpen(false); setMobileAssoOpen(false); };
+  const close = () => { setMobileOpen(false); setMobileAssoOpen(false); setDropdownOpen(false); };
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href);
@@ -45,18 +46,26 @@ export default function Navigation() {
           </Link>
 
           <div className="nav-dropdown">
-            <span className={`nav-link ${isAssoActive ? 'active' : ''}`} style={{ cursor: 'default' }}>
-              L&apos;association ▾
-            </span>
-            <div className="nav-dropdown-menu">
-              {assoLinks.map(link => (
-                link.external ? (
-                  <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>
-                ) : (
-                  <Link key={link.href} href={link.href}>{link.label}</Link>
-                )
-              ))}
-            </div>
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className={`nav-link ${isAssoActive ? 'active' : ''}`}
+              style={{ background: 'none', border: 'none', font: 'inherit', cursor: 'pointer', padding: 0 }}
+            >
+              L&apos;association {dropdownOpen ? '▴' : '▾'}
+            </button>
+            {dropdownOpen && (
+              <div className="nav-dropdown-menu" style={{ display: 'block' }}>
+                {assoLinks.map(link => (
+                  link.external ? (
+                    <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer"
+                      onClick={() => setDropdownOpen(false)}>{link.label}</a>
+                  ) : (
+                    <Link key={link.href} href={link.href}
+                      onClick={() => setDropdownOpen(false)}>{link.label}</Link>
+                  )
+                ))}
+              </div>
+            )}
           </div>
 
           <Link href="/contact" className={`nav-link ${isActive('/contact') ? 'active' : ''}`}>

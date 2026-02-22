@@ -10,7 +10,7 @@ export default function PartenairesPage() {
     <main>
       <section
         className="cat-hero"
-        style={{ background: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(/images/moustache-cafe.jpg) center/cover' }}
+        style={{ background: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(/images/site/moustache-cafe.jpg) center/cover' }}
       >
         <div className="container text-center">
           <h1>Nos partenaires</h1>
@@ -24,7 +24,7 @@ export default function PartenairesPage() {
       <section className="section">
         <div className="container-mid">
           <div className="float-img-left">
-            <img src="/images/arche-associations.jpg" alt="L'Arche des Associations" />
+            <img src="/images/site/arche-associations.jpg" alt="L'Arche des Associations" />
           </div>
 
           <h2>
@@ -48,7 +48,7 @@ export default function PartenairesPage() {
       <section className="section section-gray">
         <div className="container-mid">
           <div className="float-img-right">
-            <img src="/images/educhateur.png" alt="Educhateur - coaching félin" />
+            <img src="/images/site/educhateur.png" alt="Educhateur - coaching félin" />
           </div>
 
           <h2>
@@ -72,7 +72,7 @@ export default function PartenairesPage() {
       <section className="section">
         <div className="container-mid">
           <div className="float-img-left">
-            <img src="/images/miaustore.png" alt="Fontaine Miaustore" />
+            <img src="/images/site/miaustore.png" alt="Fontaine Miaustore" />
           </div>
 
           <h2>
@@ -96,7 +96,7 @@ export default function PartenairesPage() {
       <section className="section section-gray">
         <div className="container-mid">
           <div className="float-img-right">
-            <img src="/images/protection-chats.jpg" alt="Protection pour chats - filets" />
+            <img src="/images/site/protection-chats.jpg" alt="Protection pour chats - filets" />
           </div>
 
           <h2>

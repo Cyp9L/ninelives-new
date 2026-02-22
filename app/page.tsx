@@ -8,7 +8,7 @@ export default async function HomePage() {
   return (
     <main>
       {/* Hero */}
-      <section className="hero" style={{ backgroundImage: 'url(/salomon-bg.jpg)' }}>
+      <section className="hero" style={{ backgroundImage: 'url(/images/site/salomon-bg.jpg)' }}>
         <div className="container">
           <div className="hero-content">
             <h1>Nine Lives Paris</h1>

@@ -14,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const firstImage = files.length > 0
     ? `/images/gallery/${files.sort().reverse()[0]}`
-    : '/og-image.png';
+    : '/images/site/og-image.png';
 
   return {
     title: 'Galerie photos',

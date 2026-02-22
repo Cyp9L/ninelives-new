@@ -22,7 +22,7 @@ export default function AbandonPage() {
       <section className="section">
         <div className="container-mid">
           <div className="float-img-left">
-            <img src="/images/abandon-kitten.webp" alt="Chaton dans une cagette" />
+            <img src="/images/site/abandon-kitten.webp" alt="Chaton dans une cagette" />
           </div>
 
           <p className="text-large mb-md">
@@ -120,7 +120,7 @@ export default function AbandonPage() {
       <section id="abandon" className="section">
         <div className="container-mid">
         <div className="float-img-right">
-            <img src="/images/petit-prince.webp" alt="Citation du Petit Prince" />
+            <img src="/images/site/petit-prince.webp" alt="Citation du Petit Prince" />
           </div>
           <h2>Vous souhaitez nous confier votre animal ?</h2>
           <p className="text-large mb-md">

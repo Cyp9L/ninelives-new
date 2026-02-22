@@ -77,7 +77,7 @@ export default function Lightbox() {
         />
         {/* Watermark */}
         <img
-          src="/images/logo-nine-lives-paris.svg"
+          src="/images/site/logo-nine-lives-paris.svg"
           alt=""
           style={{
             position: 'absolute',

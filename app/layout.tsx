@@ -41,7 +41,7 @@ export const metadata: Metadata = {
       "L'association Nine Lives Paris recueille les chats abandonnés, trouvés, errants, sortis de fourrière.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/images/site/og-image.png",
         width: 1200,
         height: 630,
         alt: "Nine Lives Paris - Association de sauvetage de chats",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     title: "Nine Lives Paris - Association de sauvetage de chats",
     description:
       "L'association Nine Lives Paris recueille les chats abandonnés, trouvés, errants, sortis de fourrière.",
-    images: ["/og-image.png"],
+    images: ["/images/site/og-image.png"],
   },
 };
 
@@ -63,7 +63,7 @@ const organizationJsonLd = {
   name: "Nine Lives Paris",
   alternateName: "Adopt' for life",
   url: baseUrl,
-  logo: "${baseUrl}/images/logo-nine-lives-paris.png",
+  logo: "${baseUrl}/images/site/logo-nine-lives-paris.png",
   description:
     "Association loi 1901 de sauvetage de chats abandonnés, trouvés et errants à Paris.",
   email: "asso@ninelives.fr",

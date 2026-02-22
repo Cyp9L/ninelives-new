@@ -1,4 +1,5 @@
 'use client';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -142,10 +143,13 @@ const pageConfig: Record<string, { heading?: string; items: string[] }> = {
   },
 };
 
-// Match dynamic routes: /adopter/anything → /adopter/[slug]
- export default function RelatedActions() {
+export default function RelatedActions() {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
 
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null;
   if (pathname === '/') return null;
 
   const current = pathname.startsWith('/adopter/') && pathname !== '/adopter'

@@ -10,8 +10,9 @@ export default function ActionsPage() {
   return (
     <main>
       {/* Hero */}
-      <section className="page-header" style={{ background: 'linear-gradient(135deg, rgba(0,148,126,0.9), rgba(0,148,126,0.7))' }}>
+      <section className="hero" style={{ maxHeight: '400px', backgroundImage: 'url(/images/site/23032022-IMG_6093.webp' }}>
         <div className="container">
+          <div className="hero-content">
           <h1>NOS ACTIONS</h1>
           <p>
             Nine Lives Paris est une association Loi 1901 à but non lucratif. Nous ne disposons pas d&apos;un refuge — 
@@ -23,11 +24,13 @@ export default function ActionsPage() {
             Soutenez-nous
           </a>
         </div>
+        </div>
       </section>
 
       {/* 4 Actions */}
       <section className="section section-gray">
         <div className="container">
+        <div className="float-img-right"><img style={{ maxHeight: '400px', objectFit: 'cover', width: '100%' }} src="/images/site/23032021-IMG_4226.webp" alt="Chat avec une colerette" /></div>
           <div className="grid-cards">
             {[
               { icon: '🐾', title: 'Recueillir', text: 'Nous recueillons des animaux abandonnés, non désirés, délaissés, trouvés, provenant de fourrières…' },
@@ -101,10 +104,10 @@ export default function ActionsPage() {
       <section className="section section-gray">
         <div className="container">
           <h2 className="text-center">Interventions en milieu scolaire</h2>
-          <h3 className="texte-center text-small">avec le soutien de</h3>
+          <h3 className="text-center">avec le soutien de</h3>
           <div className="text-center mb-lg">
             <a href="https://education.l214.com/" target="_blank" rel="noopener">
-              <img src="/images/l214-education-logo.png" data-no-lightbox alt="L214 Education" style={{ maxWidth: '150px', margin: '0 auto' }} />
+              <img src="/images/site/l214-education-logo.png" data-no-lightbox alt="L214 Education" style={{ maxWidth: '150px', margin: '0 auto' }} />
             </a>
           </div>
 
@@ -136,10 +139,10 @@ export default function ActionsPage() {
 
           <div className="grid-2">
             <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
-              <img src="/images/jango.webp" alt="Sauvetage de Jango" />
+              <img src="/images/site/jango.webp" alt="Sauvetage de Jango" />
             </div>
             <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
-              <img src="/images/papaye.webp" alt="Sauvetage de Papaye" />
+              <img src="/images/site/papaye.webp" alt="Sauvetage de Papaye" />
             </div>
           </div>
         </div>
