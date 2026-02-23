@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
       { source: '/devenir-benevole', destination: '/benevole', permanent: true },
       { source: '/mentions-legales', destination: '/mentions', permanent: true },
       { source: '/solutions-abandon', destination: '/abandon/solutions', permanent: true },
+      { source: '/jai-trouve-un-animal-que-faire', destination: '/abandon/solutions', permanent: true },
+      { source: '/aider-autrement', destination: '/donner', permanent: true },
+      { source: '/lapins-vacances', destination: '/abandon/solutions', permanent: true },
+      { source: '/une-cage-pour-mes-lapins', destination: '/abandon/solutions', permanent: true },
 
       // Old form URLs
       { source: '/entry_form/formulaire-benevolat', destination: '/benevole', permanent: true },
