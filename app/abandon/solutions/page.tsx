@@ -9,7 +9,7 @@ export default function SolutionsAbandonPage() {
   return (
     <main>
       {/* Header */}
-      <section className="hero" style={{maxHeight: '400px', backgroundImage: 'url(/images/site/29012021-IMG_3094.webp' }}>
+      <section className="hero page-header-no-overlay" style={{backgroundImage: 'url(/images/site/29012021-IMG_3094.webp)' }}>
         <div className="container">
           <div className="hero-content">
           <h1>Les solutions pour éviter l&apos;abandon</h1>

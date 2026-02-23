@@ -10,7 +10,7 @@ export default function BenevolePage() {
   return (
     <main>
       {/* Header */}
-      <section className="hero" style={{ maxHeight: '400px', backgroundImage: 'url(/images/site/DSC01832.webp' }}>
+      <section className="hero" style={{ backgroundImage: 'url(/images/site/DSC01832.webp' }}>
         <div className="container">
           <div className="hero-content">
           <h1>Devenir bénévole</h1>
@@ -94,7 +94,7 @@ export default function BenevolePage() {
       <section className="section">
         <div className="container-mid text-center">
           <div className="float-img-left" style={{ width: '250px', shapeMargin: '1rem' }}>
-            <img src="/images/site/hoodie_back.webm" alt="Hoodie Nine Lives Paris" style={{ borderRadius: '8px' }} />
+            <img src="/images/site/hoodie_back.webp" alt="Hoodie Nine Lives Paris" style={{ borderRadius: '8px' }} />
           </div>
           <h2>Portez nos couleurs ! 🐱</h2>
           <p className="text-body">

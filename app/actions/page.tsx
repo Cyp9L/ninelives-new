@@ -10,7 +10,7 @@ export default function ActionsPage() {
   return (
     <main>
       {/* Hero */}
-      <section className="hero" style={{ maxHeight: '400px', backgroundImage: 'url(/images/site/23032022-IMG_6093.webp' }}>
+      <section className="hero" style={{ backgroundImage: 'url(/images/gallery/1771692501514-04102020-IMG_2605.jpg' }}>
         <div className="container">
           <div className="hero-content">
           <h1>NOS ACTIONS</h1>
@@ -30,20 +30,38 @@ export default function ActionsPage() {
       {/* 4 Actions */}
       <section className="section section-gray">
         <div className="container">
-        <div className="float-img-right"><img style={{ maxHeight: '400px', objectFit: 'cover', width: '100%' }} src="/images/site/23032021-IMG_4226.webp" alt="Chat avec une colerette" /></div>
           <div className="grid-cards">
-            {[
-              { icon: '🐾', title: 'Recueillir', text: 'Nous recueillons des animaux abandonnés, non désirés, délaissés, trouvés, provenant de fourrières…' },
-              { icon: '🏠', title: 'Placer', text: 'Nous les plaçons en famille d\'accueil le temps qu\'ils soient à jour sanitairement et prêts à être adoptés.' },
-              { icon: '💉', title: 'Soigner', text: 'Nous les identifions, vaccinons, stérilisons et sociabilisons quand nécessaire.' },
-              { icon: '❤️', title: 'Adopter', text: 'Nous leur cherchons une famille d\'adoption adaptée, en prêtant attention à leur futur environnement.' }
-            ].map((action, i) => (
-              <div key={i} className="card card-centered">
-                <div className="card-icon">{action.icon}</div>
-                <h3>{action.title}</h3>
-                <p>{action.text}</p>
-              </div>
-            ))}
+            <div className="card card-centered">
+              <div className="card-icon">🐾</div>
+              <h3>Recueillir</h3>
+              <p>Nous recueillons des animaux abandonnés, non désirés, délaissés, trouvés, provenant de fourrières…</p>
+            </div>
+
+            <div className="card card-centered">
+              <img src="/images/gallery/1771688187581-DSC_6277.jpg" alt="Chat gris et blanc" style={{ width: '100%', borderRadius: '6px', marginBottom: '1rem' }} />
+            </div>
+
+            <div className="card card-centered">
+              <div className="card-icon">🏠</div>
+              <h3>Placer</h3>
+              <p>Nous les plaçons en famille d&apos;accueil le temps qu&apos;ils soient à jour sanitairement et prêts à être adoptés.</p>
+            </div>
+
+            <div className="card card-centered">
+              <div className="card-icon">💉</div>
+              <h3>Soigner</h3>
+              <p>Nous les identifions, vaccinons, stérilisons et sociabilisons quand nécessaire.</p>
+            </div>
+
+            <div className="card card-centered">
+              <img src="/images/gallery/1771683875389-L1003797-Modifica-1.jpg" alt="Chat sur une chaise" style={{ width: '100%', borderRadius: '6px', marginBottom: '1rem' }} />
+            </div>
+
+            <div className="card card-centered">
+              <div className="card-icon">❤️</div>
+              <h3>Adopter</h3>
+              <p>Nous leur cherchons une famille d&apos;adoption adaptée, en prêtant attention à leur futur environnement.</p>
+            </div>
           </div>
         </div>
       </section>
