@@ -183,7 +183,7 @@ a {
 
 .hero {
   position: relative;
-  min-height: 300px;
+  height: 375px;
   display: flex;
   align-items: center;
   background-size: cover;
@@ -902,7 +902,7 @@ h2 {
 
 /* Cat hero */
 .cat-hero {
-  min-height: 350px;
+  height: 375px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1713,7 +1713,7 @@ main img:hover {
   h2 { font-size: 1.55rem; }
 
   .hero {
-    min-height: 200px;
+    height: 375px;
   }
 
   .hero h1 {
@@ -1725,7 +1725,7 @@ main img:hover {
   }
 
   .cat-hero {
-    min-height: 250px;
+    height: 375px;
   }
 
   .cat-hero h1 {
@@ -1943,7 +1943,7 @@ main img:hover {
   h1 { font-size: 1.75rem; }
   h2 { font-size: 1.55rem; }
 
-  .hero { min-height: 175px; }
+  .hero { height: 275px; }
 
   .hero h1 {
     font-size: 2rem;
@@ -2018,7 +2018,7 @@ main img:hover {
   }
 
   .hero {
-    min-height: 175px;
+    height: 275px;
   }
 
   .hero h1 {
@@ -2090,7 +2090,7 @@ main img:hover {
   }
 
   .hero {
-    min-height: 150px;
+    height: 250px;
   }
 
   .hero h1 {
@@ -2103,7 +2103,7 @@ main img:hover {
   }
 
   .cat-hero {
-    min-height: 200px;
+    height: 250px;
   }
 
   .cat-hero h1 {
@@ -2243,7 +2243,7 @@ main img:hover {
   h2 { font-size: 1.15rem; }
 
   .hero {
-    min-height: 130px;
+    height: 230px;
   }
 
   .hero h1 {
@@ -2255,7 +2255,7 @@ main img:hover {
   }
 
   .cat-hero {
-    min-height: 170px;
+    height: 270px;
   }
 
   .cat-hero h1 {
