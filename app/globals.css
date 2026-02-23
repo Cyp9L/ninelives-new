@@ -913,7 +913,7 @@ h2 {
 
 .cat-hero h1 {
   font-size: 4rem;
-  font-weight: 300;
+  font-weight: 700;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
@@ -1006,7 +1006,6 @@ h2 {
   transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
   border-radius: 8px;
   overflow: hidden;
-  border-color: #9da9cb;
   border: 2px solid transparent;
   background: none;
 }
@@ -1072,13 +1071,13 @@ h2 {
 }
 
 .showcase-tab:hover {
-  border-color: #009AB6;
-  color: #009AB6;
+  border-color: #046C79;
+  color: #046C79;
 }
 
 .showcase-tab.active {
-  background: #009AB6;
-  border-color: #009AB6;
+  background: #046C79;
+  border-color: #046C79;
   color: white;
 }
 
@@ -1436,7 +1435,7 @@ main img:hover {
 
 .nav-dropdown-menu a:hover {
   background: #f3f4f6;
-  color: #009AB6;
+  color: #046C79;
 }
 
 /* Nav CTA */
@@ -1471,7 +1470,7 @@ main img:hover {
 }
 
 .nav-mobile-sub a:hover {
-  color: #009AB6;
+  color: #046C79;
 }
 
 /* Desktop menu */
@@ -1492,13 +1491,13 @@ main img:hover {
 }
 
 .nav-link:hover {
-  color: #009AB6;
+  color: #046C79;
 }
 
 .nav-link.active {
-  color: #009AB6;
+  color: #046C79;
   font-weight: 600;
-  border-bottom-color: #009AB6;
+  border-bottom-color: #046C79;
 }
 
 /* Mobile toggle */
@@ -1530,13 +1529,13 @@ main img:hover {
 }
 
 .nav-mobile-link:hover {
-  color: #009AB6;
+  color: #046C79;
 }
 
 .nav-mobile-link.active {
-  color: #009AB6;
+  color: #046C79;
   font-weight: 600;
-  border-left-color: #009AB6;
+  border-left-color: #046C79;
 }
 
 /* ===== RELATED ACTIONS ===== */
