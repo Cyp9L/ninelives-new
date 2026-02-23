@@ -7,6 +7,7 @@
 body {
   font-family: var(--font-poppins), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   color: #1f2937;
+  background-color: #f5eeeeb8;
   line-height: 1.5;
 }
 
@@ -259,6 +260,51 @@ h2 {
   text-align: center;
 }
 
+/* ===== CAT MARQUEE ===== */
+
+.marquee {
+  overflow: hidden;
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  animation: marquee-scroll 90s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.marquee-item {
+  flex-shrink: 0;
+  width: 280px;
+  height: 200px;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.marquee-item img {
+  width: 280px;
+  height: 200px;
+  max-width: none;
+  object-fit: cover;
+  display: block;
+  cursor: default;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 /* ===== GALERIE ===== */
 /* Masonry gallery */
 .masonry-grid {
@@ -496,8 +542,7 @@ h2 {
 }
 
 .accordion:hover {
-  background: rgb(191, 152, 235);
-  box-shadow: 0 1px 4px rgba(233, 128, 233, 0.06);
+  background: #f0ecf9;
 }
 
 .accordion-content {
@@ -520,8 +565,41 @@ h2 {
   display: none;
 }
 
+.accordion summary::after {
+  content: '›';
+  margin-left: auto;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #667eea;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.accordion[open] summary::after {
+  transform: rotate(90deg);
+}
+
 .accordion .accordion-content {
   padding: 0 1.25rem 1rem;
+}
+
+/* ===== SECTION WITH ASIDE IMAGE ===== */
+
+.section-with-aside {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.section-with-aside > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.section-with-aside > img {
+  width: 220px;
+  border-radius: 8px;
+  flex-shrink: 0;
 }
 
 /* ===== ALERTS ===== */
@@ -735,6 +813,28 @@ h2 {
 }
 .honeypot {
   display: none;
+}
+
+/* Partner logo */
+.logo-partner {
+  max-width: 150px;
+  margin: 0 auto;
+}
+
+/* Intervention list items */
+.intervention-item {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.intervention-item-last {
+  border-bottom: none;
+}
+
+/* Card with flush image (no padding) */
+.card-image {
+  padding: 0;
+  overflow: hidden;
 }
 
 /* ===== CAT PICKER (adoption form) ===== */
@@ -1612,7 +1712,7 @@ main img:hover {
   }
 
   h1 { font-size: 2rem; }
-  h2 { font-size: 1.5rem; }
+  h2 { font-size: 1.55rem; }
 
   .hero {
     min-height: 200px;
@@ -1643,6 +1743,15 @@ main img:hover {
     float: none;
     width: 100%;
     margin: 0 0 1.5rem 0;
+  }
+
+  .section-with-aside {
+    flex-direction: column;
+  }
+  .section-with-aside > img {
+    width: 60%;
+    margin: 0 auto;
+    order: -1;
   }
 
   .grid-2,
@@ -1834,7 +1943,7 @@ main img:hover {
   }
 
   h1 { font-size: 1.75rem; }
-  h2 { font-size: 1.35rem; }
+  h2 { font-size: 1.55rem; }
 
   .hero { min-height: 175px; }
 

@@ -1,14 +1,25 @@
+import fs from 'fs';
+import path from 'path';
 import Link from 'next/link';
 import { getAllCats } from '@/lib/trello';
+import CatMarquee from '@/components/CatMarquee';
 
 export default async function HomePage() {
   const { all } = await getAllCats();
   const featuredCats = all.slice(0, 3);
 
+  // Read gallery images and pick a random subset
+  const galleryDir = path.join(process.cwd(), 'public/images/gallery');
+  const galleryImages = fs.readdirSync(galleryDir)
+    .filter(file => /\.(jpg|jpeg|png|webp)$/i.test(file))
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 20)
+    .map(file => `/images/gallery/${file}`);
+
   return (
     <main id="main-content">
       {/* Hero */}
-      <section className="hero" role="img" aria-label="Chat orange en boule" style={{ backgroundImage: 'url(/images/site/salomon-bg.jpg)' }}>
+      <section className="hero" role="img" aria-label="Chat orange en boule" style={{ backgroundImage: 'url(/images/site/salomon-bg.jpg)', backgroundPosition: 'center 30%' }}>
         <div className="container">
           <div className="hero-content">
             <h1>Nine Lives Paris</h1>
@@ -46,20 +57,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Video */}
-      <section className="section section-gray">
-        <div className="container-video">
-          <div className="video-container">
-            <iframe
-              src="https://www.youtube.com/embed/rUAdt696qpI"
-              title="Nine Lives Paris"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          </div>
-        </div>
-      </section>
-
       {/* Cats */}
       <section className="section">
         <div className="container">
@@ -81,15 +78,26 @@ export default async function HomePage() {
           </div>
 
           <div className="text-center">
-            <Link href="/adopter" className="btn btn-outline">
+            <Link href="/adopter" className="btn btn-lg btn-outline">
               Voir tous nos chats
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Social */}
+      {/* Adopted cats marquee */}
       <section className="section section-gray">
+        <div className="container text-center">
+          <h2>Ils ont trouvé une famille 🏠</h2>
+          <p className="text-large mb-lg">
+            Chaque année, des dizaines de chats trouvent un foyer grâce à nos bénévoles et familles d&apos;accueil.
+          </p>
+        </div>
+        <CatMarquee images={galleryImages} />
+      </section>
+
+      {/* Social */}
+      <section className="section">
         <div className="container text-center">
           <h2>Suivez-nous</h2>
           <div className="social-links">

@@ -38,7 +38,7 @@ const mediaItems: MediaItem[] = [
     link: 'https://web.archive.org/web/20231128232101/https://wamiz.com/chats/actu/donne-chat-contre-bons-soins-triste-histoire-mango-reflechir-monde-18386.html',
   },
   {
-    image: '/images/leparisien.webp',
+    image: '/images/site/leparisien.webp',
     alt: 'Le Parisien — 18/09/2022',
     caption: 'Le Parisien',
     sub: '18/09/2022',
@@ -46,7 +46,7 @@ const mediaItems: MediaItem[] = [
     externalCard: true,
   },
   {
-    image: '/images/lepoint.webp',
+    image: '/images/site/lepoint.webp',
     alt: 'Le Point — 11/12/2022',
     caption: 'Le Point',
     sub: '11/12/2022',
@@ -128,10 +128,11 @@ export default function MediasPage() {
   return (
     <main id="main-content">
       {/* Header */}
-      <div className="page-header">
+      {/* Header */}
+      <section className="page-header">
         <h1>Nos apparitions dans les médias</h1>
         <p>Nine Lives Paris dans la presse et sur le web</p>
-      </div>
+      </section>
 
       {/* Nine Lives Paris section */}
       <section className="section">

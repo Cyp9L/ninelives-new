@@ -46,19 +46,19 @@ export default function DonnerPage() {
             </a>
           </div>
 
-          <p className="text-small text-muted">
-            Vos dons sont déductibles des impôts à hauteur de 66%.
-            <br/><strong>Votre don de 100€ ne vous coûte que 34€ !</strong>
-          </p>
-
           <div style={{ clear: 'both' }} />
+
+          <div className="alert alert-info">
+            <strong>Vos dons sont déductibles des impôts à hauteur de 66%.</strong>
+            <br/>Votre don de 100€ ne vous coûte que 34€ !
+          </div>
         </div>
       </section>
 
       {/* Material Donation */}
       <section className="section section-gray">
         <div className="container-mid">
-          <div className="float-img-left" style={{ height: '40%', borderRadius: '8px', overflow: 'hidden' }}>
+          <div className="float-img-left" >
             <img src="/images/site/salomon.webp" alt="Salomon, un de nos protégés" />
           </div>
 
