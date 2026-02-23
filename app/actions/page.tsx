@@ -38,10 +38,6 @@ export default function ActionsPage() {
             </div>
 
             <div className="card card-centered">
-              <img src="/images/gallery/1771688187581-DSC_6277.jpg" alt="Chat gris et blanc" style={{ width: '100%', borderRadius: '6px', marginBottom: '1rem' }} />
-            </div>
-
-            <div className="card card-centered">
               <div className="card-icon">🏠</div>
               <h3>Placer</h3>
               <p>Nous les plaçons en famille d&apos;accueil le temps qu&apos;ils soient à jour sanitairement et prêts à être adoptés.</p>
@@ -51,10 +47,6 @@ export default function ActionsPage() {
               <div className="card-icon">💉</div>
               <h3>Soigner</h3>
               <p>Nous les identifions, vaccinons, stérilisons et sociabilisons quand nécessaire.</p>
-            </div>
-
-            <div className="card card-centered">
-              <img src="/images/gallery/1771683875389-L1003797-Modifica-1.jpg" alt="Chat sur une chaise" style={{ width: '100%', borderRadius: '6px', marginBottom: '1rem' }} />
             </div>
 
             <div className="card card-centered">
