@@ -38,8 +38,8 @@ export default async function AdopterPage() {
       </section>
 
       {/* Process + Kittens (two columns) */}
-      <section className="section">
-        <div className="container">
+      <section className="section section-gray">
+        <div className="container-mid">
           <div className="grid-2">
             {/* Left: Process */}
             <div>
@@ -59,6 +59,12 @@ export default async function AdopterPage() {
             {/* Right: Kittens */}
             <div>
               <h2>🐾 Les chatons</h2>
+              <img
+                src="/images/gallery/1771685699346-04072021-IMG_5721.jpg"
+                alt="Chaton tenu dans une main"
+                className="float-img-right"
+                data-no-lightbox
+              />
               <p className="text-body">
                 Un chaton ne reste un « bébé duveteux » que 5 à 6 mois — dans une vie qui peut atteindre 20 ans. Réfléchissez bien.
               </p>
@@ -77,7 +83,7 @@ export default async function AdopterPage() {
       </section>
 
       {/* Fees */}
-      <section className="section section-gray">
+      <section className="section">
         <div className="container-mid">
           <h2>Nos frais d&apos;adoption</h2>
 

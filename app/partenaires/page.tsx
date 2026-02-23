@@ -8,15 +8,15 @@ export const metadata = {
 export default function PartenairesPage() {
   return (
     <main id="main-content">
-      <section
-        className="cat-hero"
-        style={{ background: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(/images/site/moustache-cafe.jpg) center/cover' }}
-      >
-        <div className="container text-center">
-          <h1>Nos partenaires</h1>
-          <p>
-            Nous avons noué des partenariats avec plusieurs entreprises, afin d&apos;améliorer le bien-être de nos animaux durant toute leur vie.
-          </p>
+      {/* Header */}
+      <section className="hero" role="img" aria-label="Chat au café" style={{ backgroundImage: 'url(/images/site/moustache-cafe.jpg)' }}>
+        <div className="container">
+          <div className="hero-content">
+            <h1>Nos partenaires</h1>
+            <p>
+              Nous avons noué des partenariats avec plusieurs entreprises, afin d&apos;améliorer le bien-être de nos animaux durant toute leur vie.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -118,13 +118,18 @@ export default function PartenairesPage() {
 
       {/* CTA */}
       <section className="section">
-        <div className="container-mid text-center">
-          <p className="text-large mb-lg">
-            Vous souhaitez développer un partenariat avec nous ? Nous sommes toujours ravies de faire de nouvelles rencontres !
-          </p>
-          <Link href="/contact" className="btn btn-gradient btn-lg">
-            Contactez-nous
-          </Link>
+        <div className="container-mid">
+          <div className="section-with-aside">
+            <div className="text-center">
+              <p className="text-large mb-lg">
+                Vous souhaitez développer un partenariat avec nous ? Nous sommes toujours ravies de faire de nouvelles rencontres !
+              </p>
+              <Link href="/contact" className="btn btn-gradient btn-lg">
+                Contactez-nous
+              </Link>
+            </div>
+            <img src="/images/site/wiskey04.webp" alt="Chat endormi" data-no-lightbox />
+          </div>
         </div>
       </section>
     </main>

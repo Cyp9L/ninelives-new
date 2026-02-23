@@ -10,20 +10,40 @@ export default function ActionsPage() {
   return (
     <main id="main-content">
       {/* Hero */}
-      <section className="hero" role="img" aria-label="Chat avec réflexion dans vitre" style={{ backgroundImage: 'url(/images/gallery/1771692501514-04102020-IMG_2605.jpg' }}>
+      <section className="hero" role="img" aria-label="Chat avec réflexion dans vitre" style={{ backgroundImage: 'url(/images/gallery/1771692501514-04102020-IMG_2605.jpg)' }}>
         <div className="container">
           <div className="hero-content">
-          <h1>NOS ACTIONS</h1>
-          <p>
-            Nine Lives Paris est une association Loi 1901 à but non lucratif. Nous ne disposons pas d&apos;un refuge — 
-            tous nos chats vivent en familles d&apos;accueil jusqu&apos;à leur adoption.
-          </p>
-          <a href="https://www.helloasso.com/associations/nine-lives-paris/formulaires/1"
-            target="_blank" rel="noopener noreferrer"
-            className="btn btn-primary" style={{ marginTop: '1rem' }}>
-            Soutenez-nous
-          </a>
+            <h1>Nos actions</h1>
+            <p>
+              Nine Lives Paris est une association Loi 1901 à but non lucratif. Nous ne disposons pas d&apos;un refuge —
+              tous nos chats vivent en familles d&apos;accueil jusqu&apos;à leur adoption.
+            </p>
+            <a href="https://www.helloasso.com/associations/nine-lives-paris/formulaires/1"
+              target="_blank" rel="noopener noreferrer"
+              className="btn btn-primary">
+              Soutenez-nous
+            </a>
+          </div>
         </div>
+      </section>
+
+      {/* Video */}
+      <section className="section">
+        <div className="container text-center">
+          <h2>Découvrez Nine Lives</h2>
+          <p className="text-large mb-lg">
+            Notre quotidien : sauver, soigner et accompagner les chats vers leur nouvelle vie.
+          </p>
+        </div>
+        <div className="container-video">
+          <div className="video-container">
+            <iframe
+              src="https://www.youtube.com/embed/rUAdt696qpI"
+              title="Vidéo de présentation de Nine Lives Paris"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
         </div>
       </section>
 
@@ -60,10 +80,10 @@ export default function ActionsPage() {
 
       {/* Campagne de stérilisation */}
       <section className="section">
-        <div className="container">
+        <div className="container-mid">
           <h2 className="text-center mb-xl">Notre campagne de stérilisation</h2>
 
-          <div className="grid-2">
+          <div className="section-with-aside">
             <div>
               <p className="text-body">
                 Nous avons signé en mars 2022 une convention de partenariat avec l&apos;ONG{' '}
@@ -88,23 +108,24 @@ export default function ActionsPage() {
                 <a href="https://www.instagram.com/ninelivesparis/" target="_blank" rel="noopener" className="link-purple">Instagram</a> !
               </p>
             </div>
+            <img src="/images/site/chaton-dans-une-main.webp" alt="Chaton recueilli" data-no-lightbox />
+          </div>
 
-            <div>
-              <h3 className="section-title text-center">Notre Chatipi dans la presse</h3>
-              <div className="card mb-md">
-                <strong>Le Parisien</strong> — 18/09/2022<br/>
-                <a href="https://www.leparisien.fr/paris-75/paris-a-lhopital-de-la-pitie-salpetriere-on-soigne-aussi-les-chats-errants-18-09-2022-ENLW4MSQEVFJPPF7RY2UJ7LTAE.php"
-                  target="_blank" rel="noopener" className="link-purple text-small">
-                  Lire l&apos;article →
-                </a>
-              </div>
-              <div className="card">
-                <strong>Le Point</strong> — 11/12/2022<br/>
-                <a href="https://www.lepoint.fr/societe/les-chats-vont-ils-envahir-la-planete-11-12-2022-2501309_23.php"
-                  target="_blank" rel="noopener" className="link-purple text-small">
-                  Lire l&apos;article →
-                </a>
-              </div>
+          <h3 className="section-title text-center mb-md" style={{ marginTop: '2rem' }}>Notre Chatipi dans la presse</h3>
+          <div className="grid-2">
+            <div className="card">
+              <strong>Le Parisien</strong> — 18/09/2022<br/>
+              <a href="https://www.leparisien.fr/paris-75/paris-a-lhopital-de-la-pitie-salpetriere-on-soigne-aussi-les-chats-errants-18-09-2022-ENLW4MSQEVFJPPF7RY2UJ7LTAE.php"
+                target="_blank" rel="noopener" className="link-purple text-small">
+                Lire l&apos;article →
+              </a>
+            </div>
+            <div className="card">
+              <strong>Le Point</strong> — 11/12/2022<br/>
+              <a href="https://www.lepoint.fr/societe/les-chats-vont-ils-envahir-la-planete-11-12-2022-2501309_23.php"
+                target="_blank" rel="noopener" className="link-purple text-small">
+                Lire l&apos;article →
+              </a>
             </div>
           </div>
         </div>
@@ -112,16 +133,16 @@ export default function ActionsPage() {
 
       {/* Interventions scolaires */}
       <section className="section section-gray">
-        <div className="container">
+        <div className="container-mid">
           <h2 className="text-center">Interventions en milieu scolaire</h2>
           <h3 className="text-center">avec le soutien de</h3>
           <div className="text-center mb-lg">
-            <a href="https://education.l214.com/" target="_blank" rel="noopener">
-              <img src="/images/site/l214-education-logo.png" data-no-lightbox alt="L214 Education" style={{ maxWidth: '150px', margin: '0 auto' }} />
+            <a href="https://education.l214.com/" target="_blank" rel="noopener" data-no-lightbox>
+              <img src="/images/site/l214-education-logo.png" alt="L214 Education" className="logo-partner" data-no-lightbox />
             </a>
           </div>
 
-          <p className="text-large text-center mb-xl" style={{ maxWidth: '800px', margin: '0 auto 2rem' }}>
+          <p className="text-large text-center mb-xl">
             La protection animale et le respect de toute vie s&apos;apprennent dès le plus jeune âge. Nous participons à éduquer les enfants au bien-être animal et à la prévention des abandons.
           </p>
 
@@ -134,7 +155,7 @@ export default function ActionsPage() {
               'École élémentaire d\'application Picpus — CM1 — 06/05/2021',
               'École Charles Péguy — CP et CE2 — 06/03/2020'
             ].map((intervention, i, arr) => (
-              <div key={i} className="text-body" style={{ padding: '0.75rem 0', borderBottom: i < arr.length - 1 ? '1px solid #e5e7eb' : 'none' }}>
+              <div key={i} className={`intervention-item${i < arr.length - 1 ? '' : ' intervention-item-last'}`}>
                 📚 {intervention}
               </div>
             ))}
@@ -144,14 +165,14 @@ export default function ActionsPage() {
 
       {/* Sauvetages */}
       <section className="section">
-        <div className="container">
+        <div className="container-mid">
           <h2 className="text-center mb-xl">Certains de nos sauvetages…</h2>
 
           <div className="grid-2">
-            <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+            <div className="card card-image">
               <img src="/images/site/jango.webp" alt="Sauvetage de Jango" />
             </div>
-            <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+            <div className="card card-image">
               <img src="/images/site/papaye.webp" alt="Sauvetage de Papaye" />
             </div>
           </div>

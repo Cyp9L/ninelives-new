@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   description:
     'Rejoignez Nine Lives Paris comme bénévole ou famille d\'accueil pour chats à Paris. Plusieurs façons d\'aider selon votre disponibilité.',
 };
+
 export default function BenevolePage() {
   return (
     <main id="main-content">
@@ -14,21 +15,21 @@ export default function BenevolePage() {
       <section className="hero" role="img" aria-label="Chat noir et blanc mange une friandise" style={{ backgroundImage: 'url(/images/site/DSC01832.webp' }}>
         <div className="container">
           <div className="hero-content">
-          <h1>Devenir bénévole</h1>
-          <p>Rejoignez notre équipe et aidez-nous à sauver des vies !</p>
-        </div>
+            <h1>Devenir bénévole</h1>
+            <p>Rejoignez notre équipe et aidez-nous à sauver des vies !</p>
+          </div>
         </div>
       </section>
 
-      {/* Content */}
+      {/* What we need */}
       <section className="section">
         <div className="container-mid">
-        <div className="float-img-right"><img src="/images/site/chaton-dans-une-main.webp" alt="Chaton dans une main" />
-        </div>
+          <div className="float-img-right">
+            <img src="/images/site/chaton-dans-une-main.webp" alt="Chaton dans une main" />
+          </div>
           <p className="text-large mb-lg">
             <strong>Nous ne disposons pas de refuge</strong> — tous nos animaux sont en familles d&apos;accueil qui en prennent soin au quotidien.
           </p>
-
           <p className="text-large mb-md">
             <strong>Nous avons besoin de :</strong>
           </p>
@@ -39,59 +40,61 @@ export default function BenevolePage() {
             <li>Bénévoles pour aide administrative</li>
             <li>Bénévoles pour communication (réseaux sociaux, site web)</li>
           </ul>
+        </div>
+      </section>
 
-          {/* Foster types */}
-          <section className="section section-gray">
-                  <div className="container-mid">
-                  <div className="float-img-left"><img src="/images/site/wiskey04.webp" alt="Chat endormi" />
-                  </div>
-                    <h2 className="text-center">Quel type de famille d&apos;accueil ?</h2>
+      {/* Foster types */}
+      <section className="section section-gray">
+        <div className="container-mid">
+          <div className="float-img-left">
+            <img src="/images/site/wiskey04.webp" alt="Chat endormi" />
+          </div>
+          <h2 className="text-center">Quel type de famille d&apos;accueil ?</h2>
 
-                    <details className="accordion" open>
-                      <summary>🏥 2 à 3 semaines — Quarantaine</summary>
-                      <div className="accordion-content">
-                        <p className="text-body">
-                          Vous pouvez isoler un animal dans une salle de bains ou une pièce facile à nettoyer ? Vous pouvez être <strong>famille d&apos;accueil de quarantaine</strong>.
-                        </p>
-                        <p className="text-body">
-                          Les animaux provenant de l&apos;extérieur peuvent être porteurs de maladies transmissibles (coryza, typhus, leucose…). Nous les isolons 15 jours avant de les intégrer.
-                        </p>
-                      </div>
-                    </details>
+          <details className="accordion" open>
+            <summary>🏥 2 à 3 semaines — Quarantaine</summary>
+            <div className="accordion-content">
+              <p className="text-body">
+                Vous pouvez isoler un animal dans une salle de bains ou une pièce facile à nettoyer ? Vous pouvez être <strong>famille d&apos;accueil de quarantaine</strong>.
+              </p>
+              <p className="text-body">
+                Les animaux provenant de l&apos;extérieur peuvent être porteurs de maladies transmissibles (coryza, typhus, leucose…). Nous les isolons 15 jours avant de les intégrer.
+              </p>
+            </div>
+          </details>
 
-                    <details className="accordion">
-                      <summary>🐱 1 à 3 mois — Accueil court</summary>
-                      <div className="accordion-content">
-                        <p className="text-body">
-                          Que vous ayez d&apos;autres animaux ou pas, vous accueillez un ou plusieurs chats/chatons après la quarantaine (ou l&apos;effectuez vous-même).
-                        </p>
-                        <p className="text-body">
-                          Jeunes adultes ou chatons, ils seront rapidement adoptés. Vous les emmènerez chez l&apos;un de nos vétérinaires pour les mettre à jour sanitairement.
-                        </p>
-                      </div>
-                    </details>
+          <details className="accordion">
+            <summary>🐱 1 à 3 mois — Accueil court</summary>
+            <div className="accordion-content">
+              <p className="text-body">
+                Que vous ayez d&apos;autres animaux ou pas, vous accueillez un ou plusieurs chats/chatons après la quarantaine (ou l&apos;effectuez vous-même).
+              </p>
+              <p className="text-body">
+                Jeunes adultes ou chatons, ils seront rapidement adoptés. Vous les emmènerez chez l&apos;un de nos vétérinaires pour les mettre à jour sanitairement.
+              </p>
+            </div>
+          </details>
 
-                    <details className="accordion">
-                      <summary>🏡 Plusieurs mois — Jusqu&apos;à adoption</summary>
-                      <div className="accordion-content">
-                        <p className="text-body">
-                          Vous accueillez un animal jusqu&apos;à son adoption, peu importe la durée. Chaton, adulte, ou chat craintif à socialiser.
-                        </p>
-                        <p className="text-body">
-                          Votre mission : l&apos;emmener chez l&apos;un de nos vétérinaires pour vaccination, stérilisation et identification.
-                        </p>
-                      </div>
-                    </details>
-                  </div>
-                </section>
+          <details className="accordion">
+            <summary>🏡 Plusieurs mois — Jusqu&apos;à adoption</summary>
+            <div className="accordion-content">
+              <p className="text-body">
+                Vous accueillez un animal jusqu&apos;à son adoption, peu importe la durée. Chaton, adulte, ou chat craintif à socialiser.
+              </p>
+              <p className="text-body">
+                Votre mission : l&apos;emmener chez l&apos;un de nos vétérinaires pour vaccination, stérilisation et identification.
+              </p>
+            </div>
+          </details>
 
-          <div className="alert alert-warning">
+          <div className="alert alert-warning" style={{ marginTop: '1.5rem' }}>
             <p><strong>À noter :</strong></p>
             <p>Les frais vétérinaires sont couverts par l&apos;association. La nourriture est généralement prise en charge par la famille d&apos;accueil (sauf pathologie nécessitant une alimentation adaptée).</p>
           </div>
         </div>
       </section>
-      {/* Merch */}
+
+      {/* Merch — kept light */}
       <section className="section">
         <div className="container-mid text-center">
           <div className="float-img-left" style={{ width: '250px', shapeMargin: '1rem' }}>
@@ -107,6 +110,7 @@ export default function BenevolePage() {
           <div style={{ clear: 'both' }} />
         </div>
       </section>
+
       {/* Form */}
       <CollapsibleFormSection
         id="formulaire"
