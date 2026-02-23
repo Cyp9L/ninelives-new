@@ -104,7 +104,7 @@ export default async function AdopterChatPage({ params }: { params: Promise<{ sl
   };
 
   return (
-    <main>
+    <main id="main-content">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

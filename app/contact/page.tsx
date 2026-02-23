@@ -32,9 +32,9 @@ export default function ContactPage() {
   };
 
   return (
-    <main>
+    <main id="main-content">
       {/* Header */}
-      <section className="hero" style={{ backgroundImage: 'url(/images/site/Masha8.webp' }}>
+      <section className="hero" role="img" aria-label="Chat écaille de tortue" style={{ backgroundImage: 'url(/images/site/Masha8.webp' }}>
         <div className="container">
           <div className="hero-content">
           <h1>Contactez-nous</h1>

@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function SolutionsAbandonPage() {
   return (
-    <main>
+    <main id="main-content">
       {/* Header */}
       <section className="hero page-header-no-overlay" style={{backgroundImage: 'url(/images/site/29012021-IMG_3094.webp)' }}>
         <div className="container">

@@ -1,3 +1,4 @@
+import CollapsibleFormSection from '@/components/CollapsibleFormSection';
 import AbandonForm from '@/components/AbandonForm';
 import Link from 'next/link';
 import type { Metadata } from 'next';
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function AbandonPage() {
   return (
-    <main>
+    <main id="main-content">
       {/* Header */}
       <section className="page-header">
         <div className="container">
@@ -145,17 +146,13 @@ export default function AbandonPage() {
       </section>
 
       {/* Form */}
-      <section id="formulaire" className="section section-gray">
-        <div className="container-narrow">
-          <h2 className="text-center">Formulaire de prise en charge</h2>
-          <p className="text-center text-muted mb-xl">
-            Remplissez ce formulaire et nous vous recontacterons dans les meilleurs délais.
-          </p>
-          <div className="form-container">
-            <AbandonForm />
-          </div>
-        </div>
-      </section>
+      <CollapsibleFormSection
+        id="formulaire"
+        title="Formulaire d'abandon"
+        buttonLabel="Remplir le formulaire"
+      >
+        <AbandonForm />
+      </CollapsibleFormSection>
     </main>
   );
 }

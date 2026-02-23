@@ -8,9 +8,9 @@ export const metadata: Metadata = {
 
 export default function DonnerPage() {
   return (
-    <main>
+    <main id="main-content">
       {/* Header */}
-      <section className="hero" style={{ backgroundImage: 'url(/images/site/29052021-IMG_5287.webp' }}>
+      <section className="hero" role="img" aria-label="Chaton dans une main" style={{ backgroundImage: 'url(/images/site/29052021-IMG_5287.webp' }}>
         <div className="container">
           <div className="hero-content">
           <h1>Faire un don</h1>

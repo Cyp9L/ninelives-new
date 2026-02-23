@@ -63,7 +63,7 @@ const organizationJsonLd = {
   name: "Nine Lives Paris",
   alternateName: "Adopt' for life",
   url: baseUrl,
-  logo: "${baseUrl}/images/site/logo-nine-lives-paris.png",
+  logo: `${baseUrl}/images/site/logo-nine-lives-paris.png`,  // ← FIX: was a string literal, now template literal
   description:
     "Association loi 1901 de sauvetage de chats abandonnés, trouvés et errants à Paris.",
   email: "asso@ninelives.fr",
@@ -96,6 +96,10 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={`${poppins.variable} ${helloCasual.variable}`}>
+        {/* Skip to content — WCAG 2.4.1 */}
+        <a href="#main-content" className="skip-link">
+          Aller au contenu
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -172,7 +172,7 @@ export default function AdminGalleryPage() {
   }
 
   return (
-    <main>
+    <main id="main-content">
       <section className="page-header">
         <div className="container">
           <h1>Admin — Galerie</h1>

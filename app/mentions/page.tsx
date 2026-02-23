@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 export default function MentionsLegalesPage() {
   return (
-    <main>
+    <main id="main-content">
       <section className="page-header">
         <div className="container">
           <h1>Mentions légales</h1>
