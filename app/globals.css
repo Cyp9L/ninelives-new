@@ -1278,9 +1278,14 @@ main img:hover {
   height: 70px;
 }
 
+.nav-logo {
+  margin-right: 1.5rem;
+}
+
 .nav-logo img,
 .nav-logo svg {
   height: 75px;
+  max-height: calc(70px - 0.4rem);
   width: auto;
 }
 
