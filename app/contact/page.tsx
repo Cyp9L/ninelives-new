@@ -34,16 +34,15 @@ export default function ContactPage() {
   return (
     <main>
       {/* Header */}
-      <section
-        className="cat-hero"
-        style={{ background: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(/images/site/Masha8.webp) center/cover' }}
-      >
+      <section className="hero" style={{ backgroundImage: 'url(/images/site/Masha8.webp' }}>
         <div className="container">
+          <div className="hero-content">
           <h1>Contactez-nous</h1>
           <p>
             Vous avez une question ? Vous souhaitez plus de renseignements ?
             Laissez-nous vos coordonnées et nous reviendrons vers vous sous peu.
           </p>
+        </div>
         </div>
       </section>
 
@@ -83,7 +82,7 @@ export default function ContactPage() {
             </div>
             <div className="card card-centered">
               <div className="card-icon"></div>
-              <div className="img"><img src="/images/site/humberto-arellano-n-g2sqdy9qy-unsplash.jpg" alt="Chat création" /></div>
+              <div className="img"><img src="/images/gallery/1771693095692-Patch.jpg" alt="Chaton patte levée" /></div>
             </div>
           </div>
         </div>

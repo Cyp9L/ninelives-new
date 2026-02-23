@@ -49,7 +49,7 @@ export default function Navigation() {
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
               className={`nav-link ${isAssoActive ? 'active' : ''}`}
-              style={{ background: 'none', border: 'none', font: 'inherit', cursor: 'pointer', padding: 0 }}
+              style={{ background: 'none', lineHeight: 'inherit', border: 'none', font: 'inherit', cursor: 'pointer', padding: 0,  whiteSpace: 'nowrap' }}
             >
               L&apos;association {dropdownOpen ? '▴' : '▾'}
             </button>

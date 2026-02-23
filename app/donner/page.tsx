@@ -10,7 +10,7 @@ export default function DonnerPage() {
   return (
     <main>
       {/* Header */}
-      <section className="hero" style={{ maxHeight: '400px', backgroundImage: 'url(/images/site/29052021-IMG_5287.webp' }}>
+      <section className="hero" style={{ backgroundImage: 'url(/images/site/29052021-IMG_5287.webp' }}>
         <div className="container">
           <div className="hero-content">
           <h1>Faire un don</h1>

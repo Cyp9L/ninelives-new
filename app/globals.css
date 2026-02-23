@@ -164,7 +164,7 @@ a {
 
 .hero {
   position: relative;
-  height: 500px;
+  height: 300px;
   display: flex;
   align-items: center;
   background-size: cover;
@@ -176,6 +176,10 @@ a {
   position: absolute;
   inset: 0;
   background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5));
+}
+
+.page-header-no-overlay::before {
+  background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0));
 }
 
 .hero-content {
@@ -1591,7 +1595,7 @@ main img:hover {
   h2 { font-size: 1.5rem; }
 
   .hero {
-    height: 400px;
+    height: 200px;
   }
 
   .hero h1 {
