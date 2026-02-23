@@ -6,9 +6,9 @@ export default async function HomePage() {
   const featuredCats = all.slice(0, 3);
 
   return (
-    <main>
+    <main id="main-content">
       {/* Hero */}
-      <section className="hero" style={{ backgroundImage: 'url(/images/site/salomon-bg.jpg)' }}>
+      <section className="hero" role="img" aria-label="Chat orange en boule" style={{ backgroundImage: 'url(/images/site/salomon-bg.jpg)' }}>
         <div className="container">
           <div className="hero-content">
             <h1>Nine Lives Paris</h1>

@@ -46,11 +46,13 @@ export default function Navigation() {
           </Link>
 
           <div className="nav-dropdown">
-            <button
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-              className={`nav-link ${isAssoActive ? 'active' : ''}`}
-              style={{ background: 'none', lineHeight: 'inherit', border: 'none', font: 'inherit', cursor: 'pointer', padding: 0,  whiteSpace: 'nowrap' }}
-            >
+          <button
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+            className={`nav-link ${isAssoActive ? 'active' : ''}`}
+            aria-expanded={dropdownOpen}
+            aria-haspopup="true"
+            style={{ background: 'none', lineHeight: 'inherit', border: 'none', font: 'inherit', cursor: 'pointer', padding: 0, whiteSpace: 'nowrap' }}
+          >
               L&apos;association {dropdownOpen ? '▴' : '▾'}
             </button>
             {dropdownOpen && (
@@ -105,6 +107,8 @@ export default function Navigation() {
           <button
             onClick={() => setMobileAssoOpen(!mobileAssoOpen)}
             className={`nav-mobile-link ${isAssoActive ? 'active' : ''}`}
+            aria-expanded={mobileAssoOpen}
+            aria-haspopup="true"
             style={{ width: '100%', textAlign: 'left', background: 'none', border: 'none', font: 'inherit' }}
           >
             L&apos;association {mobileAssoOpen ? '▴' : '▾'}

@@ -132,6 +132,24 @@ a {
   background: #f9fafb;
 }
 
+/* Skip to content link — WCAG 2.4.1 */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 10000;
+  padding: 0.75rem 1.5rem;
+  background: #1f2937;
+  color: #fff;
+  border-radius: 0 0 0.5rem 0.5rem;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 0;
+}
+
 /* ===== PAGE HEADERS ===== */
 
 .page-header {
@@ -143,7 +161,7 @@ a {
 
 .page-header h1 {
   font-size: 2.5rem; /* was 2.75rem */
-  font-weight: 300;
+  font-weight: 700;
   margin: 0;
 }
 
@@ -191,7 +209,7 @@ a {
 
 .hero h1 {
   font-size: 4rem;
-  font-weight: 300;
+  font-weight: 700;
   margin-bottom: 1rem; /* was 1.5rem */
 }
 
@@ -204,9 +222,9 @@ a {
 /* ===== TYPOGRAPHY ===== */
 
 h2 {
-  font-size: 2.25rem; /* was 2.5rem */
-  font-weight: 300;
-  margin-bottom: 1rem; /* was 1.5rem */
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
 
 .section-title {

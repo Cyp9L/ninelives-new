@@ -1,3 +1,4 @@
+import CollapsibleFormSection from '@/components/CollapsibleFormSection';
 import BenevoleForm from '@/components/BenevoleForm';
 import type { Metadata } from 'next';
 
@@ -8,9 +9,9 @@ export const metadata: Metadata = {
 };
 export default function BenevolePage() {
   return (
-    <main>
+    <main id="main-content">
       {/* Header */}
-      <section className="hero" style={{ backgroundImage: 'url(/images/site/DSC01832.webp' }}>
+      <section className="hero" role="img" aria-label="Chat noir et blanc mange une friandise" style={{ backgroundImage: 'url(/images/site/DSC01832.webp' }}>
         <div className="container">
           <div className="hero-content">
           <h1>Devenir bénévole</h1>
@@ -107,14 +108,15 @@ export default function BenevolePage() {
         </div>
       </section>
       {/* Form */}
-      <section id="formulaire" className="section section-gray">
-        <div className="container-mid">
-          <h2 className="text-center">Formulaire de candidature</h2>
-          <div className="form-container">
-            <BenevoleForm />
-          </div>
-        </div>
-      </section>
+      <CollapsibleFormSection
+        id="formulaire"
+        title="Formulaire de candidature"
+        subtitle="Remplissez ce formulaire pour proposer votre candidature."
+        buttonLabel="Remplir le formulaire"
+        containerClass="container-mid"
+      >
+        <BenevoleForm />
+      </CollapsibleFormSection>
     </main>
   );
 }

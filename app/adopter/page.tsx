@@ -1,5 +1,6 @@
 import { getAllCats } from '@/lib/trello';
 import Link from 'next/link';
+import CollapsibleFormSection from '@/components/CollapsibleFormSection';
 import AdoptionForm from '@/components/AdoptionForm';
 import CatShowcase from '@/components/CatShowcase';
 
@@ -15,9 +16,9 @@ export default async function AdopterPage() {
   const { all } = await getAllCats();
 
   return (
-    <main>
+    <main id="main-content">
       {/* Header */}
-      <section className="hero" style={{ backgroundImage: 'url(/images/site/26032021-IMG_4304.webp' }}>
+      <section className="hero" role="img" aria-label="Chat écaille de tortue" style={{ backgroundImage: 'url(/images/site/26032021-IMG_4304.webp' }}>
         <div className="container">
           <div className="hero-content">
           <h1>Adopter</h1>
@@ -159,18 +160,14 @@ export default async function AdopterPage() {
       </section>
 
       {/* Form */}
-      <section id="formulaire" className="section section-gray">
-        <div className="container-narrow">
-          <h2 className="text-center">Questionnaire de pré-adoption</h2>
-          <p className="text-center text-muted mb-xl">
-            Remplissez ce formulaire pour commencer le processus d&apos;adoption.
-          </p>
-
-          <div className="form-container">
-            <AdoptionForm cats={all} />
-          </div>
-        </div>
-      </section>
+      <CollapsibleFormSection
+        id="formulaire"
+        title="Questionnaire de pré-adoption"
+        subtitle="Remplissez ce formulaire pour commencer le processus d'adoption."
+        buttonLabel="Remplir le questionnaire"
+      >
+        <AdoptionForm cats={all} />
+      </CollapsibleFormSection>
     </main>
   );
 }

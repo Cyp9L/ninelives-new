@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function PartenairesPage() {
   return (
-    <main>
+    <main id="main-content">
       <section
         className="cat-hero"
         style={{ background: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(/images/site/moustache-cafe.jpg) center/cover' }}

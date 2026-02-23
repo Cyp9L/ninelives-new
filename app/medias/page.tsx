@@ -126,7 +126,7 @@ function MediaCard({ item }: { item: MediaItem }) {
 
 export default function MediasPage() {
   return (
-    <main>
+    <main id="main-content">
       {/* Header */}
       <div className="page-header">
         <h1>Nos apparitions dans les médias</h1>
