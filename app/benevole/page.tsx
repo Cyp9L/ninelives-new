@@ -25,7 +25,7 @@ export default function BenevolePage() {
       <section className="section">
         <div className="container-mid">
           <div className="float-img-right">
-            <img src="/images/site/chaton-dans-une-main.webp" alt="Chaton dans une main" />
+            <img src="/images/site/14092021-IMG_5906.webp" alt="Chat commun" />
           </div>
           <p className="text-large mb-lg">
             <strong>Nous ne disposons pas de refuge</strong> — tous nos animaux sont en familles d&apos;accueil qui en prennent soin au quotidien.
