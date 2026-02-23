@@ -6,8 +6,8 @@
 
 body {
   font-family: var(--font-poppins), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: #1f2937;
-  background-color: #f5eeeeb8;
+  color: #385165;
+  background-color: #f7fbfc;
   line-height: 1.5;
 }
 
@@ -130,7 +130,7 @@ a {
 }
 
 .section-gray {
-  background: #f9fafb;
+  background: #f0f8f9;
 }
 
 /* Skip to content link — WCAG 2.4.1 */
@@ -355,29 +355,28 @@ h2 {
 /* ===== LINKS ===== */
 
 .link-purple {
-  color: #667eea;
+  color: #046C79;          
   text-decoration: underline;
 }
 
 .link-purple:hover {
-  color: #5a67d8;
+  color: #015768;         
 }
 
 .link-blue {
-  color: #2563eb;
+  color: #0B85C8;          
   font-weight: 500;
 }
 
 .link-blue:hover {
-  color: #1d4ed8;
+  color: #015768;          
 }
 
 .link-amber {
-  color: #92400e;
+  color: #B56A04;    
   text-decoration: underline;
   font-weight: 600;
 }
-
 /* Price comparison */
 .price-comparison {
   display: grid;
@@ -542,7 +541,7 @@ h2 {
 }
 
 .accordion:hover {
-  background: #f0ecf9;
+  background: #ecf7f8;
 }
 
 .accordion-content {
@@ -570,7 +569,7 @@ h2 {
   margin-left: auto;
   font-size: 1.4rem;
   font-weight: 700;
-  color: #667eea;
+  color: #009AB6;
   transition: transform 0.2s;
   flex-shrink: 0;
 }
@@ -622,7 +621,7 @@ h2 {
 .alert-warning {
   background: #fef3c7;
   border: 1px solid #fbbf24;
-  color: #92400e;
+  color: #B56A04;
 }
 
 .alert-error {
@@ -693,8 +692,8 @@ h2 {
 .form-select:focus,
 .form-textarea:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+  border-color: #009AB6;
+  box-shadow: 0 0 0 3px rgba(0, 154, 182, 0.15);
 }
 
 .form-textarea {
@@ -793,14 +792,14 @@ h2 {
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 1rem;
-  background: #eef2ff;
+  background: #e6f7f9;
   border-radius: 4px;
-  border: 1px solid #667eea;
+  border: 1px solid #009AB6;
 }
 
 .cat-picker-selected span {
   font-weight: 500;
-  color: #4338ca;
+  color: #046C79;
 }
 
 .cat-picker-selected button {
@@ -858,12 +857,12 @@ h2 {
 }
 
 .cat-picker-btn:hover {
-  border-color: #c7d2fe;
+  border-color: #a3d5db;
 }
 
 .cat-picker-btn.active {
-  border-color: #667eea;
-  background: #eef2ff;
+  border-color: #009AB6;
+  background: #e6f7f9;
 }
 
 .cat-picker-img {
@@ -958,7 +957,7 @@ h2 {
 }
 
 .gallery-thumb.active {
-  border-color: #667eea;
+  border-color: #009AB6;
 }
 
 .gallery-thumb img {
@@ -991,7 +990,7 @@ h2 {
 }
 
 .cat-description a {
-  color: #667eea;
+  color: #046C79;
   text-decoration: underline;
 }
 
@@ -1015,7 +1014,7 @@ h2 {
 .cat-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-color: #667eea;
+  border-color: #009AB6;
   background: none;
 }
 
@@ -1073,13 +1072,13 @@ h2 {
 }
 
 .showcase-tab:hover {
-  border-color: #667eea;
-  color: #667eea;
+  border-color: #009AB6;
+  color: #009AB6;
 }
 
 .showcase-tab.active {
-  background: #667eea;
-  border-color: #667eea;
+  background: #009AB6;
+  border-color: #009AB6;
   color: white;
 }
 
@@ -1207,7 +1206,7 @@ h2 {
 }
 
 .showcase-thumb.active img {
-  border-color: #667eea;
+  border-color: #009AB6;
 }
 
 .showcase-thumb span {
@@ -1222,7 +1221,7 @@ h2 {
 }
 
 .showcase-thumb.active span {
-  color: #667eea;
+  color: #009AB6;
   font-weight: 600;
 }
 
@@ -1437,7 +1436,7 @@ main img:hover {
 
 .nav-dropdown-menu a:hover {
   background: #f3f4f6;
-  color: #667eea;
+  color: #009AB6;
 }
 
 /* Nav CTA */
@@ -1472,7 +1471,7 @@ main img:hover {
 }
 
 .nav-mobile-sub a:hover {
-  color: #667eea;
+  color: #009AB6;
 }
 
 /* Desktop menu */
@@ -1493,13 +1492,13 @@ main img:hover {
 }
 
 .nav-link:hover {
-  color: #667eea;
+  color: #009AB6;
 }
 
 .nav-link.active {
-  color: #667eea;
+  color: #009AB6;
   font-weight: 600;
-  border-bottom-color: #667eea;
+  border-bottom-color: #009AB6;
 }
 
 /* Mobile toggle */
@@ -1531,13 +1530,13 @@ main img:hover {
 }
 
 .nav-mobile-link:hover {
-  color: #667eea;
+  color: #009AB6;
 }
 
 .nav-mobile-link.active {
-  color: #667eea;
+  color: #009AB6;
   font-weight: 600;
-  border-left-color: #667eea;
+  border-left-color: #009AB6;
 }
 
 /* ===== RELATED ACTIONS ===== */
