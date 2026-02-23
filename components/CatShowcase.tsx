@@ -125,7 +125,7 @@ export default function CatShowcase({ cats }: { cats: Cat[] }) {
 
           {/* Info */}
           <div className="showcase-info">
-            <h3>{activeCat.name}</h3>
+            <h2>{activeCat.name}</h2>
             {activeCat.caractere && <p className="showcase-caractere">{activeCat.caractere}</p>}
             <Link href={`/adopter/${activeCat.slug}`} className="btn btn-gradient">
               Voir son profil →
