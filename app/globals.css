@@ -452,26 +452,17 @@ h2 {
   display: inline-block;
   padding: 0.85rem 1.75rem;
   font-weight: 500;
-  border-radius: 4px;
+  border-radius: 8px;
   transition: all 0.2s;
   border: none;
   cursor: pointer;
   font-size: 1rem;
 }
 
-.btn-primary {
-  background: white;
-  color: #111;
-}
-
-.btn-primary:hover {
-  background: #f3f4f6;
-}
-
+/* Primary: gradient, THE main action on each page */
 .btn-gradient {
   background: linear-gradient(135deg, #009AB6 0%, #015768 100%);
   color: white;
-  border-radius: 8px;
   font-weight: 500;
 }
 
@@ -484,21 +475,50 @@ h2 {
   cursor: not-allowed;
 }
 
+/* Secondary: outlined, for supporting actions */
 .btn-outline {
-  border: 2px solid #d1d5db;
+  border: 2px solid #009AB6;
   background: transparent;
-  color: #4b5563;
+  color: #046C79;
   border-radius: 8px;
 }
 
 .btn-outline:hover {
-  border-color: #9ca3af;
-  background: #f9fafb;
+  background: #009AB6;
+  color: white;
+}
+
+.btn-outline-light {
+  border: 2px solid white;
+  background: transparent;
+  color: white;
+}
+
+.btn-outline-light:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .btn-lg {
   padding: 1rem 2rem;
   font-size: 1.125rem;
+}
+
+/* Nav CTA: outlined teal, not gradient */
+.nav-cta {
+  background: transparent;
+  color: #009AB6 !important;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  border: 2px solid #009AB6;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav-cta:hover {
+  background: #009AB6;
+  color: white !important;
 }
 
 /* ===== CARDS ===== */
@@ -1440,18 +1460,20 @@ main img:hover {
 
 /* Nav CTA */
 .nav-cta {
-  background: linear-gradient(135deg, #009AB6 0%, #015768 100%);
-  color: white !important;
+  background: transparent;
+  color: #009AB6 !important;
   padding: 0.5rem 1.25rem;
   border-radius: 6px;
+  border: 2px solid #009AB6;
   font-weight: 600;
   font-size: 0.9rem;
   text-decoration: none;
-  transition: opacity 0.2s;
+  transition: background 0.2s, color 0.2s;
 }
 
 .nav-cta:hover {
-  opacity: 0.9;
+  background: #009AB6;
+  color: white !important;
 }
 
 /* Mobile dropdown */

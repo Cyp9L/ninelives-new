@@ -104,7 +104,7 @@ export default function BenevolePage() {
           <p className="text-body">
             Soutenez l&apos;association en portant notre hoodie — <strong>30€</strong> (+frais de port).
           </p>
-          <a href="https://www.helloasso.com/associations/nine-lives-paris" target="_blank" rel="noopener noreferrer" className="btn btn-gradient">
+          <a href="https://www.helloasso.com/associations/nine-lives-paris" target="_blank" rel="noopener noreferrer" className="btn btn-outline">
             Commander sur HelloAsso
           </a>
           <div style={{ clear: 'both' }} />
