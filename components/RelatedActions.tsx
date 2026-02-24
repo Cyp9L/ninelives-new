@@ -174,7 +174,7 @@ export default function RelatedActions() {
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
                 <p style={{ marginTop: '1rem' }}>
-                  <span className="btn btn-gradient">{item.label}</span>
+                  <span className="btn btn-outline">{item.label}</span>
                 </p>
               </div>
             </Link>

@@ -19,17 +19,20 @@ export default async function HomePage() {
   return (
     <main id="main-content">
       {/* Hero */}
-      <section className="hero" role="img" aria-label="Chat orange en boule" style={{ backgroundImage: 'url(/images/site/salomon-bg.jpg)', backgroundPosition: 'center 30%' }}>
-        <div className="container">
-          <div className="hero-content">
-            <h1>Nine Lives Paris</h1>
-            <p>Nous sauvons, soignons et trouvons des familles aimantes aux chats abandonnés de Paris.</p>
-            <Link href="/adopter" className="btn btn-primary">
-              Adopter un chat
-            </Link>
-          </div>
-        </div>
-      </section>
+<section className="hero" role="img" aria-label="Chat orange en boule" style={{ backgroundImage: 'url(/images/site/salomon-bg.jpg)', backgroundPosition: 'center 30%' }}>
+  <div className="container">
+    <div className="hero-content">
+      <h1>Nine Lives Paris</h1>
+      <p>Nous sauvons, soignons et trouvons des familles aimantes aux chats abandonnés de Paris.</p>
+      <Link href="/adopter" className="btn btn-gradient btn-lg">
+        Adopter un chat
+      </Link>
+      <p className="text-small" style={{ marginTop: '0.75rem', opacity: 0.85 }}>
+        Adoption à Paris et petite couronne.
+      </p>
+    </div>
+  </div>
+</section>
 
       {/* About */}
       <section className="section">
@@ -38,7 +41,7 @@ export default async function HomePage() {
             <div>
               <h2>Notre mission</h2>
               <p className="text-large mb-md">
-                L&apos;association Nine Lives Paris recueille les chats abandonnés, trouvés, errants, sortis de fourrière.
+              Depuis 2018, l&apos;association Nine Lives Paris recueille les chats abandonnés, trouvés, errants, sortis de fourrière.
               </p>
               <p className="text-large">
                 Nous les soignons, les vaccinons, les stérilisons et les identifions avant de leur rechercher une famille d&apos;adoption.

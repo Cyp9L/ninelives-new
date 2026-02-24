@@ -20,12 +20,12 @@ export default async function AdopterPage() {
       {/* Header */}
       <section className="hero" role="img" aria-label="Chat écaille de tortue" style={{ backgroundImage: 'url(/images/site/26032021-IMG_4304.webp' }}>
         <div className="container">
-          <div className="hero-content">
+        <div className="hero-content">
           <h1>Adopter</h1>
           <p>
-            <strong>Attention :</strong> par manque de bénévoles, nous ne faisons adopter que dans les départements de Paris et petite couronne, 92, 94.
+            Nos chats sont adoptables à Paris et en petite couronne.
           </p>
-          </div>
+        </div>
         </div>
       </section>
 
@@ -52,7 +52,7 @@ export default async function AdopterPage() {
                 <li>Si vous adoptez un chaton vous vous engagez à le stériliser à 6 mois.</li>
               </ol>
               <div className="alert alert-warning" style={{ marginTop: '1rem' }}>
-                <strong>Documents nécessaires :</strong> photocopie de pièce d&apos;identité et justificatif de domicile.
+                <strong>Documents nécessaires :</strong> photocopie de pièce d&apos;identité, justificatif de domicile et <Link href="https://agriculture.gouv.fr/animaux-de-compagnie-equides-tout-savoir-sur-le-certificat-dengagement-et-de-connaissance" className="link-amber">"Certificat d'engagement et de connaissance"</Link>.
               </div>
             </div>
 

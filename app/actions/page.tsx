@@ -20,7 +20,7 @@ export default function ActionsPage() {
             </p>
             <a href="https://www.helloasso.com/associations/nine-lives-paris/formulaires/1"
               target="_blank" rel="noopener noreferrer"
-              className="btn btn-primary">
+              className="btn btn-outline-light">
               Soutenez-nous
             </a>
           </div>

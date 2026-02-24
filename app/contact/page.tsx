@@ -48,50 +48,13 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact methods */}
-      <section className="section">
-        <div className="container">
-          <div className="grid-3">
-            <div className="card card-centered">
-              <div className="card-icon">✉️</div>
-              <h2 className="section-title">Écrivez-nous</h2>
-              <p className="text-body">
-                Pour toute question concernant l&apos;association, son fonctionnement ou une proposition de partenariat.
-              </p>
-              <a href="mailto:asso@ninelives.fr" className="link-purple highlight-text">
-                asso@ninelives.fr
-              </a>
-            </div>
-            <div className="card card-centered">
-              <div className="card-icon">📞</div>
-              <h2 className="section-title">Appelez-nous</h2>
-              <p className="text-body">
-                Le plus sûr est de nous écrire. En raison d&apos;un trop grand nombre d&apos;appels, nous ne diffusons plus nos numéros de téléphone.
-              </p>
-            </div>
-            <div className="card card-centered">
-              <div className="card-icon">🤝</div>
-              <h2 className="section-title">Rencontrez-nous</h2>
-              <p className="text-body">
-                Nous ne possédons pas de lieu d&apos;accueil. Suivez notre actualité pour les occasions de nous rencontrer.
-              </p>
-              <a href="https://www.facebook.com/NineLivesParis" target="_blank" rel="noopener noreferrer"
-                className="link-purple highlight-text">
-                Page Facebook →
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Form section */}
+    {/* Form section */}
       <section id="formulaire" className="section section-gray">
         <div className="container-mid">
           <h2 className="text-center">Formulaire de contact</h2>
           <div className="alert alert-warning mb-lg">
             <p>Si vous avez déjà envoyé un questionnaire de pré-adoption, nous reviendrons vers vous dans les meilleurs délais.</p>
-            <p>Si vous souhaitez nous confier un animal, <strong>n&apos;utilisez pas ce formulaire</strong> — rendez-vous sur <Link href="/abandon" className="link-amber">cette page</Link>.</p>
-            <p>Nous sommes tous bénévoles, nous traitons les messages dès que possible.</p>
+            <p>Pour nous confier un animal, utilisez le formulaire de <Link href="/abandon" className="link-amber">demande de prise en charge</Link>.</p>
           </div>
 
           <div style={{ clear: 'both' }} />
@@ -149,17 +112,9 @@ export default function ContactPage() {
                 </div>
               )}
               <label className="form-checkbox">
-                <input type="checkbox" required checked={formData.respectsVolunteers}
-                  onChange={(e) => setFormData({...formData, respectsVolunteers: e.target.checked})} />
-                <span>Je respecte le temps des bénévoles et j&apos;ai conscience que si je n&apos;utilise pas le formulaire approprié, je n&apos;obtiendrai aucune réponse. *</span>
-              </label>
-              <div className="form-privacy">
-                L&apos;association Nine Lives Paris traite les données recueillies pour répondre à votre demande. Reportez-vous à notre politique de confidentialité pour en savoir plus.
-              </div>
-              <label className="form-checkbox">
                 <input type="checkbox" required checked={formData.acceptsPrivacy}
                   onChange={(e) => setFormData({...formData, acceptsPrivacy: e.target.checked})} />
-                <span>J&apos;ai lu et j&apos;accepte <a href="/politique-de-confidentialite" target="_blank" rel="noopener" className="link-blue">la politique de confidentialité</a>. *</span>
+                <span>J&apos;accepte la <a href="/politique-de-confidentialite" target="_blank" rel="noopener" className="link-blue">politique de confidentialité</a> et je m&apos;engage à utiliser le formulaire adapté à ma demande. *</span>
               </label>
               <Captcha onVerify={setCaptchaToken} />
               <div className="form-submit">
@@ -175,6 +130,9 @@ export default function ContactPage() {
               )}
             </form>
           </div>
+          <p className="text-small text-muted text-center" style={{ marginTop: '1.5rem' }}>
+            Vous pouvez aussi écrire directement à <a href="mailto:asso@ninelives.fr" className="link-purple">asso@ninelives.fr</a>
+          </p>
         </div>
       </section>
     </main>
