@@ -144,7 +144,7 @@ export default function CatShowcase({ cats }: { cats: Cat[] }) {
               onClick={() => setActiveIndex(index)}
               data-no-lightbox
             >
-              <img src={cat.images[0]} alt={cat.name} />
+              <img src={cat.images[0]} alt="" />
               <span>{cat.name}</span>
             </button>
           ))}
