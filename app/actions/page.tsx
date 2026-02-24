@@ -10,7 +10,7 @@ export default function ActionsPage() {
   return (
     <main id="main-content">
       {/* Hero */}
-      <section className="hero" role="img" aria-label="Chat avec réflexion dans vitre" style={{ backgroundImage: 'url(/images/gallery/1771692501514-04102020-IMG_2605.jpg)' }}>
+      <section className="hero" style={{ backgroundImage: 'url(/images/gallery/1771692501514-04102020-IMG_2605.jpg)' }}>
         <div className="container">
           <div className="hero-content">
             <h1>Nos actions</h1>

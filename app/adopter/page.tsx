@@ -18,7 +18,7 @@ export default async function AdopterPage() {
   return (
     <main id="main-content">
       {/* Header */}
-      <section className="hero" role="img" aria-label="Chat écaille de tortue" style={{ backgroundImage: 'url(/images/site/26032021-IMG_4304.webp' }}>
+      <section className="hero" style={{ backgroundImage: 'url(/images/site/26032021-IMG_4304.webp' }}>
         <div className="container">
         <div className="hero-content">
           <h1>Adopter</h1>

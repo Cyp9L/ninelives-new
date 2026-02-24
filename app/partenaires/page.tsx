@@ -9,7 +9,7 @@ export default function PartenairesPage() {
   return (
     <main id="main-content">
       {/* Header */}
-      <section className="hero" role="img" aria-label="Chat au café" style={{ backgroundImage: 'url(/images/site/moustache-cafe.jpg)' }}>
+      <section className="hero" style={{ backgroundImage: 'url(/images/site/moustache-cafe.jpg)' }}>
         <div className="container">
           <div className="hero-content">
             <h1>Nos partenaires</h1>
