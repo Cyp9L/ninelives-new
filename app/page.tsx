@@ -27,13 +27,9 @@ export default async function HomePage() {
       <Link href="/adopter" className="btn btn-gradient btn-lg">
         Adopter un chat
       </Link>
-      <p className="text-small" style={{ marginTop: '0.75rem', opacity: 0.85 }}>
-        Adoption à Paris et petite couronne.
-      </p>
     </div>
   </div>
 </section>
-
       {/* About */}
       <section className="section">
         <div className="container">
@@ -44,7 +40,7 @@ export default async function HomePage() {
               Depuis 2018, l&apos;association Nine Lives Paris recueille les chats abandonnés, trouvés, errants, sortis de fourrière.
               </p>
               <p className="text-large">
-                Nous les soignons et les préparons à une nouvelle vie avant de leur trouver une famille d&apos;adoption.
+                Nous les soignons et les préparons à une nouvelle vie avant de leur trouver une famille d&apos;adoption à Paris et en petite couronne (75, 92, 93, 94).
               </p>
             </div>
             <div>
