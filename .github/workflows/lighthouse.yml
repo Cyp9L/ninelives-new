@@ -1,0 +1,26 @@
+name: Lighthouse CI
+on:
+  deployment_status:
+
+jobs:
+  lighthouse:
+    if: github.event.deployment_status.state == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Lighthouse
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            ${{ github.event.deployment_status.target_url }}
+            ${{ github.event.deployment_status.target_url }}/adopter
+          budgetPath: ./lighthouse-budget.json
+          uploadArtifacts: true
+
+      - name: Check thresholds
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            ${{ github.event.deployment_status.target_url }}
+          configPath: ./lighthouserc.json
