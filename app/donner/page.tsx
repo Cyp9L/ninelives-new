@@ -102,7 +102,7 @@ export default function DonnerPage() {
               <p className="text-body mb-lg">
                 100% des bénéfices financent les soins vétérinaires de nos protégés.
               </p>
-              <a href="https://www.helloasso.com/associations/nine-lives-paris" target="_blank" rel="noopener noreferrer" className="btn btn-gradient btn-lg">
+              <a href="https://www.helloasso.com/associations/nine-lives-paris/boutiques/boutique-nine-lives-paris" target="_blank" rel="noopener noreferrer" className="btn btn-gradient btn-lg">
                 Commander sur HelloAsso
               </a>
             </div>
