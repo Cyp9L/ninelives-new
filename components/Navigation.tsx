@@ -18,7 +18,7 @@ export default function Navigation() {
     { href: '/actions', label: 'Nos actions' },
     { href: '/partenaires', label: 'Partenaires' },
     { href: '/galerie', label: 'Galerie' },
-    { href: 'https://www.helloasso.com/associations/nine-lives-paris', label: 'Boutique ↗', external: true },
+    { href: 'https://www.helloasso.com/associations/nine-lives-paris/boutiques/boutique-nine-lives-paris', label: 'Boutique ↗', external: true },
   ];
 
   const isAssoActive = assoLinks.some(l => isActive(l.href));
@@ -138,4 +138,5 @@ export default function Navigation() {
       )}
     </nav>
   );
+
 }
