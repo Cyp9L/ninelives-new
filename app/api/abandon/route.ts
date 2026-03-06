@@ -128,7 +128,7 @@ export async function POST(request: Request) {
     const { data: emailData, error } = await resend.emails.send({
       from: 'Prise en charge Nine Lives <asso@ninelives.fr>',
       to: ['asso@ninelives.fr'],
-      ...(data.email ? { cc: [data.email] } : {}),
+      ...(data.email ? { cc: [data.email], replyTo: [data.email] } : {}),
       subject: `Prise en charge — ${data.species || 'Animal'}${data.name ? ` "${data.name}"` : ''} — ${data.firstName} ${data.lastName}`,
       html: htmlBody,
     });
