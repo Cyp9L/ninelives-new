@@ -103,6 +103,10 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
   const locationWorkEnclosure = formData.animalLocationWork === 'En enclos';
   const locationHomeEnclosure = formData.animalLocationHome === 'En enclos';
   const heardOther = formData.howHeardAbout === 'Autre';
+  const hasCurrentOrPrevious = hasCurrentAnimal || hadPreviousAnimal;
+
+  // CSS toggle helper — always renders, toggles display
+  const show = (visible: boolean) => (visible ? undefined : { display: 'none' as const });
 
   // Helper for radio groups
   const radio = (name: string, value: string, field: string) => (
@@ -117,14 +121,15 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
   // Helper for multi-animal inputs
   const animalInputs = (
     animals: string[],
-    setAnimals: React.Dispatch<React.SetStateAction<string[]>>
+    setAnimals: React.Dispatch<React.SetStateAction<string[]>>,
+    isVisible: boolean
   ) => (
     <>
       {animals.map((animal, i) => (
         <div key={i} style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
           <input
             type="text"
-            required
+            required={isVisible}
             className="form-input"
             placeholder={`Animal ${i + 1} — ex : chat européen, femelle, 3 ans`}
             value={animal}
@@ -286,21 +291,19 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
         </div>
       </div>
 
-      {isHouse && (
+      <div style={show(isHouse)}>
         <label className="form-checkbox">
           <input type="checkbox" checked={formData.hasGardenEnclosed}
             onChange={(e) => setFormData({...formData, hasGardenEnclosed: e.target.checked})} />
           <span>Avec jardin clôturé</span>
         </label>
-      )}
+      </div>
 
-      {isApartment && (
-        <div>
-          <label className="form-label">Quel étage ? *</label>
-          <input type="number" required className="form-input" value={formData.floor}
-            onChange={(e) => setFormData({...formData, floor: e.target.value})} />
-        </div>
-      )}
+      <div style={show(isApartment)}>
+        <label className="form-label">Quel étage ? {isApartment && '*'}</label>
+        <input type="number" required={isApartment} className="form-input" value={formData.floor}
+          onChange={(e) => setFormData({...formData, floor: e.target.value})} />
+      </div>
 
       <div>
         <label className="form-label">Êtes-vous propriétaire ? *</label>
@@ -310,15 +313,13 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
         </div>
       </div>
 
-      {isRenter && (
-        <div>
-          <label className="form-label">Avez-vous la permission d&apos;avoir un animal ? *</label>
-          <div className="form-radio-group">
-            {radio('hasPermission', 'Oui', 'hasPermission')}
-            {radio('hasPermission', 'Non', 'hasPermission')}
-          </div>
+      <div style={show(isRenter)}>
+        <label className="form-label">Avez-vous la permission d&apos;avoir un animal ? {isRenter && '*'}</label>
+        <div className="form-radio-group">
+          {radio('hasPermission', 'Oui', 'hasPermission')}
+          {radio('hasPermission', 'Non', 'hasPermission')}
         </div>
-      )}
+      </div>
 
       <div>
         <label className="form-label">Prévoyez-vous de déménager prochainement ? *</label>
@@ -328,13 +329,11 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
         </div>
       </div>
 
-      {isMoving && (
-        <div>
-          <label className="form-label">Adresse du projet *</label>
-          <input type="text" required className="form-input" value={formData.movingAddress}
-            onChange={(e) => setFormData({...formData, movingAddress: e.target.value})} />
-        </div>
-      )}
+      <div style={show(isMoving)}>
+        <label className="form-label">Adresse du projet {isMoving && '*'}</label>
+        <input type="text" required={isMoving} className="form-input" value={formData.movingAddress}
+          onChange={(e) => setFormData({...formData, movingAddress: e.target.value})} />
+      </div>
 
       <hr className="form-divider" />
 
@@ -350,13 +349,11 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
         </div>
       </div>
 
-      {employedOther && (
-        <div>
-          <label className="form-label">Précisez *</label>
-          <input type="text" required className="form-input" value={formData.employedOther}
-            onChange={(e) => setFormData({...formData, employedOther: e.target.value})} />
-        </div>
-      )}
+      <div style={show(employedOther)}>
+        <label className="form-label">Précisez {employedOther && '*'}</label>
+        <input type="text" required={employedOther} className="form-input" value={formData.employedOther}
+          onChange={(e) => setFormData({...formData, employedOther: e.target.value})} />
+      </div>
 
       <div className="form-grid">
         <div>
@@ -371,13 +368,11 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
         </div>
       </div>
 
-      {hasChildren && (
-        <div>
-          <label className="form-label">Âges des enfants *</label>
-          <input type="text" required className="form-input" value={formData.childrenAges}
-            onChange={(e) => setFormData({...formData, childrenAges: e.target.value})} />
-        </div>
-      )}
+      <div style={show(hasChildren)}>
+        <label className="form-label">Âges des enfants {hasChildren && '*'}</label>
+        <input type="text" required={hasChildren} className="form-input" value={formData.childrenAges}
+          onChange={(e) => setFormData({...formData, childrenAges: e.target.value})} />
+      </div>
 
       <div>
         <label className="form-label">Y a-t-il quelqu&apos;un à la maison en journée ? *</label>
@@ -387,13 +382,11 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
         </div>
       </div>
 
-      {notHomeDay && (
-        <div>
-          <label className="form-label">Combien d&apos;heures d&apos;absence ? *</label>
-          <input type="text" required className="form-input" value={formData.hoursAbsence}
-            onChange={(e) => setFormData({...formData, hoursAbsence: e.target.value})} />
-        </div>
-      )}
+      <div style={show(notHomeDay)}>
+        <label className="form-label">Combien d&apos;heures d&apos;absence ? {notHomeDay && '*'}</label>
+        <input type="text" required={notHomeDay} className="form-input" value={formData.hoursAbsence}
+          onChange={(e) => setFormData({...formData, hoursAbsence: e.target.value})} />
+      </div>
 
       <div>
         <label className="form-label">Un occupant souffre-t-il d&apos;allergies ou d&apos;asthme ? *</label>
@@ -404,32 +397,26 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
         </div>
       </div>
 
-      {noChildren && (
-        <div>
-          <label className="form-label">Si vous projetez d&apos;avoir des enfants, cela vous semble-t-il compatible avec un animal ? *</label>
-          <div className="form-radio-group">
-            {radio('childrenCompatible', 'Oui', 'childrenCompatible')}
-            {radio('childrenCompatible', 'Non', 'childrenCompatible')}
-            {radio('childrenCompatible', 'Autre', 'childrenCompatible')}
-          </div>
+      <div style={show(noChildren)}>
+        <label className="form-label">Si vous projetez d&apos;avoir des enfants, cela vous semble-t-il compatible avec un animal ? {noChildren && '*'}</label>
+        <div className="form-radio-group">
+          {radio('childrenCompatible', 'Oui', 'childrenCompatible')}
+          {radio('childrenCompatible', 'Non', 'childrenCompatible')}
+          {radio('childrenCompatible', 'Autre', 'childrenCompatible')}
         </div>
-      )}
+      </div>
 
-      {childrenProjectOther && (
-        <div>
-          <label className="form-label">Précisez *</label>
-          <input type="text" required className="form-input" value={formData.childrenCompatibleOther}
-            onChange={(e) => setFormData({...formData, childrenCompatibleOther: e.target.value})} />
-        </div>
-      )}
+      <div style={show(noChildren && childrenProjectOther)}>
+        <label className="form-label">Précisez {noChildren && childrenProjectOther && '*'}</label>
+        <input type="text" required={noChildren && childrenProjectOther} className="form-input" value={formData.childrenCompatibleOther}
+          onChange={(e) => setFormData({...formData, childrenCompatibleOther: e.target.value})} />
+      </div>
 
-      {isCouple && (
-        <div>
-          <label className="form-label">En cas de séparation, qui gardera l&apos;animal ? *</label>
-          <input type="text" required className="form-input" value={formData.coupleSeparation}
-            onChange={(e) => setFormData({...formData, coupleSeparation: e.target.value})} />
-        </div>
-      )}
+      <div style={show(isCouple)}>
+        <label className="form-label">En cas de séparation, qui gardera l&apos;animal ? {isCouple && '*'}</label>
+        <input type="text" required={isCouple} className="form-input" value={formData.coupleSeparation}
+          onChange={(e) => setFormData({...formData, coupleSeparation: e.target.value})} />
+      </div>
 
       <hr className="form-divider" />
 
@@ -444,34 +431,32 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
         </div>
       </div>
 
-      {hasCurrentAnimal && (
-        <>
-          <div>
-            <label className="form-label">Espèce, race, sexe et âge *</label>
-            {animalInputs(currentAnimals, setCurrentAnimals)}
+      <div style={show(hasCurrentAnimal)}>
+        <div>
+          <label className="form-label">Espèce, race, sexe et âge {hasCurrentAnimal && '*'}</label>
+          {animalInputs(currentAnimals, setCurrentAnimals, hasCurrentAnimal)}
+        </div>
+        <div style={{ marginTop: '1rem' }}>
+          <label className="form-label">Vos animaux sont-ils</label>
+          <div className="form-checkbox-group">
+            <label className="form-checkbox">
+              <input type="checkbox" checked={formData.currentAnimalsSterilized}
+                onChange={(e) => setFormData({...formData, currentAnimalsSterilized: e.target.checked})} />
+              <span>Stérilisés</span>
+            </label>
+            <label className="form-checkbox">
+              <input type="checkbox" checked={formData.currentAnimalsVaccinated}
+                onChange={(e) => setFormData({...formData, currentAnimalsVaccinated: e.target.checked})} />
+              <span>Vaccinés</span>
+            </label>
+            <label className="form-checkbox">
+              <input type="checkbox" checked={formData.currentAnimalsTested}
+                onChange={(e) => setFormData({...formData, currentAnimalsTested: e.target.checked})} />
+              <span>Testés FIV/FeLV (pour les chats)</span>
+            </label>
           </div>
-          <div>
-            <label className="form-label">Vos animaux sont-ils</label>
-            <div className="form-checkbox-group">
-              <label className="form-checkbox">
-                <input type="checkbox" checked={formData.currentAnimalsSterilized}
-                  onChange={(e) => setFormData({...formData, currentAnimalsSterilized: e.target.checked})} />
-                <span>Stérilisés</span>
-              </label>
-              <label className="form-checkbox">
-                <input type="checkbox" checked={formData.currentAnimalsVaccinated}
-                  onChange={(e) => setFormData({...formData, currentAnimalsVaccinated: e.target.checked})} />
-                <span>Vaccinés</span>
-              </label>
-              <label className="form-checkbox">
-                <input type="checkbox" checked={formData.currentAnimalsTested}
-                  onChange={(e) => setFormData({...formData, currentAnimalsTested: e.target.checked})} />
-                <span>Testés FIV/FeLV (pour les chats)</span>
-              </label>
-            </div>
-          </div>
-        </>
-      )}
+        </div>
+      </div>
 
       <div>
         <label className="form-label">Avez-vous déjà eu un animal ? *</label>
@@ -481,12 +466,10 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
         </div>
       </div>
 
-      {hadPreviousAnimal && (
-        <div>
-          <label className="form-label">Espèce, race, sexe et âge *</label>
-          {animalInputs(previousAnimals, setPreviousAnimals)}
-        </div>
-      )}
+      <div style={show(hadPreviousAnimal)}>
+        <label className="form-label">Espèce, race, sexe et âge {hadPreviousAnimal && '*'}</label>
+        {animalInputs(previousAnimals, setPreviousAnimals, hadPreviousAnimal)}
+      </div>
 
       <div>
         <label className="form-label">Avez-vous dû vous séparer d&apos;un animal par le passé ? *</label>
@@ -496,23 +479,19 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
         </div>
       </div>
 
-      {didSeparate && (
-        <div>
-          <label className="form-label">Pour quelle raison ? *</label>
-          <textarea required rows={3} className="form-textarea" value={formData.separationReason}
-            onChange={(e) => setFormData({...formData, separationReason: e.target.value})} />
-        </div>
-      )}
+      <div style={show(didSeparate)}>
+        <label className="form-label">Pour quelle raison ? {didSeparate && '*'}</label>
+        <textarea required={didSeparate} rows={3} className="form-textarea" value={formData.separationReason}
+          onChange={(e) => setFormData({...formData, separationReason: e.target.value})} />
+      </div>
 
-      {(hasCurrentAnimal || hadPreviousAnimal) && (
-        <div>
-          <label className="form-label">Avez-vous déjà adopté via un refuge ou une association ? *</label>
-          <div className="form-radio-group">
-            {radio('adoptedFromShelter', 'Oui', 'adoptedFromShelter')}
-            {radio('adoptedFromShelter', 'Non', 'adoptedFromShelter')}
-          </div>
+      <div style={show(hasCurrentOrPrevious)}>
+        <label className="form-label">Avez-vous déjà adopté via un refuge ou une association ? {hasCurrentOrPrevious && '*'}</label>
+        <div className="form-radio-group">
+          {radio('adoptedFromShelter', 'Oui', 'adoptedFromShelter')}
+          {radio('adoptedFromShelter', 'Non', 'adoptedFromShelter')}
         </div>
-      )}
+      </div>
 
       <hr className="form-divider" />
 
@@ -560,13 +539,11 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
         </div>
       </div>
 
-      {careAbsenceHasOther && (
-        <div>
-          <label className="form-label">Précisez *</label>
-          <input type="text" required className="form-input" value={formData.careAbsenceOther}
-            onChange={(e) => setFormData({...formData, careAbsenceOther: e.target.value})} />
-        </div>
-      )}
+      <div style={show(careAbsenceHasOther)}>
+        <label className="form-label">Précisez {careAbsenceHasOther && '*'}</label>
+        <input type="text" required={careAbsenceHasOther} className="form-input" value={formData.careAbsenceOther}
+          onChange={(e) => setFormData({...formData, careAbsenceOther: e.target.value})} />
+      </div>
 
       <div>
         <label className="form-label">Êtes-vous prêt à vous engager pour la vie entière de l&apos;animal ? *</label>
@@ -610,13 +587,11 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
         </div>
       </div>
 
-      {knowsVetCosts && (
-        <div>
-          <label className="form-label">Estimation des dépenses par an ? *</label>
-          <input type="text" required className="form-input" value={formData.vetCostsEstimate}
-            onChange={(e) => setFormData({...formData, vetCostsEstimate: e.target.value})} />
-        </div>
-      )}
+      <div style={show(knowsVetCosts)}>
+        <label className="form-label">Estimation des dépenses par an ? {knowsVetCosts && '*'}</label>
+        <input type="text" required={knowsVetCosts} className="form-input" value={formData.vetCostsEstimate}
+          onChange={(e) => setFormData({...formData, vetCostsEstimate: e.target.value})} />
+      </div>
 
       <div>
         <label className="form-label">À partir de quel montant seriez-vous en difficulté pour payer en une fois ? *</label>
@@ -650,13 +625,11 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
         </div>
       </div>
 
-      {knowsBudget && (
-        <div>
-          <label className="form-label">Estimation des dépenses mensuelles ? *</label>
-          <input type="text" required className="form-input" value={formData.monthlyBudgetEstimate}
-            onChange={(e) => setFormData({...formData, monthlyBudgetEstimate: e.target.value})} />
-        </div>
-      )}
+      <div style={show(knowsBudget)}>
+        <label className="form-label">Estimation des dépenses mensuelles ? {knowsBudget && '*'}</label>
+        <input type="text" required={knowsBudget} className="form-input" value={formData.monthlyBudgetEstimate}
+          onChange={(e) => setFormData({...formData, monthlyBudgetEstimate: e.target.value})} />
+      </div>
 
       <div>
         <label className="form-label">Au travail ou de sortie, où sera votre animal ? *</label>
@@ -669,14 +642,12 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
         </select>
       </div>
 
-      {locationWorkEnclosure && (
-        <div>
-          <label className="form-label">Surface de l&apos;enclos ? *</label>
-          <input type="number" required className="form-input" value={formData.animalLocationWorkSurface}
-            onChange={(e) => setFormData({...formData, animalLocationWorkSurface: e.target.value})} />
-          <div className="form-hint">en m²</div>
-        </div>
-      )}
+      <div style={show(locationWorkEnclosure)}>
+        <label className="form-label">Surface de l&apos;enclos ? {locationWorkEnclosure && '*'}</label>
+        <input type="number" required={locationWorkEnclosure} className="form-input" value={formData.animalLocationWorkSurface}
+          onChange={(e) => setFormData({...formData, animalLocationWorkSurface: e.target.value})} />
+        <div className="form-hint">en m²</div>
+      </div>
 
       <div>
         <label className="form-label">Quand vous êtes présent, où sera votre animal ? *</label>
@@ -689,14 +660,12 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
         </select>
       </div>
 
-      {locationHomeEnclosure && (
-        <div>
-          <label className="form-label">Surface de l&apos;enclos ? *</label>
-          <input type="number" required className="form-input" value={formData.animalLocationHomeSurface}
-            onChange={(e) => setFormData({...formData, animalLocationHomeSurface: e.target.value})} />
-          <div className="form-hint">en m²</div>
-        </div>
-      )}
+      <div style={show(locationHomeEnclosure)}>
+        <label className="form-label">Surface de l&apos;enclos ? {locationHomeEnclosure && '*'}</label>
+        <input type="number" required={locationHomeEnclosure} className="form-input" value={formData.animalLocationHomeSurface}
+          onChange={(e) => setFormData({...formData, animalLocationHomeSurface: e.target.value})} />
+        <div className="form-hint">en m²</div>
+      </div>
 
       <hr className="form-divider" />
 
@@ -712,13 +681,11 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
             ))}
           </select>
         </div>
-        {heardOther && (
-          <div>
-            <label className="form-label">Précisez</label>
-            <input type="text" className="form-input" value={formData.howHeardAboutOther}
-              onChange={(e) => setFormData({...formData, howHeardAboutOther: e.target.value})} />
-          </div>
-        )}
+        <div style={show(heardOther)}>
+          <label className="form-label">Précisez</label>
+          <input type="text" className="form-input" value={formData.howHeardAboutOther}
+            onChange={(e) => setFormData({...formData, howHeardAboutOther: e.target.value})} />
+        </div>
       </div>
 
       <div>

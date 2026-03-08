@@ -12,7 +12,7 @@ export default function BenevolePage() {
   return (
     <main id="main-content">
       {/* Header */}
-      <section className="hero" style={{ backgroundImage: 'url(/images/site/DSC01832.webp', backgroundPosition :'center 33%' }}>
+      <section className="hero" style={{ backgroundImage: 'url(/images/site/DSC01832.webp)', backgroundPosition :'center 33%' }}>
         <div className="container">
           <div className="hero-content">
             <h1>Devenir bénévole</h1>
