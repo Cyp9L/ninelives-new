@@ -221,7 +221,7 @@ export async function POST(request: Request) {
     const { data: emailData, error } = await resend.emails.send({
       from: 'Adoption Nine Lives <adoption@ninelives.fr>',
       to: ['adoption@ninelives.fr'],
-      ...(data.email ? { cc: [data.email], replyTo: [data.email] } : {}),
+      ...(data.email ? { cc: [data.email], reply_to: [data.email] } : {}),
       subject: `Demande d'adoption${data.animalName ? ` - ${data.animalName}` : ''} - ${data.firstName} ${data.lastName}`,
       html: htmlBody,
     });

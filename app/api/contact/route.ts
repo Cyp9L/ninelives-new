@@ -88,7 +88,7 @@ export async function POST(request: Request) {
       from: 'Contact Nine Lives <asso@ninelives.fr>',
       to: ['asso@ninelives.fr'],
       reply_to: data.email,
-      ...(data.email ? { cc: [data.email], replyTo: [data.email] } : {}),
+      ...(data.email ? { cc: [data.email], reply_to: [data.email] } : {}),
       subject: `Contact — ${data.subject || 'Message'} — ${data.firstName} ${data.lastName}`,
       html: htmlBody,
     });
