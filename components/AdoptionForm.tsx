@@ -109,9 +109,9 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
   const show = (visible: boolean) => (visible ? undefined : { display: 'none' as const });
 
   // Helper for radio groups
-  const radio = (name: string, value: string, field: string) => (
+  const radio = (name: string, value: string, field: string, required = true) => (
     <label className="form-radio">
-      <input type="radio" required name={name} value={value}
+      <input type="radio" required={required} name={name} value={value}
         checked={formData[field as keyof typeof formData] === value}
         onChange={(e) => setFormData({...formData, [field]: e.target.value})} />
       {value}
