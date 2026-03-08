@@ -11,6 +11,8 @@ const nextConfig: NextConfig = {
       { source: '/aider-autrement', destination: '/donner', permanent: true },
       { source: '/lapins-vacances', destination: '/abandon/solutions', permanent: true },
       { source: '/une-cage-pour-mes-lapins', destination: '/abandon/solutions', permanent: true },
+      { source: '/nos-chatons', destination: '/adopter', permanent: true },
+      { source: '/adopter/nos-chatons', destination: '/adopter', permanent: true },
 
       // Old form URLs
       { source: '/entry_form/formulaire-benevolat', destination: '/benevole', permanent: true },
