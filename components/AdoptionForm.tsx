@@ -316,8 +316,8 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
       <div style={show(isRenter)}>
         <label className="form-label">Avez-vous la permission d&apos;avoir un animal ? {isRenter && '*'}</label>
         <div className="form-radio-group">
-          {radio('hasPermission', 'Oui', 'hasPermission')}
-          {radio('hasPermission', 'Non', 'hasPermission')}
+        {radio('hasPermission', 'Oui', 'hasPermission', isRenter)}
+        {radio('hasPermission', 'Non', 'hasPermission', isRenter)}
         </div>
       </div>
 
@@ -400,9 +400,9 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
       <div style={show(noChildren)}>
         <label className="form-label">Si vous projetez d&apos;avoir des enfants, cela vous semble-t-il compatible avec un animal ? {noChildren && '*'}</label>
         <div className="form-radio-group">
-          {radio('childrenCompatible', 'Oui', 'childrenCompatible')}
-          {radio('childrenCompatible', 'Non', 'childrenCompatible')}
-          {radio('childrenCompatible', 'Autre', 'childrenCompatible')}
+        {radio('childrenCompatible', 'Oui', 'childrenCompatible', noChildren)}
+        {radio('childrenCompatible', 'Non', 'childrenCompatible', noChildren)}
+        {radio('childrenCompatible', 'Autre', 'childrenCompatible', noChildren)}
         </div>
       </div>
 
@@ -488,8 +488,8 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
       <div style={show(hasCurrentOrPrevious)}>
         <label className="form-label">Avez-vous déjà adopté via un refuge ou une association ? {hasCurrentOrPrevious && '*'}</label>
         <div className="form-radio-group">
-          {radio('adoptedFromShelter', 'Oui', 'adoptedFromShelter')}
-          {radio('adoptedFromShelter', 'Non', 'adoptedFromShelter')}
+        {radio('adoptedFromShelter', 'Oui', 'adoptedFromShelter', hasCurrentOrPrevious)}
+        {radio('adoptedFromShelter', 'Non', 'adoptedFromShelter', hasCurrentOrPrevious)}
         </div>
       </div>
 
