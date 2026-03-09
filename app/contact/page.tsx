@@ -4,6 +4,21 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Captcha from '@/components/Captcha';
 
+const REDIRECT_SUBJECTS: Record<string, { url: string; emoji: string; label: string; description: string }> = {
+  'Prise en charge / Abandon': {
+    url: '/abandon',
+    emoji: '🐱',
+    label: 'formulaire de prise en charge',
+    description: 'Pour nous confier un animal, merci d\u2019utiliser le formulaire de prise en charge. Cela nous permet de traiter votre demande plus rapidement.',
+  },
+  'Devenir bénévole': {
+    url: '/benevole',
+    emoji: '🤝',
+    label: 'formulaire bénévole',
+    description: 'Merci pour votre intérêt ! Pour devenir bénévole, merci d\u2019utiliser le formulaire dédié. Cela nous permet de traiter votre candidature plus rapidement.',
+  },
+};
+
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     firstName: '', lastName: '', email: '', subject: '',
@@ -14,9 +29,11 @@ export default function ContactPage() {
   const [status, setStatus] = useState('');
   const [captchaToken, setCaptchaToken] = useState('');
 
+  const redirect = REDIRECT_SUBJECTS[formData.subject];
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.honeypot) return;
+    if (formData.honeypot || redirect) return;
     setStatus('sending');
     try {
       const res = await fetch('/api/contact', {
@@ -48,7 +65,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-    {/* Form section */}
+      {/* Form section */}
       <section id="formulaire" className="section section-gray">
         <div className="container-mid">
           <h2 className="text-center">Formulaire de contact</h2>
@@ -70,63 +87,80 @@ export default function ContactPage() {
               <input type="text" name="website" value={formData.honeypot}
                 onChange={(e) => setFormData({...formData, honeypot: e.target.value})}
                 className="honeypot" tabIndex={-1} />
-              <div className="form-grid">
-                <div>
-                  <label className="form-label">Prénom *</label>
-                  <input type="text" required className="form-input" value={formData.firstName}
-                    onChange={(e) => setFormData({...formData, firstName: e.target.value})} />
-                </div>
-                <div>
-                  <label className="form-label">Nom de famille *</label>
-                  <input type="text" required className="form-input" value={formData.lastName}
-                    onChange={(e) => setFormData({...formData, lastName: e.target.value})} />
-                </div>
-              </div>
-              <div>
-                <label className="form-label">E-mail *</label>
-                <input type="email" required className="form-input" value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})} />
-              </div>
               <div>
                 <label className="form-label">Comment pouvons-nous vous aider ? *</label>
                 <select required className="form-select" value={formData.subject}
                   onChange={(e) => setFormData({...formData, subject: e.target.value})}>
                   <option value="">Sélectionnez un sujet</option>
-                  {['Question générale', 'Renseignement adoption', 'Proposition de partenariat',
-                    'Proposition de don', 'Devenir bénévole', 'Autre'].map(v => (
+                  {['Question générale', 'Renseignement adoption', 'Prise en charge / Abandon',
+                    'Proposition de partenariat', 'Proposition de don', 'Devenir bénévole', 'Autre'].map(v => (
                     <option key={v} value={v}>{v}</option>
                   ))}
                 </select>
               </div>
-              <div>
-                <label className="form-label">Commentaires / Questions *</label>
-                <textarea required rows={5} className="form-textarea" value={formData.message}
-                  onChange={(e) => setFormData({...formData, message: e.target.value})}
-                  placeholder="N'hésitez pas à poser une question ou simplement laisser un commentaire." />
-              </div>
-              {formData.subject === 'Proposition de don' && (
-                <div>
-                  <label className="form-label">Où devrons-nous retirer le don ?</label>
-                  <input type="text" className="form-input" value={formData.donationNote}
-                    onChange={(e) => setFormData({...formData, donationNote: e.target.value})} />
+
+              {redirect ? (
+                <div className="alert alert-info mb-lg" style={{ marginTop: '1rem' }}>
+                  <strong>{redirect.emoji} Ce type de demande a un formulaire dédié</strong>
+                  <p style={{ margin: '0.75rem 0 0' }}>
+                    {redirect.description}
+                  </p>
+                  <p style={{ margin: '1rem 0 0' }}>
+                    <Link href={redirect.url} className="btn btn-gradient">
+                      Accéder au {redirect.label} →
+                    </Link>
+                  </p>
                 </div>
-              )}
-              <label className="form-checkbox">
-                <input type="checkbox" required checked={formData.acceptsPrivacy}
-                  onChange={(e) => setFormData({...formData, acceptsPrivacy: e.target.checked})} />
-                <span>J&apos;accepte la <a href="/politique-de-confidentialite" target="_blank" rel="noopener" className="link-blue">politique de confidentialité</a> et je m&apos;engage à utiliser le formulaire adapté à ma demande. *</span>
-              </label>
-              <Captcha onVerify={setCaptchaToken} />
-              <div className="form-submit">
-                <button type="submit" disabled={status === 'sending' || !captchaToken}
-                  className="btn btn-gradient btn-lg">
-                  {status === 'sending' ? 'Envoi en cours...' : 'Envoyer le message'}
-                </button>
-              </div>
-              {status === 'error' && (
-                <div className="alert alert-error">
-                  <strong>Erreur</strong> lors de l&apos;envoi. Veuillez réessayer ou écrire directement à asso@ninelives.fr.
-                </div>
+              ) : (
+                <>
+                  <div className="form-grid">
+                    <div>
+                      <label className="form-label">Prénom *</label>
+                      <input type="text" required className="form-input" value={formData.firstName}
+                        onChange={(e) => setFormData({...formData, firstName: e.target.value})} />
+                    </div>
+                    <div>
+                      <label className="form-label">Nom de famille *</label>
+                      <input type="text" required className="form-input" value={formData.lastName}
+                        onChange={(e) => setFormData({...formData, lastName: e.target.value})} />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="form-label">E-mail *</label>
+                    <input type="email" required className="form-input" value={formData.email}
+                      onChange={(e) => setFormData({...formData, email: e.target.value})} />
+                  </div>
+                  <div>
+                    <label className="form-label">Commentaires / Questions *</label>
+                    <textarea required rows={5} className="form-textarea" value={formData.message}
+                      onChange={(e) => setFormData({...formData, message: e.target.value})}
+                      placeholder="N'hésitez pas à poser une question ou simplement laisser un commentaire." />
+                  </div>
+                  {formData.subject === 'Proposition de don' && (
+                    <div>
+                      <label className="form-label">Où devrons-nous retirer le don ?</label>
+                      <input type="text" className="form-input" value={formData.donationNote}
+                        onChange={(e) => setFormData({...formData, donationNote: e.target.value})} />
+                    </div>
+                  )}
+                  <label className="form-checkbox">
+                    <input type="checkbox" required checked={formData.acceptsPrivacy}
+                      onChange={(e) => setFormData({...formData, acceptsPrivacy: e.target.checked})} />
+                    <span>J&apos;accepte la <a href="/politique-de-confidentialite" target="_blank" rel="noopener" className="link-blue">politique de confidentialité</a> et je m&apos;engage à utiliser le formulaire adapté à ma demande. *</span>
+                  </label>
+                  <Captcha onVerify={setCaptchaToken} />
+                  <div className="form-submit">
+                    <button type="submit" disabled={status === 'sending' || !captchaToken}
+                      className="btn btn-gradient btn-lg">
+                      {status === 'sending' ? 'Envoi en cours...' : 'Envoyer le message'}
+                    </button>
+                  </div>
+                  {status === 'error' && (
+                    <div className="alert alert-error">
+                      <strong>Erreur</strong> lors de l&apos;envoi. Veuillez réessayer ou écrire directement à asso@ninelives.fr.
+                    </div>
+                  )}
+                </>
               )}
             </form>
           </div>
