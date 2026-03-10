@@ -23,17 +23,26 @@ export default function ContactPage() {
   const [formData, setFormData] = useState({
     firstName: '', lastName: '', email: '', subject: '',
     message: '', donationNote: '', respectsVolunteers: false,
-    acceptsPrivacy: false, honeypot: ''
+    acceptsPrivacy: false, notAboutAbandonment: false, honeypot: ''
   });
 
   const [status, setStatus] = useState('');
   const [captchaToken, setCaptchaToken] = useState('');
+  const [autreConfirmed, setAutreConfirmed] = useState(false);
 
   const redirect = REDIRECT_SUBJECTS[formData.subject];
+  const isAutre = formData.subject === 'Autre';
+  const showAutreQuestion = isAutre && !autreConfirmed;
+
+  const handleSubjectChange = (value: string) => {
+    setFormData({ ...formData, subject: value, notAboutAbandonment: false });
+    setAutreConfirmed(false);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.honeypot || redirect) return;
+    if (isAutre && !formData.notAboutAbandonment) return;
     setStatus('sending');
     try {
       const res = await fetch('/api/contact', {
@@ -45,7 +54,8 @@ export default function ContactPage() {
         setStatus('success');
         setFormData({ firstName: '', lastName: '', email: '', subject: '',
           message: '', donationNote: '', respectsVolunteers: false,
-          acceptsPrivacy: false, honeypot: '' });
+          acceptsPrivacy: false, notAboutAbandonment: false, honeypot: '' });
+        setAutreConfirmed(false);
       } else setStatus('error');
     } catch { setStatus('error'); }
   };
@@ -90,7 +100,7 @@ export default function ContactPage() {
               <div>
                 <label className="form-label">Comment pouvons-nous vous aider ? *</label>
                 <select required className="form-select" value={formData.subject}
-                  onChange={(e) => setFormData({...formData, subject: e.target.value})}>
+                  onChange={(e) => handleSubjectChange(e.target.value)}>
                   <option value="">Sélectionnez un sujet</option>
                   {['Question générale', 'Renseignement adoption', 'Prise en charge / Abandon',
                     'Proposition de partenariat', 'Proposition de don', 'Devenir bénévole', 'Autre'].map(v => (
@@ -98,6 +108,25 @@ export default function ContactPage() {
                   ))}
                 </select>
               </div>
+
+              {/* Layer 1: Clarifying question for "Autre" */}
+              {showAutreQuestion && (
+                <div className="alert alert-warning" style={{ marginTop: '1rem' }}>
+                  <strong>Votre demande concerne-t-elle un animal à confier ?</strong>
+                  <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.75rem' }}>
+                    <Link href="/abandon" className="btn btn-gradient">
+                      Oui → formulaire de prise en charge
+                    </Link>
+                    <button
+                      type="button"
+                      className="btn btn-outline"
+                      onClick={() => setAutreConfirmed(true)}
+                    >
+                      Non, c&apos;est autre chose
+                    </button>
+                  </div>
+                </div>
+              )}
 
               {redirect ? (
                 <div className="alert alert-info mb-lg" style={{ marginTop: '1rem' }}>
@@ -111,7 +140,7 @@ export default function ContactPage() {
                     </Link>
                   </p>
                 </div>
-              ) : (
+              ) : (!showAutreQuestion && (
                 <>
                   <div className="form-grid">
                     <div>
@@ -132,9 +161,13 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <label className="form-label">Commentaires / Questions *</label>
+                    {/* Layer 2: Warning placeholder for "Autre" */}
                     <textarea required rows={5} className="form-textarea" value={formData.message}
                       onChange={(e) => setFormData({...formData, message: e.target.value})}
-                      placeholder="N'hésitez pas à poser une question ou simplement laisser un commentaire." />
+                      placeholder={isAutre
+                        ? '⚠️ Ce formulaire ne traite pas les demandes de prise en charge animale. Pour confier un animal, utilisez le formulaire dédié sur la page \"Prise en charge\". Décrivez ici votre demande si elle concerne un autre sujet.'
+                        : 'N\'hésitez pas à poser une question ou simplement laisser un commentaire.'
+                      } />
                   </div>
                   {formData.subject === 'Proposition de don' && (
                     <div>
@@ -142,6 +175,14 @@ export default function ContactPage() {
                       <input type="text" className="form-input" value={formData.donationNote}
                         onChange={(e) => setFormData({...formData, donationNote: e.target.value})} />
                     </div>
+                  )}
+                  {/* Layer 3: Extra checkbox for "Autre" */}
+                  {isAutre && (
+                    <label className="form-checkbox">
+                      <input type="checkbox" required checked={formData.notAboutAbandonment}
+                        onChange={(e) => setFormData({...formData, notAboutAbandonment: e.target.checked})} />
+                      <span>Je confirme que ma demande <strong>ne concerne pas</strong> un animal à confier. *</span>
+                    </label>
                   )}
                   <label className="form-checkbox">
                     <input type="checkbox" required checked={formData.acceptsPrivacy}
@@ -161,7 +202,7 @@ export default function ContactPage() {
                     </div>
                   )}
                 </>
-              )}
+              ))}
             </form>
           </div>
           <p className="text-small text-muted text-center" style={{ marginTop: '1.5rem' }}>
