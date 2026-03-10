@@ -165,7 +165,7 @@ export default function ContactPage() {
                     <textarea required rows={5} className="form-textarea" value={formData.message}
                       onChange={(e) => setFormData({...formData, message: e.target.value})}
                       placeholder={isAutre
-                        ? '⚠️ Ce formulaire ne traite pas les demandes de prise en charge animale. Pour confier un animal, utilisez le formulaire dédié sur la page \"Prise en charge\". Décrivez ici votre demande si elle concerne un autre sujet.'
+                        ? '⚠️ Ce formulaire ne traite pas les demandes de prise en charge animale. Pour confier un animal, utilisez le formulaire dédié sur la page \"J\'ai besoin d\'aide\". Décrivez ici votre demande si elle concerne un autre sujet.'
                         : 'N\'hésitez pas à poser une question ou simplement laisser un commentaire.'
                       } />
                   </div>
