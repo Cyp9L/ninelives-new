@@ -1692,6 +1692,8 @@ main img:hover {
   .price-comparison {
     grid-template-columns: 1fr;
   }
+  
+  .form-step-label { display: none; }
 
   .price-line {
     font-size: 0.9rem;

@@ -233,7 +233,7 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
                 >
                   {i < currentStep ? '✓' : i + 1}
                 </div>
-                <div style={{
+                <div className="form-step-label" style={{
                   fontSize: '0.7rem', marginTop: '0.4rem', textAlign: 'center',
                   color: i <= currentStep ? '#007273' : '#9ca3af',
                   fontWeight: i === currentStep ? 600 : 400,
