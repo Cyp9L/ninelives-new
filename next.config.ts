@@ -1,6 +1,18 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  images: {
+    localPatterns: [
+      {
+        pathname: '/**',
+        search: '',  // Regular local images (no query strings)
+      },
+      {
+        pathname: '/api/trello-image',
+        // search omitted → any query string is allowed
+      },
+    ],
+  },
   async redirects() {
     return [
       // Old page URLs
@@ -11,7 +23,6 @@ const nextConfig: NextConfig = {
       { source: '/aider-autrement', destination: '/donner', permanent: true },
       { source: '/lapins-vacances', destination: '/abandon/solutions', permanent: true },
       { source: '/une-cage-pour-mes-lapins', destination: '/abandon/solutions', permanent: true },
-      
 
       // Old form URLs
       { source: '/entry_form/formulaire-benevolat', destination: '/benevole', permanent: true },
