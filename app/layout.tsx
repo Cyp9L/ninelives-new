@@ -4,10 +4,11 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import Lightbox from '@/components/Lightbox';
-import { SpeedInsights } from '@vercel/speed-insights/next';
-import { Analytics } from "@vercel/analytics/next"
-import RelatedActions from '@/components/RelatedActions';
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
+
+import LazyLightbox from '@/components/LazyLightbox';
+import LazyRelatedActions from '@/components/LazyRelatedActions';
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -21,7 +22,7 @@ const helloCasual = localFont({
   variable: "--font-hello-casual",
   display: "swap",
 });
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ninelives.fr';
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ninelives.fr";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -63,7 +64,7 @@ const organizationJsonLd = {
   name: "Nine Lives Paris",
   alternateName: "Adopt' for life",
   url: baseUrl,
-  logo: `${baseUrl}/images/site/logo-nine-lives-paris.png`,  // ← FIX: was a string literal, now template literal
+  logo: `${baseUrl}/images/site/logo-nine-lives-paris.png`,
   description:
     "Association loi 1901 de sauvetage de chats abandonnés, trouvés et errants à Paris.",
   email: "asso@ninelives.fr",
@@ -113,9 +114,9 @@ export default function RootLayout({
           }}
         />
         <Navigation />
-        <Lightbox />
+        <LazyLightbox />
         {children}
-        <RelatedActions />
+        <LazyRelatedActions />
         <Footer />
         <SpeedInsights />
         <Analytics />

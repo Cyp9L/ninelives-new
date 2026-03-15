@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getAllCats } from '@/lib/trello';
 import CatMarquee from '@/components/CatMarquee';
 
@@ -8,7 +9,6 @@ export default async function HomePage() {
   const { all } = await getAllCats();
   const featuredCats = all.slice(0, 3);
 
-  // Read gallery images and pick a random subset
   const galleryDir = path.join(process.cwd(), 'public/images/gallery');
   const galleryImages = fs.readdirSync(galleryDir)
     .filter(file => /\.(jpg|jpeg|png|webp)$/i.test(file))
@@ -19,17 +19,18 @@ export default async function HomePage() {
   return (
     <main id="main-content">
       {/* Hero */}
-<section className="hero" style={{ backgroundImage: 'url(/images/site/salomon-bg.jpg)', backgroundPosition: 'center 30%' }}>
-  <div className="container">
-    <div className="hero-content">
-      <h1>Nine Lives Paris</h1>
-      <p>Nous sauvons, soignons et trouvons des familles aimantes aux chats abandonnés de Paris.</p>
-      <Link href="/adopter" className="btn btn-gradient btn-lg">
-        Adopter un chat
-      </Link>
-    </div>
-  </div>
-</section>
+      <section className="hero" style={{ backgroundImage: 'url(/images/site/salomon-bg.jpg)', backgroundPosition: 'center 30%' }}>
+        <div className="container">
+          <div className="hero-content">
+            <h1>Nine Lives Paris</h1>
+            <p>Nous sauvons, soignons et trouvons des familles aimantes aux chats abandonnés de Paris.</p>
+            <Link href="/adopter" className="btn btn-gradient btn-lg">
+              Adopter un chat
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* About */}
       <section className="section">
         <div className="container">
@@ -37,7 +38,7 @@ export default async function HomePage() {
             <div>
               <h2>Notre mission</h2>
               <p className="text-large mb-md">
-              Depuis 2018, l&apos;association Nine Lives Paris recueille les chats abandonnés, trouvés, errants, sortis de fourrière.
+                Depuis 2018, l&apos;association Nine Lives Paris recueille les chats abandonnés, trouvés, errants, sortis de fourrière.
               </p>
               <p className="text-large">
                 Nous les soignons et les préparons à une nouvelle vie avant de leur trouver une famille d&apos;adoption à Paris et en petite couronne (75, 92, 93, 94).
@@ -66,7 +67,14 @@ export default async function HomePage() {
               <Link key={cat.id} href={`/adopter/${cat.slug}`} data-no-lightbox className="cat-card">
                 <div className="cat-image">
                   {cat.images[0] ? (
-                    <img src={cat.images[0]} alt="" />
+                    <Image
+                      src={cat.images[0]}
+                      alt=""
+                      width={400}
+                      height={300}
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      loading="lazy"
+                    />
                   ) : (
                     <div className="cat-placeholder">🐱</div>
                   )}
