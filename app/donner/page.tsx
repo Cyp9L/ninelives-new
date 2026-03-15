@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'Faire un don',
@@ -22,7 +23,7 @@ export default function DonnerPage() {
       <section className="section">
         <div className="container-mid">
           <div className="float-img-right" style={{ width: '45%', borderRadius: '8px', overflow: 'hidden' }}>
-            <img src="/images/site/wiskey.jpg" alt="Wiskey, un de nos protégés" />
+            <Image src="/images/site/wiskey.jpg" alt="Wiskey, un de nos protégés" width={600} height={400} sizes="(max-width: 768px) 100vw, 45vw" />
           </div>
           <p className="text-large mb-md">
             <strong>💝 Sauver des vies a un coût.</strong>
@@ -58,8 +59,8 @@ export default function DonnerPage() {
       {/* Material Donation */}
       <section className="section section-gray">
         <div className="container-mid">
-          <div className="float-img-left" >
-            <img src="/images/site/salomon.webp" alt="Salomon, un de nos protégés" />
+          <div className="float-img-left">
+            <Image src="/images/site/salomon.webp" alt="Salomon, un de nos protégés" width={600} height={400} sizes="(max-width: 768px) 100vw, 40vw" />
           </div>
 
           <p className="text-large mb-md">
@@ -87,6 +88,7 @@ export default function DonnerPage() {
           <div style={{ clear: 'both' }} />
         </div>
       </section>
+
       {/* Merch */}
       <section className="section">
         <div className="container-mid">
@@ -108,10 +110,10 @@ export default function DonnerPage() {
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
               <div style={{ borderRadius: '8px', overflow: 'hidden' }}>
-                <img src="/images/site/hoodie_front.webp" alt="Hoodie — face avant" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                <Image src="/images/site/hoodie_front.webp" alt="Hoodie — face avant" width={400} height={500} sizes="(max-width: 768px) 50vw, 20vw" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
               <div style={{ borderRadius: '8px', overflow: 'hidden' }}>
-                <img src="/images/site/hoodie_back.webp" alt="Hoodie — face arrière" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                <Image src="/images/site/hoodie_back.webp" alt="Hoodie — face arrière" width={400} height={500} sizes="(max-width: 768px) 50vw, 20vw" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
             </div>
           </div>

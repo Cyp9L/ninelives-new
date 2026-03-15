@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export const metadata = {
   title: 'Nos Partenaires | Nine Lives Paris',
@@ -24,7 +25,7 @@ export default function PartenairesPage() {
       <section className="section">
         <div className="container-mid">
           <div className="float-img-left">
-            <img src="/images/site/arche-associations.jpg" alt="L'Arche des Associations" />
+            <Image src="/images/site/arche-associations.jpg" alt="L'Arche des Associations" width={600} height={400} sizes="(max-width: 768px) 100vw, 40vw" />
           </div>
 
           <h2>
@@ -48,7 +49,7 @@ export default function PartenairesPage() {
       <section className="section section-gray">
         <div className="container-mid">
           <div className="float-img-right">
-            <img src="/images/site/educhateur.png" alt="Educhateur - coaching félin" />
+            <Image src="/images/site/educhateur.png" alt="Educhateur - coaching félin" width={600} height={400} sizes="(max-width: 768px) 100vw, 40vw" />
           </div>
 
           <h2>
@@ -72,7 +73,7 @@ export default function PartenairesPage() {
       <section className="section">
         <div className="container-mid">
           <div className="float-img-left">
-            <img src="/images/site/miaustore.png" alt="Fontaine Miaustore" />
+            <Image src="/images/site/miaustore.png" alt="Fontaine Miaustore" width={600} height={400} sizes="(max-width: 768px) 100vw, 40vw" />
           </div>
 
           <h2>
@@ -96,7 +97,7 @@ export default function PartenairesPage() {
       <section className="section section-gray">
         <div className="container-mid">
           <div className="float-img-right">
-            <img src="/images/site/protection-chats.jpg" alt="Protection pour chats - filets" />
+            <Image src="/images/site/protection-chats.jpg" alt="Protection pour chats - filets" width={600} height={400} sizes="(max-width: 768px) 100vw, 40vw" />
           </div>
 
           <h2>
@@ -128,7 +129,7 @@ export default function PartenairesPage() {
                 Contactez-nous
               </Link>
             </div>
-            <img src="/images/site/wiskey04.webp" alt="Chat endormi" />
+            <Image src="/images/site/wiskey04.webp" alt="Chat endormi" width={500} height={400} sizes="(max-width: 768px) 100vw, 300px" />
           </div>
         </div>
       </section>
