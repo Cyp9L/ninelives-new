@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
     return new NextResponse(imageBuffer, {
       headers: {
         'Content-Type': response.headers.get('Content-Type') || 'image/jpeg',
-        'Cache-Control': 'public, max-age=86400',
+        'Cache-Control': 'public, s-maxage=86400, max-age=86400, stale-while-revalidate=604800',
       },
     });
   } catch (error) {
