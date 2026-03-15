@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'Nos actions',
@@ -108,7 +109,7 @@ export default function ActionsPage() {
                 <a href="https://www.instagram.com/ninelivesparis/" target="_blank" rel="noopener" className="link-purple">Instagram</a> !
               </p>
             </div>
-            <img src="/images/site/chaton-dans-une-main.webp" alt="Chaton recueilli" />
+            <Image src="/images/site/chaton-dans-une-main.webp" alt="Chaton recueilli" width={500} height={400} sizes="(max-width: 768px) 100vw, 300px" />
           </div>
 
           <h3 className="section-title text-center mb-md" style={{ marginTop: '2rem' }}>Notre Chatipi dans la presse</h3>
@@ -138,7 +139,7 @@ export default function ActionsPage() {
           <h3 className="text-center">avec le soutien de</h3>
           <div className="text-center mb-lg">
             <a href="https://education.l214.com/" target="_blank" rel="noopener">
-              <img src="/images/site/l214-education-logo.png" alt="L214 Education" className="logo-partner" />
+              <Image src="/images/site/l214-education-logo.png" alt="L214 Education" className="logo-partner" width={300} height={100} sizes="200px" />
             </a>
           </div>
 
@@ -170,10 +171,10 @@ export default function ActionsPage() {
 
           <div className="grid-2">
             <div className="card card-image">
-              <img src="/images/site/jango.webp" alt="Sauvetage de Jango" />
+              <Image src="/images/site/jango.webp" alt="Sauvetage de Jango" width={600} height={400} sizes="(max-width: 768px) 100vw, 45vw" />
             </div>
             <div className="card card-image">
-              <img src="/images/site/papaye.webp" alt="Sauvetage de Papaye" />
+              <Image src="/images/site/papaye.webp" alt="Sauvetage de Papaye" width={600} height={400} sizes="(max-width: 768px) 100vw, 45vw" />
             </div>
           </div>
         </div>

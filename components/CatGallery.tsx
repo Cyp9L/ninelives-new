@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Image from 'next/image';
 
 function openLightbox(src: string, alt: string) {
   window.dispatchEvent(
@@ -15,14 +16,18 @@ export default function CatGallery({ images, name }: { images: string[], name: s
   return (
     <div>
       <div className="gallery-main" onContextMenu={(e) => e.preventDefault()}>
-        <img
+        <Image
           src={images[activeIndex]}
           alt={`${name} - photo ${activeIndex + 1}`}
+          width={800}
+          height={600}
+          sizes="(max-width: 768px) 100vw, 600px"
           onClick={() => openLightbox(
             images[activeIndex],
             `${name} - photo ${activeIndex + 1}`
           )}
           style={{ cursor: 'zoom-in' }}
+          priority
         />
       </div>
 
@@ -35,7 +40,14 @@ export default function CatGallery({ images, name }: { images: string[], name: s
               onClick={() => setActiveIndex(index)}
               className={`gallery-thumb ${index === activeIndex ? 'active' : ''}`}
             >
-              <img src={img} alt={`${name} - miniature ${index + 1}`} />
+              <Image
+                src={img}
+                alt={`${name} - miniature ${index + 1}`}
+                width={150}
+                height={100}
+                sizes="80px"
+                loading="lazy"
+              />
             </button>
           ))}
         </div>

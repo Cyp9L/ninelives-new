@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export const metadata = {
   title: "Solutions pour éviter l'abandon | Nine Lives Paris",
@@ -34,7 +35,7 @@ export default function SolutionsAbandonPage() {
         <div className="container-narrow">
           <h2>Vous avez trouvé un animal ?</h2>
           <div className="float-img-left">
-            <img src="/images/gallery/1771791278821-84743240_608995653004686_7948898929091805184_o.jpg" alt="Chien perdu" />
+            <Image src="/images/gallery/1771791278821-84743240_608995653004686_7948898929091805184_o.jpg" alt="Chien perdu" width={600} height={400} sizes="(max-width: 768px) 100vw, 40vw" />
           </div>
           <div className="icon-text">
             <div className="icon-text-icon">🏥</div>
@@ -159,7 +160,7 @@ export default function SolutionsAbandonPage() {
                 </div>
               </details>
             </div>
-            <img src="/images/gallery/1771791291916-FullSizeRenderb.jpg" alt="Look up" />
+            <Image src="/images/gallery/1771791291916-FullSizeRenderb.jpg" alt="Look up" width={500} height={400} sizes="(max-width: 768px) 100vw, 300px" />
           </div>
         </div>
       </section>
@@ -169,7 +170,7 @@ export default function SolutionsAbandonPage() {
         <div className="container-narrow">
           <h2>Autre raison ?</h2>
           <div className="section-with-aside">
-            <img src="/images/gallery/1771693098283-Phoenix.jpg" alt="Chaton assis" />
+            <Image src="/images/gallery/1771693098283-Phoenix.jpg" alt="Chaton assis" width={500} height={400} sizes="(max-width: 768px) 100vw, 300px" />
             <div>
               <details className="accordion">
                 <summary>🤰 Enceinte et toxoplasmose ?</summary>
