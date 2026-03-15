@@ -95,7 +95,7 @@ function MediaCard({ item }: { item: MediaItem }) {
   if (item.externalCard && item.link) {
     return (
       <a href={item.link} target="_blank" rel="noopener noreferrer">
-        <div className="card card-centered" data-no-lightbox>
+        <div className="card card-centered">
           {imageBlock}
           <h3>{item.caption}</h3>
           <p className="text-small">{item.sub}</p>

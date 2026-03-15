@@ -128,7 +128,7 @@ export default function PartenairesPage() {
                 Contactez-nous
               </Link>
             </div>
-            <img src="/images/site/wiskey04.webp" alt="Chat endormi" data-no-lightbox />
+            <img src="/images/site/wiskey04.webp" alt="Chat endormi" />
           </div>
         </div>
       </section>

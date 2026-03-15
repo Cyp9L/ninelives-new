@@ -108,7 +108,7 @@ export default function ActionsPage() {
                 <a href="https://www.instagram.com/ninelivesparis/" target="_blank" rel="noopener" className="link-purple">Instagram</a> !
               </p>
             </div>
-            <img src="/images/site/chaton-dans-une-main.webp" alt="Chaton recueilli" data-no-lightbox />
+            <img src="/images/site/chaton-dans-une-main.webp" alt="Chaton recueilli" />
           </div>
 
           <h3 className="section-title text-center mb-md" style={{ marginTop: '2rem' }}>Notre Chatipi dans la presse</h3>
@@ -137,8 +137,8 @@ export default function ActionsPage() {
           <h2 className="text-center">Interventions en milieu scolaire</h2>
           <h3 className="text-center">avec le soutien de</h3>
           <div className="text-center mb-lg">
-            <a href="https://education.l214.com/" target="_blank" rel="noopener" data-no-lightbox>
-              <img src="/images/site/l214-education-logo.png" alt="L214 Education" className="logo-partner" data-no-lightbox />
+            <a href="https://education.l214.com/" target="_blank" rel="noopener">
+              <img src="/images/site/l214-education-logo.png" alt="L214 Education" className="logo-partner" />
             </a>
           </div>
 

@@ -124,7 +124,7 @@ export default function CatShowcase({ cats }: { cats: Cat[] }) {
                 ‹
               </button>
             )}
-            <Link href={`/adopter/${activeCat.slug}`} className="showcase-image" data-no-lightbox>
+            <Link href={`/adopter/${activeCat.slug}`} className="showcase-image">
               <Image
                 src={activeCat.images[0]}
                 alt={activeCat.name}
@@ -158,7 +158,7 @@ export default function CatShowcase({ cats }: { cats: Cat[] }) {
               key={cat.id}
               className={`showcase-thumb ${index === activeIndex ? 'active' : ''}`}
               onClick={() => handleThumbClick(index)}
-              data-no-lightbox
+             
             >
               <Image
                 src={cat.images[0]}

@@ -118,7 +118,10 @@ export default function RootLayout({
         {children}
         <LazyRelatedActions />
         <Footer />
-        <SpeedInsights />
+        <SpeedInsights beforeSend={(data) => {
+          if (data.url.includes('/admin')) return null;
+          return data;
+        }} />
         <Analytics />
       </body>
     </html>

@@ -159,7 +159,7 @@ export default function SolutionsAbandonPage() {
                 </div>
               </details>
             </div>
-            <img src="/images/gallery/1771791291916-FullSizeRenderb.jpg" alt="Look up" data-no-lightbox />
+            <img src="/images/gallery/1771791291916-FullSizeRenderb.jpg" alt="Look up" />
           </div>
         </div>
       </section>
@@ -169,7 +169,7 @@ export default function SolutionsAbandonPage() {
         <div className="container-narrow">
           <h2>Autre raison ?</h2>
           <div className="section-with-aside">
-            <img src="/images/gallery/1771693098283-Phoenix.jpg" alt="Chaton assis" data-no-lightbox />
+            <img src="/images/gallery/1771693098283-Phoenix.jpg" alt="Chaton assis" />
             <div>
               <details className="accordion">
                 <summary>🤰 Enceinte et toxoplasmose ?</summary>
