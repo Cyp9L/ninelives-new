@@ -24,6 +24,12 @@ function useColumns() {
   return cols;
 }
 
+function openLightbox(src: string, alt: string) {
+  window.dispatchEvent(
+    new CustomEvent('open-lightbox', { detail: { src, alt } })
+  );
+}
+
 export default function InfiniteGallery({ images }: { images: GalleryImage[] }) {
   const [count, setCount] = useState(BATCH);
   const loaderRef = useRef<HTMLDivElement>(null);
@@ -44,7 +50,6 @@ export default function InfiniteGallery({ images }: { images: GalleryImage[] }) 
 
   const visible = images.slice(0, count);
 
-  // Distribute to shortest column (height-aware)
   const columns = useMemo(() => {
     const result: GalleryImage[][] = Array.from({ length: cols }, () => []);
     const heights = new Array(cols).fill(0);
@@ -71,6 +76,11 @@ export default function InfiniteGallery({ images }: { images: GalleryImage[] }) 
                   loading="lazy"
                   width={img.width}
                   height={img.height}
+                  onClick={() => openLightbox(
+                    `/images/gallery/${img.file}`,
+                    'Chat recueilli par Nine Lives Paris'
+                  )}
+                  style={{ cursor: 'zoom-in' }}
                 />
               </div>
             ))}
