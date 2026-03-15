@@ -64,7 +64,7 @@ export default async function HomePage() {
 
           <div className="grid-3 mb-xl">
             {featuredCats.map(cat => (
-              <Link key={cat.id} href={`/adopter/${cat.slug}`} data-no-lightbox className="cat-card">
+              <Link key={cat.id} href={`/adopter/${cat.slug}`} className="cat-card">
                 <div className="cat-image">
                   {cat.images[0] ? (
                     <Image

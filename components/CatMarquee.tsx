@@ -8,7 +8,7 @@ export default function CatMarquee({ images }: CatMarqueeProps) {
   const doubled = [...images, ...images];
 
   return (
-    <div className="marquee" data-no-lightbox>
+    <div className="marquee">
       <div className="marquee-track">
         {doubled.map((src, i) => (
           <div key={i} className="marquee-item">

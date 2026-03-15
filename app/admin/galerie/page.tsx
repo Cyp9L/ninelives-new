@@ -245,7 +245,7 @@ export default function AdminGalleryPage() {
           )}
 
           {/* Thumbnail grid */}
-          <div data-no-lightbox className="masonry-grid">
+          <div className="masonry-grid">
             {(() => {
               const cols = 4;
               const columns: GalleryFile[][] = Array.from({ length: cols }, () => []);

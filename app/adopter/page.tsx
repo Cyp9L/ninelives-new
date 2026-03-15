@@ -63,7 +63,7 @@ export default async function AdopterPage() {
                 src="/images/gallery/1771685699346-04072021-IMG_5721.jpg"
                 alt="Chaton tenu dans une main"
                 className="float-img-right"
-                data-no-lightbox
+               
               />
               <p className="text-body">
                 Un chaton ne reste un « bébé duveteux » que 5 à 6 mois — dans une vie qui peut atteindre 20 ans. Réfléchissez bien.

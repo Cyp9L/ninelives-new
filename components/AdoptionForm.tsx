@@ -186,7 +186,7 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
               onClick={() => setFormData({...formData, animalName: cat.name})}
               className={`cat-picker-btn ${formData.animalName === cat.name ? 'active' : ''}`}
             >
-              <div className="cat-picker-img" data-no-lightbox>
+              <div className="cat-picker-img">
                 {cat.images[0] ? (
                   <img src={cat.images[0]} alt={cat.name} />
                 ) : (

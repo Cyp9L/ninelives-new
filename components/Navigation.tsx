@@ -36,7 +36,7 @@ export default function Navigation() {
     <nav className="nav">
       <div className="nav-inner">
         {/* Logo */}
-        <Link href="/" onClick={close} className="nav-logo" data-no-lightbox>
+        <Link href="/" onClick={close} className="nav-logo">
           <Image
             src="/images/site/logo-nine-lives-paris.svg"
             alt="Nine Lives Paris"
