@@ -21,6 +21,13 @@ function stripMarkdown(text: string): string {
     .trim();
 }
 
+/** Extract a named field from the Trello description template */
+function extractField(desc: string, fieldName: string): string {
+  const pattern = new RegExp(`\\*\\*${fieldName}\\s*:?\\s*\\*\\*\\s*:?\\s*(.+?)(?:\\n|$)`, 'i');
+  const match = desc.match(pattern);
+  return match ? match[1].replace(/\*+/g, '').trim() : '';
+}
+
 export async function generateStaticParams() {
   const { all } = await getAllCats();
   return all.map((cat: any) => ({ slug: cat.slug }));
@@ -78,37 +85,58 @@ export default async function AdopterChatPage({ params }: { params: Promise<{ sl
 
   const mainImage = cat.images?.[0] || '/images/site/cat-not-found.jpg';
 
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Accueil",
-        item: "https://ninelives.fr",
+  const cleanDescription = cat.description
+    ? stripMarkdown(cat.description).substring(0, 200)
+    : `${cat.name} est à la recherche d'une famille aimante.`;
+
+  const sex = extractField(cat.description, 'Sexe');
+  const location = extractField(cat.description, 'Localisation');
+
+  const absoluteImage = mainImage.startsWith('/')
+    ? `https://ninelives.fr${mainImage}`
+    : mainImage;
+
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Accueil", item: "https://ninelives.fr" },
+        { "@type": "ListItem", position: 2, name: "Adopter", item: "https://ninelives.fr/adopter" },
+        { "@type": "ListItem", position: 3, name: cat.name, item: `https://ninelives.fr/adopter/${slug}` },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: `Adopter ${cat.name}`,
+      description: cleanDescription,
+      image: [absoluteImage],
+      dateModified: cat.dateAdded,
+      author: {
+        "@type": "Organization",
+        name: "Nine Lives Paris",
+        url: "https://ninelives.fr",
       },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Adopter",
-        item: "https://ninelives.fr/adopter",
+      publisher: {
+        "@type": "Organization",
+        name: "Nine Lives Paris",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://ninelives.fr/images/site/logo-nine-lives-paris.svg",
+        },
       },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: cat.name,
-        item: `https://ninelives.fr/adopter/${slug}`,
-      },
-    ],
-  };
+      mainEntityOfPage: `https://ninelives.fr/adopter/${slug}`,
+      ...(sex && { about: `${cat.name}, ${sex.toLowerCase()}${location ? `, ${location}` : ''}` }),
+    },
+  ];
 
   return (
     <main id="main-content">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbJsonLd),
+          __html: JSON.stringify(jsonLd),
         }}
       />
 

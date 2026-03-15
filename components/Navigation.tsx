@@ -1,14 +1,59 @@
 'use client';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 
 export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileAssoOpen, setMobileAssoOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLElement>(null);
   const pathname = usePathname();
+
+  // Close everything on route change
+  useEffect(() => {
+    setMobileOpen(false);
+    setMobileAssoOpen(false);
+    setDropdownOpen(false);
+  }, [pathname]);
+
+  // Close desktop dropdown on click outside or Escape
+  useEffect(() => {
+    if (!dropdownOpen) return;
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setDropdownOpen(false);
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscape);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [dropdownOpen]);
+
+// Close mobile menu on click outside
+useEffect(() => {
+  if (!mobileOpen) return;
+
+  const handleClickOutside = (e: MouseEvent) => {
+    if (navRef.current && !navRef.current.contains(e.target as Node)) {
+      close();
+    }
+  };
+
+  document.addEventListener('mousedown', handleClickOutside);
+  return () => document.removeEventListener('mousedown', handleClickOutside);
+}, [mobileOpen]);
 
   const close = () => {
     setMobileOpen(false);
@@ -33,7 +78,7 @@ export default function Navigation() {
   const isAssoActive = assoLinks.some((l) => isActive(l.href));
 
   return (
-    <nav className="nav">
+    <nav className="nav" ref={navRef}>
       <div className="nav-inner">
         {/* Logo */}
         <Link href="/" onClick={close} className="nav-logo">
@@ -68,7 +113,7 @@ export default function Navigation() {
             J&apos;ai besoin d&apos;aide
           </Link>
 
-          <div className="nav-dropdown">
+          <div className="nav-dropdown" ref={dropdownRef}>
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
               className={`nav-link ${isAssoActive ? 'active' : ''}`}
@@ -136,7 +181,7 @@ export default function Navigation() {
         </button>
       </div>
 
-      {/* Mobile menu — always rendered, toggled with CSS */}
+      {/* Mobile menu */}
       <div className="nav-mobile" style={{ display: mobileOpen ? undefined : 'none' }}>
         <Link
           href="/adopter"
