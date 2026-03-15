@@ -4,7 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import FilteredSpeedInsights from '@/components/FilteredSpeedInsights';
 import { Analytics } from "@vercel/analytics/next";
 
 import LazyLightbox from '@/components/LazyLightbox';
@@ -118,10 +118,7 @@ export default function RootLayout({
         {children}
         <LazyRelatedActions />
         <Footer />
-        <SpeedInsights beforeSend={(data) => {
-          if (data.url.includes('/admin')) return null;
-          return data;
-        }} />
+        <FilteredSpeedInsights />
         <Analytics />
       </body>
     </html>
