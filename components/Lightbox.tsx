@@ -6,23 +6,17 @@ export default function Lightbox() {
   const [alt, setAlt] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
+  // Listen for explicit lightbox open events (instead of all clicks)
   useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const img = target.closest('img');
-      if (!img) return;
-      if (img.naturalWidth < 100 || img.naturalHeight < 100) return;
-      if (img.closest('[data-no-lightbox]')) return;
-      
-      e.preventDefault();
-      e.stopPropagation();
-      setSrc(img.src);
-      setAlt(img.alt || '');
+    const handleOpen = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      setSrc(detail.src);
+      setAlt(detail.alt || '');
       setIsOpen(true);
     };
 
-    document.addEventListener('click', handleClick);
-    return () => document.removeEventListener('click', handleClick);
+    window.addEventListener('open-lightbox', handleOpen);
+    return () => window.removeEventListener('open-lightbox', handleOpen);
   }, []);
 
   const close = useCallback(() => setIsOpen(false), []);
