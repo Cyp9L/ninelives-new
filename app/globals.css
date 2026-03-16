@@ -431,7 +431,7 @@ h2 {
   margin-top: 0.5rem;
   border-top: 2px solid #e5e7eb;
   font-size: 1.1rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #1f2937;
 }
 
@@ -588,7 +588,7 @@ h2 {
   content: '›';
   margin-left: auto;
   font-size: 1.4rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #009AB6;
   transition: transform 0.2s;
   flex-shrink: 0;
@@ -1060,7 +1060,7 @@ h2 {
 
 .cat-name {
   font-size: 1.85rem;
-  font-weight: 300;
+  font-weight: 400;
   padding: 0.5rem 0.75rem;
 }
 
