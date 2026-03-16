@@ -1,9 +1,7 @@
 import CollapsibleFormSection from '@/components/CollapsibleFormSection';
 import Image from 'next/image';
 import type { Metadata } from 'next';
-import dynamic from 'next/dynamic';
-
-const BenevoleForm = dynamic(() => import('@/components/BenevoleForm'));
+import BenevoleForm from '@/components/BenevoleForm';
 
 export const metadata: Metadata = {
   title: 'Devenir bénévole ou famille d\'accueil',

@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import Captcha from '@/components/Captcha';
 
 const FOSTER_STEPS = [
@@ -49,6 +49,11 @@ export default function BenevoleForm() {
   const [captchaToken, setCaptchaToken] = useState('');
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
   const formRef = useRef<HTMLFormElement>(null);
+  const [maxStep, setMaxStep] = useState(0);
+
+  useEffect(() => {
+    setMaxStep(prev => Math.max(prev, currentStep));
+  }, [currentStep]);
 
   /* ---- Conditionals ---- */
   const isFoster = formState.volunteerType === "Famille d'accueil" || formState.volunteerType === 'Les deux';
@@ -75,7 +80,7 @@ export default function BenevoleForm() {
   /* ---- Helpers ---- */
   const show = (visible: boolean) => (visible ? undefined : { display: 'none' as const });
   const stepStyle = (i: number): React.CSSProperties => ({ display: currentStep === i ? 'block' : 'none' });
-
+  const shouldMount = (index: number) => index <= maxStep;
   const updateField = useCallback((field: string, value: string | boolean) => {
     setFormState(prev => ({ ...prev, [field]: value }));
   }, []);
@@ -292,7 +297,7 @@ export default function BenevoleForm() {
       </div>
 
       {/* ===== STEP 1 (FOSTER): CHEZ VOUS ===== */}
-      {isFoster && (
+      {shouldMount(1) && isFoster && (
         <div ref={el => { stepRefs.current[1] = el; }} style={stepStyle(1)}>
           <h3 className="form-section-title">Votre logement</h3>
 
@@ -481,7 +486,7 @@ export default function BenevoleForm() {
       )}
 
       {/* ===== STEP 2 (FOSTER): EXPÉRIENCE ===== */}
-      {isFoster && (
+      {shouldMount(2) && isFoster && (
         <div ref={el => { stepRefs.current[2] = el; }} style={stepStyle(2)}>
           <h3 className="form-section-title">Votre motivation</h3>
 
@@ -569,6 +574,7 @@ export default function BenevoleForm() {
       )}
 
       {/* ===== LAST STEP: PRATIQUE ===== */}
+      {shouldMount(lastStep) && (
       <div ref={el => { stepRefs.current[lastStep] = el; }} style={stepStyle(lastStep)}>
 
         {/* Foster-specific: preferences + logistics */}
@@ -776,6 +782,7 @@ export default function BenevoleForm() {
 
         <Captcha onVerify={setCaptchaToken} />
       </div>
+      )}
 
       {/* ---- Navigation ---- */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2rem', gap: '1rem' }}>
