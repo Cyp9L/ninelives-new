@@ -207,7 +207,7 @@ export default function BenevoleForm() {
                 width: '2rem', height: '2rem', borderRadius: '50%',
                 border: i <= currentStep ? '2px solid #007273' : '2px solid #d1d5db',
                 background: i < currentStep ? '#007273' : i === currentStep ? '#fff' : '#f3f4f6',
-                color: i < currentStep ? '#fff' : i === currentStep ? '#007273' : '#9ca3af',
+                color: i < currentStep ? '#fff' : i === currentStep ? '#007273' : '#6b7280',
                 fontWeight: 600, fontSize: '0.85rem',
                 cursor: i < currentStep ? 'pointer' : 'default',
                 transition: 'all 0.2s ease',
@@ -216,7 +216,7 @@ export default function BenevoleForm() {
             </button>
             <div className="form-step-label" style={{
               fontSize: '0.7rem', marginTop: '0.4rem', textAlign: 'center',
-              color: i <= currentStep ? '#007273' : '#9ca3af',
+              color: i <= currentStep ? '#007273' : '#6b7280',
               fontWeight: i === currentStep ? 600 : 400,
             }}>
               {step.label}

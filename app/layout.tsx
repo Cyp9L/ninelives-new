@@ -18,9 +18,10 @@ const poppins = Poppins({
 });
 
 const helloCasual = localFont({
-  src: "../public/fonts/HelloCasual.ttf",
+  src: "../public/fonts/HelloCasual.woff2",
   variable: "--font-hello-casual",
   display: "swap",
+  adjustFontFallback: "Arial",
 });
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ninelives.fr";
 

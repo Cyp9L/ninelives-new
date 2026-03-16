@@ -275,7 +275,7 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
                   style={{
                     width: '32px', height: '32px', borderRadius: '50%',
                     background: i < currentStep ? '#009EA1' : i === currentStep ? '#007273' : '#e5e7eb',
-                    color: i <= currentStep ? 'white' : '#9ca3af',
+                    color: i <= currentStep ? 'white' : '#6b7280',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontSize: '0.85rem', fontWeight: 600, zIndex: 1, transition: 'all 0.2s ease',
                     cursor: i < currentStep ? 'pointer' : 'default',
@@ -285,7 +285,7 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
                 </div>
                 <div className="form-step-label" style={{
                   fontSize: '0.7rem', marginTop: '0.4rem', textAlign: 'center',
-                  color: i <= currentStep ? '#007273' : '#9ca3af',
+                  color: i <= currentStep ? '#007273' : '#6b7280',
                   fontWeight: i === currentStep ? 600 : 400,
                 }}>
                   {step.label}
