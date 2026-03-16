@@ -3,9 +3,7 @@ import Link from 'next/link';
 import CollapsibleFormSection from '@/components/CollapsibleFormSection';
 import CatShowcase from '@/components/CatShowcase';
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
-
-const AdoptionForm = dynamic(() => import('@/components/AdoptionForm'));
+import AdoptionForm from '@/components/AdoptionForm';
 
 export const revalidate = 60;
 import type { Metadata } from 'next';
