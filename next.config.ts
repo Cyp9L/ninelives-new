@@ -2,14 +2,14 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    formats: ['image/avif', 'image/webp'],
     localPatterns: [
       {
         pathname: '/**',
-        search: '',  // Regular local images (no query strings)
+        search: '',
       },
       {
         pathname: '/api/trello-image',
-        // search omitted → any query string is allowed
       },
     ],
   },
