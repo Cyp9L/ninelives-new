@@ -13,7 +13,7 @@ import LazyRelatedActions from '@/components/LazyRelatedActions';
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
