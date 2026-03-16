@@ -318,7 +318,7 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
                       className={`cat-picker-btn ${formState.animalName === cat.name ? 'active' : ''}`}>
                       <div className="cat-picker-img">
                         {cat.images[0] ? (
-                          <Image src={cat.images[0]} alt={cat.name} width={120} height={80} sizes="80px" />
+                          <Image src={cat.images[0]} alt={`Photo de ${cat.name}`} width={120} height={80} sizes="80px" />
                         ) : (
                           <div className="cat-picker-placeholder">🐱</div>
                         )}
@@ -336,8 +336,8 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
               </div>
 
               <div>
-                <label className="form-label">Vous souhaitez adopter un : *</label>
-                <select required className="form-select" value={formState.animalType}
+                <label className="form-label" htmlFor="animalType">Vous souhaitez adopter un : *</label>
+                <select id="animalType" required className="form-select" value={formState.animalType}
                   onChange={(e) => setFormState(prev => ({ ...prev, animalType: e.target.value }))}>
                   <option value="Chat">Chat</option>
                   <option value="Chien">Chien</option>
@@ -345,8 +345,8 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
               </div>
 
               <div>
-                <label className="form-label">À partir de quelle date pouvez-vous accueillir votre compagnon ? *</label>
-                <input type="date" required className="form-input" name="adoptionDate" />
+                <label className="form-label" htmlFor="adoptionDate">À partir de quelle date pouvez-vous accueillir votre compagnon ? *</label>
+                <input type="date" required className="form-input" name="adoptionDate" id="adoptionDate" />
                 <div className="form-hint">Pour rappel, nous ne faisons pas de « réservation »</div>
               </div>
             </div>
