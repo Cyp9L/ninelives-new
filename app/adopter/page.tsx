@@ -1,9 +1,18 @@
 import { getAllCats } from '@/lib/trello';
 import Link from 'next/link';
 import CollapsibleFormSection from '@/components/CollapsibleFormSection';
-import AdoptionForm from '@/components/AdoptionForm';
 import CatShowcase from '@/components/CatShowcase';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+
+const AdoptionForm = dynamic(() => import('@/components/AdoptionForm'), {
+  ssr: false,
+  loading: () => (
+    <div className="text-center text-muted" style={{ padding: '2rem' }}>
+      Chargement du formulaire…
+    </div>
+  ),
+});
 
 export const revalidate = 60;
 import type { Metadata } from 'next';

@@ -1,7 +1,16 @@
 import CollapsibleFormSection from '@/components/CollapsibleFormSection';
-import BenevoleForm from '@/components/BenevoleForm';
 import Image from 'next/image';
 import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
+
+const BenevoleForm = dynamic(() => import('@/components/BenevoleForm'), {
+  ssr: false,
+  loading: () => (
+    <div className="text-center text-muted" style={{ padding: '2rem' }}>
+      Chargement du formulaire…
+    </div>
+  ),
+});
 
 export const metadata: Metadata = {
   title: 'Devenir bénévole ou famille d\'accueil',

@@ -1,5 +1,5 @@
 'use client';
-import { useState, useMemo, useRef, useCallback } from 'react';
+import { useState, useMemo, useRef, useCallback, useDeferredValue } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -21,13 +21,17 @@ const categories = [
 
 export default function CatShowcase({ cats }: { cats: Cat[] }) {
   const [activeCategory, setActiveCategory] = useState('all');
+  const deferredCategory = useDeferredValue(activeCategory);
+  const isStale = activeCategory !== deferredCategory;
+
   const [activeIndex, setActiveIndex] = useState(0);
   const thumbsRef = useRef<HTMLDivElement>(null);
 
+  // Filter uses the DEFERRED value — lets the browser paint tab highlight first
   const filteredCats = useMemo(() => {
-    if (activeCategory === 'all') return cats;
-    return cats.filter(cat => cat.category === activeCategory);
-  }, [cats, activeCategory]);
+    if (deferredCategory === 'all') return cats;
+    return cats.filter(cat => cat.category === deferredCategory);
+  }, [cats, deferredCategory]);
 
   const counts = useMemo(() => ({
     all: cats.length,
@@ -88,7 +92,7 @@ export default function CatShowcase({ cats }: { cats: Cat[] }) {
 
   return (
     <div className="cat-showcase">
-      {/* Filter tabs */}
+      {/* Filter tabs — uses activeCategory (instant) */}
       <div className="showcase-tabs">
         {categories.map(cat => (
           counts[cat.key as keyof typeof counts] > 0 && (
@@ -103,76 +107,81 @@ export default function CatShowcase({ cats }: { cats: Cat[] }) {
         ))}
       </div>
 
-      {filteredCats.length === 0 && (
-        <div className="alert alert-info" style={{ textAlign: 'center' }}>
-          <p>😿 Aucun chat dans cette catégorie pour le moment.</p>
-          <p>
-            Suivez-nous sur{' '}
-            <a href="https://www.instagram.com/ninelivesparis/" target="_blank" rel="noopener noreferrer" className="link-purple">
-              Instagram
-            </a>
-            {' '}pour être informé des prochaines arrivées !
-          </p>
-        </div>
-      )}
-
-      {activeCat && (
-        <>
-          <div className="showcase-main">
-            {filteredCats.length > 1 && (
-              <button className="showcase-arrow showcase-arrow-left" onClick={prev} aria-label="Chat précédent">
-                ‹
-              </button>
-            )}
-            <Link href={`/adopter/${activeCat.slug}`} className="showcase-image">
-              <Image
-                src={activeCat.images[0]}
-                alt={activeCat.name}
-                width={800}
-                height={600}
-                sizes="(max-width: 768px) 100vw, 600px"
-                priority
-              />
-            </Link>
-            {filteredCats.length > 1 && (
-              <button className="showcase-arrow showcase-arrow-right" onClick={next} aria-label="Chat suivant">
-                ›
-              </button>
-            )}
+      {/* Content — uses deferredCategory (deferred), fades during transition */}
+      <div style={{
+        opacity: isStale ? 0.7 : 1,
+        transition: 'opacity 0.15s ease',
+      }}>
+        {filteredCats.length === 0 && (
+          <div className="alert alert-info" style={{ textAlign: 'center' }}>
+            <p>😿 Aucun chat dans cette catégorie pour le moment.</p>
+            <p>
+              Suivez-nous sur{' '}
+              <a href="https://www.instagram.com/ninelivesparis/" target="_blank" rel="noopener noreferrer" className="link-purple">
+                Instagram
+              </a>
+              {' '}pour être informé des prochaines arrivées !
+            </p>
           </div>
+        )}
 
-          <div className="showcase-info">
-            <h2>{activeCat.name}</h2>
-            {activeCat.caractere && <p className="showcase-caractere">{activeCat.caractere}</p>}
-            <Link href={`/adopter/${activeCat.slug}`} className="btn btn-gradient">
-              Voir son profil →
-            </Link>
+        {activeCat && (
+          <>
+            <div className="showcase-main">
+              {filteredCats.length > 1 && (
+                <button className="showcase-arrow showcase-arrow-left" onClick={prev} aria-label="Chat précédent">
+                  ‹
+                </button>
+              )}
+              <Link href={`/adopter/${activeCat.slug}`} className="showcase-image">
+                <Image
+                  src={activeCat.images[0]}
+                  alt={activeCat.name}
+                  width={800}
+                  height={600}
+                  sizes="(max-width: 768px) 100vw, 600px"
+                  priority
+                />
+              </Link>
+              {filteredCats.length > 1 && (
+                <button className="showcase-arrow showcase-arrow-right" onClick={next} aria-label="Chat suivant">
+                  ›
+                </button>
+              )}
+            </div>
+
+            <div className="showcase-info">
+              <h2>{activeCat.name}</h2>
+              {activeCat.caractere && <p className="showcase-caractere">{activeCat.caractere}</p>}
+              <Link href={`/adopter/${activeCat.slug}`} className="btn btn-gradient">
+                Voir son profil →
+              </Link>
+            </div>
+          </>
+        )}
+
+        {filteredCats.length > 1 && (
+          <div className="showcase-thumbs" ref={thumbsRef}>
+            {filteredCats.map((cat, index) => (
+              <button
+                key={cat.id}
+                className={`showcase-thumb ${index === activeIndex ? 'active' : ''}`}
+                onClick={() => handleThumbClick(index)}
+              >
+                <Image
+                  src={cat.images[0]}
+                  alt=""
+                  width={150}
+                  height={100}
+                  sizes="120px"
+                  loading="lazy"
+                />
+                <span>{cat.name}</span>
+              </button>
+            ))}
           </div>
-        </>
-      )}
-
-      {filteredCats.length > 1 && (
-        <div className="showcase-thumbs" ref={thumbsRef}>
-          {filteredCats.map((cat, index) => (
-            <button
-              key={cat.id}
-              className={`showcase-thumb ${index === activeIndex ? 'active' : ''}`}
-              onClick={() => handleThumbClick(index)}
-             
-            >
-              <Image
-                src={cat.images[0]}
-                alt=""
-                width={150}
-                height={100}
-                sizes="120px"
-                loading="lazy"
-              />
-              <span>{cat.name}</span>
-            </button>
-          ))}
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
