@@ -230,6 +230,15 @@ export default function BenevoleForm() {
 
       {/* ===== STEP 0: VOUS ===== */}
       <div ref={el => { stepRefs.current[0] = el; }} style={stepStyle(0)}>
+      <div>
+          <label className="form-label">Vous souhaitez vous proposer en tant que : *</label>
+          <div className="form-radio-group">
+            {radio('volunteerType', 'Bénévole', 'volunteerType')}
+            {radio('volunteerType', "Famille d'accueil", 'volunteerType')}
+            {radio('volunteerType', 'Les deux', 'volunteerType')}
+          </div>
+        </div>
+        <hr className="form-divider" />
         <h3 className="form-section-title">Vos coordonnées</h3>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
@@ -280,15 +289,6 @@ export default function BenevoleForm() {
         </div>
 
         <hr className="form-divider" />
-
-        <div>
-          <label className="form-label">Vous souhaitez vous proposer en tant que : *</label>
-          <div className="form-radio-group">
-            {radio('volunteerType', "Famille d'accueil", 'volunteerType')}
-            {radio('volunteerType', 'Bénévole', 'volunteerType')}
-            {radio('volunteerType', 'Les deux', 'volunteerType')}
-          </div>
-        </div>
 
         <div className="alert alert-warning">
           <strong>Nous ne disposons pas de refuge</strong> — tous nos animaux sont en familles d&apos;accueil.
@@ -747,7 +747,7 @@ export default function BenevoleForm() {
         </div>
 
         <div>
-          <label className="form-label">Disposé.e à d&apos;autres missions ? *</label>
+          <label className="form-label">Disposé·e à d&apos;autres missions ? *</label>
           <select name="openToOtherMissions" required className="form-select"
             value={formState.openToOtherMissions}
             onChange={(e) => updateField('openToOtherMissions', e.target.value)}>
