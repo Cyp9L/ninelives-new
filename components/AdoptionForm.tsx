@@ -479,7 +479,7 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
               <h3 className="form-section-title">Votre foyer</h3>
 
               <div>
-                <label className="form-label">Êtes-vous actuellement salarié.e ? *</label>
+                <label className="form-label">Êtes-vous actuellement salarié·e ? *</label>
                 <div className="form-radio-group">
                   {radio('employed', 'Oui', 'employed')}
                   {radio('employed', 'Non', 'employed')}
