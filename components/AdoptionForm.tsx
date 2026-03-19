@@ -38,6 +38,8 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
     // Housing (drive show/hide blocks)
     housingType: '',
     hasGardenEnclosed: false,
+    hasBalcony: '',
+    balconySecured: '',
     isOwner: '',
     hasPermission: '',
     movingSoon: '',
@@ -114,7 +116,7 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
       const defaults: Record<string, string> = {
         lastName: '', firstName: '', address: '', postalCode: '', city: '',
         mobilePhone: '', landlinePhone: '', email: '', age: '',
-        surface: '', floor: '', movingAddress: '',
+        surface: '', floor: '', balconySecuredHow: '', movingAddress: '',
         employedOther: '', childrenAges: '', hoursAbsence: '',
         childrenCompatibleOther: '', coupleSeparation: '',
         separationReason: '', adoptionDate: '', motivation: '',
@@ -188,6 +190,8 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
   // --- Conditional visibility (reads from formState only) ---
 
   const isApartment = formState.housingType === 'Appartement';
+  const hasBalconyYes = formState.hasBalcony === 'Oui';
+  const balconyIsSecured = formState.balconySecured === 'Oui';
   const isHouse = formState.housingType === 'Maison';
   const isRenter = formState.isOwner === 'Non';
   const isMoving = formState.movingSoon === 'Oui';
@@ -337,11 +341,10 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
 
               <div>
                 <label className="form-label" htmlFor="animalType">Vous souhaitez adopter un : *</label>
-                <select id="animalType" required className="form-select" value={formState.animalType}
-                  onChange={(e) => setFormState(prev => ({ ...prev, animalType: e.target.value }))}>
-                  <option value="Chat">Chat</option>
-                  <option value="Chien">Chien</option>
-                </select>
+                <div className="form-radio-group">
+                  {radio('animalType', 'Chat', 'animalType')}
+                  {radio('animalType', 'Chien', 'animalType')}
+                </div>
               </div>
 
               <div>
@@ -420,12 +423,10 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
                 </div>
                 <div>
                   <label className="form-label">Type de logement *</label>
-                  <select required className="form-select" value={formState.housingType}
-                    onChange={(e) => setFormState(prev => ({ ...prev, housingType: e.target.value }))}>
-                    <option value="">Sélectionnez</option>
-                    <option value="Maison">Maison</option>
-                    <option value="Appartement">Appartement</option>
-                  </select>
+                  <div className="form-radio-group">
+                    {radio('housingType', 'Maison', 'housingType')}
+                    {radio('housingType', 'Appartement', 'housingType')}
+                  </div>
                 </div>
               </div>
 
@@ -441,7 +442,27 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
                 <label className="form-label">Quel étage ? {isApartment && '*'}</label>
                 <input type="number" required={isApartment} className="form-input" name="floor" />
               </div>
+              <div style={show(isApartment)}>
+                <label className="form-label" htmlFor="hasBalcony">Avez-vous un balcon ?</label>
+                <div className="form-radio-group">
+                  {radio('hasBalcony', 'Oui', 'hasBalcony', isApartment)}
+                  {radio('hasBalcony', 'Non', 'hasBalcony', isApartment)}
+                </div>
+              </div>
 
+              <div style={show(isApartment && hasBalconyYes)}>
+                <label className="form-label" htmlFor="balconySecured">Est-il sécurisé ? *</label>
+                <div className="form-radio-group">
+                  {radio('balconySecured', 'Oui', 'balconySecured', isApartment && hasBalconyYes)}
+                  {radio('balconySecured', 'Non', 'balconySecured', isApartment && hasBalconyYes)}
+                </div>
+              </div>
+
+              <div style={show(isApartment && hasBalconyYes && balconyIsSecured)}>
+                <label className="form-label" htmlFor="balconySecuredHow">De quelle manière ? *</label>
+                <input type="text" name="balconySecuredHow" id="balconySecuredHow"
+                  required={isApartment && hasBalconyYes && balconyIsSecured} className="form-input" />
+              </div>
               <div>
                 <label className="form-label">Êtes-vous propriétaire ? *</label>
                 <div className="form-radio-group">
