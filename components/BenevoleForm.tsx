@@ -58,8 +58,6 @@ export default function BenevoleForm() {
   /* ---- Conditionals ---- */
   const isFoster = formState.volunteerType === "Famille d'accueil" || formState.volunteerType === 'Les deux';
   const isApartment = formState.housingType === 'En appartement';
-  const hasBalcony = formState.balconySecured === 'Oui';
-  const hasOutdoorYes = formState.hasOutdoor === 'Oui';
   const canQuarantine = formState.canDoQuarantine === 'Oui';
   const hasChildrenYes = formState.hasChildren === 'Oui';
   const hasAnimals = formState.hasAnimalsHome === 'Oui';
@@ -328,41 +326,10 @@ export default function BenevoleForm() {
           </div>
 
           <div style={show(isApartment)}>
-            <label className="form-label">Si vous avez un balcon, est-il sécurisé ?</label>
-            <select name="balconySecured" className="form-select"
-              value={formState.balconySecured}
-              onChange={(e) => updateField('balconySecured', e.target.value)}>
-              <option value="">Sélectionnez</option>
-              <option value="Oui">Oui</option>
-              <option value="Non">Non</option>
-            </select>
-          </div>
-
-          <div style={show(isApartment && hasBalcony)}>
-            <label className="form-label">De quelle manière ? {isApartment && hasBalcony && '*'}</label>
-            <input type="text" name="balconySecuredHow" required={isApartment && hasBalcony} className="form-input" />
-          </div>
-
-          <div className="form-grid">
-            <div>
-              <label className="form-label">Votre logement possède-t-il un extérieur ? *</label>
-              <select name="hasOutdoor" required className="form-select"
-                value={formState.hasOutdoor}
-                onChange={(e) => updateField('hasOutdoor', e.target.value)}>
-                <option value="">Sélectionnez</option>
-                <option value="Oui">Oui</option>
-                <option value="Non">Non</option>
-              </select>
-            </div>
-            <div style={show(hasOutdoorYes)}>
-              <label className="form-label">Est-il sécurisé ? {hasOutdoorYes && '*'}</label>
-              <select name="outdoorSecured" required={hasOutdoorYes} className="form-select"
-                value={formState.outdoorSecured}
-                onChange={(e) => updateField('outdoorSecured', e.target.value)}>
-                <option value="">Sélectionnez</option>
-                <option value="Oui">Oui</option>
-                <option value="Non">Non</option>
-              </select>
+            <label className="form-label">Avez-vous un balcon ?</label>
+            <div className="form-radio-group">
+              {radio('balconySecured', 'Oui', 'balconySecured')}
+              {radio('balconySecured', 'Non', 'balconySecured')}
             </div>
           </div>
 
@@ -400,13 +367,10 @@ export default function BenevoleForm() {
             </div>
             <div>
               <label className="form-label">Avez-vous des enfants ? *</label>
-              <select name="hasChildren" required className="form-select"
-                value={formState.hasChildren}
-                onChange={(e) => updateField('hasChildren', e.target.value)}>
-                <option value="">Sélectionnez</option>
-                <option value="Oui">Oui</option>
-                <option value="Non">Non</option>
-              </select>
+              <div className="form-radio-group">
+                {radio('hasChildren', 'Oui', 'hasChildren')}
+                {radio('hasChildren', 'Non', 'hasChildren')}
+              </div>
             </div>
           </div>
 
@@ -423,13 +387,10 @@ export default function BenevoleForm() {
 
           <div>
             <label className="form-label">Avez-vous des animaux à domicile ? *</label>
-            <select name="hasAnimalsHome" required className="form-select"
-              value={formState.hasAnimalsHome}
-              onChange={(e) => updateField('hasAnimalsHome', e.target.value)}>
-              <option value="">Sélectionnez</option>
-              <option value="Oui">Oui</option>
-              <option value="Non">Non</option>
-            </select>
+            <div className="form-radio-group">
+              {radio('hasAnimalsHome', 'Oui', 'hasAnimalsHome')}
+              {radio('hasAnimalsHome', 'Non', 'hasAnimalsHome')}
+            </div>
           </div>
 
           <div style={show(hasAnimals)}>
@@ -498,13 +459,10 @@ export default function BenevoleForm() {
           <div className="form-grid">
             <div>
               <label className="form-label">L&apos;avez-vous déjà été ? *</label>
-              <select name="beenFosterBefore" required className="form-select"
-                value={formState.beenFosterBefore}
-                onChange={(e) => updateField('beenFosterBefore', e.target.value)}>
-                <option value="">Sélectionnez</option>
-                <option value="Oui">Oui</option>
-                <option value="Non">Non</option>
-              </select>
+              <div className="form-radio-group">
+                {radio('beenFosterBefore', 'Oui', 'beenFosterBefore')}
+                {radio('beenFosterBefore', 'Non', 'beenFosterBefore')}
+              </div>
             </div>
             <div style={show(hadFosterExp)}>
               <label className="form-label">Références de l&apos;association</label>
@@ -652,13 +610,10 @@ export default function BenevoleForm() {
 
             <div>
               <label className="form-label">Tout le foyer est-il d&apos;accord ? *</label>
-              <select name="householdAgrees" required className="form-select"
-                value={formState.householdAgrees}
-                onChange={(e) => updateField('householdAgrees', e.target.value)}>
-                <option value="">Sélectionnez</option>
-                <option value="Oui">Oui</option>
-                <option value="Non">Non</option>
-              </select>
+              <div className="form-radio-group">
+                {radio('householdAgrees', 'Oui', 'householdAgrees')}
+                {radio('householdAgrees', 'Non', 'householdAgrees')}
+              </div>
             </div>
 
             <div style={show(householdDisagrees)}>
@@ -687,14 +642,11 @@ export default function BenevoleForm() {
 
             <div>
               <label className="form-label">Vétérinaire à tarifs associatifs ?</label>
-              <select name="hasAssociationVet" className="form-select"
-                value={formState.hasAssociationVet}
-                onChange={(e) => updateField('hasAssociationVet', e.target.value)}>
-                <option value="">Sélectionnez</option>
-                <option value="Oui">Oui</option>
-                <option value="Non">Non</option>
-                <option value="Je ne sais pas, mais je me renseigne">Je me renseigne</option>
-              </select>
+              <div className="form-radio-group">
+                {radio('hasAssociationVet', 'Oui', 'hasAssociationVet', false)}
+                {radio('hasAssociationVet', 'Non', 'hasAssociationVet', false)}
+                {radio('hasAssociationVet', 'Je ne sais pas', 'hasAssociationVet', false)}
+              </div>
             </div>
 
             <div style={show(hasAssocVet)}>
@@ -748,13 +700,10 @@ export default function BenevoleForm() {
 
         <div>
           <label className="form-label">Disposé·e à d&apos;autres missions ? *</label>
-          <select name="openToOtherMissions" required className="form-select"
-            value={formState.openToOtherMissions}
-            onChange={(e) => updateField('openToOtherMissions', e.target.value)}>
-            <option value="">Sélectionnez</option>
-            <option value="Oui">Oui</option>
-            <option value="Non">Non</option>
-          </select>
+          <div className="form-radio-group">
+            {radio('openToOtherMissions', 'Oui', 'openToOtherMissions')}
+            {radio('openToOtherMissions', 'Non', 'openToOtherMissions')}
+          </div>
         </div>
 
         <div style={show(wantsOtherMissions)}>

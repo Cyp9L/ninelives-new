@@ -122,7 +122,12 @@ export async function POST(request: Request) {
       ${f('Type de logement', escapeHtml(data.housingType))}
       ${f('Superficie', data.surface ? `${escapeHtml(data.surface)} m²` : '')}
       ${data.housingType === 'Maison' ? bool('Jardin clôturé', data.hasGardenEnclosed) : ''}
-      ${data.housingType === 'Appartement' ? f('Étage', escapeHtml(data.floor)) : ''}
+      ${data.housingType === 'Appartement' ? `
+        ${f('Étage', escapeHtml(data.floor))}
+        ${f('Balcon', escapeHtml(data.hasBalcony))}
+        ${data.hasBalcony === 'Oui' ? f('Balcon sécurisé', escapeHtml(data.balconySecured)) : ''}
+        ${data.balconySecured === 'Oui' ? f('Sécurisation du balcon', escapeHtml(data.balconySecuredHow)) : ''}
+      ` : ''}
       ${f('Propriétaire', escapeHtml(data.isOwner))}
       ${data.isOwner === 'Non' ? f('Permission avoir un animal', escapeHtml(data.hasPermission)) : ''}
       ${f('Déménagement prévu', escapeHtml(data.movingSoon))}
