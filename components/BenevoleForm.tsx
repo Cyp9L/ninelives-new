@@ -321,7 +321,7 @@ export default function BenevoleForm() {
             </div>
             <div style={show(isApartment)}>
               <label className="form-label">Étage {isApartment && '*'}</label>
-              <input type="text" name="floor" required={isApartment} className="form-input" />
+              <input type="number" name="floor" required={isApartment} className="form-input" />
             </div>
           </div>
 
