@@ -1,7 +1,7 @@
 import CollapsibleFormSection from '@/components/CollapsibleFormSection';
-import AbandonForm from '@/components/AbandonForm';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import AbandonFormDynamic from '@/components/AbandonFormDynamic';
 
 export const metadata: Metadata = {
   title: 'Prise en charge de votre animal',
@@ -51,7 +51,7 @@ export default function AbandonPage() {
         buttonLabel="Remplir le formulaire"
         containerClass="container-mid"
       >
-        <AbandonForm />
+        <AbandonFormDynamic />
       </CollapsibleFormSection>
     </main>
   );

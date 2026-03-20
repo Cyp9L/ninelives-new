@@ -3,7 +3,7 @@ import Link from 'next/link';
 import CollapsibleFormSection from '@/components/CollapsibleFormSection';
 import CatShowcase from '@/components/CatShowcase';
 import Image from 'next/image';
-import AdoptionForm from '@/components/AdoptionForm';
+import AdoptionFormDynamic from '@/components/AdoptionFormDynamic';
 
 export const revalidate = 60;
 import type { Metadata } from 'next';
@@ -175,7 +175,7 @@ export default async function AdopterPage() {
         subtitle="Remplissez ce formulaire pour commencer le processus d'adoption."
         buttonLabel="Remplir le questionnaire"
       >
-        <AdoptionForm cats={all} />
+        <AdoptionFormDynamic cats={all} />
       </CollapsibleFormSection>
     </main>
   );

@@ -1,7 +1,7 @@
 import CollapsibleFormSection from '@/components/CollapsibleFormSection';
 import Image from 'next/image';
 import type { Metadata } from 'next';
-import BenevoleForm from '@/components/BenevoleForm';
+import BenevoleFormDynamic from '@/components/BenevoleFormDynamic';
 
 export const metadata: Metadata = {
   title: 'Devenir bénévole ou famille d\'accueil',
@@ -120,7 +120,7 @@ export default function BenevolePage() {
         buttonLabel="Remplir le formulaire"
         containerClass="container-mid"
       >
-        <BenevoleForm />
+        <BenevoleFormDynamic />
       </CollapsibleFormSection>
     </main>
   );
