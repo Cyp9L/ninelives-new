@@ -10,6 +10,12 @@ export default function PartenairesPage() {
   return (
     <main id="main-content">
       {/* Header */}
+      <link
+        rel="preload"
+        as="image"
+        href="/images/site/moustache-cafe.jpg"
+        fetchPriority="high"
+      />
       <section className="hero" style={{ backgroundImage: 'url(/images/site/moustache-cafe.jpg)' }}>
         <div className="container">
           <div className="hero-content">

@@ -19,6 +19,12 @@ export default async function AdopterPage() {
   return (
     <main id="main-content">
       {/* Header */}
+      <link
+        rel="preload"
+        as="image"
+        href="/images/site/26032021-IMG_4304.webp"
+        fetchPriority="high"
+      />
       <section className="hero" style={{ backgroundImage: 'url(/images/site/26032021-IMG_4304.webp' }}>
         <div className="container">
         <div className="hero-content">
