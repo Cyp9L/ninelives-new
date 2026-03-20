@@ -17,6 +17,18 @@ const BENEVOLE_STEPS = [
 const HIDDEN_STYLE = { display: 'none' as const };
 const show = (visible: boolean) => (visible ? undefined : HIDDEN_STYLE);
 
+const idify = (value: string) =>
+  value
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '') // strip diacritics
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, '-') // spaces to dashes
+    .replace(/[^a-z0-9_-]/g, ''); // keep it simple for HTML ids
+
+const makeRadioId = (name: string, value: string) =>
+  `${idify(name)}-${idify(value)}`;
+
 type BenevoleStep0Props = {
   volunteerType: string;
   setField: (field: string, value: string | boolean) => void;
@@ -30,6 +42,7 @@ const BenevoleStep0 = memo(function BenevoleStep0({ volunteerType, setField }: B
         required={required}
         name={name}
         value={value}
+        id={makeRadioId(name, value)}
         checked={volunteerType === value}
         onChange={() =>
           startTransition(() => {
@@ -44,7 +57,9 @@ const BenevoleStep0 = memo(function BenevoleStep0({ volunteerType, setField }: B
   return (
     <>
       <div>
-        <label className="form-label">Vous souhaitez vous proposer en tant que : *</label>
+        <label className="form-label" htmlFor={makeRadioId('volunteerType', 'Bénévole')}>
+          Vous souhaitez vous proposer en tant que : *
+        </label>
         <div className="form-radio-group">
           {radio('volunteerType', 'Bénévole', 'volunteerType')}
           {radio('volunteerType', "Famille d'accueil", 'volunteerType')}
@@ -56,49 +71,78 @@ const BenevoleStep0 = memo(function BenevoleStep0({ volunteerType, setField }: B
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
         <div>
-          <label className="form-label">Nom de famille *</label>
-          <input type="text" name="lastName" required className="form-input" />
+          <label className="form-label" htmlFor="lastName">
+            Nom de famille *
+          </label>
+          <input id="lastName" type="text" name="lastName" required className="form-input" />
         </div>
         <div>
-          <label className="form-label">Prénom *</label>
-          <input type="text" name="firstName" required className="form-input" />
+          <label className="form-label" htmlFor="firstName">
+            Prénom *
+          </label>
+          <input id="firstName" type="text" name="firstName" required className="form-input" />
         </div>
         <div>
-          <label className="form-label">Âge *</label>
-          <input type="number" name="age" required className="form-input" />
+          <label className="form-label" htmlFor="age">
+            Âge *
+          </label>
+          <input id="age" type="number" name="age" required className="form-input" />
         </div>
       </div>
 
       <div>
-        <label className="form-label">Adresse *</label>
-        <input type="text" name="address" required className="form-input" />
+        <label className="form-label" htmlFor="address">
+          Adresse *
+        </label>
+        <input id="address" type="text" name="address" required className="form-input" />
       </div>
 
       <div className="form-grid">
         <div>
-          <label className="form-label">Code postal *</label>
-          <input type="text" name="postalCode" required className="form-input" />
+          <label className="form-label" htmlFor="postalCode">
+            Code postal *
+          </label>
+          <input
+            id="postalCode"
+            type="text"
+            name="postalCode"
+            required
+            className="form-input"
+          />
         </div>
         <div>
-          <label className="form-label">Ville *</label>
-          <input type="text" name="city" required className="form-input" />
+          <label className="form-label" htmlFor="city">
+            Ville *
+          </label>
+          <input id="city" type="text" name="city" required className="form-input" />
         </div>
       </div>
 
       <div className="form-grid">
         <div>
-          <label className="form-label">E-mail *</label>
-          <input type="email" name="email" required className="form-input" />
+          <label className="form-label" htmlFor="email">
+            E-mail *
+          </label>
+          <input id="email" type="email" name="email" required className="form-input" />
         </div>
         <div>
-          <label className="form-label">Téléphone *</label>
-          <input type="tel" name="phone" required className="form-input" />
+          <label className="form-label" htmlFor="phone">
+            Téléphone *
+          </label>
+          <input id="phone" type="tel" name="phone" required className="form-input" />
         </div>
       </div>
 
       <div>
-        <label className="form-label">Créneaux auxquels nous pouvons vous joindre</label>
-        <input type="text" name="contactSlots" className="form-input" />
+        <label className="form-label" htmlFor="contactSlots">
+          Créneaux auxquels nous pouvons vous joindre
+        </label>
+        <input
+          id="contactSlots"
+          type="text"
+          name="contactSlots"
+          className="form-input"
+        />
       </div>
 
       <hr className="form-divider" />
@@ -175,6 +219,7 @@ const BenevoleStep1 = memo(function BenevoleStep1({
           required={required}
           name={name}
           value={value}
+          id={makeRadioId(name, value)}
           checked={checkedValue === value}
           onChange={() =>
             startTransition(() => {
@@ -193,12 +238,16 @@ const BenevoleStep1 = memo(function BenevoleStep1({
 
       <div className="form-grid">
         <div>
-          <label className="form-label">Superficie ? *</label>
-          <input type="number" name="surface" required className="form-input" />
+          <label className="form-label" htmlFor="surface">
+            Superficie ? *
+          </label>
+          <input id="surface" type="number" name="surface" required className="form-input" />
           <div className="form-hint">en m²</div>
         </div>
         <div>
-          <label className="form-label">Vous vivez : *</label>
+          <label className="form-label" htmlFor={makeRadioId('housingType', 'En maison')}>
+            Vous vivez : *
+          </label>
           <div className="form-radio-group" style={{ marginTop: '0.5rem' }}>
             {radio('housingType', 'En maison', 'housingType')}
             {radio('housingType', 'En appartement', 'housingType')}
@@ -208,19 +257,23 @@ const BenevoleStep1 = memo(function BenevoleStep1({
 
       <div className="form-grid">
         <div>
-          <label className="form-label">Nombre de pièces *</label>
-          <input type="number" name="numRooms" required className="form-input" />
+          <label className="form-label" htmlFor="numRooms">
+            Nombre de pièces *
+          </label>
+          <input id="numRooms" type="number" name="numRooms" required className="form-input" />
         </div>
         <div style={show(isApartment)}>
-          <label className="form-label">
+          <label className="form-label" htmlFor="floor">
             Étage {isApartment && '*'}
           </label>
-          <input type="number" name="floor" required={isApartment} className="form-input" />
+          <input id="floor" type="number" name="floor" required={isApartment} className="form-input" />
         </div>
       </div>
 
       <div style={show(isApartment)}>
-        <label className="form-label">Avez-vous un balcon ?</label>
+        <label className="form-label" htmlFor={makeRadioId('balconySecured', 'Oui')}>
+          Avez-vous un balcon ?
+        </label>
         <div className="form-radio-group">
           {radio('balconySecured', 'Oui', 'balconySecured')}
           {radio('balconySecured', 'Non', 'balconySecured')}
@@ -228,7 +281,9 @@ const BenevoleStep1 = memo(function BenevoleStep1({
       </div>
 
       <div>
-        <label className="form-label">Pouvez-vous effectuer des quarantaines ? *</label>
+        <label className="form-label" htmlFor={makeRadioId('canDoQuarantine', 'Oui')}>
+          Pouvez-vous effectuer des quarantaines ? *
+        </label>
         <div className="form-radio-group">
           {radio('canDoQuarantine', 'Oui', 'canDoQuarantine')}
           {radio('canDoQuarantine', 'Non', 'canDoQuarantine')}
@@ -238,7 +293,7 @@ const BenevoleStep1 = memo(function BenevoleStep1({
 
       <div style={show(canQuarantine)}>
         <div>
-          <label className="form-label">
+          <label className="form-label" htmlFor={makeRadioId('wantPitieSalpetriereQuarantine', 'Oui')}>
             Quarantaines pour les chats errants de la Pitié-Salpêtrière ?
           </label>
           <div className="form-radio-group">
@@ -248,8 +303,11 @@ const BenevoleStep1 = memo(function BenevoleStep1({
           </div>
         </div>
         <div style={{ marginTop: '1rem' }}>
-          <label className="form-label">Dans quelle pièce ?</label>
+          <label className="form-label" htmlFor="quarantineRoom">
+            Dans quelle pièce ?
+          </label>
           <input
+            id="quarantineRoom"
             type="text"
             name="quarantineRoom"
             className="form-input"
@@ -264,11 +322,21 @@ const BenevoleStep1 = memo(function BenevoleStep1({
 
       <div className="form-grid">
         <div>
-          <label className="form-label">Nombre de personnes dans le foyer *</label>
-          <input type="number" name="numPeopleHousehold" required className="form-input" />
+          <label className="form-label" htmlFor="numPeopleHousehold">
+            Nombre de personnes dans le foyer *
+          </label>
+          <input
+            id="numPeopleHousehold"
+            type="number"
+            name="numPeopleHousehold"
+            required
+            className="form-input"
+          />
         </div>
         <div>
-          <label className="form-label">Avez-vous des enfants ? *</label>
+          <label className="form-label" htmlFor={makeRadioId('hasChildren', 'Oui')}>
+            Avez-vous des enfants ? *
+          </label>
           <div className="form-radio-group">
             {radio('hasChildren', 'Oui', 'hasChildren')}
             {radio('hasChildren', 'Non', 'hasChildren')}
@@ -278,12 +346,23 @@ const BenevoleStep1 = memo(function BenevoleStep1({
 
       <div className="form-grid" style={show(hasChildrenYes)}>
         <div>
-          <label className="form-label">Âges des enfants {hasChildrenYes && '*'}</label>
-          <input type="text" name="childrenAges" required={hasChildrenYes} className="form-input" />
+          <label className="form-label" htmlFor="childrenAges">
+            Âges des enfants {hasChildrenYes && '*'}
+          </label>
+          <input
+            id="childrenAges"
+            type="text"
+            name="childrenAges"
+            required={hasChildrenYes}
+            className="form-input"
+          />
         </div>
         <div>
-          <label className="form-label">Habitués aux animaux ? {hasChildrenYes && '*'}</label>
+          <label className="form-label" htmlFor="childrenUsedToAnimals">
+            Habitués aux animaux ? {hasChildrenYes && '*'}
+          </label>
           <input
+            id="childrenUsedToAnimals"
             type="text"
             name="childrenUsedToAnimals"
             required={hasChildrenYes}
@@ -293,7 +372,9 @@ const BenevoleStep1 = memo(function BenevoleStep1({
       </div>
 
       <div>
-        <label className="form-label">Avez-vous des animaux à domicile ? *</label>
+        <label className="form-label" htmlFor={makeRadioId('hasAnimalsHome', 'Oui')}>
+          Avez-vous des animaux à domicile ? *
+        </label>
         <div className="form-radio-group">
           {radio('hasAnimalsHome', 'Oui', 'hasAnimalsHome')}
           {radio('hasAnimalsHome', 'Non', 'hasAnimalsHome')}
@@ -303,37 +384,49 @@ const BenevoleStep1 = memo(function BenevoleStep1({
       <div style={show(hasAnimals)}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
           <div>
-            <label className="form-label">
+            <label className="form-label" htmlFor="numDogs">
               Chiens {hasAnimals && '*'}
             </label>
-            <input type="number" name="numDogs" required={hasAnimals} className="form-input" />
+            <input id="numDogs" type="number" name="numDogs" required={hasAnimals} className="form-input" />
           </div>
           <div>
-            <label className="form-label">
+            <label className="form-label" htmlFor="numCats">
               Chats {hasAnimals && '*'}
             </label>
-            <input type="number" name="numCats" required={hasAnimals} className="form-input" />
+            <input id="numCats" type="number" name="numCats" required={hasAnimals} className="form-input" />
           </div>
           <div>
-            <label className="form-label">
+            <label className="form-label" htmlFor="numOthers">
               Autres {hasAnimals && '*'}
             </label>
-            <input type="number" name="numOthers" required={hasAnimals} className="form-input" />
+            <input id="numOthers" type="number" name="numOthers" required={hasAnimals} className="form-input" />
           </div>
         </div>
 
         <div style={{ marginTop: '1rem' }}>
-          <label className="form-label">Type / race, habitués aux autres animaux ? {hasAnimals && '*'}</label>
-          <textarea name="animalsDetails" required={hasAnimals} rows={3} className="form-textarea" />
+          <label className="form-label" htmlFor="animalsDetails">
+            Type / race, habitués aux autres animaux ? {hasAnimals && '*'}
+          </label>
+          <textarea
+            id="animalsDetails"
+            name="animalsDetails"
+            required={hasAnimals}
+            rows={3}
+            className="form-textarea"
+          />
         </div>
 
         <div style={{ marginTop: '1rem' }}>
-          <label className="form-label">Où vivent-ils ? {hasAnimals && '*'}</label>
-          <input type="text" name="animalsLocation" required={hasAnimals} className="form-input" />
+          <label className="form-label" htmlFor="animalsLocation">
+            Où vivent-ils ? {hasAnimals && '*'}
+          </label>
+          <input id="animalsLocation" type="text" name="animalsLocation" required={hasAnimals} className="form-input" />
         </div>
 
         <div style={{ marginTop: '1rem' }}>
-          <label className="form-label">Vos animaux sont-ils…</label>
+          <label className="form-label" htmlFor="step1-animalsSterilized">
+            Vos animaux sont-ils…
+          </label>
           <div className="form-checkbox-group">
             {[
               { key: 'animalsSterilized', label: 'Stérilisés' },
@@ -343,6 +436,7 @@ const BenevoleStep1 = memo(function BenevoleStep1({
             ].map(({ key, label }) => (
               <label key={key} className="form-checkbox">
                 <input
+                  id={`step1-${key}`}
                   type="checkbox"
                   checked={
                     key === 'animalsSterilized'
@@ -367,8 +461,10 @@ const BenevoleStep1 = memo(function BenevoleStep1({
       </div>
 
       <div>
-        <label className="form-label">Combien d&apos;heures par jour le chat va-t-il rester seul ? *</label>
-        <input type="text" name="hoursAlonePerDay" required className="form-input" />
+        <label className="form-label" htmlFor="hoursAlonePerDay">
+          Combien d&apos;heures par jour le chat va-t-il rester seul ? *
+        </label>
+        <input id="hoursAlonePerDay" type="text" name="hoursAlonePerDay" required className="form-input" />
       </div>
     </>
   );
@@ -399,6 +495,7 @@ const BenevoleStep2 = memo(function BenevoleStep2({
         required={required}
         name={name}
         value={value}
+        id={makeRadioId(name, value)}
         checked={beenFosterBefore === value}
         onChange={() =>
           startTransition(() => {
@@ -415,21 +512,30 @@ const BenevoleStep2 = memo(function BenevoleStep2({
       <h3 className="form-section-title">Votre motivation</h3>
 
       <div>
-        <label className="form-label">Pourquoi souhaitez-vous être famille d&apos;accueil ? *</label>
-        <textarea name="whyFoster" required rows={4} className="form-textarea" />
+        <label className="form-label" htmlFor="whyFoster">
+          Pourquoi souhaitez-vous être famille d&apos;accueil ? *
+        </label>
+        <textarea id="whyFoster" name="whyFoster" required rows={4} className="form-textarea" />
       </div>
 
       <div className="form-grid">
         <div>
-          <label className="form-label">L&apos;avez-vous déjà été ? *</label>
+          <label
+            className="form-label"
+            htmlFor={makeRadioId('beenFosterBefore', 'Oui')}
+          >
+            L&apos;avez-vous déjà été ? *
+          </label>
           <div className="form-radio-group">
             {radio('beenFosterBefore', 'Oui', 'beenFosterBefore')}
             {radio('beenFosterBefore', 'Non', 'beenFosterBefore')}
           </div>
         </div>
         <div style={show(hadFosterExp)}>
-          <label className="form-label">Références de l&apos;association</label>
-          <input type="text" name="fosterReferences" className="form-input" />
+          <label className="form-label" htmlFor="fosterReferences">
+            Références de l&apos;association
+          </label>
+          <input id="fosterReferences" type="text" name="fosterReferences" className="form-input" />
         </div>
       </div>
 
@@ -437,8 +543,11 @@ const BenevoleStep2 = memo(function BenevoleStep2({
       <h3 className="form-section-title">Accueil de chats</h3>
 
       <div>
-        <label className="form-label">Degré d&apos;expérience des chats *</label>
+        <label className="form-label" htmlFor="catExperience">
+          Degré d&apos;expérience des chats *
+        </label>
         <select
+          id="catExperience"
           name="catExperience"
           required
           className="form-select"
@@ -459,7 +568,12 @@ const BenevoleStep2 = memo(function BenevoleStep2({
       </div>
 
       <div>
-        <label className="form-label">Soins déjà pratiqués sur un chat *</label>
+        <label
+          className="form-label"
+          htmlFor={`step2-catCarePractices-${idify('Biberonner un nouveau-né')}`}
+        >
+          Soins déjà pratiqués sur un chat *
+        </label>
         <div className="form-checkbox-group">
           {[
             'Biberonner un nouveau-né',
@@ -477,6 +591,7 @@ const BenevoleStep2 = memo(function BenevoleStep2({
           ].map((practice) => (
             <label key={practice} className="form-checkbox">
               <input
+                  id={`step2-catCarePractices-${idify(practice)}`}
                 type="checkbox"
                 checked={catCarePractices.includes(practice)}
                 onChange={() =>
@@ -492,23 +607,49 @@ const BenevoleStep2 = memo(function BenevoleStep2({
       </div>
 
       <div style={show(hasCareOther)}>
-        <label className="form-label">Précisez</label>
-        <input type="text" name="catCareOther" className="form-input" />
+        <label className="form-label" htmlFor="catCareOther">
+          Précisez
+        </label>
+        <input id="catCareOther" type="text" name="catCareOther" className="form-input" />
       </div>
 
       <div>
-        <label className="form-label">Réaction face à un chat caché depuis plusieurs jours ? *</label>
-        <textarea name="catHidingReaction" required rows={3} className="form-textarea" />
+        <label className="form-label" htmlFor="catHidingReaction">
+          Réaction face à un chat caché depuis plusieurs jours ? *
+        </label>
+        <textarea
+          id="catHidingReaction"
+          name="catHidingReaction"
+          required
+          rows={3}
+          className="form-textarea"
+        />
       </div>
 
       <div>
-        <label className="form-label">Réaction face à un chat qui fait hors litière ? *</label>
-        <textarea name="catLitterIssueReaction" required rows={3} className="form-textarea" />
+        <label className="form-label" htmlFor="catLitterIssueReaction">
+          Réaction face à un chat qui fait hors litière ? *
+        </label>
+        <textarea
+          id="catLitterIssueReaction"
+          name="catLitterIssueReaction"
+          required
+          rows={3}
+          className="form-textarea"
+        />
       </div>
 
       <div>
-        <label className="form-label">Quelque chose de rédhibitoire pour l&apos;accueil d&apos;un chat ? *</label>
-        <textarea name="catDealbreakers" required rows={3} className="form-textarea" />
+        <label className="form-label" htmlFor="catDealbreakers">
+          Quelque chose de rédhibitoire pour l&apos;accueil d&apos;un chat ? *
+        </label>
+        <textarea
+          id="catDealbreakers"
+          name="catDealbreakers"
+          required
+          rows={3}
+          className="form-textarea"
+        />
       </div>
     </>
   );
@@ -577,6 +718,7 @@ const BenevoleLastStep = memo(function BenevoleLastStep({
           required={required}
           name={name}
           value={value}
+          id={makeRadioId(name, value)}
           checked={checkedValue === value}
           onChange={() =>
             startTransition(() => {
@@ -596,12 +738,19 @@ const BenevoleLastStep = memo(function BenevoleLastStep({
           <h3 className="form-section-title">Préférences d&apos;accueil</h3>
 
           <div>
-            <label className="form-label">Combien de chats pourriez-vous accueillir ? *</label>
-            <input type="number" name="numCatsCanFoster" required className="form-input" />
+            <label className="form-label" htmlFor="numCatsCanFoster">
+              Combien de chats pourriez-vous accueillir ? *
+            </label>
+            <input id="numCatsCanFoster" type="number" name="numCatsCanFoster" required className="form-input" />
           </div>
 
           <div>
-            <label className="form-label">Quel type de chat(s) ? *</label>
+            <label
+              className="form-label"
+              htmlFor={`benevole-last-catTypes-${idify('Adulte')}`}
+            >
+              Quel type de chat(s) ? *
+            </label>
             <div className="form-checkbox-group">
               {[
                 'Adulte',
@@ -619,6 +768,7 @@ const BenevoleLastStep = memo(function BenevoleLastStep({
               ].map((type) => (
                 <label key={type} className="form-checkbox">
                   <input
+                  id={`benevole-last-catTypes-${idify(type)}`}
                     type="checkbox"
                     checked={catTypes.includes(type)}
                     onChange={() =>
@@ -634,7 +784,12 @@ const BenevoleLastStep = memo(function BenevoleLastStep({
           </div>
 
           <div>
-            <label className="form-label">Durée d&apos;accueil possible *</label>
+            <label
+              className="form-label"
+              htmlFor={`benevole-last-fosterDuration-${idify('Quelques jours')}`}
+            >
+              Durée d&apos;accueil possible *
+            </label>
             <div className="form-checkbox-group">
               {[
                 'Après la quarantaine uniquement (mon animal n\'est pas à jour)',
@@ -645,6 +800,7 @@ const BenevoleLastStep = memo(function BenevoleLastStep({
               ].map((duration) => (
                 <label key={duration} className="form-checkbox">
                   <input
+                  id={`benevole-last-fosterDuration-${idify(duration)}`}
                     type="checkbox"
                     checked={fosterDuration.includes(duration)}
                     onChange={() =>
@@ -660,35 +816,47 @@ const BenevoleLastStep = memo(function BenevoleLastStep({
           </div>
 
           <div style={show(hasDeterminedDuration)}>
-            <label className="form-label">Précisez</label>
-            <input type="text" name="fosterDurationOther" className="form-input" />
+            <label className="form-label" htmlFor="fosterDurationOther">
+              Précisez
+            </label>
+            <input id="fosterDurationOther" type="text" name="fosterDurationOther" className="form-input" />
           </div>
 
           <div className="form-grid">
             <div>
-              <label className="form-label">Partez-vous en vacances bientôt ? *</label>
+              <label
+                className="form-label"
+                htmlFor={makeRadioId('goingOnVacation', 'Oui')}
+              >
+                Partez-vous en vacances bientôt ? *
+              </label>
               <div className="form-radio-group">
                 {radio('goingOnVacation', 'Oui', 'goingOnVacation')}
                 {radio('goingOnVacation', 'Non', 'goingOnVacation')}
               </div>
             </div>
             <div style={show(vacationSoon)}>
-              <label className="form-label">
+              <label className="form-label" htmlFor="vacationDates">
                 À quelles dates ? {vacationSoon && '*'}
               </label>
-              <input type="text" name="vacationDates" required={vacationSoon} className="form-input" />
+              <input id="vacationDates" type="text" name="vacationDates" required={vacationSoon} className="form-input" />
             </div>
           </div>
 
           <div style={show(vacationSoon)}>
-            <label className="form-label">
+            <label className="form-label" htmlFor="vacationCare">
               Qui s&apos;occupera de l&apos;animal ? {vacationSoon && '*'}
             </label>
-            <input type="text" name="vacationCare" required={vacationSoon} className="form-input" />
+            <input id="vacationCare" type="text" name="vacationCare" required={vacationSoon} className="form-input" />
           </div>
 
           <div>
-            <label className="form-label">Tout le foyer est-il d&apos;accord ? *</label>
+            <label
+              className="form-label"
+              htmlFor={makeRadioId('householdAgrees', 'Oui')}
+            >
+              Tout le foyer est-il d&apos;accord ? *
+            </label>
             <div className="form-radio-group">
               {radio('householdAgrees', 'Oui', 'householdAgrees')}
               {radio('householdAgrees', 'Non', 'householdAgrees')}
@@ -709,17 +877,26 @@ const BenevoleLastStep = memo(function BenevoleLastStep({
           </div>
 
           <div>
-            <label className="form-label">Comment nourrirez-vous les animaux ? *</label>
-            <input type="text" name="feedingPlan" required className="form-input" placeholder="Type d'alimentation, marques…" />
+            <label className="form-label" htmlFor="feedingPlan">
+              Comment nourrirez-vous les animaux ? *
+            </label>
+            <input id="feedingPlan" type="text" name="feedingPlan" required className="form-input" placeholder="Type d'alimentation, marques…" />
           </div>
 
           <div>
-            <label className="form-label">Avez-vous du matériel (litière, caisse, laisses…) ? *</label>
-            <input type="text" name="hasEquipment" required className="form-input" />
+            <label className="form-label" htmlFor="hasEquipment">
+              Avez-vous du matériel (litière, caisse, laisses…) ? *
+            </label>
+            <input id="hasEquipment" type="text" name="hasEquipment" required className="form-input" />
           </div>
 
           <div>
-            <label className="form-label">Vétérinaire à tarifs associatifs ?</label>
+            <label
+              className="form-label"
+              htmlFor={makeRadioId('hasAssociationVet', 'Oui')}
+            >
+              Vétérinaire à tarifs associatifs ?
+            </label>
             <div className="form-radio-group">
               {radio('hasAssociationVet', 'Oui', 'hasAssociationVet', false)}
               {radio('hasAssociationVet', 'Non', 'hasAssociationVet', false)}
@@ -731,21 +908,29 @@ const BenevoleLastStep = memo(function BenevoleLastStep({
             <div className="form-hint">Tarifs approximatifs :</div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginTop: '0.5rem' }}>
               <div>
-                <label className="form-label">Castration</label>
-                <input type="text" name="vetCastration" className="form-input" />
+                <label className="form-label" htmlFor="vetCastration">
+                  Castration
+                </label>
+                <input id="vetCastration" type="text" name="vetCastration" className="form-input" />
               </div>
               <div>
-                <label className="form-label">Ovariectomie</label>
-                <input type="text" name="vetOvariectomy" className="form-input" />
+                <label className="form-label" htmlFor="vetOvariectomy">
+                  Ovariectomie
+                </label>
+                <input id="vetOvariectomy" type="text" name="vetOvariectomy" className="form-input" />
               </div>
               <div>
-                <label className="form-label">Vaccination</label>
-                <input type="text" name="vetVaccination" className="form-input" />
+                <label className="form-label" htmlFor="vetVaccination">
+                  Vaccination
+                </label>
+                <input id="vetVaccination" type="text" name="vetVaccination" className="form-input" />
               </div>
             </div>
             <div style={{ marginTop: '1rem' }}>
-              <label className="form-label">Coordonnées du vétérinaire</label>
-              <input type="text" name="vetContact" className="form-input" />
+              <label className="form-label" htmlFor="vetContact">
+                Coordonnées du vétérinaire
+              </label>
+              <input id="vetContact" type="text" name="vetContact" className="form-input" />
             </div>
           </div>
 
@@ -756,11 +941,17 @@ const BenevoleLastStep = memo(function BenevoleLastStep({
       <h3 className="form-section-title">Disponibilités</h3>
 
       <div>
-        <label className="form-label">Possibilité d&apos;effectuer des transports ? *</label>
+        <label
+          className="form-label"
+          htmlFor={`benevole-last-transport-${idify('Oui, en voiture')}`}
+        >
+          Possibilité d&apos;effectuer des transports ? *
+        </label>
         <div className="form-checkbox-group">
           {['Oui, en voiture', 'Oui, en transports en commun', 'Non'].map((option) => (
             <label key={option} className="form-checkbox">
               <input
+                id={`benevole-last-transport-${idify(option)}`}
                 type="checkbox"
                 checked={canDoTransport.includes(option)}
                 onChange={() =>
@@ -776,12 +967,26 @@ const BenevoleLastStep = memo(function BenevoleLastStep({
       </div>
 
       <div style={show(canTransport)}>
-        <label className="form-label">Distance possible ? {canTransport && '*'}</label>
-        <textarea name="transportDistance" required={canTransport} rows={3} className="form-textarea" placeholder="Distance en km, départements, remboursement…" />
+        <label className="form-label" htmlFor="transportDistance">
+          Distance possible ? {canTransport && '*'}
+        </label>
+        <textarea
+          id="transportDistance"
+          name="transportDistance"
+          required={canTransport}
+          rows={3}
+          className="form-textarea"
+          placeholder="Distance en km, départements, remboursement…"
+        />
       </div>
 
       <div>
-        <label className="form-label">Disposé·e à d&apos;autres missions ? *</label>
+        <label
+          className="form-label"
+          htmlFor={makeRadioId('openToOtherMissions', 'Oui')}
+        >
+          Disposé·e à d&apos;autres missions ? *
+        </label>
         <div className="form-radio-group">
           {radio('openToOtherMissions', 'Oui', 'openToOtherMissions')}
           {radio('openToOtherMissions', 'Non', 'openToOtherMissions')}
@@ -789,13 +994,17 @@ const BenevoleLastStep = memo(function BenevoleLastStep({
       </div>
 
       <div style={show(wantsOtherMissions)}>
-        <label className="form-label">Lesquelles ?</label>
-        <textarea name="otherMissions" rows={3} className="form-textarea" />
+        <label className="form-label" htmlFor="otherMissions">
+          Lesquelles ?
+        </label>
+        <textarea id="otherMissions" name="otherMissions" rows={3} className="form-textarea" />
       </div>
 
       <div>
-        <label className="form-label">Questions ?</label>
-        <textarea name="questions" rows={4} className="form-textarea" />
+        <label className="form-label" htmlFor="questions">
+          Questions ?
+        </label>
+        <textarea id="questions" name="questions" rows={4} className="form-textarea" />
       </div>
 
       <hr className="form-divider" />
@@ -904,6 +1113,7 @@ export default function BenevoleForm() {
 const radio = (name: string, value: string, field: string, required = true) => (
   <label className="form-radio">
     <input type="radio" required={required} name={name} value={value}
+      id={makeRadioId(name, value)}
       checked={formState[field as keyof typeof formState] === value}
       onChange={() => startTransition(() => {
         setFormState(prev => ({ ...prev, [field]: value }));
@@ -1098,12 +1308,19 @@ const radio = (name: string, value: string, field: string, required = true) => (
             <h3 className="form-section-title">Préférences d&apos;accueil</h3>
 
             <div>
-              <label className="form-label">Combien de chats pourriez-vous accueillir ? *</label>
-              <input type="number" name="numCatsCanFoster" required className="form-input" />
+              <label className="form-label" htmlFor="numCatsCanFoster">
+                Combien de chats pourriez-vous accueillir ? *
+              </label>
+              <input id="numCatsCanFoster" type="number" name="numCatsCanFoster" required className="form-input" />
             </div>
 
             <div>
-              <label className="form-label">Quel type de chat(s) ? *</label>
+              <label
+                className="form-label"
+                htmlFor={`benevole-false-catTypes-${idify('Adulte')}`}
+              >
+                Quel type de chat(s) ? *
+              </label>
               <div className="form-checkbox-group">
                 {[
                   'Adulte', 'Chaton(s)', 'Mâle', 'Femelle', 'Peu importe',
@@ -1113,6 +1330,7 @@ const radio = (name: string, value: string, field: string, required = true) => (
                 ].map(type => (
                   <label key={type} className="form-checkbox">
                     <input type="checkbox"
+                      id={`benevole-false-catTypes-${idify(type)}`}
                       checked={formState.catTypes.includes(type)}
                       onChange={() => startTransition(() => { handleCheckboxArray('catTypes', type); })} />
                     <span>{type}</span>
@@ -1122,7 +1340,12 @@ const radio = (name: string, value: string, field: string, required = true) => (
             </div>
 
             <div>
-              <label className="form-label">Durée d&apos;accueil possible *</label>
+              <label
+                className="form-label"
+                htmlFor={`benevole-false-fosterDuration-${idify('Quelques jours')}`}
+              >
+                Durée d&apos;accueil possible *
+              </label>
               <div className="form-checkbox-group">
                 {[
                   "Après la quarantaine uniquement (mon animal n'est pas à jour)",
@@ -1133,6 +1356,7 @@ const radio = (name: string, value: string, field: string, required = true) => (
                 ].map(duration => (
                   <label key={duration} className="form-checkbox">
                     <input type="checkbox"
+                      id={`benevole-false-fosterDuration-${idify(duration)}`}
                       checked={formState.fosterDuration.includes(duration)}
                       onChange={() => startTransition(() => { handleCheckboxArray('fosterDuration', duration); })} />
                     <span>{duration}</span>
@@ -1142,31 +1366,47 @@ const radio = (name: string, value: string, field: string, required = true) => (
             </div>
 
             <div style={show(hasDeterminedDuration)}>
-              <label className="form-label">Précisez</label>
-              <input type="text" name="fosterDurationOther" className="form-input" />
+              <label className="form-label" htmlFor="fosterDurationOther">
+                Précisez
+              </label>
+              <input id="fosterDurationOther" type="text" name="fosterDurationOther" className="form-input" />
             </div>
 
             <div className="form-grid">
               <div>
-                <label className="form-label">Partez-vous en vacances bientôt ? *</label>
+                <label
+                  className="form-label"
+                  htmlFor={makeRadioId('goingOnVacation', 'Oui')}
+                >
+                  Partez-vous en vacances bientôt ? *
+                </label>
                 <div className="form-radio-group">
                   {radio('goingOnVacation', 'Oui', 'goingOnVacation')}
                   {radio('goingOnVacation', 'Non', 'goingOnVacation')}
                 </div>
               </div>
               <div style={show(vacationSoon)}>
-                <label className="form-label">À quelles dates ? {vacationSoon && '*'}</label>
-                <input type="text" name="vacationDates" required={vacationSoon} className="form-input" />
+                <label className="form-label" htmlFor="vacationDates">
+                  À quelles dates ? {vacationSoon && '*'}
+                </label>
+                <input id="vacationDates" type="text" name="vacationDates" required={vacationSoon} className="form-input" />
               </div>
             </div>
 
             <div style={show(vacationSoon)}>
-              <label className="form-label">Qui s&apos;occupera de l&apos;animal ? {vacationSoon && '*'}</label>
-              <input type="text" name="vacationCare" required={vacationSoon} className="form-input" />
+              <label className="form-label" htmlFor="vacationCare">
+                Qui s&apos;occupera de l&apos;animal ? {vacationSoon && '*'}
+              </label>
+              <input id="vacationCare" type="text" name="vacationCare" required={vacationSoon} className="form-input" />
             </div>
 
             <div>
-              <label className="form-label">Tout le foyer est-il d&apos;accord ? *</label>
+              <label
+                className="form-label"
+                htmlFor={makeRadioId('householdAgrees', 'Oui')}
+              >
+                Tout le foyer est-il d&apos;accord ? *
+              </label>
               <div className="form-radio-group">
                 {radio('householdAgrees', 'Oui', 'householdAgrees')}
                 {radio('householdAgrees', 'Non', 'householdAgrees')}
@@ -1187,18 +1427,27 @@ const radio = (name: string, value: string, field: string, required = true) => (
             </div>
 
             <div>
-              <label className="form-label">Comment nourrirez-vous les animaux ? *</label>
-              <input type="text" name="feedingPlan" required className="form-input"
+              <label className="form-label" htmlFor="feedingPlan">
+                Comment nourrirez-vous les animaux ? *
+              </label>
+              <input id="feedingPlan" type="text" name="feedingPlan" required className="form-input"
                 placeholder="Type d'alimentation, marques…" />
             </div>
 
             <div>
-              <label className="form-label">Avez-vous du matériel (litière, caisse, laisses…) ? *</label>
-              <input type="text" name="hasEquipment" required className="form-input" />
+              <label className="form-label" htmlFor="hasEquipment">
+                Avez-vous du matériel (litière, caisse, laisses…) ? *
+              </label>
+              <input id="hasEquipment" type="text" name="hasEquipment" required className="form-input" />
             </div>
 
             <div>
-              <label className="form-label">Vétérinaire à tarifs associatifs ?</label>
+              <label
+                className="form-label"
+                htmlFor={makeRadioId('hasAssociationVet', 'Oui')}
+              >
+                Vétérinaire à tarifs associatifs ?
+              </label>
               <div className="form-radio-group">
                 {radio('hasAssociationVet', 'Oui', 'hasAssociationVet', false)}
                 {radio('hasAssociationVet', 'Non', 'hasAssociationVet', false)}
@@ -1210,21 +1459,29 @@ const radio = (name: string, value: string, field: string, required = true) => (
               <div className="form-hint">Tarifs approximatifs :</div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginTop: '0.5rem' }}>
                 <div>
-                  <label className="form-label">Castration</label>
-                  <input type="text" name="vetCastration" className="form-input" />
+                  <label className="form-label" htmlFor="vetCastration">
+                    Castration
+                  </label>
+                  <input id="vetCastration" type="text" name="vetCastration" className="form-input" />
                 </div>
                 <div>
-                  <label className="form-label">Ovariectomie</label>
-                  <input type="text" name="vetOvariectomy" className="form-input" />
+                  <label className="form-label" htmlFor="vetOvariectomy">
+                    Ovariectomie
+                  </label>
+                  <input id="vetOvariectomy" type="text" name="vetOvariectomy" className="form-input" />
                 </div>
                 <div>
-                  <label className="form-label">Vaccination</label>
-                  <input type="text" name="vetVaccination" className="form-input" />
+                  <label className="form-label" htmlFor="vetVaccination">
+                    Vaccination
+                  </label>
+                  <input id="vetVaccination" type="text" name="vetVaccination" className="form-input" />
                 </div>
               </div>
               <div style={{ marginTop: '1rem' }}>
-                <label className="form-label">Coordonnées du vétérinaire</label>
-                <input type="text" name="vetContact" className="form-input" />
+                <label className="form-label" htmlFor="vetContact">
+                  Coordonnées du vétérinaire
+                </label>
+                <input id="vetContact" type="text" name="vetContact" className="form-input" />
               </div>
             </div>
 
@@ -1236,11 +1493,17 @@ const radio = (name: string, value: string, field: string, required = true) => (
         <h3 className="form-section-title">Disponibilités</h3>
 
         <div>
-          <label className="form-label">Possibilité d&apos;effectuer des transports ? *</label>
+          <label
+            className="form-label"
+            htmlFor={`benevole-false-transport-${idify('Oui, en voiture')}`}
+          >
+            Possibilité d&apos;effectuer des transports ? *
+          </label>
           <div className="form-checkbox-group">
             {['Oui, en voiture', 'Oui, en transports en commun', 'Non'].map(option => (
               <label key={option} className="form-checkbox">
                 <input type="checkbox"
+                  id={`benevole-false-transport-${idify(option)}`}
                   checked={formState.canDoTransport.includes(option)}
                   onChange={() => startTransition(() => { handleCheckboxArray('canDoTransport', option); })} />
                 <span>{option}</span>
@@ -1250,13 +1513,20 @@ const radio = (name: string, value: string, field: string, required = true) => (
         </div>
 
         <div style={show(canTransport)}>
-          <label className="form-label">Distance possible ? {canTransport && '*'}</label>
-          <textarea name="transportDistance" required={canTransport} rows={3} className="form-textarea"
+          <label className="form-label" htmlFor="transportDistance">
+            Distance possible ? {canTransport && '*'}
+          </label>
+          <textarea id="transportDistance" name="transportDistance" required={canTransport} rows={3} className="form-textarea"
             placeholder="Distance en km, départements, remboursement…" />
         </div>
 
         <div>
-          <label className="form-label">Disposé·e à d&apos;autres missions ? *</label>
+          <label
+            className="form-label"
+            htmlFor={makeRadioId('openToOtherMissions', 'Oui')}
+          >
+            Disposé·e à d&apos;autres missions ? *
+          </label>
           <div className="form-radio-group">
             {radio('openToOtherMissions', 'Oui', 'openToOtherMissions')}
             {radio('openToOtherMissions', 'Non', 'openToOtherMissions')}
@@ -1264,13 +1534,17 @@ const radio = (name: string, value: string, field: string, required = true) => (
         </div>
 
         <div style={show(wantsOtherMissions)}>
-          <label className="form-label">Lesquelles ?</label>
-          <textarea name="otherMissions" rows={3} className="form-textarea" />
+          <label className="form-label" htmlFor="otherMissions">
+            Lesquelles ?
+          </label>
+          <textarea id="otherMissions" name="otherMissions" rows={3} className="form-textarea" />
         </div>
 
         <div>
-          <label className="form-label">Questions ?</label>
-          <textarea name="questions" rows={4} className="form-textarea" />
+          <label className="form-label" htmlFor="questions">
+            Questions ?
+          </label>
+          <textarea id="questions" name="questions" rows={4} className="form-textarea" />
         </div>
 
         <hr className="form-divider" />
