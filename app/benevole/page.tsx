@@ -26,7 +26,7 @@ export default function BenevolePage() {
       <section className="section">
         <div className="container-mid">
           <div className="float-img-right">
-            <Image src="/images/site/14092021-IMG_5906.webp" alt="Chat commun" width={600} height={400} sizes="(max-width: 768px) 100vw, 40vw" />
+            <Image src="/images/site/14092021-IMG_5906.webp" alt="Chat commun" width={600} height={400} sizes="(max-width: 425px) 75vw, (max-width: 768px) 60vw, 40vw" />
           </div>
           <p className="text-large mb-lg">
             <strong>Nous ne disposons pas de refuge</strong> — tous nos animaux sont en familles d&apos;accueil qui en prennent soin au quotidien.
@@ -48,7 +48,7 @@ export default function BenevolePage() {
       <section className="section section-gray">
         <div className="container-mid">
           <div className="float-img-left">
-            <Image src="/images/site/wiskey04.webp" alt="Chat endormi" width={600} height={400} sizes="(max-width: 768px) 100vw, 40vw" />
+            <Image src="/images/site/wiskey04.webp" alt="Chat endormi" width={600} height={400} sizes="(max-width: 425px) 75vw, (max-width: 768px) 60vw, 40vw" />
           </div>
           <h2 className="text-center">Quel type de famille d&apos;accueil ?</h2>
 

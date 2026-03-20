@@ -35,7 +35,7 @@ export default function SolutionsAbandonPage() {
         <div className="container-narrow">
           <h2>Vous avez trouvé un animal ?</h2>
           <div className="float-img-left">
-            <Image src="/images/gallery/1771791278821-84743240_608995653004686_7948898929091805184_o.jpg" alt="Chien perdu" width={600} height={400} sizes="(max-width: 768px) 100vw, 40vw" />
+            <Image src="/images/gallery/1771791278821-84743240_608995653004686_7948898929091805184_o.jpg" alt="Chien perdu" width={600} height={400} sizes="(max-width: 425px) 75vw, (max-width: 768px) 60vw, 40vw" />
           </div>
           <div className="icon-text">
             <div className="icon-text-icon">🏥</div>

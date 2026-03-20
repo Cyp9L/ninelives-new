@@ -25,7 +25,7 @@ export default function PartenairesPage() {
       <section className="section">
         <div className="container-mid">
           <div className="float-img-left">
-            <Image src="/images/site/arche-associations.jpg" alt="L'Arche des Associations" width={600} height={400} sizes="(max-width: 768px) 100vw, 40vw" />
+            <Image src="/images/site/arche-associations.jpg" alt="L'Arche des Associations" width={600} height={400} sizes="(max-width: 425px) 75vw, (max-width: 768px) 60vw, 40vw" />
           </div>
 
           <h2>
@@ -49,7 +49,7 @@ export default function PartenairesPage() {
       <section className="section section-gray">
         <div className="container-mid">
           <div className="float-img-right">
-            <Image src="/images/site/educhateur.png" alt="Educhateur - coaching félin" width={600} height={400} sizes="(max-width: 768px) 100vw, 40vw" />
+            <Image src="/images/site/educhateur.png" alt="Educhateur - coaching félin" width={600} height={400} sizes="(max-width: 425px) 75vw, (max-width: 768px) 60vw, 40vw" />
           </div>
 
           <h2>
@@ -73,7 +73,7 @@ export default function PartenairesPage() {
       <section className="section">
         <div className="container-mid">
           <div className="float-img-left">
-            <Image src="/images/site/miaustore.png" alt="Fontaine Miaustore" width={600} height={400} sizes="(max-width: 768px) 100vw, 40vw" />
+            <Image src="/images/site/miaustore.png" alt="Fontaine Miaustore" width={600} height={400} sizes="(max-width: 425px) 75vw, (max-width: 768px) 60vw, 40vw" />
           </div>
 
           <h2>
@@ -97,7 +97,7 @@ export default function PartenairesPage() {
       <section className="section section-gray">
         <div className="container-mid">
           <div className="float-img-right">
-            <Image src="/images/site/protection-chats.jpg" alt="Protection pour chats - filets" width={600} height={400} sizes="(max-width: 768px) 100vw, 40vw" />
+            <Image src="/images/site/protection-chats.jpg" alt="Protection pour chats - filets" width={600} height={400} sizes="(max-width: 425px) 75vw, (max-width: 768px) 60vw, 40vw" />
           </div>
 
           <h2>
