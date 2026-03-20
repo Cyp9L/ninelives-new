@@ -63,6 +63,12 @@ export default function ContactPage() {
   return (
     <main id="main-content">
       {/* Header */}
+      <link
+        rel="preload"
+        as="image"
+        href="/images/site/Masha8.webp"
+        fetchPriority="high"
+      />
       <section className="hero" style={{ backgroundImage: 'url(/images/site/Masha8.webp' }}>
         <div className="container">
           <div className="hero-content">

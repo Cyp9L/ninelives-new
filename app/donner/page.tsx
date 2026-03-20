@@ -11,6 +11,12 @@ export default function DonnerPage() {
   return (
     <main id="main-content">
       {/* Header */}
+      <link
+        rel="preload"
+        as="image"
+        href="/images/site/29052021-IMG_5287.webp"
+        fetchPriority="high"
+      />
       <section className="hero" style={{ backgroundImage: 'url(/images/site/29052021-IMG_5287.webp)', backgroundPosition: 'center 68%' }}>
         <div className="container">
           <div className="hero-content">

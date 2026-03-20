@@ -11,6 +11,12 @@ export default function ActionsPage() {
   return (
     <main id="main-content">
       {/* Hero */}
+      <link
+        rel="preload"
+        as="image"
+        href="/images/gallery/1771692501514-04102020-IMG_2605.jpg"
+        fetchPriority="high"
+      />
       <section className="hero" style={{ backgroundImage: 'url(/images/gallery/1771692501514-04102020-IMG_2605.jpg)' }}>
         <div className="container">
           <div className="hero-content">

@@ -19,6 +19,12 @@ export default async function HomePage() {
   return (
     <main id="main-content">
       {/* Hero */}
+      <link
+        rel="preload"
+        as="image"
+        href="/images/site/salomon-bg.jpg"
+        fetchPriority="high"
+      />
       <section className="hero" style={{ backgroundImage: 'url(/images/site/salomon-bg.jpg)', backgroundPosition: 'center 30%' }}>
         <div className="container">
           <div className="hero-content">
