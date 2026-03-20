@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, startTransition, useRef, useCallback, useEffect } from 'react';
 import Captcha from '@/components/Captcha';
 
 const FOSTER_STEPS = [
@@ -93,16 +93,17 @@ export default function BenevoleForm() {
     });
   }, []);
 
-  const radio = (name: string, value: string, field: string, required = true) => (
-    <label className="form-radio">
-      <input
-        type="radio" name={name} value={value} required={required}
-        checked={(formState as any)[field] === value}
-        onChange={() => updateField(field, value)}
-      />
-      {value}
-    </label>
-  );
+  // Radio helper - wrap state update in startTransition
+const radio = (name: string, value: string, field: string, required = true) => (
+  <label className="form-radio">
+    <input type="radio" required={required} name={name} value={value}
+      checked={formState[field as keyof typeof formState] === value}
+      onChange={() => startTransition(() => {
+        setFormState(prev => ({ ...prev, [field]: value }));
+      })} />
+    {value}
+  </label>
+);
 
   /* ---- Navigation ---- */
   const validateStep = () => {
@@ -431,7 +432,7 @@ export default function BenevoleForm() {
                   <label key={key} className="form-checkbox">
                     <input type="checkbox"
                       checked={(formState as any)[key] as boolean}
-                      onChange={(e) => updateField(key, e.target.checked)} />
+                      onChange={(e) => startTransition(() => { updateField(key, e.target.checked); })} />
                     <span>{label}</span>
                   </label>
                 ))}
@@ -477,7 +478,7 @@ export default function BenevoleForm() {
             <label className="form-label">Degré d&apos;expérience des chats *</label>
             <select name="catExperience" required className="form-select"
               value={formState.catExperience}
-              onChange={(e) => updateField('catExperience', e.target.value)}>
+              onChange={(e) => startTransition(() => { updateField('catExperience', e.target.value); })}>
               <option value="">Sélectionnez</option>
               {['Débutant', "J'ai (eu) un chat", "J'ai (eu) plusieurs chats", 'Je suis bilingue chat'].map(v => (
                 <option key={v} value={v}>{v}</option>
@@ -502,7 +503,7 @@ export default function BenevoleForm() {
                 <label key={practice} className="form-checkbox">
                   <input type="checkbox"
                     checked={formState.catCarePractices.includes(practice)}
-                    onChange={() => handleCheckboxArray('catCarePractices', practice)} />
+                      onChange={() => startTransition(() => { handleCheckboxArray('catCarePractices', practice); })} />
                   <span>{practice}</span>
                 </label>
               ))}
@@ -557,7 +558,7 @@ export default function BenevoleForm() {
                   <label key={type} className="form-checkbox">
                     <input type="checkbox"
                       checked={formState.catTypes.includes(type)}
-                      onChange={() => handleCheckboxArray('catTypes', type)} />
+                      onChange={() => startTransition(() => { handleCheckboxArray('catTypes', type); })} />
                     <span>{type}</span>
                   </label>
                 ))}
@@ -577,7 +578,7 @@ export default function BenevoleForm() {
                   <label key={duration} className="form-checkbox">
                     <input type="checkbox"
                       checked={formState.fosterDuration.includes(duration)}
-                      onChange={() => handleCheckboxArray('fosterDuration', duration)} />
+                      onChange={() => startTransition(() => { handleCheckboxArray('fosterDuration', duration); })} />
                     <span>{duration}</span>
                   </label>
                 ))}
@@ -685,7 +686,7 @@ export default function BenevoleForm() {
               <label key={option} className="form-checkbox">
                 <input type="checkbox"
                   checked={formState.canDoTransport.includes(option)}
-                  onChange={() => handleCheckboxArray('canDoTransport', option)} />
+                  onChange={() => startTransition(() => { handleCheckboxArray('canDoTransport', option); })} />
                 <span>{option}</span>
               </label>
             ))}
@@ -725,7 +726,7 @@ export default function BenevoleForm() {
         <label className="form-checkbox">
           <input type="checkbox" required
             checked={formState.acceptsPrivacy}
-            onChange={(e) => updateField('acceptsPrivacy', e.target.checked)} />
+            onChange={(e) => startTransition(() => { updateField('acceptsPrivacy', e.target.checked); })} />
           <span>J&apos;ai lu et j&apos;accepte <a href="/politique-de-confidentialite" target="_blank" rel="noopener" className="link-blue">la politique de confidentialité</a>. *</span>
         </label>
 
