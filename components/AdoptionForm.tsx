@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, startTransition, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Captcha from '@/components/Captcha';
 
@@ -218,14 +218,16 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
   const shouldMount = (index: number) => index <= maxStep;
   const isLastStep = currentStep === STEPS.length - 1;
 
-  const radio = (name: string, value: string, field: string, required = true) => (
-    <label className="form-radio">
-      <input type="radio" required={required} name={name} value={value}
-        checked={formState[field as keyof typeof formState] === value}
-        onChange={() => setFormState(prev => ({ ...prev, [field]: value }))} />
-      {value}
-    </label>
-  );
+const radio = (name: string, value: string, field: string, required = true) => (
+  <label className="form-radio">
+    <input type="radio" required={required} name={name} value={value}
+      checked={formState[field as keyof typeof formState] === value}
+      onChange={() => startTransition(() => {
+        setFormState(prev => ({ ...prev, [field]: value }));
+      })} />
+    {value}
+  </label>
+);
 
   const animalInputs = (
     animals: string[],
@@ -433,7 +435,7 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
               <div style={show(isHouse)}>
                 <label className="form-checkbox">
                   <input type="checkbox" checked={formState.hasGardenEnclosed}
-                    onChange={(e) => setFormState(prev => ({ ...prev, hasGardenEnclosed: e.target.checked }))} />
+                    onChange={(e) => startTransition(() => { setFormState(prev => ({ ...prev, hasGardenEnclosed: e.target.checked })); })} />
                   <span>Avec jardin clôturé</span>
                 </label>
               </div>
@@ -518,13 +520,13 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
                   <label className="form-label">Nombre d&apos;adultes *</label>
                   <input type="number" required className="form-input" name="numAdults"
                     value={formState.numAdults}
-                    onChange={(e) => setFormState(prev => ({ ...prev, numAdults: e.target.value }))} />
+                    onChange={(e) => startTransition(() => { setFormState(prev => ({ ...prev, numAdults: e.target.value })); })} />
                 </div>
                 <div>
                   <label className="form-label">Nombre d&apos;enfants *</label>
                   <input type="number" required className="form-input" name="numChildren"
                     value={formState.numChildren}
-                    onChange={(e) => setFormState(prev => ({ ...prev, numChildren: e.target.value }))} />
+                    onChange={(e) => startTransition(() => { setFormState(prev => ({ ...prev, numChildren: e.target.value })); })} />
                 </div>
               </div>
 
@@ -596,17 +598,17 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
                   <div className="form-checkbox-group">
                     <label className="form-checkbox">
                       <input type="checkbox" checked={formState.currentAnimalsSterilized}
-                        onChange={(e) => setFormState(prev => ({ ...prev, currentAnimalsSterilized: e.target.checked }))} />
+                        onChange={(e) => startTransition(() => { setFormState(prev => ({ ...prev, currentAnimalsSterilized: e.target.checked })); })} />
                       <span>Stérilisés</span>
                     </label>
                     <label className="form-checkbox">
                       <input type="checkbox" checked={formState.currentAnimalsVaccinated}
-                        onChange={(e) => setFormState(prev => ({ ...prev, currentAnimalsVaccinated: e.target.checked }))} />
+                        onChange={(e) => startTransition(() => { setFormState(prev => ({ ...prev, currentAnimalsVaccinated: e.target.checked })); })} />
                       <span>Vaccinés</span>
                     </label>
                     <label className="form-checkbox">
                       <input type="checkbox" checked={formState.currentAnimalsTested}
-                        onChange={(e) => setFormState(prev => ({ ...prev, currentAnimalsTested: e.target.checked }))} />
+                        onChange={(e) => startTransition(() => { setFormState(prev => ({ ...prev, currentAnimalsTested: e.target.checked })); })} />
                       <span>Testés FIV/FeLV (pour les chats)</span>
                     </label>
                   </div>
@@ -670,7 +672,7 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
                   {['Famille', 'Voisin', 'Pension', 'Petsitter', 'Autre'].map(option => (
                     <label key={option} className="form-checkbox">
                       <input type="checkbox" checked={formState.careAbsence.includes(option)}
-                        onChange={() => handleCheckboxArray('careAbsence', option)} />
+                        onChange={() => startTransition(() => { handleCheckboxArray('careAbsence', option); })} />
                       <span>{option}</span>
                     </label>
                   ))}
@@ -740,7 +742,7 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
               <div>
                 <label className="form-label">À partir de quel montant seriez-vous en difficulté pour payer en une fois ? *</label>
                 <select required className="form-select" value={formState.emergencyPaymentThreshold}
-                  onChange={(e) => setFormState(prev => ({ ...prev, emergencyPaymentThreshold: e.target.value }))}>
+                  onChange={(e) => startTransition(() => { setFormState(prev => ({ ...prev, emergencyPaymentThreshold: e.target.value })); })}>
                   <option value="">Sélectionnez</option>
                   {['150€', '300€', '500€', '750€', '1 000€', '1 500€', '2 000€', '3 000€', '4 000€'].map(v => (
                     <option key={v} value={v}>{v}</option>
@@ -775,7 +777,7 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
               <div>
                 <label className="form-label">Au travail ou de sortie, où sera votre animal ? *</label>
                 <select required className="form-select" value={formState.animalLocationWork}
-                  onChange={(e) => setFormState(prev => ({ ...prev, animalLocationWork: e.target.value }))}>
+                  onChange={(e) => startTransition(() => { setFormState(prev => ({ ...prev, animalLocationWork: e.target.value })); })}>
                   <option value="">Sélectionnez</option>
                   {['Dans une pièce', 'En cage', 'En enclos', 'Dehors', 'Libre dans le logement', 'Sur la terrasse / le balcon'].map(v => (
                     <option key={v} value={v}>{v}</option>
@@ -792,7 +794,7 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
               <div>
                 <label className="form-label">Quand vous êtes présent, où sera votre animal ? *</label>
                 <select required className="form-select" value={formState.animalLocationHome}
-                  onChange={(e) => setFormState(prev => ({ ...prev, animalLocationHome: e.target.value }))}>
+                  onChange={(e) => startTransition(() => { setFormState(prev => ({ ...prev, animalLocationHome: e.target.value })); })}>
                   <option value="">Sélectionnez</option>
                   {['Dans une pièce', 'En cage', 'En enclos', 'Dehors', 'Libre dans le logement', 'Sur la terrasse / le balcon'].map(v => (
                     <option key={v} value={v}>{v}</option>
@@ -813,7 +815,7 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
                 <div>
                   <label className="form-label">Comment avez-vous connu l&apos;association ? *</label>
                   <select required className="form-select" value={formState.howHeardAbout}
-                    onChange={(e) => setFormState(prev => ({ ...prev, howHeardAbout: e.target.value }))}>
+                    onChange={(e) => startTransition(() => { setFormState(prev => ({ ...prev, howHeardAbout: e.target.value })); })}>
                     <option value="">Sélectionnez</option>
                     {['Réseaux sociaux', 'Recherche Google', 'Internet', 'Vétérinaire', 'Autre'].map(v => (
                       <option key={v} value={v}>{v}</option>
@@ -837,7 +839,7 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
 
               <label className="form-checkbox">
                 <input type="checkbox" required checked={formState.acceptsPrivacy}
-                  onChange={(e) => setFormState(prev => ({ ...prev, acceptsPrivacy: e.target.checked }))} />
+                  onChange={(e) => startTransition(() => { setFormState(prev => ({ ...prev, acceptsPrivacy: e.target.checked })); })} />
                 <span>J&apos;ai lu et j&apos;accepte <a href="/politique-de-confidentialite" target="_blank" rel="noopener" className="link-blue">la politique de confidentialité</a>. *</span>
               </label>
 
