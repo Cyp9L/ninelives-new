@@ -398,6 +398,7 @@ const AnimalInputs = memo(function AnimalInputs({ animals, setAnimals, isVisible
               type="button"
               className="btn btn-outline"
               style={{ padding: '0.5rem 0.75rem', flexShrink: 0 }}
+              aria-label="Supprimer l&apos;animal"
               onClick={() => setAnimals(animals.filter((_, j) => j !== i))}
             >
               ✕
