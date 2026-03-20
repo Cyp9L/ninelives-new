@@ -1,6 +1,7 @@
 import CollapsibleFormSection from '@/components/CollapsibleFormSection';
-import BenevoleForm from '@/components/BenevoleForm';
+import Image from 'next/image';
 import type { Metadata } from 'next';
+import BenevoleFormDynamic from '@/components/BenevoleFormDynamic';
 
 export const metadata: Metadata = {
   title: 'Devenir bénévole ou famille d\'accueil',
@@ -12,7 +13,7 @@ export default function BenevolePage() {
   return (
     <main id="main-content">
       {/* Header */}
-      <section className="hero" style={{ backgroundImage: 'url(/images/site/DSC01832.webp)', backgroundPosition :'center 33%' }}>
+      <section className="hero" style={{ backgroundImage: 'url(/images/site/DSC01832.webp)', backgroundPosition: 'center 33%' }}>
         <div className="container">
           <div className="hero-content">
             <h1>Devenir bénévole</h1>
@@ -25,7 +26,7 @@ export default function BenevolePage() {
       <section className="section">
         <div className="container-mid">
           <div className="float-img-right">
-            <img src="/images/site/14092021-IMG_5906.webp" alt="Chat commun" />
+            <Image src="/images/site/14092021-IMG_5906.webp" alt="Chat commun" width={600} height={400} sizes="(max-width: 768px) 100vw, 40vw" />
           </div>
           <p className="text-large mb-lg">
             <strong>Nous ne disposons pas de refuge</strong> — tous nos animaux sont en familles d&apos;accueil qui en prennent soin au quotidien.
@@ -47,7 +48,7 @@ export default function BenevolePage() {
       <section className="section section-gray">
         <div className="container-mid">
           <div className="float-img-left">
-            <img src="/images/site/wiskey04.webp" alt="Chat endormi" />
+            <Image src="/images/site/wiskey04.webp" alt="Chat endormi" width={600} height={400} sizes="(max-width: 768px) 100vw, 40vw" />
           </div>
           <h2 className="text-center">Quel type de famille d&apos;accueil ?</h2>
 
@@ -98,7 +99,7 @@ export default function BenevolePage() {
       <section className="section">
         <div className="container-mid text-center">
           <div className="float-img-left" style={{ width: '250px', shapeMargin: '1rem' }}>
-            <img src="/images/site/hoodie_back.webp" alt="Hoodie Nine Lives Paris" style={{ borderRadius: '8px' }} />
+            <Image src="/images/site/hoodie_back.webp" alt="Hoodie Nine Lives Paris" width={400} height={500} sizes="250px" style={{ borderRadius: '8px' }} />
           </div>
           <h2>Portez nos couleurs ! 🐱</h2>
           <p className="text-body">
@@ -119,7 +120,7 @@ export default function BenevolePage() {
         buttonLabel="Remplir le formulaire"
         containerClass="container-mid"
       >
-        <BenevoleForm />
+        <BenevoleFormDynamic />
       </CollapsibleFormSection>
     </main>
   );

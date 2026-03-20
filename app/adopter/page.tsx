@@ -1,8 +1,9 @@
 import { getAllCats } from '@/lib/trello';
 import Link from 'next/link';
 import CollapsibleFormSection from '@/components/CollapsibleFormSection';
-import AdoptionForm from '@/components/AdoptionForm';
 import CatShowcase from '@/components/CatShowcase';
+import Image from 'next/image';
+import AdoptionFormDynamic from '@/components/AdoptionFormDynamic';
 
 export const revalidate = 60;
 import type { Metadata } from 'next';
@@ -59,11 +60,13 @@ export default async function AdopterPage() {
             {/* Right: Kittens */}
             <div>
               <h2>🐾 Les chatons</h2>
-              <img
+              <Image
                 src="/images/gallery/1771685699346-04072021-IMG_5721.jpg"
                 alt="Chaton tenu dans une main"
                 className="float-img-right"
-                data-no-lightbox
+                width={600}
+                height={400}
+                sizes="(max-width: 768px) 100vw, 40vw"
               />
               <p className="text-body">
                 Un chaton ne reste un « bébé duveteux » que 5 à 6 mois — dans une vie qui peut atteindre 20 ans. Réfléchissez bien.
@@ -172,7 +175,7 @@ export default async function AdopterPage() {
         subtitle="Remplissez ce formulaire pour commencer le processus d'adoption."
         buttonLabel="Remplir le questionnaire"
       >
-        <AdoptionForm cats={all} />
+        <AdoptionFormDynamic cats={all} />
       </CollapsibleFormSection>
     </main>
   );
