@@ -66,7 +66,7 @@ export default async function AdopterPage() {
                 className="float-img-right"
                 width={600}
                 height={400}
-                sizes="(max-width: 768px) 100vw, 40vw"
+                sizes="(max-width: 425px) 75vw, (max-width: 768px) 60vw, 40vw"
               />
               <p className="text-body">
                 Un chaton ne reste un « bébé duveteux » que 5 à 6 mois — dans une vie qui peut atteindre 20 ans. Réfléchissez bien.

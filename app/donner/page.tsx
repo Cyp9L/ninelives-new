@@ -23,7 +23,7 @@ export default function DonnerPage() {
       <section className="section">
         <div className="container-mid">
           <div className="float-img-right" style={{ width: '45%', borderRadius: '8px', overflow: 'hidden' }}>
-            <Image src="/images/site/wiskey.jpg" alt="Wiskey, un de nos protégés" width={600} height={400} sizes="(max-width: 768px) 100vw, 45vw" />
+            <Image src="/images/site/wiskey.jpg" alt="Wiskey, un de nos protégés" width={600} height={400} sizes="(max-width: 425px) 75vw, (max-width: 768px) 60vw, 40vw" />
           </div>
           <p className="text-large mb-md">
             <strong>💝 Sauver des vies a un coût.</strong>
@@ -60,7 +60,7 @@ export default function DonnerPage() {
       <section className="section section-gray">
         <div className="container-mid">
           <div className="float-img-left">
-            <Image src="/images/site/salomon.webp" alt="Salomon, un de nos protégés" width={600} height={400} sizes="(max-width: 768px) 100vw, 40vw" />
+            <Image src="/images/site/salomon.webp" alt="Salomon, un de nos protégés" width={600} height={400} sizes="(max-width: 425px) 75vw, (max-width: 768px) 60vw, 40vw" />
           </div>
 
           <p className="text-large mb-md">
