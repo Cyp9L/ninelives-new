@@ -2,13 +2,7 @@
 import { useState, startTransition, useEffect, useRef, useCallback, memo } from 'react';
 import Image from 'next/image';
 import Captcha from '@/components/Captcha';
-
-interface Cat {
-  id: string;
-  name: string;
-  slug: string;
-  images: string[];
-}
+import type { Cat } from '@/lib/trello';
 
 const STEPS = [
   { label: "L'animal" },
@@ -1145,9 +1139,10 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
   const formTopRef = useRef<HTMLDivElement>(null);
 
   const [maxStep, setMaxStep] = useState(0);
-
   useEffect(() => {
-    setMaxStep(prev => Math.max(prev, currentStep));
+    void Promise.resolve().then(() => {
+      setMaxStep((prev) => Math.max(prev, currentStep));
+    });
   }, [currentStep]);
 
   /* ─── Controlled state: ONLY fields driving conditional visibility + booleans + arrays ─── */
@@ -1206,16 +1201,18 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
   }, []);
 
   const setField = useCallback((field: string, value: string | boolean) => {
-    setFormState((prev) => ({ ...prev, [field]: value } as any));
+    setFormState((prev) => ({ ...prev, [field]: value } as typeof prev));
   }, []);
 
   useEffect(() => {
-    if (!preselectedCat && !formState.animalName) {
+    void Promise.resolve().then(() => {
+      if (preselectedCat) return;
       const params = new URLSearchParams(window.location.search);
       const catParam = params.get('cat');
-      if (catParam) setFormState(prev => ({ ...prev, animalName: catParam }));
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+      if (!catParam) return;
+      setFormState((prev) => (prev.animalName ? prev : { ...prev, animalName: catParam }));
+    });
+  }, [preselectedCat]);
 
   const toggleCareAbsence = useCallback((value: string) => {
     setFormState((prev) => {
@@ -1257,14 +1254,16 @@ export default function AdoptionForm({ cats, preselectedCat }: { cats: Cat[], pr
         animalLocationHomeSurface: '', howHeardAboutOther: '', remarks: '',
       };
 
-      const dataToSend = {
+      const rawPayload = {
         ...defaults,
         ...textData,
-        ...formState,                     // state values override any FormData duplicates
+        ...formState,
         currentAnimalDetails: currentAnimals.filter(a => a.trim()).join('\n'),
         previousAnimalDetails: previousAnimals.filter(a => a.trim()).join('\n'),
         captchaToken,
       };
+      const { honeypot, ...dataToSend } = rawPayload;
+      void honeypot;
 
       const res = await fetch('/api/adoption', {
         method: 'POST',

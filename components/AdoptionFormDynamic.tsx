@@ -1,13 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-
-type Cat = {
-  id: string;
-  name: string;
-  slug: string;
-  images: string[];
-};
+import type { Cat } from '@/lib/trello';
 
 const AdoptionForm = dynamic(() => import('@/components/AdoptionForm'), {
   ssr: false,

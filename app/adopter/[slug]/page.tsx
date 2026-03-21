@@ -1,8 +1,9 @@
 import { notFound } from 'next/navigation';
-import { getAllCats, getCatBySlug } from '@/lib/trello';
+import { getAllCats, getCatBySlug, type Cat } from '@/lib/trello';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import CatGallery from '@/components/CatGallery';
+import HeroLcp from '@/components/HeroLcp';
 import type { Metadata } from 'next';
 
 export const revalidate = 60;
@@ -30,7 +31,7 @@ function extractField(desc: string, fieldName: string): string {
 
 export async function generateStaticParams() {
   const { all } = await getAllCats();
-  return all.map((cat: any) => ({ slug: cat.slug }));
+  return all.map((cat: Cat) => ({ slug: cat.slug }));
 }
 
 export async function generateMetadata({
@@ -141,12 +142,9 @@ export default async function AdopterChatPage({ params }: { params: Promise<{ sl
       />
 
       {/* Hero */}
-      <section
-        className="cat-hero"
-        style={{ background: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${mainImage}) center/cover` }}
-      >
+      <HeroLcp variant="cat" src={mainImage} alt={`Photo de ${cat.name}`}>
         <h1>{cat.name}</h1>
-      </section>
+      </HeroLcp>
 
       {/* Description + Gallery */}
       <section className="section">

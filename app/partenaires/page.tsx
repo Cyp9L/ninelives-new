@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import HeroLcp from '@/components/HeroLcp';
 
 export const metadata = {
   title: 'Nos Partenaires | Nine Lives Paris',
@@ -10,22 +11,14 @@ export default function PartenairesPage() {
   return (
     <main id="main-content">
       {/* Header */}
-      <link
-        rel="preload"
-        as="image"
-        href="/images/site/moustache-cafe.jpg"
-        fetchPriority="high"
-      />
-      <section className="hero" style={{ backgroundImage: 'url(/images/site/moustache-cafe.jpg)' }}>
-        <div className="container">
-          <div className="hero-content">
-            <h1>Nos partenaires</h1>
-            <p>
-              Nous avons noué des partenariats avec plusieurs entreprises, afin d&apos;améliorer le bien-être de nos animaux durant toute leur vie.
-            </p>
-          </div>
+      <HeroLcp src="/images/site/moustache-cafe.webp">
+        <div className="hero-content">
+          <h1>Nos partenaires</h1>
+          <p>
+            Nous avons noué des partenariats avec plusieurs entreprises, afin d&apos;améliorer le bien-être de nos animaux durant toute leur vie.
+          </p>
         </div>
-      </section>
+      </HeroLcp>
 
       {/* L'Arche des Associations */}
       <section className="section">

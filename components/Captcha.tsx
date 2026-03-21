@@ -1,10 +1,15 @@
 'use client';
 import { useEffect, useRef, useCallback } from 'react';
 
+interface TurnstileAPI {
+  render: (container: HTMLElement, options: Record<string, unknown>) => string;
+  remove: (widgetId: string) => void;
+}
+
 declare global {
   interface Window {
-    turnstile: any;
-    onTurnstileLoad: () => void;
+    turnstile?: TurnstileAPI;
+    onTurnstileLoad?: () => void;
   }
 }
 
@@ -13,8 +18,9 @@ export default function Captcha({ onVerify }: { onVerify: (token: string) => voi
   const widgetIdRef = useRef<string | null>(null);
 
   const renderWidget = useCallback(() => {
-    if (containerRef.current && window.turnstile && widgetIdRef.current === null) {
-      widgetIdRef.current = window.turnstile.render(containerRef.current, {
+    const ts = window.turnstile;
+    if (containerRef.current && ts && widgetIdRef.current === null) {
+      widgetIdRef.current = ts.render(containerRef.current, {
         sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
         callback: (token: string) => onVerify(token),
         'expired-callback': () => onVerify(''),

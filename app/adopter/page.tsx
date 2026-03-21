@@ -4,6 +4,7 @@ import CollapsibleFormSection from '@/components/CollapsibleFormSection';
 import CatShowcase from '@/components/CatShowcase';
 import Image from 'next/image';
 import AdoptionFormDynamic from '@/components/AdoptionFormDynamic';
+import HeroLcp from '@/components/HeroLcp';
 
 export const revalidate = 60;
 import type { Metadata } from 'next';
@@ -19,22 +20,14 @@ export default async function AdopterPage() {
   return (
     <main id="main-content">
       {/* Header */}
-      <link
-        rel="preload"
-        as="image"
-        href="/images/site/26032021-IMG_4304.webp"
-        fetchPriority="high"
-      />
-      <section className="hero" style={{ backgroundImage: 'url(/images/site/26032021-IMG_4304.webp' }}>
-        <div className="container">
+      <HeroLcp src="/images/site/26032021-IMG_4304.webp">
         <div className="hero-content">
           <h1>Adopter</h1>
           <p>
             Nos chats sont adoptables à Paris et en petite couronne.
           </p>
         </div>
-        </div>
-      </section>
+      </HeroLcp>
 
       {/* Cats Showcase */}
       <section className="section">
@@ -59,7 +52,7 @@ export default async function AdopterPage() {
                 <li>Si vous adoptez un chaton vous vous engagez à le stériliser à 6 mois.</li>
               </ol>
               <div className="alert alert-warning" style={{ marginTop: '1rem' }}>
-                <strong>Documents nécessaires :</strong> photocopie de pièce d&apos;identité, justificatif de domicile et <Link href="https://agriculture.gouv.fr/animaux-de-compagnie-equides-tout-savoir-sur-le-certificat-dengagement-et-de-connaissance" className="link-amber">"Certificat d'engagement et de connaissance"</Link>.
+                <strong>Documents nécessaires :</strong> photocopie de pièce d&apos;identité, justificatif de domicile et <Link href="https://agriculture.gouv.fr/animaux-de-compagnie-equides-tout-savoir-sur-le-certificat-dengagement-et-de-connaissance" className="link-amber">&quot;Certificat d&apos;engagement et de connaissance&quot;</Link>.
               </div>
             </div>
 

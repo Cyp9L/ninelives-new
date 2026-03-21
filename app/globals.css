@@ -190,6 +190,31 @@ a {
   background-position: center;
 }
 
+/* Hero LCP image (next/image fill) sits under ::before overlay and content */
+.hero.hero--lcp-image {
+  overflow: hidden;
+}
+
+.hero.hero--lcp-image .hero-lcp-image-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero.hero--lcp-image .hero-lcp-image-wrap img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero.hero--lcp-image::before {
+  z-index: 1;
+}
+
+.hero.hero--lcp-image > .container {
+  position: relative;
+  z-index: 2;
+}
+
 .hero::before {
   content: '';
   position: absolute;
@@ -935,6 +960,36 @@ h2 {
   font-size: 4rem;
   font-weight: 700;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Cat profile hero: image under gradient + title (replaces CSS background) */
+.cat-hero.cat-hero--lcp-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.cat-hero.cat-hero--lcp-image .hero-lcp-image-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.cat-hero.cat-hero--lcp-image .hero-lcp-image-wrap img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.cat-hero.cat-hero--lcp-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+}
+
+.cat-hero.cat-hero--lcp-image h1 {
+  position: relative;
+  z-index: 2;
 }
 
 /* Gallery */

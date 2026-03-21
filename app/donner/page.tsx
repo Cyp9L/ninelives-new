@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import HeroLcp from '@/components/HeroLcp';
 
 export const metadata: Metadata = {
   title: 'Faire un don',
@@ -11,19 +12,11 @@ export default function DonnerPage() {
   return (
     <main id="main-content">
       {/* Header */}
-      <link
-        rel="preload"
-        as="image"
-        href="/images/site/29052021-IMG_5287.webp"
-        fetchPriority="high"
-      />
-      <section className="hero" style={{ backgroundImage: 'url(/images/site/29052021-IMG_5287.webp)', backgroundPosition: 'center 68%' }}>
-        <div className="container">
-          <div className="hero-content">
+      <HeroLcp src="/images/site/29052021-IMG_5287.webp" objectPosition="center 68%">
+        <div className="hero-content">
           <h1>Faire un don</h1>
         </div>
-        </div>
-      </section>
+      </HeroLcp>
 
       {/* Financial Donation */}
       <section className="section">

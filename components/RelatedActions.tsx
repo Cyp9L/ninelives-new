@@ -147,7 +147,9 @@ export default function RelatedActions() {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    void Promise.resolve().then(() => setMounted(true));
+  }, []);
 
   if (!mounted) return null;
   if (pathname === '/') return null;
