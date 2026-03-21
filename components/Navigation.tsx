@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 
 export default function Navigation() {
@@ -12,11 +12,19 @@ export default function Navigation() {
   const navRef = useRef<HTMLElement>(null);
   const pathname = usePathname();
 
-  // Close everything on route change
-  useEffect(() => {
+  const close = useCallback(() => {
     setMobileOpen(false);
     setMobileAssoOpen(false);
     setDropdownOpen(false);
+  }, []);
+
+  // Close everything on route change
+  useEffect(() => {
+    void Promise.resolve().then(() => {
+      setMobileOpen(false);
+      setMobileAssoOpen(false);
+      setDropdownOpen(false);
+    });
   }, [pathname]);
 
   // Close desktop dropdown on click outside or Escape
@@ -53,13 +61,7 @@ useEffect(() => {
 
   document.addEventListener('mousedown', handleClickOutside);
   return () => document.removeEventListener('mousedown', handleClickOutside);
-}, [mobileOpen]);
-
-  const close = () => {
-    setMobileOpen(false);
-    setMobileAssoOpen(false);
-    setDropdownOpen(false);
-  };
+}, [mobileOpen, close]);
 
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href);

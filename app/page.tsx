@@ -4,38 +4,54 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getAllCats } from '@/lib/trello';
 import CatMarquee from '@/components/CatMarquee';
+import HeroLcp from '@/components/HeroLcp';
+
+/** Deterministic shuffle: same file set → same order (SSR/cache-safe, still varied vs alphabetical). */
+function hashString(s: string): number {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;
+  return h >>> 0;
+}
+
+function seededShuffle<T>(items: T[], seed: number): T[] {
+  const a = [...items];
+  let state = seed || 1;
+  const next = () => {
+    state = (Math.imul(1664525, state) + 1013904223) >>> 0;
+    return state / 0xffffffff;
+  };
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(next() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
 export default async function HomePage() {
   const { all } = await getAllCats();
   const featuredCats = all.slice(0, 3);
 
   const galleryDir = path.join(process.cwd(), 'public/images/gallery');
-  const galleryImages = fs.readdirSync(galleryDir)
-    .filter(file => /\.(jpg|jpeg|png|webp)$/i.test(file))
-    .sort(() => Math.random() - 0.5)
+  const galleryFiles = fs
+    .readdirSync(galleryDir)
+    .filter((file) => /\.(jpg|jpeg|png|webp)$/i.test(file));
+  const seed = hashString([...galleryFiles].sort().join('\0')) || 1;
+  const galleryImages = seededShuffle(galleryFiles, seed)
     .slice(0, 20)
-    .map(file => `/images/gallery/${file}`);
+    .map((file) => `/images/gallery/${file}`);
 
   return (
     <main id="main-content">
       {/* Hero */}
-      <link
-        rel="preload"
-        as="image"
-        href="/images/site/salomon-bg.jpg"
-        fetchPriority="high"
-      />
-      <section className="hero" style={{ backgroundImage: 'url(/images/site/salomon-bg.jpg)', backgroundPosition: 'center 30%' }}>
-        <div className="container">
-          <div className="hero-content">
-            <h1>Nine Lives Paris</h1>
-            <p>Nous sauvons, soignons et trouvons des familles aimantes aux chats abandonnés de Paris.</p>
-            <Link href="/adopter" className="btn btn-gradient btn-lg">
-              Adopter un chat
-            </Link>
-          </div>
+      <HeroLcp src="/images/site/salomon-bg.webp" objectPosition="center 30%">
+        <div className="hero-content">
+          <h1>Nine Lives Paris</h1>
+          <p>Nous sauvons, soignons et trouvons des familles aimantes aux chats abandonnés de Paris.</p>
+          <Link href="/adopter" className="btn btn-gradient btn-lg">
+            Adopter un chat
+          </Link>
         </div>
-      </section>
+      </HeroLcp>
 
       {/* About */}
       <section className="section">

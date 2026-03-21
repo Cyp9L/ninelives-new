@@ -95,7 +95,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let catPages: MetadataRoute.Sitemap = [];
   try {
     const { all } = await getAllCats();
-    catPages = all.map((cat: any) => ({
+    catPages = all.map((cat) => ({
       url: `${baseUrl}/adopter/${cat.slug}`,
       lastModified: now,
       changeFrequency: 'weekly' as const,

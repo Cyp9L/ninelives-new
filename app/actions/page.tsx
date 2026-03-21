@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import HeroLcp from '@/components/HeroLcp';
 
 export const metadata: Metadata = {
   title: 'Nos actions',
@@ -11,28 +12,20 @@ export default function ActionsPage() {
   return (
     <main id="main-content">
       {/* Hero */}
-      <link
-        rel="preload"
-        as="image"
-        href="/images/gallery/1771692501514-04102020-IMG_2605.jpg"
-        fetchPriority="high"
-      />
-      <section className="hero" style={{ backgroundImage: 'url(/images/gallery/1771692501514-04102020-IMG_2605.jpg)' }}>
-        <div className="container">
-          <div className="hero-content">
-            <h1>Nos actions</h1>
-            <p>
-              Nine Lives Paris est une association Loi 1901 à but non lucratif. Nous ne disposons pas d&apos;un refuge —
-              tous nos chats vivent en familles d&apos;accueil jusqu&apos;à leur adoption.
-            </p>
-            <a href="https://www.helloasso.com/associations/nine-lives-paris/formulaires/1"
-              target="_blank" rel="noopener noreferrer"
-              className="btn btn-outline-light">
-              Soutenez-nous
-            </a>
-          </div>
+      <HeroLcp src="/images/site/actions-hero.webp">
+        <div className="hero-content">
+          <h1>Nos actions</h1>
+          <p>
+            Nine Lives Paris est une association Loi 1901 à but non lucratif. Nous ne disposons pas d&apos;un refuge —
+            tous nos chats vivent en familles d&apos;accueil jusqu&apos;à leur adoption.
+          </p>
+          <a href="https://www.helloasso.com/associations/nine-lives-paris/formulaires/1"
+            target="_blank" rel="noopener noreferrer"
+            className="btn btn-outline-light">
+            Soutenez-nous
+          </a>
         </div>
-      </section>
+      </HeroLcp>
 
       {/* Video */}
       <section className="section">

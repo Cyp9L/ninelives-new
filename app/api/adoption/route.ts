@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
-import { getAllCats } from '@/lib/trello';
+import { getAllCats, type Cat } from '@/lib/trello';
 import { escapeHtml } from '@/lib/sanitize';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
   if (data.animalName) {
     try {
       const { all: cats } = await getAllCats();
-      const cat = cats.find((c: any) => c.name === data.animalName);
+      const cat = cats.find((c: Cat) => c.name === data.animalName);
       if (cat && cat.images[0] && cat.images[0] !== '/images/site/cat-not-found.jpg') {
         const requestUrl = new URL(request.url);
         const baseUrl = `${requestUrl.protocol}//${requestUrl.host}`;
@@ -48,19 +48,19 @@ export async function POST(request: Request) {
   }
 
   // Helper: only render a field row if value is defined and non-empty
-  const f = (label: string, value: any): string => {
+  const f = (label: string, value: unknown): string => {
     if (value === undefined || value === null || value === '') return '';
     return `<div class="field"><span class="label">${label}:</span> <span class="value">${value}</span></div>`;
   };
 
   // Helper: render boolean as ✓ / ✗
-  const bool = (label: string, value: any): string => {
+  const bool = (label: string, value: unknown): string => {
     if (value === undefined || value === null) return '';
     return `<div class="field"><span class="label">${label}:</span> <span class="value">${value ? '✓ Oui' : '✗ Non'}</span></div>`;
   };
 
   // Helper: render array as comma-separated
-  const arr = (label: string, value: any): string => {
+  const arr = (label: string, value: unknown): string => {
     if (!value || !Array.isArray(value) || value.length === 0) return '';
     return `<div class="field"><span class="label">${label}:</span> <span class="value">${value.join(', ')}</span></div>`;
   };

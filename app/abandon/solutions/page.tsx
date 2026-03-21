@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import HeroLcp from '@/components/HeroLcp';
 
 export const metadata = {
   title: "Solutions pour éviter l'abandon | Nine Lives Paris",
@@ -10,13 +11,11 @@ export default function SolutionsAbandonPage() {
   return (
     <main id="main-content">
       {/* Header */}
-      <section className="hero page-header-no-overlay" style={{ backgroundImage: 'url(/images/site/29012021-IMG_3094.webp)' }}>
-        <div className="container">
-          <div className="hero-content">
-            <h1>Les solutions pour éviter l&apos;abandon</h1>
-          </div>
+      <HeroLcp src="/images/site/29012021-IMG_3094.webp" noOverlay>
+        <div className="hero-content">
+          <h1>Les solutions pour éviter l&apos;abandon</h1>
         </div>
-      </section>
+      </HeroLcp>
 
       {/* Intro */}
       <section className="section">

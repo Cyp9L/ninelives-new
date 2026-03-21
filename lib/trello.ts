@@ -1,5 +1,17 @@
 const TRELLO_API_BASE = 'https://api.trello.com/1';
 
+/** Normalized cat record used across the app and API routes */
+export interface Cat {
+  id: string;
+  slug: string;
+  name: string;
+  description: string;
+  images: string[];
+  category: 'chaton' | 'adulte' | 'senior';
+  caractere: string;
+  dateAdded: string;
+}
+
 interface TrelloCard {
   id: string;
   name: string;
@@ -63,7 +75,7 @@ export async function getAllCats() {
 
     const cards: TrelloCard[] = await res.json();
 
-    const cats = cards.map(card => {
+    const cats: Cat[] = cards.map((card): Cat => {
       const coverAttachment = card.attachments?.find(att => att.id === card.idAttachmentCover);
 
       const imageAttachments = card.attachments

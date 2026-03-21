@@ -2,6 +2,7 @@ import CollapsibleFormSection from '@/components/CollapsibleFormSection';
 import Image from 'next/image';
 import type { Metadata } from 'next';
 import BenevoleFormDynamic from '@/components/BenevoleFormDynamic';
+import HeroLcp from '@/components/HeroLcp';
 
 export const metadata: Metadata = {
   title: 'Devenir bénévole ou famille d\'accueil',
@@ -13,20 +14,12 @@ export default function BenevolePage() {
   return (
     <main id="main-content">
       {/* Header */}
-      <link
-        rel="preload"
-        as="image"
-        href="/images/site/DSC01832.webp"
-        fetchPriority="high"
-      />
-      <section className="hero" style={{ backgroundImage: 'url(/images/site/DSC01832.webp)', backgroundPosition: 'center 33%' }}>
-        <div className="container">
-          <div className="hero-content">
-            <h1>Devenir bénévole</h1>
-            <p>Rejoignez notre équipe et aidez-nous à sauver des vies !</p>
-          </div>
+      <HeroLcp src="/images/site/DSC01832.webp" objectPosition="center 33%">
+        <div className="hero-content">
+          <h1>Devenir bénévole</h1>
+          <p>Rejoignez notre équipe et aidez-nous à sauver des vies !</p>
         </div>
-      </section>
+      </HeroLcp>
 
       {/* What we need */}
       <section className="section">

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Captcha from '@/components/Captcha';
+import HeroLcp from '@/components/HeroLcp';
 
 const REDIRECT_SUBJECTS: Record<string, { url: string; emoji: string; label: string; description: string }> = {
   'Prise en charge / Abandon': {
@@ -63,23 +64,15 @@ export default function ContactPage() {
   return (
     <main id="main-content">
       {/* Header */}
-      <link
-        rel="preload"
-        as="image"
-        href="/images/site/Masha8.webp"
-        fetchPriority="high"
-      />
-      <section className="hero" style={{ backgroundImage: 'url(/images/site/Masha8.webp' }}>
-        <div className="container">
-          <div className="hero-content">
-            <h1>Contactez-nous</h1>
-            <p>
-              Vous avez une question ? Vous souhaitez plus de renseignements ?
-              Laissez-nous vos coordonnées et nous reviendrons vers vous sous peu.
-            </p>
-          </div>
+      <HeroLcp src="/images/site/Masha8.webp">
+        <div className="hero-content">
+          <h1>Contactez-nous</h1>
+          <p>
+            Vous avez une question ? Vous souhaitez plus de renseignements ?
+            Laissez-nous vos coordonnées et nous reviendrons vers vous sous peu.
+          </p>
         </div>
-      </section>
+      </HeroLcp>
 
       {/* Form section */}
       <section id="formulaire" className="section section-gray">

@@ -22,9 +22,10 @@ export default function CollapsibleFormSection({
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (id && window.location.hash === `#${id}`) {
+    if (!id || window.location.hash !== `#${id}`) return;
+    void Promise.resolve().then(() => {
       setVisible(true);
-    }
+    });
   }, [id]);
 
   return (

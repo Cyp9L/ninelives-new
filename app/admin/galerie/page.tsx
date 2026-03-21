@@ -136,14 +136,18 @@ export default function AdminGalleryPage() {
 
   useEffect(() => {
     const saved = sessionStorage.getItem('admin_pw');
-    if (saved) {
+    if (!saved) return;
+    void Promise.resolve().then(() => {
       setPassword(saved);
       setAuthed(true);
-    }
+    });
   }, []);
 
   useEffect(() => {
-    if (authed && password) loadFiles();
+    if (!authed || !password) return;
+    void Promise.resolve().then(() => {
+      void loadFiles();
+    });
   }, [authed, password, loadFiles]);
 
   // Password gate

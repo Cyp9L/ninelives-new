@@ -26,7 +26,7 @@ export async function POST(request: Request) {
   }
 
   // Helper: only render a field row if value is defined and non-empty
-  const f = (label: string, value: any): string => {
+  const f = (label: string, value: unknown): string => {
     if (value === undefined || value === null || value === '') return '';
     return `<div class="field"><span class="label">${label}:</span> <span class="value">${value}</span></div>`;
   };

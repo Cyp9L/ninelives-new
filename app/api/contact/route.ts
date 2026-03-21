@@ -24,7 +24,7 @@ export async function POST(request: Request) {
   if (!turnstileData.success) {
     return NextResponse.json({ error: 'Captcha verification failed' }, { status: 400 });
   }
-  const f = (label: string, value: any): string => {
+  const f = (label: string, value: unknown): string => {
     if (value === undefined || value === null || value === '') return '';
     return `<div class="field"><span class="label">${label}:</span> <span class="value">${value}</span></div>`;
   };

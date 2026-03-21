@@ -5,6 +5,16 @@ const GITHUB_REPO = process.env.GITHUB_REPO;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 const GALLERY_PATH = 'public/images/gallery';
 
+interface GitHubContentFile {
+  name: string;
+  sha: string;
+}
+
+interface DeleteFileRef {
+  filename: string;
+  sha: string;
+}
+
 function unauthorized() {
   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 }
@@ -24,16 +34,16 @@ export async function GET(req: NextRequest) {
 
   if (!res.ok) return NextResponse.json({ files: [] });
 
-  const files = await res.json();
+  const files: unknown = await res.json();
   const images = Array.isArray(files)
-    ? files
-        .filter((f: any) => /\.(jpe?g|png|webp|avif)$/i.test(f.name))
-        .map((f: any) => ({
+    ? (files as GitHubContentFile[])
+        .filter((f) => /\.(jpe?g|png|webp|avif)$/i.test(f.name))
+        .map((f) => ({
           name: f.name,
           sha: f.sha,
           url: `https://raw.githubusercontent.com/${GITHUB_REPO}/main/${GALLERY_PATH}/${encodeURIComponent(f.name)}`,
         }))
-        .sort((a: any, b: any) => b.name.localeCompare(a.name))
+        .sort((a, b) => b.name.localeCompare(a.name))
     : [];
 
   return NextResponse.json({ files: images });
@@ -72,7 +82,7 @@ export async function POST(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   if (!checkAuth(req)) return unauthorized();
 
-  const { files } = await req.json();
+  const { files } = (await req.json()) as { files: DeleteFileRef[] };
 
   if (!files || files.length === 0) {
     return NextResponse.json({ error: 'No files specified' }, { status: 400 });
@@ -110,7 +120,7 @@ export async function DELETE(req: NextRequest) {
         headers: ghHeaders,
         body: JSON.stringify({
           base_tree: commitData.tree.sha,
-          tree: files.map((f: any) => ({
+          tree: files.map((f: DeleteFileRef) => ({
             path: `${GALLERY_PATH}/${f.filename}`,
             mode: '100644',
             type: 'blob',
@@ -151,8 +161,9 @@ export async function DELETE(req: NextRequest) {
 
     return NextResponse.json({ success: true, deleted: files.length });
 
-  } catch (error: any) {
-    console.error('Batch delete failed, falling back to sequential:', error.message);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error('Batch delete failed, falling back to sequential:', message);
 
     // Fallback: sequential deletes via Contents API
     let deleted = 0;
@@ -172,7 +183,7 @@ export async function DELETE(req: NextRequest) {
     }
 
     if (deleted === 0) {
-      return NextResponse.json({ error: `Batch failed: ${error.message}. Sequential also failed.` }, { status: 500 });
+      return NextResponse.json({ error: `Batch failed: ${message}. Sequential also failed.` }, { status: 500 });
     }
 
     return NextResponse.json({ success: true, deleted, method: 'sequential' });

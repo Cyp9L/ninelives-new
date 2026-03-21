@@ -1072,9 +1072,10 @@ export default function BenevoleForm() {
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
   const formRef = useRef<HTMLFormElement>(null);
   const [maxStep, setMaxStep] = useState(0);
-
   useEffect(() => {
-    setMaxStep(prev => Math.max(prev, currentStep));
+    void Promise.resolve().then(() => {
+      setMaxStep((prev) => Math.max(prev, currentStep));
+    });
   }, [currentStep]);
 
   /* ---- Conditionals ---- */
@@ -1100,11 +1101,14 @@ export default function BenevoleForm() {
   }, []);
 
   const handleCheckboxArray = useCallback((field: string, value: string) => {
-    setFormState(prev => {
-      const current = (prev as any)[field] as string[];
+    setFormState((prev) => {
+      const current = prev[field as keyof typeof prev];
+      if (!Array.isArray(current)) return prev;
       return {
         ...prev,
-        [field]: current.includes(value) ? current.filter(v => v !== value) : [...current, value],
+        [field]: current.includes(value)
+          ? current.filter((v) => v !== value)
+          : [...current, value],
       };
     });
   }, []);
@@ -1183,8 +1187,9 @@ const radio = (name: string, value: string, field: string, required = true) => (
       transportDistance: '', otherMissions: '', questions: '',
     };
 
-    const dataToSend = { ...defaults, ...textData, ...formState, captchaToken };
-    delete (dataToSend as any).honeypot;
+    const rawPayload = { ...defaults, ...textData, ...formState, captchaToken };
+    const { honeypot, ...dataToSend } = rawPayload;
+    void honeypot;
 
     setStatus('sending');
     try {
