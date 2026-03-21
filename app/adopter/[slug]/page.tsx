@@ -54,6 +54,7 @@ export async function generateMetadata({
     title: `Adopter ${cat.name}`,
     description: cleanDescription,
     openGraph: {
+      siteName: 'Nine Lives Paris',
       title: `Adopter ${cat.name} | Nine Lives Paris`,
       description: cleanDescription,
       type: 'article',
