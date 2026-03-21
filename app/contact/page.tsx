@@ -93,13 +93,28 @@ export default function ContactPage() {
               </div>
             )}
             <form onSubmit={handleSubmit} className="form-flow">
-              <input type="text" name="website" value={formData.honeypot}
-                onChange={(e) => setFormData({...formData, honeypot: e.target.value})}
-                className="honeypot" tabIndex={-1} />
+              <input
+                type="text"
+                name="website"
+                id="contact-website"
+                value={formData.honeypot}
+                onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
+                className="honeypot"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+              />
               <div>
-                <label className="form-label">Comment pouvons-nous vous aider ? *</label>
-                <select required className="form-select" value={formData.subject}
-                  onChange={(e) => handleSubjectChange(e.target.value)}>
+                <label className="form-label" htmlFor="contact-subject">
+                  Comment pouvons-nous vous aider ? *
+                </label>
+                <select
+                  id="contact-subject"
+                  required
+                  className="form-select"
+                  value={formData.subject}
+                  onChange={(e) => handleSubjectChange(e.target.value)}
+                >
                   <option value="">Sélectionnez un sujet</option>
                   {['Question générale', 'Renseignement adoption', 'Prise en charge / Abandon',
                     'Proposition de partenariat', 'Proposition de don', 'Devenir bénévole', 'Autre'].map(v => (
@@ -143,26 +158,64 @@ export default function ContactPage() {
                 <>
                   <div className="form-grid">
                     <div>
-                      <label className="form-label">Prénom *</label>
-                      <input type="text" required className="form-input" value={formData.firstName}
-                        onChange={(e) => setFormData({...formData, firstName: e.target.value})} />
+                      <label className="form-label" htmlFor="contact-firstName">
+                        Prénom *
+                      </label>
+                      <input
+                        id="contact-firstName"
+                        type="text"
+                        name="firstName"
+                        required
+                        className="form-input"
+                        value={formData.firstName}
+                        onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                        autoComplete="given-name"
+                      />
                     </div>
                     <div>
-                      <label className="form-label">Nom de famille *</label>
-                      <input type="text" required className="form-input" value={formData.lastName}
-                        onChange={(e) => setFormData({...formData, lastName: e.target.value})} />
+                      <label className="form-label" htmlFor="contact-lastName">
+                        Nom de famille *
+                      </label>
+                      <input
+                        id="contact-lastName"
+                        type="text"
+                        name="lastName"
+                        required
+                        className="form-input"
+                        value={formData.lastName}
+                        onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                        autoComplete="family-name"
+                      />
                     </div>
                   </div>
                   <div>
-                    <label className="form-label">E-mail *</label>
-                    <input type="email" required className="form-input" value={formData.email}
-                      onChange={(e) => setFormData({...formData, email: e.target.value})} />
+                    <label className="form-label" htmlFor="contact-email">
+                      E-mail *
+                    </label>
+                    <input
+                      id="contact-email"
+                      type="email"
+                      name="email"
+                      required
+                      className="form-input"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      autoComplete="email"
+                    />
                   </div>
                   <div>
-                    <label className="form-label">Commentaires / Questions *</label>
+                    <label className="form-label" htmlFor="contact-message">
+                      Commentaires / Questions *
+                    </label>
                     {/* Layer 2: Warning placeholder for "Autre" */}
-                    <textarea required rows={5} className="form-textarea" value={formData.message}
-                      onChange={(e) => setFormData({...formData, message: e.target.value})}
+                    <textarea
+                      id="contact-message"
+                      name="message"
+                      required
+                      rows={5}
+                      className="form-textarea"
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder={isAutre
                         ? '⚠️ Ce formulaire ne traite pas les demandes de prise en charge animale. Pour confier un animal, utilisez le formulaire dédié sur la page \"J\'ai besoin d\'aide\". Décrivez ici votre demande si elle concerne un autre sujet.'
                         : 'N\'hésitez pas à poser une question ou simplement laisser un commentaire.'
@@ -170,9 +223,19 @@ export default function ContactPage() {
                   </div>
                   {formData.subject === 'Proposition de don' && (
                     <div>
-                      <label className="form-label">Où devrons-nous retirer le don ?</label>
-                      <input type="text" className="form-input" value={formData.donationNote}
-                        onChange={(e) => setFormData({...formData, donationNote: e.target.value})} />
+                      <label className="form-label" htmlFor="contact-donationNote">
+                        Où devrons-nous retirer le don ?
+                      </label>
+                      <input
+                        id="contact-donationNote"
+                        type="text"
+                        name="donationNote"
+                        className="form-input"
+                        value={formData.donationNote}
+                        onChange={(e) =>
+                          setFormData({ ...formData, donationNote: e.target.value })
+                        }
+                      />
                     </div>
                   )}
                   {/* Layer 3: Extra checkbox for "Autre" */}
