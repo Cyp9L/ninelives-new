@@ -543,32 +543,35 @@ export default function AbandonForm() {
 
     for (const file of selected) {
       if (file.size > 5 * 1024 * 1024) continue;
-      const compressed = await imageCompression(file, {
-        maxSizeMB: 0.8,
-        maxWidthOrHeight: 1920,
-        useWebWorker: true,
-        fileType: 'image/jpeg',
-      });
-      const base64 = await new Promise<string>((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          const result = reader.result;
-          if (typeof result !== 'string') {
-            reject(new Error('Invalid file reader result'));
-            return;
-          }
-          const [, data = ''] = result.split(',');
-          resolve(data);
-        };
-        reader.onerror = () => reject(reader.error ?? new Error('Failed to read file'));
-        reader.readAsDataURL(compressed);
-      });
-      images.push({ filename: file.name, data: base64 });
+      try {
+        const compressed = await imageCompression(file, {
+          maxSizeMB: 0.8,
+          maxWidthOrHeight: 1920,
+          useWebWorker: true,
+          fileType: 'image/jpeg',
+        });
+        const base64 = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const result = reader.result;
+            if (typeof result !== 'string') {
+              reject(new Error('Invalid file reader result'));
+              return;
+            }
+            const [, data = ''] = result.split(',');
+            resolve(data);
+          };
+          reader.onerror = () => reject(reader.error ?? new Error('Failed to read file'));
+          reader.readAsDataURL(compressed);
+        });
+        images.push({ filename: file.name, data: base64 });
+      } catch {
+        alert('Impossible de traiter le fichier : ' + file.name);
+      }
     }
 
     return images;
   };
-
   /* ─── Submit: collect uncontrolled text via FormData, merge with controlled state ─── */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -691,6 +694,11 @@ export default function AbandonForm() {
             for (const file of Array.from(files)) {
               if (!allowed.includes(file.type) && !file.name.match(/\.(jpg|jpeg|png|webp|heic)$/i)) {
                 alert('Format non accepté : ' + file.name + '\nFormats acceptés : JPEG, PNG, WebP, HEIC');
+                e.target.value = '';
+                return;
+              }
+              if (file.size > 5 * 1024 * 1024) {
+                alert('Fichier trop volumineux : ' + file.name + '\nTaille maximum : 5 Mo par photo');
                 e.target.value = '';
                 return;
               }
