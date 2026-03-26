@@ -1,5 +1,6 @@
 'use client';
-import { useCallback, memo, startTransition, useState } from 'react';
+import { useCallback, memo, startTransition, useRef, useState } from 'react';
+import imageCompression from 'browser-image-compression';
 import Captcha from '@/components/Captcha';
 
 type SetField = (field: string, value: string) => void;
@@ -527,10 +528,46 @@ export default function AbandonForm() {
 
   const [status, setStatus] = useState('');
   const [captchaToken, setCaptchaToken] = useState('');
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Conditionals for memoized blocks
   const isMale = formState.sex === 'Mâle';
   const isFemale = formState.sex === 'Femelle';
+
+  const processImages = async (): Promise<{ filename: string; data: string }[]> => {
+    const files = fileInputRef.current?.files;
+    if (!files || files.length === 0) return [];
+
+    const selected = Array.from(files).slice(0, 3);
+    const images: { filename: string; data: string }[] = [];
+
+    for (const file of selected) {
+      if (file.size > 5 * 1024 * 1024) continue;
+      const compressed = await imageCompression(file, {
+        maxSizeMB: 0.8,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+        fileType: 'image/jpeg',
+      });
+      const base64 = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = reader.result;
+          if (typeof result !== 'string') {
+            reject(new Error('Invalid file reader result'));
+            return;
+          }
+          const [, data = ''] = result.split(',');
+          resolve(data);
+        };
+        reader.onerror = () => reject(reader.error ?? new Error('Failed to read file'));
+        reader.readAsDataURL(compressed);
+      });
+      images.push({ filename: file.name, data: base64 });
+    }
+
+    return images;
+  };
 
   /* ─── Submit: collect uncontrolled text via FormData, merge with controlled state ─── */
   const handleSubmit = async (e: React.FormEvent) => {
@@ -555,11 +592,14 @@ export default function AbandonForm() {
         healthStatus: '',
       };
 
+      const images = await processImages();
+
       const dataToSend = {
         ...defaults,
         ...textData,
         ...formState,
         captchaToken,
+        images,
       };
 
       const res = await fetch('/api/abandon', {
@@ -629,6 +669,25 @@ export default function AbandonForm() {
         isTestedFIV={formState.isTestedFIV}
         onSetField={updateField}
       />
+
+      <div>
+        <label className="form-label" htmlFor="animalPhotos">Photos de l&apos;animal (3 max, 5 Mo chacune)</label>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          multiple
+          className="form-input"
+          id="animalPhotos"
+          onChange={(e) => {
+            if ((e.target.files?.length ?? 0) > 3) {
+              alert('Maximum 3 photos');
+              e.target.value = '';
+            }
+          }}
+        />
+        <div className="form-help-text">Formats acceptés : JPEG, PNG, WebP, HEIC</div>
+      </div>
 
       <AbandonHealthBlock
         willingToPayHealth={formState.willingToPayHealth}

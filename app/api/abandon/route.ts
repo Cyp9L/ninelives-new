@@ -4,8 +4,31 @@ import { escapeHtml } from '@/lib/sanitize';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+function isValidImage(base64: string): boolean {
+  try {
+    const buffer = Buffer.from(base64, 'base64');
+    if (buffer.length < 12) return false;
+
+    const isJpeg = buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff;
+    const isPng = buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4e && buffer[3] === 0x47;
+    const isWebp =
+      buffer[0] === 0x52 &&
+      buffer[1] === 0x49 &&
+      buffer[2] === 0x46 &&
+      buffer[3] === 0x46 &&
+      buffer[8] === 0x57 &&
+      buffer[9] === 0x45 &&
+      buffer[10] === 0x42 &&
+      buffer[11] === 0x50;
+
+    return isJpeg || isPng || isWebp;
+  } catch {
+    return false;
+  }
+}
+
 export async function POST(request: Request) {
-  const data = await request.json();
+  const { images = [], ...data } = await request.json();
 
   if (data.honeypot) {
     return NextResponse.json({ success: false }, { status: 400 });
@@ -124,6 +147,14 @@ export async function POST(request: Request) {
 </html>
   `;
 
+  const validImages = images
+    .slice(0, 3)
+    .filter((img: { filename: string; data: string }) => (
+      typeof img?.data === 'string' &&
+      img.data.length < 1.5 * 1024 * 1024 &&
+      isValidImage(img.data)
+    ));
+
   try {
     const { data: emailData, error } = await resend.emails.send({
       from: 'Prise en charge Nine Lives <asso@ninelives.fr>',
@@ -131,6 +162,10 @@ export async function POST(request: Request) {
       ...(data.email ? { cc: [data.email], reply_to: [data.email] } : {}),
       subject: `Prise en charge — ${data.species || 'Animal'}${data.name ? ` "${data.name}"` : ''} — ${data.firstName} ${data.lastName}`,
       html: htmlBody,
+      attachments: validImages.map((img: { filename: string; data: string }) => ({
+        filename: img.filename,
+        content: Buffer.from(img.data, 'base64'),
+      })),
     });
 
     if (error) {
