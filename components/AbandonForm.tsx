@@ -675,14 +675,25 @@ export default function AbandonForm() {
         <input
           ref={fileInputRef}
           type="file"
-          accept="image/*"
+          accept="image/jpeg,image/png,image/webp,image/heic,.jpg,.jpeg,.png,.webp,.heic"
           multiple
           className="form-input"
           id="animalPhotos"
           onChange={(e) => {
-            if ((e.target.files?.length ?? 0) > 3) {
+            const files = e.target.files;
+            if (!files) return;
+            if (files.length > 3) {
               alert('Maximum 3 photos');
               e.target.value = '';
+              return;
+            }
+            const allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/heic'];
+            for (const file of Array.from(files)) {
+              if (!allowed.includes(file.type) && !file.name.match(/\.(jpg|jpeg|png|webp|heic)$/i)) {
+                alert('Format non accepté : ' + file.name + '\nFormats acceptés : JPEG, PNG, WebP, HEIC');
+                e.target.value = '';
+                return;
+              }
             }
           }}
         />
