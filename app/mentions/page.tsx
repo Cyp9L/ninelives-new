@@ -20,7 +20,9 @@ export default function MentionsLegalesPage() {
           <p className="text-body">
             Association Nine Lives Paris<br />
             Association loi 1901 — RNA W751248523<br />
-            Siège social : 133 rue du Faubourg du Temple, 75010 Paris<br />
+            Siège social : Kiosque Citoyen du 10ème - MVAC <br />
+            35 rue de l'Aqueduc <br />
+            75010 Paris<br />
             E-mail : <a href="mailto:asso@ninelives.fr" className="link-purple">asso@ninelives.fr</a>
           </p>
 
