@@ -1093,7 +1093,6 @@ h2 {
 }
 
 .cat-image {
-  position: relative;
   width: 100%;
   aspect-ratio: 1;
   background: #f3f4f6;
@@ -1103,7 +1102,6 @@ h2 {
 }
 
 .cat-image img {
-  object-fit: cover;
   transition: transform 0.3s;
 }
 
