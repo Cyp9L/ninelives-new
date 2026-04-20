@@ -89,14 +89,20 @@ export default async function HomePage() {
               <Link key={cat.id} href={`/adopter/${cat.slug}`} className="cat-card">
                 <div className="cat-image">
                   {cat.images[0] ? (
-                    <Image
-                      src={cat.images[0]}
-                      alt=""
-                      width={400}
-                      height={300}
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      loading="lazy"
-                    />
+                    <div className="cat-image">
+                    {cat.images[0] ? (
+                      <Image
+                        src={cat.images[0]}
+                        alt=""
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        style={{ objectFit: 'cover' }}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="cat-placeholder">🐱</div>
+                    )}
+                  </div>
                   ) : (
                     <div className="cat-placeholder">🐱</div>
                   )}
