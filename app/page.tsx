@@ -87,28 +87,22 @@ export default async function HomePage() {
           <div className="grid-3 mb-xl">
             {featuredCats.map(cat => (
               <Link key={cat.id} href={`/adopter/${cat.slug}`} className="cat-card">
-                <div className="cat-image">
-                  {cat.images[0] ? (
-                    <div className="cat-image">
-                    {cat.images[0] ? (
-                      <Image
-                        src={cat.images[0]}
-                        alt=""
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        style={{ objectFit: 'cover' }}
-                        loading="lazy"
-                      />
-                    ) : (
-                      <div className="cat-placeholder">🐱</div>
-                    )}
-                  </div>
-                  ) : (
-                    <div className="cat-placeholder">🐱</div>
-                  )}
-                </div>
-                <h3 className="cat-name">{cat.name}</h3>
-              </Link>
+              <div className="cat-image">
+                {cat.images[0] ? (
+                  <Image
+                    src={cat.images[0]}
+                    alt=""
+                    width={400}
+                    height={400}
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="cat-placeholder">🐱</div>
+                )}
+              </div>
+              <h3 className="cat-name">{cat.name}</h3>
+            </Link>
             ))}
           </div>
 
