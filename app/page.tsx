@@ -92,9 +92,9 @@ export default async function HomePage() {
                   <Image
                     src={cat.images[0]}
                     alt=""
-                    width={400}
-                    height={400}
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    fill
+                    sizes="(max-width: 768px) 50vw, 33vw"
+                    style={{ objectFit: 'cover' }}
                     loading="lazy"
                   />
                 ) : (
