@@ -116,7 +116,7 @@ export default function ContactPage() {
                   onChange={(e) => handleSubjectChange(e.target.value)}
                 >
                   <option value="">Sélectionnez un sujet</option>
-                  {['Question générale', 'Renseignement adoption', 'Prise en charge / Abandon',
+                  {['Question générale', 'Prise en charge / Abandon',
                     'Proposition de partenariat', 'Proposition de don', 'Devenir bénévole', 'Autre'].map(v => (
                     <option key={v} value={v}>{v}</option>
                   ))}
