@@ -7,6 +7,10 @@ const MAX_WIDTH = 1280;
 const QUALITY = 80;
 
 async function optimizeGallery() {
+  if (files.length === 0) {
+    console.log('Found 0 images to optimize. All clean! ✅');
+    return;
+  }
   const files = fs.readdirSync(GALLERY_DIR)
     .filter(f => /\.(jpg|jpeg|png)$/i.test(f));
 
