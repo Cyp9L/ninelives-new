@@ -71,7 +71,7 @@ export default function InfiniteGallery({ images }: { images: GalleryImage[] }) 
             {col.map((img) => (
               <div key={img.file} className="masonry-item">
                 <img
-                  src={`/_next/image?url=${encodeURIComponent(`/images/gallery/${img.file}`)}&w=640&q=75`}
+                  src={`/images/gallery/${img.file}`}
                   alt="Chat recueilli par Nine Lives Paris"
                   loading="lazy"
                   width={img.width}

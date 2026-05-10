@@ -18,6 +18,7 @@ export default function CatMarquee({ images }: CatMarqueeProps) {
               width={280}
               height={200}
               style={{ objectFit: 'cover' }}
+              unoptimized
             />
           </div>
         ))}
