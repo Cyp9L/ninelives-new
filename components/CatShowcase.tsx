@@ -141,6 +141,7 @@ export default function CatShowcase({ cats }: { cats: Cat[] }) {
                   height={600}
                   sizes="(max-width: 768px) 100vw, 600px"
                   priority
+                  unoptimized
                 />
               </Link>
               {filteredCats.length > 1 && (
@@ -175,6 +176,7 @@ export default function CatShowcase({ cats }: { cats: Cat[] }) {
                   height={100}
                   sizes="120px"
                   loading="lazy"
+                  unoptimized
                 />
                 <span>{cat.name}</span>
               </button>

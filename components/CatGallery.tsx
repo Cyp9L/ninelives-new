@@ -28,6 +28,7 @@ export default function CatGallery({ images, name }: { images: string[], name: s
           )}
           style={{ cursor: 'zoom-in' }}
           priority
+          unoptimized
         />
       </div>
 
@@ -47,6 +48,7 @@ export default function CatGallery({ images, name }: { images: string[], name: s
                 height={100}
                 sizes="80px"
                 loading="lazy"
+                unoptimized
               />
             </button>
           ))}
