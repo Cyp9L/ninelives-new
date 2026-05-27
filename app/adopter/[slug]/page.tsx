@@ -6,7 +6,7 @@ import CatGallery from '@/components/CatGallery';
 import HeroLcp from '@/components/HeroLcp';
 import type { Metadata } from 'next';
 
-export const revalidate = 60;
+export const revalidate = 900;
 export const dynamicParams = true;
 
 /** Strip markdown formatting for use in meta descriptions */

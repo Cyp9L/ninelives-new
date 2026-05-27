@@ -65,7 +65,7 @@ export async function getAllCats() {
 
   try {
     const res = await fetch(url, {
-      next: { revalidate: 60 }
+      next: { revalidate: 900 }
     });
 
     if (!res.ok) {
