@@ -6,7 +6,7 @@ import Image from 'next/image';
 import AdoptionFormDynamic from '@/components/AdoptionFormDynamic';
 import HeroLcp from '@/components/HeroLcp';
 
-export const revalidate = 60;
+export const revalidate = 900;
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
