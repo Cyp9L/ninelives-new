@@ -78,7 +78,6 @@ export async function POST(request: Request) {
         <div class="field"><span class="label">Extérieur:</span><span class="value">${escapeHtml(data.hasOutdoor)}</span></div>
         ${data.outdoorSecured ? `<div class="field"><span class="label">Extérieur sécurisé:</span><span class="value">${escapeHtml(data.outdoorSecured)}</span></div>` : ''}
         <div class="field"><span class="label">Peut faire quarantaines:</span><span class="value">${escapeHtml(data.canDoQuarantine)}</span></div>
-        ${data.wantPitieSalpetriereQuarantine ? `<div class="field"><span class="label">Quarantaine Pitié-Salpêtrière:</span><span class="value">${escapeHtml(data.wantPitieSalpetriereQuarantine)}</span></div>` : ''}
         ${data.quarantineRoom ? `<div class="field"><span class="label">Pièce quarantaine:</span><span class="value">${escapeHtml(data.quarantineRoom)}</span></div>` : ''}
       </div>
 
@@ -209,7 +208,7 @@ export async function POST(request: Request) {
 
     console.log('Email sent successfully:', emailData);
     return NextResponse.json({ success: true, message: "Message envoyé avec succès. Une copie vous a été envoyée par email." });
-    
+
   } catch (error) {
     console.error('Error sending email:', error);
     return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });

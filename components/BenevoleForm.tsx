@@ -158,7 +158,6 @@ const BenevoleStep0 = memo(function BenevoleStep0({ volunteerType, setField }: B
 type BenevoleStep1Props = {
   housingType: string;
   canDoQuarantine: string;
-  wantPitieSalpetriereQuarantine: string;
   hasChildren: string;
   hasAnimalsHome: string;
   balconySecured: string;
@@ -172,7 +171,6 @@ type BenevoleStep1Props = {
 const BenevoleStep1 = memo(function BenevoleStep1({
   housingType,
   canDoQuarantine,
-  wantPitieSalpetriereQuarantine,
   hasChildren,
   hasAnimalsHome,
   balconySecured,
@@ -195,9 +193,6 @@ const BenevoleStep1 = memo(function BenevoleStep1({
         break;
       case 'canDoQuarantine':
         checkedValue = canDoQuarantine;
-        break;
-      case 'wantPitieSalpetriereQuarantine':
-        checkedValue = wantPitieSalpetriereQuarantine;
         break;
       case 'hasChildren':
         checkedValue = hasChildren;
@@ -292,16 +287,6 @@ const BenevoleStep1 = memo(function BenevoleStep1({
       </div>
 
       <div style={show(canQuarantine)}>
-        <div>
-          <label className="form-label" htmlFor={makeRadioId('wantPitieSalpetriereQuarantine', 'Oui')}>
-            Quarantaines pour les chats errants de la Pitié-Salpêtrière ?
-          </label>
-          <div className="form-radio-group">
-            {radio('wantPitieSalpetriereQuarantine', 'Oui', 'wantPitieSalpetriereQuarantine', false)}
-            {radio('wantPitieSalpetriereQuarantine', 'Non', 'wantPitieSalpetriereQuarantine', false)}
-            {radio('wantPitieSalpetriereQuarantine', 'Peu importe', 'wantPitieSalpetriereQuarantine', false)}
-          </div>
-        </div>
         <div style={{ marginTop: '1rem' }}>
           <label className="form-label" htmlFor="quarantineRoom">
             Dans quelle pièce ?
@@ -1045,7 +1030,6 @@ export default function BenevoleForm() {
     hasOutdoor: '',
     outdoorSecured: '',
     canDoQuarantine: '',
-    wantPitieSalpetriereQuarantine: '',
     hasChildren: '',
     hasAnimalsHome: '',
     animalsSterilized: false,
@@ -1261,7 +1245,6 @@ export default function BenevoleForm() {
           <BenevoleStep1
             housingType={formState.housingType}
             canDoQuarantine={formState.canDoQuarantine}
-            wantPitieSalpetriereQuarantine={formState.wantPitieSalpetriereQuarantine}
             hasChildren={formState.hasChildren}
             hasAnimalsHome={formState.hasAnimalsHome}
             balconySecured={formState.balconySecured}
