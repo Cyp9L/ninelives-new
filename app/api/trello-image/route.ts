@@ -4,12 +4,28 @@ import sharp from 'sharp';
 const MAX_WIDTH = 1200;
 const QUALITY = 80;
 
+// The Trello credentials are attached to the request, so only Trello hosts may be fetched.
+const ALLOWED_HOSTS = new Set(['trello.com', 'api.trello.com']);
+
+function isAllowedTrelloUrl(value: string): boolean {
+  try {
+    const url = new URL(value);
+    return url.protocol === 'https:' && ALLOWED_HOSTS.has(url.hostname);
+  } catch {
+    return false;
+  }
+}
+
 export async function GET(request: NextRequest) {
   const imageUrl = request.nextUrl.searchParams.get('url');
   const requestedWidth = parseInt(request.nextUrl.searchParams.get('w') || '0', 10);
 
   if (!imageUrl) {
     return new NextResponse('Missing URL', { status: 400 });
+  }
+
+  if (!isAllowedTrelloUrl(imageUrl)) {
+    return new NextResponse('URL not allowed', { status: 400 });
   }
 
   try {

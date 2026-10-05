@@ -60,7 +60,7 @@ export default async function AdopterPage() {
             <div>
               <h2>🐾 Les chatons</h2>
               <Image
-                src="/images/gallery/1771685699346-04072021-IMG_5721.jpg"
+                src="/images/gallery/1771685699346-04072021-IMG_5721.webp"
                 alt="Chaton tenu dans une main"
                 className="float-img-right"
                 width={600}
