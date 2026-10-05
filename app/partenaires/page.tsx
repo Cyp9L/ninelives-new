@@ -3,7 +3,7 @@ import Image from 'next/image';
 import HeroLcp from '@/components/HeroLcp';
 
 export const metadata = {
-  title: 'Nos Partenaires | Nine Lives Paris',
+  title: 'Nos Partenaires',
   description: 'Découvrez nos partenaires qui contribuent au bien-être de nos animaux.',
 };
 

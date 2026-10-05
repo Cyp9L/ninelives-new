@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Devenir bénévole | Nine Lives Paris',
+  title: 'Devenir bénévole',
   description: 'Rejoignez notre équipe de bénévoles et familles d\'accueil.',
 };
 

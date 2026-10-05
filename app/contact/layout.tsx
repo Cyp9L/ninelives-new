@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Contact | Nine Lives Paris',
+  title: 'Contact',
   description: "Contactez l'association Nine Lives Paris.",
 };
 
