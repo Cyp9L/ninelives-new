@@ -58,6 +58,8 @@ export default function AdminGalleryPage() {
       sessionStorage.setItem('admin_pw', password);
       const data = await res.json();
       setFiles(data.files || []);
+    } else if (res.status === 429) {
+      setStatus("Trop d'essais. Réessayez dans 15 minutes.");
     } else {
       setStatus('Mot de passe incorrect');
     }
