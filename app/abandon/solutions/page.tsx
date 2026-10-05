@@ -34,7 +34,7 @@ export default function SolutionsAbandonPage() {
         <div className="container-narrow">
           <h2>Vous avez trouvé un animal ?</h2>
           <div className="float-img-left">
-            <Image src="/images/gallery/1771791278821-84743240_608995653004686_7948898929091805184_o.jpg" alt="Chien perdu" width={600} height={400} sizes="(max-width: 425px) 75vw, (max-width: 768px) 60vw, 40vw" />
+            <Image src="/images/gallery/1771791278821-84743240_608995653004686_7948898929091805184_o.webp" alt="Chien perdu" width={600} height={400} sizes="(max-width: 425px) 75vw, (max-width: 768px) 60vw, 40vw" />
           </div>
           <div className="icon-text">
             <div className="icon-text-icon">🏥</div>
@@ -159,7 +159,7 @@ export default function SolutionsAbandonPage() {
                 </div>
               </details>
             </div>
-            <Image src="/images/gallery/1771791291916-FullSizeRenderb.jpg" alt="Look up" width={500} height={400} sizes="(max-width: 768px) 100vw, 300px" />
+            <Image src="/images/gallery/1771791291916-FullSizeRenderb.webp" alt="Look up" width={500} height={400} sizes="(max-width: 768px) 100vw, 300px" />
           </div>
         </div>
       </section>
@@ -169,7 +169,7 @@ export default function SolutionsAbandonPage() {
         <div className="container-narrow">
           <h2>Autre raison ?</h2>
           <div className="section-with-aside">
-            <Image src="/images/gallery/1771693098283-Phoenix.jpg" alt="Chaton assis" width={500} height={400} sizes="(max-width: 768px) 100vw, 300px" />
+            <Image src="/images/gallery/1771693098283-Phoenix.webp" alt="Chaton assis" width={500} height={400} sizes="(max-width: 768px) 100vw, 300px" />
             <div>
               <details className="accordion">
                 <summary>🤰 Enceinte et toxoplasmose ?</summary>
