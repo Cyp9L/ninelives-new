@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { escapeHtml } from '@/lib/sanitize';
+import { isValidEmail, senderName, sendCopyToSender } from '@/lib/email';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -159,8 +160,8 @@ export async function POST(request: Request) {
     const { data: emailData, error } = await resend.emails.send({
       from: 'Prise en charge Nine Lives <asso@ninelives.fr>',
       to: ['asso@ninelives.fr'],
-      ...(data.email ? { cc: [data.email], reply_to: [data.email] } : {}),
-      subject: `Prise en charge — ${data.species || 'Animal'}${data.name ? ` "${data.name}"` : ''} — ${data.firstName} ${data.lastName}`,
+      ...(isValidEmail(data.email) ? { reply_to: [data.email] } : {}),
+      subject: `Prise en charge — ${data.species || 'Animal'}${data.name ? ` "${data.name}"` : ''} — ${senderName(data.firstName, data.lastName)}`,
       html: htmlBody,
       attachments: validImages.map((img: { filename: string; data: string }) => ({
         filename: img.filename,
@@ -172,6 +173,8 @@ export async function POST(request: Request) {
       console.error('Resend error:', error);
       return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
     }
+
+    await sendCopyToSender(resend, { from: 'Prise en charge Nine Lives <asso@ninelives.fr>', to: data.email, formName: 'Prise en charge', html: htmlBody });
 
     console.log('Email sent successfully:', emailData);
     return NextResponse.json({ success: true, message: "Message envoyé avec succès. Une copie vous a été envoyée par email." });

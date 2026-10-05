@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { escapeHtml } from '@/lib/sanitize';
+import { isValidEmail, senderName, sendCopyToSender } from '@/lib/email';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -87,9 +88,8 @@ export async function POST(request: Request) {
     const { data: emailData, error } = await resend.emails.send({
       from: 'Contact Nine Lives <asso@ninelives.fr>',
       to: ['asso@ninelives.fr'],
-      reply_to: data.email,
-      ...(data.email ? { cc: [data.email], reply_to: [data.email] } : {}),
-      subject: `Contact — ${data.subject || 'Message'} — ${data.firstName} ${data.lastName}`,
+      ...(isValidEmail(data.email) ? { reply_to: [data.email] } : {}),
+      subject: `Contact — ${data.subject || 'Message'} — ${senderName(data.firstName, data.lastName)}`,
       html: htmlBody,
     });
 
@@ -97,6 +97,8 @@ export async function POST(request: Request) {
       console.error('Resend error:', error);
       return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
     }
+
+    await sendCopyToSender(resend, { from: 'Contact Nine Lives <asso@ninelives.fr>', to: data.email, formName: 'Contact', html: htmlBody });
 
     console.log('Email sent successfully:', emailData);
     return NextResponse.json({ success: true, message: "Message envoyé avec succès. Une copie vous a été envoyée par email." });
