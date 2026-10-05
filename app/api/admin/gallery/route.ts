@@ -1,9 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { createHash, timingSafeEqual } from 'crypto';
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const GITHUB_REPO = process.env.GITHUB_REPO;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 const GALLERY_PATH = 'public/images/gallery';
+
+// A plain image file name: no folders, no "..", only an image extension.
+const SAFE_FILENAME = /^[A-Za-z0-9][A-Za-z0-9._-]{0,150}\.(jpe?g|png|webp|avif)$/i;
+const GIT_SHA = /^[0-9a-f]{40}$/;
+
+// Brute-force protection: after MAX_FAILED_ATTEMPTS wrong passwords from one IP,
+// that IP is blocked for LOCKOUT_MS. Kept in memory, so it is per server instance
+// and resets on redeploy: it slows guessing down a lot, but is not a hard guarantee.
+const MAX_FAILED_ATTEMPTS = 5;
+const LOCKOUT_MS = 15 * 60 * 1000;
+const failedAttempts = new Map<string, { count: number; firstFailureAt: number }>();
 
 interface GitHubContentFile {
   name: string;
@@ -19,13 +31,56 @@ function unauthorized() {
   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 }
 
-function checkAuth(req: NextRequest) {
-  return req.headers.get('x-admin-password') === ADMIN_PASSWORD;
+function badRequest(error: string) {
+  return NextResponse.json({ error }, { status: 400 });
+}
+
+function isSafeFilename(value: unknown): value is string {
+  return typeof value === 'string' && SAFE_FILENAME.test(value) && !value.includes('..');
+}
+
+function getClientIp(req: NextRequest) {
+  return req.headers.get('x-forwarded-for')?.split(',')[0].trim() || 'unknown';
+}
+
+// Hash both sides so the comparison takes the same time whatever the input length.
+function passwordMatches(candidate: string, expected: string) {
+  const a = createHash('sha256').update(candidate).digest();
+  const b = createHash('sha256').update(expected).digest();
+  return timingSafeEqual(a, b);
+}
+
+/** Returns an error response if the request is not allowed, or null if it is. */
+function checkAuth(req: NextRequest): NextResponse | null {
+  // Refuse everything if no password is configured, rather than accepting an empty one.
+  if (!ADMIN_PASSWORD) return unauthorized();
+
+  const ip = getClientIp(req);
+  const now = Date.now();
+  const record = failedAttempts.get(ip);
+  if (record && now - record.firstFailureAt > LOCKOUT_MS) failedAttempts.delete(ip);
+
+  const current = failedAttempts.get(ip);
+  if (current && current.count >= MAX_FAILED_ATTEMPTS) {
+    return NextResponse.json({ error: 'Too many attempts' }, { status: 429 });
+  }
+
+  if (passwordMatches(req.headers.get('x-admin-password') ?? '', ADMIN_PASSWORD)) {
+    failedAttempts.delete(ip);
+    return null;
+  }
+
+  failedAttempts.set(ip, {
+    count: (current?.count ?? 0) + 1,
+    firstFailureAt: current?.firstFailureAt ?? now,
+  });
+  return unauthorized();
 }
 
 // List images
 export async function GET(req: NextRequest) {
-  if (!checkAuth(req)) return unauthorized();
+  const authError = checkAuth(req);
+  if (authError) return authError;
 
   const res = await fetch(
     `https://api.github.com/repos/${GITHUB_REPO}/contents/${GALLERY_PATH}`,
@@ -51,9 +106,13 @@ export async function GET(req: NextRequest) {
 
 // Upload image
 export async function POST(req: NextRequest) {
-  if (!checkAuth(req)) return unauthorized();
+  const authError = checkAuth(req);
+  if (authError) return authError;
 
   const { filename, content } = await req.json();
+
+  if (!isSafeFilename(filename)) return badRequest('Invalid filename');
+  if (typeof content !== 'string' || content.length === 0) return badRequest('Missing content');
 
   const res = await fetch(
     `https://api.github.com/repos/${GITHUB_REPO}/contents/${GALLERY_PATH}/${filename}`,
@@ -80,12 +139,17 @@ export async function POST(req: NextRequest) {
 
 // Batch delete
 export async function DELETE(req: NextRequest) {
-  if (!checkAuth(req)) return unauthorized();
+  const authError = checkAuth(req);
+  if (authError) return authError;
 
   const { files } = (await req.json()) as { files: DeleteFileRef[] };
 
-  if (!files || files.length === 0) {
-    return NextResponse.json({ error: 'No files specified' }, { status: 400 });
+  if (!Array.isArray(files) || files.length === 0) {
+    return badRequest('No files specified');
+  }
+
+  if (!files.every((f) => isSafeFilename(f?.filename) && typeof f.sha === 'string' && GIT_SHA.test(f.sha))) {
+    return badRequest('Invalid file reference');
   }
 
   const ghHeaders = {
