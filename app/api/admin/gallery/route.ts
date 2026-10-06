@@ -112,7 +112,9 @@ export async function POST(req: NextRequest) {
   const { filename, content } = await req.json();
 
   if (!isSafeFilename(filename)) return badRequest('Invalid filename');
+  const MAX_UPLOAD_BYTES = 10 * 1024 * 1024; // 10 MB base64 ≈ ~7.5 MB decoded
   if (typeof content !== 'string' || content.length === 0) return badRequest('Missing content');
+  if (content.length > MAX_UPLOAD_BYTES) return badRequest('File too large (max 10 MB)');
 
   const res = await fetch(
     `https://api.github.com/repos/${GITHUB_REPO}/contents/${GALLERY_PATH}/${filename}`,

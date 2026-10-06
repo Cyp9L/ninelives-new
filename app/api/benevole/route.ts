@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
-import { escapeHtml } from '@/lib/sanitize';
+import { escapeHtml, isValidEmail } from '@/lib/sanitize';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -193,10 +193,11 @@ export async function POST(request: Request) {
   `;
 
   try {
+    const validEmail = isValidEmail(data.email) ? data.email : undefined;
     const { data: emailData, error } = await resend.emails.send({
       from: 'Bénévolat Nine Lives <asso@ninelives.fr>',
       to: ['asso@ninelives.fr'],
-      ...(data.email ? { cc: [data.email], reply_to: [data.email] } : {}),
+      ...(validEmail ? { cc: [validEmail], reply_to: [validEmail] } : {}),
       subject: `Nouvelle candidature ${data.volunteerType} - ${data.firstName} ${data.lastName}`,
       html: htmlBody,
     });
