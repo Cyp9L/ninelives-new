@@ -20,6 +20,12 @@
     "react-markdown": "^10.1.0",
     "resend": "^3.2.0"
   },
+  "overrides": {
+    "eslint-config-next": {
+      "braces": "^3.0.3"
+    },
+    "braces": "^3.0.3"
+  },
   "browserslist": [
     "defaults and fully supports es6-module"
   ],

@@ -110,7 +110,7 @@ export default async function HomePage() {
 
           <div className="text-center">
             <Link href="/adopter" className="btn btn-lg btn-outline">
-              Voir nos chats à l'adoption →
+              Voir nos chats à l&apos;adoption →
             </Link>
           </div>
         </div>
