@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { getAllCats, type Cat } from '@/lib/trello';
-import { escapeHtml } from '@/lib/sanitize';
+import { escapeHtml, isValidEmail } from '@/lib/sanitize';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -223,10 +223,11 @@ export async function POST(request: Request) {
   `;
 
   try {
+    const validEmail = isValidEmail(data.email) ? data.email : undefined;
     const { data: emailData, error } = await resend.emails.send({
       from: 'Adoption Nine Lives <adoption@ninelives.fr>',
       to: ['adoption@ninelives.fr'],
-      ...(data.email ? { cc: [data.email], reply_to: [data.email] } : {}),
+      ...(validEmail ? { cc: [validEmail], reply_to: [validEmail] } : {}),
       subject: `Demande d'adoption${data.animalName ? ` - ${data.animalName}` : ''} - ${data.firstName} ${data.lastName}`,
       html: htmlBody,
     });
