@@ -21,7 +21,7 @@ export default function MentionsLegalesPage() {
             Association Nine Lives Paris<br />
             Association loi 1901 — RNA W751248523<br />
             Siège social : Kiosque Citoyen du 10ème - MVAC <br />
-            35 rue de l'Aqueduc <br />
+            35 rue de l&apos;Aqueduc <br />
             75010 Paris<br />
             E-mail : <a href="mailto:asso@ninelives.fr" className="link-purple">asso@ninelives.fr</a>
           </p>
