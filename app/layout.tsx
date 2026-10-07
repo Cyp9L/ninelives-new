@@ -76,6 +76,11 @@ const organizationJsonLd = {
     postalCode: "75010",
     addressCountry: "FR",
   },
+  areaServed: [
+    { "@type": "City", name: "Paris" },
+    { "@type": "AdministrativeArea", name: "Petite Couronne" },
+  ],
+  knowsAbout: ["Protection animale", "Adoption de chats", "Sauvetage de chats errants"],
   sameAs: [
     "https://www.instagram.com/ninelivesparis/",
     "https://www.facebook.com/ninelivesparis",
