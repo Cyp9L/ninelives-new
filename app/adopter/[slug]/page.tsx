@@ -110,26 +110,29 @@ export default async function AdopterChatPage({ params }: { params: Promise<{ sl
     },
     {
       "@context": "https://schema.org",
-      "@type": "Article",
-      headline: `Adopter ${cat.name}`,
+      "@type": "ItemPage",
+      name: `Adopter ${cat.name} | Nine Lives Paris`,
       description: cleanDescription,
-      image: [absoluteImage],
+      url: `https://ninelives.fr/adopter/${slug}`,
+      image: absoluteImage,
       dateModified: cat.dateAdded,
-      author: {
-        "@type": "Organization",
-        name: "Nine Lives Paris",
-        url: "https://ninelives.fr",
-      },
       publisher: {
         "@type": "Organization",
         name: "Nine Lives Paris",
+        url: "https://ninelives.fr",
         logo: {
           "@type": "ImageObject",
           url: "https://ninelives.fr/images/site/logo-nine-lives-paris.svg",
         },
       },
-      mainEntityOfPage: `https://ninelives.fr/adopter/${slug}`,
-      ...(sex && { about: `${cat.name}, ${sex.toLowerCase()}${location ? `, ${location}` : ''}` }),
+      about: {
+        "@type": "Thing",
+        name: cat.name,
+        description: cleanDescription,
+        image: absoluteImage,
+        ...(sex && { additionalProperty: { "@type": "PropertyValue", name: "Sexe", value: sex } }),
+        ...(location && { locationCreated: { "@type": "Place", name: location } }),
+      },
     },
   ];
 
