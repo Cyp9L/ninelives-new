@@ -9,6 +9,8 @@
     "lint": "eslint",
     "optimize:heroes": "node scripts/optimize-hero-images.mjs",
     "test": "vitest run",
+    "test:unit": "vitest run lib",
+    "test:integration": "vitest run tests/integration",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test"
