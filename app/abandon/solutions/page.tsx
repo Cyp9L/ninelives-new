@@ -3,7 +3,7 @@ import Image from 'next/image';
 import HeroLcp from '@/components/HeroLcp';
 
 export const metadata = {
-  title: "Solutions pour éviter l'abandon | Nine Lives Paris",
+  title: "Solutions pour éviter l'abandon",
   description: "Il existe toujours une solution pour éviter l'abandon de votre animal. Découvrez les alternatives.",
 };
 

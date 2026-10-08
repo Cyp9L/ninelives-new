@@ -49,9 +49,7 @@ describe('page titles', () => {
 
   const duplicated = titles.filter(({ title }) => title.includes('Nine Lives Paris'));
 
-  // Known bug, fixed on Manon's title branch (not merged yet). When it is merged,
-  // this test starts failing: change "it.fails" to "it" so it guards against new duplicates.
-  it.fails('do not repeat "Nine Lives Paris", which the layout already adds', () => {
+  it('do not repeat "Nine Lives Paris", which the layout already adds', () => {
     expect(duplicated).toEqual([]);
   });
 });
