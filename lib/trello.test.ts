@@ -179,3 +179,26 @@ describe('getCatBySlug', () => {
     expect(await getCatBySlug('inconnu')).toBeUndefined();
   });
 });
+
+describe('Trello address', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+    vi.unstubAllEnvs();
+    vi.resetModules();
+  });
+
+  it('can be pointed elsewhere for the end-to-end tests', async () => {
+    vi.stubEnv('TRELLO_API_BASE', 'http://127.0.0.1:4100/1');
+    vi.resetModules();
+    const fetchMock = fakeTrello([]);
+    const { getAllCats: getAllCatsFromFake } = await import('./trello');
+    await getAllCatsFromFake();
+    expect(String(fetchMock.mock.calls[0][0])).toMatch(/^http:\/\/127\.0\.0\.1:4100\/1\/lists\//);
+  });
+
+  it('is the real Trello by default', async () => {
+    const fetchMock = fakeTrello([]);
+    await getAllCats();
+    expect(String(fetchMock.mock.calls[0][0])).toMatch(/^https:\/\/api\.trello\.com\/1\/lists\//);
+  });
+});
