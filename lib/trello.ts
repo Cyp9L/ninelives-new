@@ -1,4 +1,5 @@
-const TRELLO_API_BASE = 'https://api.trello.com/1';
+// Overridable so the end-to-end tests can point the site at a fake Trello (see e2e/server.mjs).
+const TRELLO_API_BASE = process.env.TRELLO_API_BASE || 'https://api.trello.com/1';
 
 /** Normalized cat record used across the app and API routes */
 export interface Cat {
