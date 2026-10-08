@@ -9,9 +9,9 @@ export default defineConfig({
   test: {
     environment: 'node',
     include: ['**/*.test.ts'],
-    exclude: ['node_modules/**', '.next/**'],
+    exclude: ['node_modules/**', '.next/**', 'e2e/**'],
     coverage: {
-      include: ['lib/**'],
+      include: ['lib/**/*.ts', 'app/api/**/*.ts', 'app/sitemap.ts', 'app/robots.ts'],
       exclude: ['**/*.test.ts'],
     },
   },
