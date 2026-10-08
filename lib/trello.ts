@@ -30,7 +30,7 @@ interface TrelloCard {
   dateLastActivity: string;
 }
 
-function getCategory(labels?: Array<{ name: string }>): 'chaton' | 'adulte' | 'senior' {
+export function getCategory(labels?: Array<{ name: string }>): 'chaton' | 'adulte' | 'senior' {
   if (!labels) return 'adulte';
   for (const label of labels) {
     const name = label.name.toLowerCase();
@@ -40,7 +40,7 @@ function getCategory(labels?: Array<{ name: string }>): 'chaton' | 'adulte' | 's
   return 'adulte';
 }
 
-function extractCaractere(desc: string): string {
+export function extractCaractere(desc: string): string {
   const patterns = [
     /\*\*Caractère\s*:?\s*\*\*\s*:?\s*(.+)/i,
     /\*\*Caractère\s*:\s*(.+?)\*\*/i,
@@ -53,6 +53,19 @@ function extractCaractere(desc: string): string {
     }
   }
   return '';
+}
+
+/** URL-friendly version of a cat name: "Éclair Doré" -> "eclair-dore". */
+export function slugify(name: string): string {
+  return name.toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[éèê]/g, 'e')
+    .replace(/[àâ]/g, 'a')
+    .replace(/[îï]/g, 'i')
+    .replace(/[ôö]/g, 'o')
+    .replace(/[ùûü]/g, 'u')
+    .replace(/[ç]/g, 'c')
+    .replace(/[^\w-]/g, '');
 }
 
 export async function getAllCats() {
@@ -92,15 +105,7 @@ export async function getAllCats() {
 
       return {
         id: card.id,
-        slug: card.name.toLowerCase()
-          .replace(/\s+/g, '-')
-          .replace(/[éèê]/g, 'e')
-          .replace(/[àâ]/g, 'a')
-          .replace(/[îï]/g, 'i')
-          .replace(/[ôö]/g, 'o')
-          .replace(/[ùûü]/g, 'u')
-          .replace(/[ç]/g, 'c')
-          .replace(/[^\w-]/g, ''),
+        slug: slugify(card.name),
         name: card.name,
         description: card.desc || '',
         images: images.length > 0 ? images : ['/images/site/cat-not-found.jpg'],
