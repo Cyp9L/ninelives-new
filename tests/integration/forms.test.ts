@@ -193,7 +193,19 @@ describe('POST /api/benevole, foster family answers', () => {
 });
 
 describe('POST /api/benevole, robustness', () => {
-  // Known bug, not fixed yet: the route reads canDoTransport.length without checking it exists.
-  // The real form always sends it, so visitors are not affected, but a bad request crashes with a 500.
-  it.todo('still works when the list fields (canDoTransport, catTypes...) are missing');
+  it('still works when the list fields (canDoTransport, catTypes...) are missing or not lists', async () => {
+    const { emails } = fakeServices();
+    const { POST } = await import('@/app/api/benevole/route');
+
+    const res = await POST(jsonPost({
+      ...forms[2].body,
+      catCarePractices: undefined,
+      catTypes: 'Chatons',
+      fosterDuration: null,
+      canDoTransport: undefined,
+    }));
+
+    expect(res.status).toBe(200);
+    expect(emails).toHaveLength(1);
+  });
 });

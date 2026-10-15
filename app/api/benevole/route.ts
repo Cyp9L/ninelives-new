@@ -4,6 +4,11 @@ import { escapeHtml, isValidEmail } from '@/lib/sanitize';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+/** Checkbox answers arrive as arrays, but a bad request may omit them or send something else. */
+function asList(value: unknown): unknown[] {
+  return Array.isArray(value) ? value : [];
+}
+
 export async function POST(request: Request) {
   const data = await request.json();
 
@@ -24,6 +29,11 @@ export async function POST(request: Request) {
   if (!turnstileData.success) {
     return NextResponse.json({ error: 'Captcha verification failed' }, { status: 400 });
   }
+
+  const catCarePractices = asList(data.catCarePractices);
+  const catTypes = asList(data.catTypes);
+  const fosterDuration = asList(data.fosterDuration);
+  const canDoTransport = asList(data.canDoTransport);
 
   const htmlBody = `
 <!DOCTYPE html>
@@ -117,11 +127,11 @@ export async function POST(request: Request) {
       <div class="section">
         <h2>🐈 Expérience Chats</h2>
         <div class="field"><span class="label">Niveau:</span><span class="value">${escapeHtml(data.catExperience)}</span></div>
-        ${data.catCarePractices.length > 0 ? `
+        ${catCarePractices.length > 0 ? `
           <div class="field">
             <span class="label">Soins pratiqués:</span>
             <ul class="list">
-              ${data.catCarePractices.map((practice: string) => `<li>${escapeHtml(practice)}</li>`).join('')}
+              ${catCarePractices.map((practice) => `<li>${escapeHtml(practice)}</li>`).join('')}
             </ul>
           </div>
         ` : ''}
@@ -130,19 +140,19 @@ export async function POST(request: Request) {
         <div class="field"><span class="label">Réaction litière:</span><span class="value">${escapeHtml(data.catLitterIssueReaction)}</span></div>
         <div class="field"><span class="label">Dealbreakers:</span><span class="value">${escapeHtml(data.catDealbreakers)}</span></div>
         <div class="field"><span class="label">Nombre de chats possibles:</span><span class="value">${escapeHtml(String(data.numCatsCanFoster))}</span></div>
-        ${data.catTypes.length > 0 ? `
+        ${catTypes.length > 0 ? `
           <div class="field">
             <span class="label">Types de chats:</span>
             <ul class="list">
-              ${data.catTypes.map((type: string) => `<li>${escapeHtml(type)}</li>`).join('')}
+              ${catTypes.map((type) => `<li>${escapeHtml(type)}</li>`).join('')}
             </ul>
           </div>
         ` : ''}
-        ${data.fosterDuration.length > 0 ? `
+        ${fosterDuration.length > 0 ? `
           <div class="field">
             <span class="label">Durée d'accueil:</span>
             <ul class="list">
-              ${data.fosterDuration.map((duration: string) => `<li>${escapeHtml(duration)}</li>`).join('')}
+              ${fosterDuration.map((duration) => `<li>${escapeHtml(duration)}</li>`).join('')}
             </ul>
           </div>
         ` : ''}
@@ -168,11 +178,11 @@ export async function POST(request: Request) {
 
     <div class="section">
       <h2>🚗 Disponibilités</h2>
-      ${data.canDoTransport.length > 0 ? `
+      ${canDoTransport.length > 0 ? `
         <div class="field">
           <span class="label">Transport:</span>
           <ul class="list">
-            ${data.canDoTransport.map((option: string) => `<li>${escapeHtml(option)}</li>`).join('')}
+            ${canDoTransport.map((option) => `<li>${escapeHtml(option)}</li>`).join('')}
           </ul>
         </div>
       ` : ''}
