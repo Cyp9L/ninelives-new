@@ -56,8 +56,22 @@ export function extractCaractere(desc: string): string {
   return '';
 }
 
-/** URL-friendly version of a cat name: "Éclair Doré" -> "eclair-dore". */
+/** URL-friendly version of a cat name: "Éclair Doré" -> "eclair-dore", "Zoé & Léo" -> "zoe-leo". */
 export function slugify(name: string): string {
+  return name.toLowerCase()
+    .replace(/œ/g, 'oe')
+    .replace(/æ/g, 'ae')
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+/**
+ * The slugify used before October 2026, which mangled some names ("Noël" -> "nol").
+ * Kept only so old links can redirect to the new URL.
+ */
+export function legacySlugify(name: string): string {
   return name.toLowerCase()
     .replace(/\s+/g, '-')
     .replace(/[éèê]/g, 'e')
@@ -131,4 +145,10 @@ export async function getAllCats() {
 export async function getCatBySlug(slug: string) {
   const { all } = await getAllCats();
   return all.find(cat => cat.slug === slug);
+}
+
+/** Finds the cat an old-style URL pointed to, when that URL changed with the new slugify. */
+export async function getCatByLegacySlug(slug: string) {
+  const { all } = await getAllCats();
+  return all.find(cat => cat.slug !== slug && legacySlugify(cat.name) === slug);
 }

@@ -1,5 +1,5 @@
-import { notFound } from 'next/navigation';
-import { getAllCats, getCatBySlug, type Cat } from '@/lib/trello';
+import { notFound, permanentRedirect } from 'next/navigation';
+import { getAllCats, getCatByLegacySlug, getCatBySlug, type Cat } from '@/lib/trello';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import CatGallery from '@/components/CatGallery';
@@ -64,7 +64,11 @@ export default async function AdopterChatPage({ params }: { params: Promise<{ sl
   const { slug } = await params;
   const cat = await getCatBySlug(slug);
 
-  if (!cat) notFound();
+  if (!cat) {
+    const renamed = await getCatByLegacySlug(slug);
+    if (renamed) permanentRedirect(`/adopter/${renamed.slug}`);
+    notFound();
+  }
 
   const mainImage = cat.images?.[0] || '/images/site/cat-not-found.jpg';
 

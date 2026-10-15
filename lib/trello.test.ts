@@ -1,5 +1,13 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { extractCaractere, getAllCats, getCatBySlug, getCategory, slugify } from './trello';
+import {
+  extractCaractere,
+  getAllCats,
+  getCatByLegacySlug,
+  getCatBySlug,
+  getCategory,
+  legacySlugify,
+  slugify,
+} from './trello';
 
 describe('getCategory', () => {
   it('is "adulte" when the card has no labels', () => {
@@ -53,9 +61,24 @@ describe('slugify', () => {
     expect(slugify('Patte-Blanche!')).toBe('patte-blanche');
   });
 
-  // Known bugs, not fixed yet: fixing them changes the URL of the cats concerned.
-  it.todo('handles ë and œ ("Noël" gives "nol", "Œdipe" gives "dipe" today)');
-  it.todo('never leaves double or trailing dashes ("Zoé & Léo" gives "zoe--leo", "Patte Blanche !" gives "patte-blanche-")');
+  it('handles every accent, œ and æ', () => {
+    expect(slugify('Noël')).toBe('noel');
+    expect(slugify('Œdipe')).toBe('oedipe');
+    expect(slugify('Lætitia')).toBe('laetitia');
+  });
+
+  it('never leaves double, leading or trailing dashes', () => {
+    expect(slugify('Zoé & Léo')).toBe('zoe-leo');
+    expect(slugify('Patte Blanche !')).toBe('patte-blanche');
+    expect(slugify(' « Minou » ')).toBe('minou');
+  });
+});
+
+describe('legacySlugify', () => {
+  it('keeps the old output, so old links can still be recognised', () => {
+    expect(legacySlugify('Noël')).toBe('nol');
+    expect(legacySlugify('Zoé & Léo')).toBe('zoe--leo');
+  });
 });
 
 // --- getAllCats, with Trello replaced by a fake ---
@@ -177,6 +200,22 @@ describe('getCatBySlug', () => {
   it('returns undefined for an unknown cat', async () => {
     fakeTrello([card()]);
     expect(await getCatBySlug('inconnu')).toBeUndefined();
+  });
+});
+
+describe('getCatByLegacySlug', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it('finds the cat an old URL pointed to', async () => {
+    fakeTrello([card({ id: 'x', name: 'Noël' })]);
+    expect((await getCatByLegacySlug('nol'))?.slug).toBe('noel');
+  });
+
+  it('ignores slugs that did not change, so they are never redirected to themselves', async () => {
+    fakeTrello([card({ id: 'x', name: 'Petit Pirate' })]);
+    expect(await getCatByLegacySlug('petit-pirate')).toBeUndefined();
   });
 });
 
