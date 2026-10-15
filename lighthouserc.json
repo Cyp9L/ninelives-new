@@ -1,5 +1,10 @@
 {
   "ci": {
+    "collect": {
+      "settings": {
+        "extraHeaders": { "x-vercel-skip-toolbar": "1" }
+      }
+    },
     "assert": {
       "assertions": {
         "categories:accessibility": ["error", { "minScore": 0.98 }],
