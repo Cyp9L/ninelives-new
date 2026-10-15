@@ -2,7 +2,7 @@
   "ci": {
     "collect": {
       "settings": {
-        "extraHeaders": { "x-vercel-skip-toolbar": "1" }
+        "extraHeaders": "{\"x-vercel-skip-toolbar\":\"1\"}"
       }
     },
     "assert": {
