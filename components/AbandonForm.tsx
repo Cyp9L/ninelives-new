@@ -529,6 +529,7 @@ export default function AbandonForm() {
   const [status, setStatus] = useState('');
   const [captchaToken, setCaptchaToken] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   // Conditionals for memoized blocks
   const isMale = formState.sex === 'Mâle';
@@ -572,6 +573,19 @@ export default function AbandonForm() {
 
     return images;
   };
+  const initialFormState = {
+    species: '',
+    sex: '',
+    isCastrated: '',
+    isSterilized: '',
+    isIdentified: '',
+    isVaccinated: '',
+    isTestedFIV: '',
+    willingToPayHealth: '',
+    acceptsPrivacy: false,
+    honeypot: '',
+  };
+
   /* ─── Submit: collect uncontrolled text via FormData, merge with controlled state ─── */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -610,7 +624,14 @@ export default function AbandonForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dataToSend)
       });
-      if (res.ok) { setStatus('success'); window.scrollTo(0, 0); }
+      if (res.ok) {
+        setStatus('success');
+        setFormState(initialFormState);
+        setCaptchaToken('');
+        if (fileInputRef.current) fileInputRef.current.value = '';
+        formRef.current?.reset();
+        window.scrollTo(0, 0);
+      }
       else setStatus('error');
     } catch { setStatus('error'); }
   };
@@ -625,7 +646,7 @@ export default function AbandonForm() {
   }, []);
 
   return (
-    <form onSubmit={handleSubmit} className="form-flow">
+    <form ref={formRef} onSubmit={handleSubmit} className="form-flow">
       {status === 'success' && (
         <div className="alert alert-success">
           <strong>✓ Merci !</strong><br/>
@@ -721,7 +742,7 @@ export default function AbandonForm() {
       <CaptchaBlock onVerify={onCaptchaVerify} />
 
       <div className="form-submit">
-        <button type="submit" disabled={status === 'sending' || !captchaToken}
+        <button type="submit" disabled={status === 'sending' || status === 'success' || !captchaToken}
           className="btn btn-gradient btn-lg">
           {status === 'sending' ? 'Envoi en cours...' : 'Envoyer le message'}
         </button>
