@@ -1049,6 +1049,22 @@ h2 {
   margin: 0 0 1.5rem 2rem;
 }
 
+/* Adopt button — sticks to the bottom of the screen while the description scrolls,
+   then settles in place at the end of the section */
+.cat-adopt-cta {
+  position: sticky;
+  bottom: calc(1rem + env(safe-area-inset-bottom));
+  z-index: 10;
+  margin-top: 2.5rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+.cat-adopt-cta .btn {
+  pointer-events: auto;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
 /* Cat description markdown */
 .cat-description {
   font-size: 1.05rem;
