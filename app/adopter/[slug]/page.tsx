@@ -153,7 +153,7 @@ export default async function AdopterChatPage({ params }: { params: Promise<{ sl
             <div style={{ clear: 'both' }} />
           </div>
 
-          <div className="text-center" style={{ marginTop: '2.5rem' }}>
+          <div className="cat-adopt-cta">
             <Link
               href={`/adopter?cat=${encodeURIComponent(cat.name)}#formulaire`}
               className="btn btn-gradient btn-lg"
