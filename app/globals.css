@@ -1270,25 +1270,22 @@ h2 {
   background: none;
   padding: 0;
   scroll-snap-align: center;
-  transition: opacity 0.2s;
-  opacity: 0.6;
 }
 
-.showcase-thumb.active {
-  opacity: 1;
-}
-
-.showcase-thumb:hover {
-  opacity: 1;
-}
-
+/* Fade only the photo: fading the whole button made the name fail contrast */
 .showcase-thumb img {
   width: 65px;
   height: 65px;
   object-fit: cover;
   border-radius: 8px;
   border: 2px solid transparent;
-  transition: border-color 0.2s;
+  opacity: 0.6;
+  transition: border-color 0.2s, opacity 0.2s;
+}
+
+.showcase-thumb.active img,
+.showcase-thumb:hover img {
+  opacity: 1;
 }
 
 .showcase-thumb.active img {
@@ -1299,7 +1296,7 @@ h2 {
   display: block;
   font-size: 0.7rem;
   margin-top: 0.25rem;
-  color: #6b7280;
+  color: #4b5563;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
@@ -1307,7 +1304,7 @@ h2 {
 }
 
 .showcase-thumb.active span {
-  color: #009AB6;
+  color: #007a91;
   font-weight: 600;
 }
 
